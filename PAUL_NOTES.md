@@ -21,8 +21,14 @@ White-label AI support platform for GHL agencies, built on Chatwoot.
 #### Done:
 - [x] Forked chatwoot/chatwoot to loydhale/chatwoot
 - [x] Cloned locally
-- [ ] Identify all branding touchpoints
-- [ ] Start systematic rebranding
+- [x] Identify all branding touchpoints (1393 files!)
+- [x] Start systematic rebranding
+  - [x] config/application.rb - Module renamed to DeskFlow
+  - [x] package.json - Updated name and metadata
+  - [x] README.md - New branded version
+  - [x] EN locale files - Chatwoot → DeskFlow, Captain → Atlas
+  - [x] ERB templates - Chatwoot → DeskFlow
+  - [x] SVG logos - Created placeholder DeskFlow logos
 - [ ] Set up dev environment
 - [ ] Test that it runs
 
