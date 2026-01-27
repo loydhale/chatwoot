@@ -23,7 +23,7 @@ const sampleScenarios = [
 
 <template>
   <Story
-    title="Captain/Assistant/ScenariosCard"
+    title="Atlas/Assistant/ScenariosCard"
     :layout="{ type: 'grid', width: '800px' }"
   >
     <Variant title="Default">

@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMapGetter, useStore } from 'dashboard/composables/store.js';
 import { useAccount } from 'dashboard/composables/useAccount';
-import { useCaptain } from 'dashboard/composables/useCaptain';
+import { useAtlas } from 'dashboard/composables/useAtlas';
 import { format } from 'date-fns';
 import sessionStorage from 'shared/helpers/sessionStorage';
 
@@ -17,7 +17,7 @@ import SettingsLayout from '../SettingsLayout.vue';
 import ButtonV4 from 'next/button/Button.vue';
 
 const router = useRouter();
-const { currentAccount, isOnChatwootCloud } = useAccount();
+const { currentAccount, isOnDeskFlowCloud } = useAccount();
 const {
   captainEnabled,
   captainLimits,
@@ -25,7 +25,7 @@ const {
   responseLimits,
   fetchLimits,
   isFetchingLimits,
-} = useCaptain();
+} = useAtlas();
 
 const uiFlags = useMapGetter('accounts/getUIFlags');
 const store = useStore();
@@ -86,7 +86,7 @@ const fetchAccountDetails = async () => {
 
 const handleBillingPageLogic = async () => {
   // If self-hosted, redirect to dashboard
-  if (!isOnChatwootCloud.value) {
+  if (!isOnDeskFlowCloud.value) {
     router.push({ name: 'home' });
     return;
   }

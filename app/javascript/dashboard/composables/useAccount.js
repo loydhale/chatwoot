@@ -14,7 +14,7 @@ export function useAccount() {
   const route = useRoute();
   const store = useStore();
   const getAccountFn = useMapGetter('accounts/getAccount');
-  const isOnChatwootCloud = useMapGetter('globalConfig/isOnChatwootCloud');
+  const isOnDeskFlowCloud = useMapGetter('globalConfig/isOnDeskFlowCloud');
   const isFeatureEnabledonAccount = useMapGetter(
     'accounts/isFeatureEnabledonAccount'
   );
@@ -59,7 +59,7 @@ export function useAccount() {
     accountScopedUrl,
     accountScopedRoute,
     isCloudFeatureEnabled,
-    isOnChatwootCloud,
+    isOnDeskFlowCloud,
     updateAccount,
   };
 }

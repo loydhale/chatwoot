@@ -21,7 +21,7 @@ const emit = defineEmits(['submit']);
 const { t } = useI18n();
 const { isCloudFeatureEnabled } = useAccount();
 
-const isCaptainV2Enabled = computed(() =>
+const isAtlasV2Enabled = computed(() =>
   isCloudFeatureEnabled(FEATURE_FLAGS.CAPTAIN_V2)
 );
 
@@ -66,7 +66,7 @@ const handleSystemMessagesUpdate = async () => {
     v$.value.resolutionMessage.$validate(),
   ];
 
-  if (!isCaptainV2Enabled.value) {
+  if (!isAtlasV2Enabled.value) {
     validations.push(v$.value.instructions.$validate());
   }
 
@@ -84,7 +84,7 @@ const handleSystemMessagesUpdate = async () => {
     },
   };
 
-  if (!isCaptainV2Enabled.value) {
+  if (!isAtlasV2Enabled.value) {
     payload.config.instructions = state.instructions;
   }
 
@@ -121,7 +121,7 @@ watch(
     />
 
     <Editor
-      v-if="!isCaptainV2Enabled"
+      v-if="!isAtlasV2Enabled"
       v-model="state.instructions"
       :label="t('CAPTAIN.ASSISTANTS.FORM.INSTRUCTIONS.LABEL')"
       :placeholder="t('CAPTAIN.ASSISTANTS.FORM.INSTRUCTIONS.PLACEHOLDER')"

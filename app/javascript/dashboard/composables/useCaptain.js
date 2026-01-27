@@ -12,7 +12,7 @@ import { useI18n } from 'vue-i18n';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import TasksAPI from 'dashboard/api/captain/tasks';
 
-export function useCaptain() {
+export function useAtlas() {
   const store = useStore();
   const { t } = useI18n();
   const { isCloudFeatureEnabled, currentAccount } = useAccount();

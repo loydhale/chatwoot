@@ -5,7 +5,7 @@ import { inboxes } from 'dashboard/components-next/captain/pageComponents/emptyS
 
 <template>
   <Story
-    title="Captain/Assistant/InboxCard"
+    title="Atlas/Assistant/InboxCard"
     :layout="{ type: 'grid', width: '700px' }"
   >
     <Variant title="Inbox Card">

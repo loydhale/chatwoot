@@ -5,7 +5,7 @@ import { documentsList } from 'dashboard/components-next/captain/pageComponents/
 
 <template>
   <Story
-    title="Captain/Assistant/DocumentCard"
+    title="Atlas/Assistant/DocumentCard"
     :layout="{ type: 'grid', width: '700px' }"
   >
     <Variant title="Document Card">

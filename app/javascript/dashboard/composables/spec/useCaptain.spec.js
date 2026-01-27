@@ -1,4 +1,4 @@
-import { useCaptain } from '../useCaptain';
+import { useAtlas } from '../useAtlas';
 import {
   useFunctionGetter,
   useMapGetter,
@@ -27,7 +27,7 @@ vi.mock('dashboard/helper/AnalyticsHelper/events', () => ({
   },
 }));
 
-describe('useCaptain', () => {
+describe('useAtlas', () => {
   const mockStore = {
     dispatch: vi.fn(),
   };
@@ -56,7 +56,7 @@ describe('useCaptain', () => {
 
   it('initializes computed properties correctly', async () => {
     const { captainEnabled, captainTasksEnabled, currentChat, draftMessage } =
-      useCaptain();
+      useAtlas();
 
     expect(captainEnabled.value).toBe(true);
     expect(captainTasksEnabled.value).toBe(true);
@@ -69,7 +69,7 @@ describe('useCaptain', () => {
       data: { message: 'Rewritten content', follow_up_context: { id: 'ctx1' } },
     });
 
-    const { rewriteContent } = useCaptain();
+    const { rewriteContent } = useAtlas();
     const result = await rewriteContent('Original content', 'improve', {});
 
     expect(TasksAPI.rewrite).toHaveBeenCalledWith(
@@ -91,7 +91,7 @@ describe('useCaptain', () => {
       data: { message: 'Summary', follow_up_context: { id: 'ctx2' } },
     });
 
-    const { summarizeConversation } = useCaptain();
+    const { summarizeConversation } = useAtlas();
     const result = await summarizeConversation({});
 
     expect(TasksAPI.summarize).toHaveBeenCalledWith('123', undefined);
@@ -106,7 +106,7 @@ describe('useCaptain', () => {
       data: { message: 'Reply suggestion', follow_up_context: { id: 'ctx3' } },
     });
 
-    const { getReplySuggestion } = useCaptain();
+    const { getReplySuggestion } = useAtlas();
     const result = await getReplySuggestion({});
 
     expect(TasksAPI.replySuggestion).toHaveBeenCalledWith('123', undefined);
@@ -124,7 +124,7 @@ describe('useCaptain', () => {
       },
     });
 
-    const { followUp } = useCaptain();
+    const { followUp } = useAtlas();
     const result = await followUp({
       followUpContext: { id: 'ctx3' },
       message: 'Make it shorter',
@@ -155,7 +155,7 @@ describe('useCaptain', () => {
       data: { message: 'Rewritten' },
     });
 
-    const { processEvent } = useCaptain();
+    const { processEvent } = useAtlas();
 
     // Test summarize
     await processEvent('summarize', '', {});

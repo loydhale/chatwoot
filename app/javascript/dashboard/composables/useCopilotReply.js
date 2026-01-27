@@ -1,5 +1,5 @@
 import { ref, computed } from 'vue';
-import { useCaptain } from 'dashboard/composables/useCaptain';
+import { useAtlas } from 'dashboard/composables/useAtlas';
 import { useUISettings } from 'dashboard/composables/useUISettings';
 import { useTrack } from 'dashboard/composables';
 import { CAPTAIN_EVENTS } from 'dashboard/helper/AnalyticsHelper/events';
@@ -59,7 +59,7 @@ function buildPayload(action, conversationId, followUpCount = undefined) {
  * @returns {Object} Copilot reply state and methods
  */
 export function useCopilotReply() {
-  const { processEvent, followUp, currentChat } = useCaptain();
+  const { processEvent, followUp, currentChat } = useAtlas();
   const { updateUISettings } = useUISettings();
 
   const showEditor = ref(false);

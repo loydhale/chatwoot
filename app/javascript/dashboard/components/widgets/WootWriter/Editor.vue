@@ -20,7 +20,7 @@ import CopilotMenuBar from './CopilotMenuBar.vue';
 
 import { useEmitter } from 'dashboard/composables/emitter';
 import { useI18n } from 'vue-i18n';
-import { useCaptain } from 'dashboard/composables/useCaptain';
+import { useAtlas } from 'dashboard/composables/useAtlas';
 import { useKeyboardEvents } from 'dashboard/composables/useKeyboardEvents';
 import { useTrack } from 'dashboard/composables';
 import { useUISettings } from 'dashboard/composables/useUISettings';
@@ -79,7 +79,7 @@ const props = defineProps({
   updateSelectionWith: { type: String, default: '' },
   enableVariables: { type: Boolean, default: false },
   enableCannedResponses: { type: Boolean, default: true },
-  enableCaptainTools: { type: Boolean, default: false },
+  enableAtlasTools: { type: Boolean, default: false },
   variables: { type: Object, default: () => ({}) },
   signature: { type: String, default: '' },
   // allowSignature is a kill switch, ensuring no signature methods
@@ -107,7 +107,7 @@ const emit = defineEmits([
 ]);
 
 const { t } = useI18n();
-const { captainTasksEnabled } = useCaptain();
+const { captainTasksEnabled } = useAtlas();
 
 const TYPING_INDICATOR_IDLE_TIME = 4000;
 const MAXIMUM_FILE_UPLOAD_SIZE = 4; // in MB
@@ -272,13 +272,13 @@ const plugins = computed(() => {
       trigger: '@',
       showMenu: showToolsMenu,
       searchTerm: toolSearchKey,
-      isAllowed: () => props.enableCaptainTools,
+      isAllowed: () => props.enableAtlasTools,
     }),
     createSuggestionPlugin({
       trigger: '@',
       showMenu: showUserMentions,
       searchTerm: mentionSearchKey,
-      isAllowed: () => props.isPrivate || !props.enableCaptainTools,
+      isAllowed: () => props.isPrivate || !props.enableAtlasTools,
     }),
     createSuggestionPlugin({
       trigger: '/',
@@ -321,7 +321,7 @@ watch(showVariables, updatedValue => {
   emit('toggleVariablesMenu', !props.isPrivate && updatedValue);
 });
 watch(showToolsMenu, updatedValue => {
-  emit('toggleToolsMenu', props.enableCaptainTools && updatedValue);
+  emit('toggleToolsMenu', props.enableAtlasTools && updatedValue);
 });
 
 function focusEditorInputField(pos = 'end') {

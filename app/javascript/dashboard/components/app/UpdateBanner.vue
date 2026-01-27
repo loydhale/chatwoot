@@ -9,7 +9,7 @@ import { hasAnUpdateAvailable } from './versionCheckHelper';
 export default {
   components: { Banner },
   props: {
-    latestChatwootVersion: { type: String, default: '' },
+    latestDeskFlowVersion: { type: String, default: '' },
   },
   setup() {
     const { isAdmin } = useAdmin();
@@ -24,13 +24,13 @@ export default {
     ...mapGetters({ globalConfig: 'globalConfig/get' }),
     updateAvailable() {
       return hasAnUpdateAvailable(
-        this.latestChatwootVersion,
+        this.latestDeskFlowVersion,
         this.globalConfig.appVersion
       );
     },
     bannerMessage() {
       return this.$t('GENERAL_SETTINGS.UPDATE_CHATWOOT', {
-        latestChatwootVersion: this.latestChatwootVersion,
+        latestDeskFlowVersion: this.latestDeskFlowVersion,
       });
     },
     shouldShowBanner() {
@@ -38,7 +38,7 @@ export default {
         !this.userDismissedBanner &&
         this.globalConfig.displayManifest &&
         this.updateAvailable &&
-        !this.isVersionNotificationDismissed(this.latestChatwootVersion) &&
+        !this.isVersionNotificationDismissed(this.latestDeskFlowVersion) &&
         this.isAdmin
       );
     },
@@ -53,9 +53,9 @@ export default {
       let updatedDismissedItems =
         LocalStorage.get(LOCAL_STORAGE_KEYS.DISMISSED_UPDATES) || [];
       if (updatedDismissedItems instanceof Array) {
-        updatedDismissedItems.push(this.latestChatwootVersion);
+        updatedDismissedItems.push(this.latestDeskFlowVersion);
       } else {
-        updatedDismissedItems = [this.latestChatwootVersion];
+        updatedDismissedItems = [this.latestDeskFlowVersion];
       }
       LocalStorage.set(
         LOCAL_STORAGE_KEYS.DISMISSED_UPDATES,

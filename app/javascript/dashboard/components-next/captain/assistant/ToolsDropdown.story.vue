@@ -25,7 +25,7 @@ const selectedIndex = ref(0);
 
 <template>
   <Story
-    title="Captain/Assistant/ToolsDropdown"
+    title="Atlas/Assistant/ToolsDropdown"
     :layout="{ type: 'grid', width: '600px' }"
   >
     <Variant title="Default">

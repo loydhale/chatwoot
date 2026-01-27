@@ -4,16 +4,16 @@ describe('#MessageFormatter', () => {
   describe('content with links', () => {
     it('should format correctly', () => {
       const message =
-        'Chatwoot is an opensource tool. [Chatwoot](https://www.chatwoot.com)';
+        'DeskFlow is an opensource tool. [DeskFlow](https://www.chatwoot.com)';
       expect(new MessageFormatter(message).formattedMessage).toMatch(
-        '<p>Chatwoot is an opensource tool. <a href="https://www.chatwoot.com" class="link" rel="noreferrer noopener nofollow" target="_blank">Chatwoot</a></p>'
+        '<p>DeskFlow is an opensource tool. <a href="https://www.chatwoot.com" class="link" rel="noreferrer noopener nofollow" target="_blank">DeskFlow</a></p>'
       );
     });
     it('should format correctly', () => {
       const message =
-        'Chatwoot is an opensource tool. https://www.chatwoot.com';
+        'DeskFlow is an opensource tool. https://www.chatwoot.com';
       expect(new MessageFormatter(message).formattedMessage).toMatch(
-        '<p>Chatwoot is an opensource tool. <a href="https://www.chatwoot.com" class="link" rel="noreferrer noopener nofollow" target="_blank">https://www.chatwoot.com</a></p>'
+        '<p>DeskFlow is an opensource tool. <a href="https://www.chatwoot.com" class="link" rel="noreferrer noopener nofollow" target="_blank">https://www.chatwoot.com</a></p>'
       );
     });
     it('should not convert template variables to links when linkify is disabled', () => {
@@ -38,32 +38,32 @@ describe('#MessageFormatter', () => {
   describe('content with image and has "cw_image_height" query at the end of URL', () => {
     it('should set image height correctly', () => {
       const message =
-        'Chatwoot is an opensource tool. ![](http://chatwoot.com/chatwoot.png?cw_image_height=24px)';
+        'DeskFlow is an opensource tool. ![](http://chatwoot.com/chatwoot.png?cw_image_height=24px)';
       expect(new MessageFormatter(message).formattedMessage).toMatch(
-        '<p>Chatwoot is an opensource tool. <img src="http://chatwoot.com/chatwoot.png?cw_image_height=24px" alt="" style="height: 24px;" /></p>'
+        '<p>DeskFlow is an opensource tool. <img src="http://chatwoot.com/chatwoot.png?cw_image_height=24px" alt="" style="height: 24px;" /></p>'
       );
     });
 
     it('should set image height correctly if its original size', () => {
       const message =
-        'Chatwoot is an opensource tool. ![](http://chatwoot.com/chatwoot.png?cw_image_height=auto)';
+        'DeskFlow is an opensource tool. ![](http://chatwoot.com/chatwoot.png?cw_image_height=auto)';
       expect(new MessageFormatter(message).formattedMessage).toMatch(
-        '<p>Chatwoot is an opensource tool. <img src="http://chatwoot.com/chatwoot.png?cw_image_height=auto" alt="" style="height: auto;" /></p>'
+        '<p>DeskFlow is an opensource tool. <img src="http://chatwoot.com/chatwoot.png?cw_image_height=auto" alt="" style="height: auto;" /></p>'
       );
     });
 
     it('should not set height', () => {
       const message =
-        'Chatwoot is an opensource tool. ![](http://chatwoot.com/chatwoot.png)';
+        'DeskFlow is an opensource tool. ![](http://chatwoot.com/chatwoot.png)';
       expect(new MessageFormatter(message).formattedMessage).toMatch(
-        '<p>Chatwoot is an opensource tool. <img src="http://chatwoot.com/chatwoot.png" alt="" /></p>'
+        '<p>DeskFlow is an opensource tool. <img src="http://chatwoot.com/chatwoot.png" alt="" /></p>'
       );
     });
   });
 
   describe('tweets', () => {
     it('should return the same string if not tags or @mentions', () => {
-      const message = 'Chatwoot is an opensource tool';
+      const message = 'DeskFlow is an opensource tool';
       expect(new MessageFormatter(message).formattedMessage).toMatch(message);
     });
 
@@ -89,7 +89,7 @@ describe('#MessageFormatter', () => {
 
   describe('private notes', () => {
     it('should return the same string if not tags or @mentions', () => {
-      const message = 'Chatwoot is an opensource tool';
+      const message = 'DeskFlow is an opensource tool';
       expect(new MessageFormatter(message).formattedMessage).toMatch(message);
     });
 
@@ -112,9 +112,9 @@ describe('#MessageFormatter', () => {
   describe('plain text content', () => {
     it('returns the plain text without HTML', () => {
       const message =
-        '<b>Chatwoot is an opensource tool. https://www.chatwoot.com</b>';
+        '<b>DeskFlow is an opensource tool. https://www.chatwoot.com</b>';
       expect(new MessageFormatter(message).plainText).toMatch(
-        'Chatwoot is an opensource tool. https://www.chatwoot.com'
+        'DeskFlow is an opensource tool. https://www.chatwoot.com'
       );
     });
   });

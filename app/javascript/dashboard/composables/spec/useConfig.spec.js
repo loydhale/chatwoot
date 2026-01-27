@@ -1,7 +1,7 @@
 import { useConfig } from '../useConfig';
 
 describe('useConfig', () => {
-  const originalChatwootConfig = window.chatwootConfig;
+  const originalDeskFlowConfig = window.chatwootConfig;
 
   beforeEach(() => {
     window.chatwootConfig = {
@@ -14,7 +14,7 @@ describe('useConfig', () => {
   });
 
   afterEach(() => {
-    window.chatwootConfig = originalChatwootConfig;
+    window.chatwootConfig = originalDeskFlowConfig;
   });
 
   it('returns the correct configuration values', () => {

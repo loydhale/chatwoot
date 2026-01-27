@@ -1,7 +1,7 @@
 /* global axios */
 import ApiClient from '../ApiClient';
 
-class CaptainCustomTools extends ApiClient {
+class AtlasCustomTools extends ApiClient {
   constructor() {
     super('captain/custom_tools', { accountScoped: true });
   }
@@ -33,4 +33,4 @@ class CaptainCustomTools extends ApiClient {
   }
 }
 
-export default new CaptainCustomTools();
+export default new AtlasCustomTools();

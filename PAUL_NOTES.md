@@ -27,8 +27,12 @@ White-label AI support platform for GHL agencies, built on Chatwoot.
   - [x] package.json - Updated name and metadata
   - [x] README.md - New branded version
   - [x] EN locale files - Chatwoot → DeskFlow, Captain → Atlas
+  - [x] ALL locale files (703 files!) - Chatwoot → DeskFlow, Captain → Atlas
   - [x] ERB templates - Chatwoot → DeskFlow
   - [x] SVG logos - Created placeholder DeskFlow logos
+  - [x] Server-side YAML locales - Updated
+  - [x] Mailers - Updated
+- [ ] Vue components - In progress
 - [ ] Set up dev environment
 - [ ] Test that it runs
 

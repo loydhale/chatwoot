@@ -1,15 +1,15 @@
-import CaptainInboxes from 'dashboard/api/captain/inboxes';
+import AtlasInboxes from 'dashboard/api/captain/inboxes';
 import { createStore } from '../storeFactory';
 import { throwErrorMessage } from 'dashboard/store/utils/api';
 
 export default createStore({
-  name: 'CaptainInbox',
-  API: CaptainInboxes,
+  name: 'AtlasInbox',
+  API: AtlasInboxes,
   actions: mutations => ({
     delete: async function remove({ commit }, { inboxId, assistantId }) {
       commit(mutations.SET_UI_FLAG, { deletingItem: true });
       try {
-        await CaptainInboxes.delete({ inboxId, assistantId });
+        await AtlasInboxes.delete({ inboxId, assistantId });
         commit(mutations.DELETE, inboxId);
         commit(mutations.SET_UI_FLAG, { deletingItem: false });
         return inboxId;

@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import CopilotEditor from 'dashboard/components/widgets/WootWriter/CopilotEditor.vue';
-import CaptainLoader from 'dashboard/components/widgets/conversation/copilot/CaptainLoader.vue';
+import AtlasLoader from 'dashboard/components/widgets/conversation/copilot/AtlasLoader.vue';
 
 defineProps({
   showCopilotEditor: {
@@ -81,7 +81,7 @@ const onSend = () => {
       class="bg-n-iris-5 rounded min-h-16 w-full mb-4 p-4 flex items-start"
     >
       <div class="flex items-center gap-2">
-        <CaptainLoader class="text-n-iris-10 size-4" />
+        <AtlasLoader class="text-n-iris-10 size-4" />
         <span class="text-sm text-n-iris-10">
           {{ $t('CONVERSATION.REPLYBOX.COPILOT_THINKING') }}
         </span>

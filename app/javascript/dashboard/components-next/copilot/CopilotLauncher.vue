@@ -31,12 +31,12 @@ const isFeatureEnabledonAccount = useMapGetter(
 );
 
 const showCopilotLauncher = computed(() => {
-  const isCaptainEnabled = isFeatureEnabledonAccount.value(
+  const isAtlasEnabled = isFeatureEnabledonAccount.value(
     currentAccountId.value,
     FEATURE_FLAGS.CAPTAIN
   );
   return (
-    isCaptainEnabled &&
+    isAtlasEnabled &&
     !uiSettings.value.is_copilot_panel_open &&
     !isConversationRoute.value
   );

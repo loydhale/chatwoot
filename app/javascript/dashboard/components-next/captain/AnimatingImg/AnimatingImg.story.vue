@@ -7,7 +7,7 @@ import Settings from './Settings.vue';
 
 <template>
   <Story
-    title="Captain/AnimatingImg/AnimatingImg"
+    title="Atlas/AnimatingImg/AnimatingImg"
     :layout="{ type: 'grid', width: '300px' }"
   >
     <Variant title="Guardrails">
