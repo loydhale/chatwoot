@@ -1,56 +1,70 @@
-Chatwoot is looking forward to working with security researchers worldwide to keep Chatwoot and our users safe. If you have found an issue in our systems/applications, please reach out to us.
+# Security Policy
+
+DeskFlow takes security seriously. We appreciate your help in keeping DeskFlow and our users safe.
 
 ## Reporting a Vulnerability
 
-We use Github to track the security issues that affect our project. If you believe you have found a vulnerability, please disclose it via this [form](https://github.com/chatwoot/chatwoot/security/advisories/new). This will enable us to review the vulnerability, fix it promptly, and reward you for your efforts.
+If you discover a security vulnerability, please report it responsibly:
 
-If you have any questions about the process, contact security@chatwoot.com. 
+1. **Do NOT** open a public GitHub issue
+2. Email us at: **security@growlocals.ai**
+3. Include:
+   - Description of the vulnerability
+   - Steps to reproduce
+   - Potential impact
+   - Any suggested fixes
 
-Please try your best to describe a clear and realistic impact for your report, and please don't open any public issues on GitHub or social media; we're doing our best to respond through Github as quickly as possible.
+We will acknowledge your report within 48 hours and work with you to understand and resolve the issue.
 
-> Note: Please use the email for questions related to the process. Disclosures should be done via [Github](https://github.com/chatwoot/chatwoot/security/advisories/new)
-## Supported versions
+## Supported Versions
 
-| Version | Supported        |
-| ------- | --------------   |
-| latest   | ️✅               |
-| <latest   | ❌               |
+| Version | Supported |
+|---------|-----------|
+| Latest release | ✅ |
+| Previous releases | ❌ |
 
+We recommend always running the latest version.
 
-## Vulnerabilities we care about 🫣
-> Note: Please do not perform testing against Chatwoot production services. Use a `self-hosted instance` to perform tests.
-- Remote command execution
-- SQL Injection
+## Scope
+
+### In Scope
+
+- Remote code execution
+- SQL injection
 - Authentication bypass
-- Privilege Escalation
+- Privilege escalation
 - Cross-site scripting (XSS)
-- Performing limited admin actions without authorization
-- CSRF
+- Cross-site request forgery (CSRF)
+- Sensitive data exposure
+- Authorization flaws
 
-You can learn more about our triaging process [here](https://www.chatwoot.com/docs/contributing-guide/security-reports).
+### Out of Scope
 
-## Non-Qualifying Vulnerabilities
-
-We consider the following out of scope, though there may be exceptions.
-
-- Missing HTTP security headers
-- Incomplete/Missing SPF/DKIM
-- Reports from automated tools or scanners
-- Theoretical attacks without proof of exploitability
+- Denial of Service (DoS) attacks
 - Social engineering
-- Reflected file download
 - Physical attacks
-- Weak SSL/TLS/SSH algorithms or protocols
-- Attacks involving physical access to a user's device or a device or network that's already seriously compromised (e.g., man-in-the-middle).
-- The user attacks themselves
-- Incomplete/Missing SPF/DKIM
-- Denial of Service attacks
-- Brute force attacks
-- DNSSEC
+- Issues in dependencies (report to upstream)
+- Missing security headers without demonstrated impact
+- Reports from automated scanners without validation
 
-If you are unsure about the scope, please create a [report](https://github.com/chatwoot/chatwoot/security/advisories/new).
+## Responsible Disclosure
 
+- Give us reasonable time to fix issues before public disclosure
+- Do not access or modify other users' data
+- Do not perform testing on production systems
+- Use a self-hosted instance for security testing
+
+## Upstream Security
+
+DeskFlow is built on [Chatwoot](https://github.com/chatwoot/chatwoot). For vulnerabilities in core Chatwoot functionality, please also consider reporting to the upstream project:
+
+- Chatwoot Security: https://github.com/chatwoot/chatwoot/security/advisories/new
+- Chatwoot Email: security@chatwoot.com
 
 ## Thanks
 
-Thank you for keeping Chatwoot and our users safe. 🙇
+We appreciate security researchers who help keep DeskFlow safe. 🙏
+
+---
+
+*Last updated: January 2025*
