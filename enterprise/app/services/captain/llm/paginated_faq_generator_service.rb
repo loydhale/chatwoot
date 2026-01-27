@@ -1,4 +1,4 @@
-class Captain::Llm::PaginatedFaqGeneratorService < Llm::LegacyBaseOpenAiService
+class Atlas::Llm::PaginatedFaqGeneratorService < Llm::LegacyBaseOpenAiService
   include Integrations::LlmInstrumentation
 
   # Default pages per chunk - easily configurable
@@ -139,7 +139,7 @@ class Captain::Llm::PaginatedFaqGeneratorService < Llm::LegacyBaseOpenAiService
   end
 
   def page_chunk_prompt(start_page, end_page)
-    Captain::Llm::SystemPromptsService.paginated_faq_generator(start_page, end_page, @language)
+    Atlas::Llm::SystemPromptsService.paginated_faq_generator(start_page, end_page, @language)
   end
 
   def standard_chat_parameters
@@ -149,7 +149,7 @@ class Captain::Llm::PaginatedFaqGeneratorService < Llm::LegacyBaseOpenAiService
       messages: [
         {
           role: 'system',
-          content: Captain::Llm::SystemPromptsService.faq_generator(@language)
+          content: Atlas::Llm::SystemPromptsService.faq_generator(@language)
         },
         {
           role: 'user',

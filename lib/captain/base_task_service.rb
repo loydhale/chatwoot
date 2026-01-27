@@ -1,4 +1,4 @@
-class Captain::BaseTaskService
+class Atlas::BaseTaskService
   include Integrations::LlmInstrumentation
 
   # gpt-4o-mini supports 128,000 tokens
@@ -14,7 +14,7 @@ class Captain::BaseTaskService
   # the module before the class in the ancestor chain.
   def self.inherited(subclass)
     super
-    subclass.prepend_mod_with('Captain::BaseTaskService')
+    subclass.prepend_mod_with('Atlas::BaseTaskService')
   end
 
   pattr_initialize [:account!, { conversation_display_id: nil }]
@@ -69,7 +69,7 @@ class Captain::BaseTaskService
       build_ruby_llm_response(response, messages)
     end
   rescue StandardError => e
-    ChatwootExceptionTracker.new(e, account: account).capture_exception
+    DeskFlowExceptionTracker.new(e, account: account).capture_exception
     { error: e.message, request_messages: messages }
   end
 
@@ -158,7 +158,7 @@ class Captain::BaseTaskService
   # Follow-up context for client-side refinement
   def build_follow_up_context?
     # FollowUpService should return its own updated context
-    !is_a?(Captain::FollowUpService)
+    !is_a?(Atlas::FollowUpService)
   end
 
   def build_follow_up_context(messages, response)
@@ -178,4 +178,4 @@ class Captain::BaseTaskService
   end
 end
 
-Captain::BaseTaskService.prepend_mod_with('Captain::BaseTaskService')
+Atlas::BaseTaskService.prepend_mod_with('Atlas::BaseTaskService')

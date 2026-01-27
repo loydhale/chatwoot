@@ -25,7 +25,7 @@ module Concerns::Agentable
       )
     end
 
-    Captain::PromptRenderer.render(template_name, enhanced_context.with_indifferent_access)
+    Atlas::PromptRenderer.render(template_name, enhanced_context.with_indifferent_access)
   end
 
   private
@@ -47,7 +47,7 @@ module Concerns::Agentable
   end
 
   def agent_response_schema
-    Captain::ResponseSchema
+    Atlas::ResponseSchema
   end
 
   def prompt_context

@@ -20,13 +20,13 @@
 #  index_captain_scenarios_on_assistant_id_and_enabled  (assistant_id,enabled)
 #  index_captain_scenarios_on_enabled                   (enabled)
 #
-class Captain::Scenario < ApplicationRecord
-  include Concerns::CaptainToolsHelpers
+class Atlas::Scenario < ApplicationRecord
+  include Concerns::AtlasToolsHelpers
   include Concerns::Agentable
 
   self.table_name = 'captain_scenarios'
 
-  belongs_to :assistant, class_name: 'Captain::Assistant'
+  belongs_to :assistant, class_name: 'Atlas::Assistant'
   belongs_to :account
 
   validates :title, presence: true
@@ -80,7 +80,7 @@ class Captain::Scenario < ApplicationRecord
     tool_id = tool_metadata[:id]
 
     if tool_metadata[:custom]
-      custom_tool = Captain::CustomTool.find_by(slug: tool_id, account_id: account_id, enabled: true)
+      custom_tool = Atlas::CustomTool.find_by(slug: tool_id, account_id: account_id, enabled: true)
       custom_tool&.tool(assistant)
     else
       tool_class = self.class.resolve_tool_class(tool_id)

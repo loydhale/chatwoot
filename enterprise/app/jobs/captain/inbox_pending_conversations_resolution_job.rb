@@ -1,4 +1,4 @@
-class Captain::InboxPendingConversationsResolutionJob < ApplicationJob
+class Atlas::InboxPendingConversationsResolutionJob < ApplicationJob
   queue_as :low
 
   def perform(inbox)

@@ -7,7 +7,7 @@ module Concerns::Toolable
     class_name = custom_tool_record.slug.underscore.camelize
 
     # Always create a fresh class to reflect current metadata
-    tool_class = Class.new(Captain::Tools::HttpTool) do
+    tool_class = Class.new(Atlas::Tools::HttpTool) do
       description custom_tool_record.description
 
       custom_tool_record.param_schema.each do |param_def|
@@ -18,15 +18,15 @@ module Concerns::Toolable
       end
     end
 
-    # Register the dynamically created class as a constant in the Captain::Tools namespace.
+    # Register the dynamically created class as a constant in the Atlas::Tools namespace.
     # This is required because RubyLLM's Tool base class derives the tool name from the class name
     # (via Class#name). Anonymous classes created with Class.new have no name and return empty strings,
     # which causes "Invalid 'tools[].function.name': empty string" errors from the LLM API.
-    # By setting it as a constant, the class gets a proper name (e.g., "Captain::Tools::CatFactLookup")
+    # By setting it as a constant, the class gets a proper name (e.g., "Atlas::Tools::CatFactLookup")
     # which RubyLLM extracts and normalizes to "cat-fact-lookup" for the LLM API.
     # We refresh the constant on each call to ensure tool metadata changes are reflected.
-    Captain::Tools.send(:remove_const, class_name) if Captain::Tools.const_defined?(class_name, false)
-    Captain::Tools.const_set(class_name, tool_class)
+    Atlas::Tools.send(:remove_const, class_name) if Atlas::Tools.const_defined?(class_name, false)
+    Atlas::Tools.const_set(class_name, tool_class)
 
     tool_class.new(assistant, self)
   end
@@ -75,20 +75,20 @@ module Concerns::Toolable
   end
 
   def add_base_headers(headers, state)
-    headers['X-Chatwoot-Account-Id'] = state[:account_id].to_s if state[:account_id]
-    headers['X-Chatwoot-Assistant-Id'] = state[:assistant_id].to_s if state[:assistant_id]
-    headers['X-Chatwoot-Tool-Slug'] = slug if slug.present?
+    headers['X-DeskFlow-Account-Id'] = state[:account_id].to_s if state[:account_id]
+    headers['X-DeskFlow-Assistant-Id'] = state[:assistant_id].to_s if state[:assistant_id]
+    headers['X-DeskFlow-Tool-Slug'] = slug if slug.present?
   end
 
   def add_conversation_headers(headers, conversation)
-    headers['X-Chatwoot-Conversation-Id'] = conversation[:id].to_s if conversation[:id]
-    headers['X-Chatwoot-Conversation-Display-Id'] = conversation[:display_id].to_s if conversation[:display_id]
+    headers['X-DeskFlow-Conversation-Id'] = conversation[:id].to_s if conversation[:id]
+    headers['X-DeskFlow-Conversation-Display-Id'] = conversation[:display_id].to_s if conversation[:display_id]
   end
 
   def add_contact_headers(headers, contact)
-    headers['X-Chatwoot-Contact-Id'] = contact[:id].to_s if contact[:id]
-    headers['X-Chatwoot-Contact-Email'] = contact[:email].to_s if contact[:email].present?
-    headers['X-Chatwoot-Contact-Phone'] = contact[:phone_number].to_s if contact[:phone_number].present?
+    headers['X-DeskFlow-Contact-Id'] = contact[:id].to_s if contact[:id]
+    headers['X-DeskFlow-Contact-Email'] = contact[:email].to_s if contact[:email].present?
+    headers['X-DeskFlow-Contact-Phone'] = contact[:phone_number].to_s if contact[:phone_number].present?
   end
 
   def format_response(raw_response_body)

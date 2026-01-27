@@ -1,7 +1,7 @@
-module Captain::ChatHelper
+module Atlas::ChatHelper
   include Integrations::LlmInstrumentation
-  include Captain::ChatResponseHelper
-  include Captain::ChatGenerationRecorder
+  include Atlas::ChatResponseHelper
+  include Atlas::ChatGenerationRecorder
 
   def request_chat_completion
     log_chat_completion_request

@@ -1,4 +1,4 @@
-class Captain::Tools::HandoffTool < Captain::Tools::BasePublicTool
+class Atlas::Tools::HandoffTool < Atlas::Tools::BasePublicTool
   description 'Hand off the conversation to a human agent when unable to assist further'
   param :reason, type: 'string', desc: 'The reason why handoff is needed (optional)', required: false
 
@@ -17,7 +17,7 @@ class Captain::Tools::HandoffTool < Captain::Tools::BasePublicTool
 
     "Conversation handed off to human support team#{" (Reason: #{reason})" if reason}"
   rescue StandardError => e
-    ChatwootExceptionTracker.new(e).capture_exception
+    DeskFlowExceptionTracker.new(e).capture_exception
     'Failed to handoff conversation'
   end
 
@@ -37,7 +37,7 @@ class Captain::Tools::HandoffTool < Captain::Tools::BasePublicTool
     # Trigger the bot handoff (sets status to open + dispatches events)
     conversation.bot_handoff!
 
-    # Send out of office message if applicable (since template messages were suppressed while Captain was handling)
+    # Send out of office message if applicable (since template messages were suppressed while Atlas was handling)
     send_out_of_office_message_if_applicable(conversation)
   end
 

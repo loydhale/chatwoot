@@ -1,6 +1,6 @@
-class Api::V1::Accounts::Captain::AssistantsController < Api::V1::Accounts::BaseController
+class Api::V1::Accounts::Atlas::AssistantsController < Api::V1::Accounts::BaseController
   before_action :current_account
-  before_action -> { check_authorization(Captain::Assistant) }
+  before_action -> { check_authorization(Atlas::Assistant) }
 
   before_action :set_assistant, only: [:show, :update, :destroy, :playground]
 
@@ -24,7 +24,7 @@ class Api::V1::Accounts::Captain::AssistantsController < Api::V1::Accounts::Base
   end
 
   def playground
-    response = Captain::Llm::AssistantChatService.new(assistant: @assistant).generate_response(
+    response = Atlas::Llm::AssistantChatService.new(assistant: @assistant).generate_response(
       additional_message: params[:message_content],
       message_history: message_history
     )
@@ -33,7 +33,7 @@ class Api::V1::Accounts::Captain::AssistantsController < Api::V1::Accounts::Base
   end
 
   def tools
-    assistant = Captain::Assistant.new(account: Current.account)
+    assistant = Atlas::Assistant.new(account: Current.account)
     @tools = assistant.available_agent_tools
   end
 
@@ -44,7 +44,7 @@ class Api::V1::Accounts::Captain::AssistantsController < Api::V1::Accounts::Base
   end
 
   def account_assistants
-    @account_assistants ||= Captain::Assistant.for_account(Current.account.id)
+    @account_assistants ||= Atlas::Assistant.for_account(Current.account.id)
   end
 
   def assistant_params

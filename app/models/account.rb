@@ -28,7 +28,7 @@ class Account < ApplicationRecord
   include Reportable
   include Featurable
   include CacheKeys
-  include CaptainFeaturable
+  include AtlasFeaturable
 
   SETTINGS_PARAMS_SCHEMA = {
     'type': 'object',
@@ -178,8 +178,8 @@ class Account < ApplicationRecord
 
   def usage_limits
     {
-      agents: ChatwootApp.max_limit.to_i,
-      inboxes: ChatwootApp.max_limit.to_i
+      agents: DeskFlowApp.max_limit.to_i,
+      inboxes: DeskFlowApp.max_limit.to_i
     }
   end
 

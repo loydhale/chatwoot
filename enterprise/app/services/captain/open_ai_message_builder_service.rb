@@ -1,4 +1,4 @@
-class Captain::OpenAiMessageBuilderService
+class Atlas::OpenAiMessageBuilderService
   pattr_initialize [:message!]
 
   def generate_content

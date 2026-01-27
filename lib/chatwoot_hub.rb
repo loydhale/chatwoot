@@ -1,5 +1,5 @@
 # TODO: lets use HTTParty instead of RestClient
-class ChatwootHub
+class DeskFlowHub
   BASE_URL = ENV.fetch('CHATWOOT_HUB_URL', 'https://hub.2.chatwoot.com')
   PING_URL = "#{BASE_URL}/ping".freeze
   REGISTRATION_URL = "#{BASE_URL}/instances".freeze
@@ -19,13 +19,13 @@ class ChatwootHub
   end
 
   def self.pricing_plan
-    return 'community' unless ChatwootApp.enterprise?
+    return 'community' unless DeskFlowApp.enterprise?
 
     InstallationConfig.find_by(name: 'INSTALLATION_PRICING_PLAN')&.value || 'community'
   end
 
   def self.pricing_plan_quantity
-    return 0 unless ChatwootApp.enterprise?
+    return 0 unless DeskFlowApp.enterprise?
 
     InstallationConfig.find_by(name: 'INSTALLATION_PRICING_PLAN_QUANTITY')&.value || 0
   end
@@ -41,7 +41,7 @@ class ChatwootHub
   def self.instance_config
     {
       installation_identifier: installation_identifier,
-      installation_version: Chatwoot.config[:version],
+      installation_version: DeskFlow.config[:version],
       installation_host: URI.parse(ENV.fetch('FRONTEND_URL', '')).host,
       installation_env: ENV.fetch('INSTALLATION_ENV', ''),
       edition: ENV.fetch('CW_EDITION', '')
@@ -73,7 +73,7 @@ class ChatwootHub
     rescue *ExceptionList::REST_CLIENT_EXCEPTIONS => e
       Rails.logger.error "Exception: #{e.message}"
     rescue StandardError => e
-      ChatwootExceptionTracker.new(e).capture_exception
+      DeskFlowExceptionTracker.new(e).capture_exception
     end
     parsed_response
   end
@@ -84,7 +84,7 @@ class ChatwootHub
   rescue *ExceptionList::REST_CLIENT_EXCEPTIONS => e
     Rails.logger.error "Exception: #{e.message}"
   rescue StandardError => e
-    ChatwootExceptionTracker.new(e).capture_exception
+    DeskFlowExceptionTracker.new(e).capture_exception
   end
 
   def self.send_push(fcm_options)
@@ -93,7 +93,7 @@ class ChatwootHub
   rescue *ExceptionList::REST_CLIENT_EXCEPTIONS => e
     Rails.logger.error "Exception: #{e.message}"
   rescue StandardError => e
-    ChatwootExceptionTracker.new(e).capture_exception
+    DeskFlowExceptionTracker.new(e).capture_exception
   end
 
   def self.get_captain_settings(account)
@@ -115,6 +115,6 @@ class ChatwootHub
   rescue *ExceptionList::REST_CLIENT_EXCEPTIONS => e
     Rails.logger.error "Exception: #{e.message}"
   rescue StandardError => e
-    ChatwootExceptionTracker.new(e).capture_exception
+    DeskFlowExceptionTracker.new(e).capture_exception
   end
 end

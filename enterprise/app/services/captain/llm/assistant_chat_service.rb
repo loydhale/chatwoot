@@ -1,5 +1,5 @@
-class Captain::Llm::AssistantChatService < Llm::BaseAiService
-  include Captain::ChatHelper
+class Atlas::Llm::AssistantChatService < Llm::BaseAiService
+  include Atlas::ChatHelper
 
   def initialize(assistant: nil, conversation_id: nil)
     super()
@@ -28,13 +28,13 @@ class Captain::Llm::AssistantChatService < Llm::BaseAiService
   private
 
   def build_tools
-    [Captain::Tools::SearchDocumentationService.new(@assistant, user: nil)]
+    [Atlas::Tools::SearchDocumentationService.new(@assistant, user: nil)]
   end
 
   def system_message
     {
       role: 'system',
-      content: Captain::Llm::SystemPromptsService.assistant_response_generator(@assistant.name, @assistant.config['product_name'], @assistant.config)
+      content: Atlas::Llm::SystemPromptsService.assistant_response_generator(@assistant.name, @assistant.config['product_name'], @assistant.config)
     }
   end
 

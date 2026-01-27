@@ -1,6 +1,6 @@
 require 'agents'
 
-class Captain::Tools::BasePublicTool < Agents::Tool
+class Atlas::Tools::BasePublicTool < Agents::Tool
   def initialize(assistant)
     @assistant = assistant
     super()

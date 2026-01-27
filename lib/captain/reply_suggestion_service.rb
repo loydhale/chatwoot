@@ -1,4 +1,4 @@
-class Captain::ReplySuggestionService < Captain::BaseTaskService
+class Atlas::ReplySuggestionService < Atlas::BaseTaskService
   pattr_initialize [:account!, :conversation_display_id!, :user!]
 
   def perform

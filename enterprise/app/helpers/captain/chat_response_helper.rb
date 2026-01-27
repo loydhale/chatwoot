@@ -1,4 +1,4 @@
-module Captain::ChatResponseHelper
+module Atlas::ChatResponseHelper
   private
 
   def build_response(response)

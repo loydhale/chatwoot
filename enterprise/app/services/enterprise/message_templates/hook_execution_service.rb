@@ -33,10 +33,10 @@ module Enterprise::MessageTemplates::HookExecutionService
     job_args = [conversation, conversation.inbox.captain_assistant]
 
     if message.attachments.blank?
-      Captain::Conversation::ResponseBuilderJob.perform_later(*job_args)
+      Atlas::Conversation::ResponseBuilderJob.perform_later(*job_args)
     else
       wait_time = calculate_attachment_wait_time
-      Captain::Conversation::ResponseBuilderJob.set(wait: wait_time).perform_later(*job_args)
+      Atlas::Conversation::ResponseBuilderJob.set(wait: wait_time).perform_later(*job_args)
     end
   end
 
@@ -56,7 +56,7 @@ module Enterprise::MessageTemplates::HookExecutionService
   def perform_handoff
     return unless conversation.pending?
 
-    Rails.logger.info("Captain limit exceeded, performing handoff mid-conversation for conversation: #{conversation.id}")
+    Rails.logger.info("Atlas limit exceeded, performing handoff mid-conversation for conversation: #{conversation.id}")
     conversation.messages.create!(
       message_type: :outgoing,
       account_id: conversation.account.id,

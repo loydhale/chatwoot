@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module CaptainFeaturable
+module AtlasFeaturable
   extend ActiveSupport::Concern
 
   included do

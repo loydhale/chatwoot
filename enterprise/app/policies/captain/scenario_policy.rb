@@ -1,4 +1,4 @@
-class Captain::ScenarioPolicy < ApplicationPolicy
+class Atlas::ScenarioPolicy < ApplicationPolicy
   def index?
     true
   end

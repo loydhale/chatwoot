@@ -1,4 +1,4 @@
-class Captain::CustomToolPolicy < ApplicationPolicy
+class Atlas::CustomToolPolicy < ApplicationPolicy
   def index?
     true
   end

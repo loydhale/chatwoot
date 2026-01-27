@@ -1,6 +1,6 @@
-class Api::V1::Accounts::Captain::ScenariosController < Api::V1::Accounts::BaseController
+class Api::V1::Accounts::Atlas::ScenariosController < Api::V1::Accounts::BaseController
   before_action :current_account
-  before_action -> { check_authorization(Captain::Scenario) }
+  before_action -> { check_authorization(Atlas::Scenario) }
   before_action :set_assistant
   before_action :set_scenario, only: [:show, :update, :destroy]
 

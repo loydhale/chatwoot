@@ -1,4 +1,4 @@
-class Captain::AssistantPolicy < ApplicationPolicy
+class Atlas::AssistantPolicy < ApplicationPolicy
   def index?
     true
   end

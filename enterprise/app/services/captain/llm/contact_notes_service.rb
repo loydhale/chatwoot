@@ -1,4 +1,4 @@
-class Captain::Llm::ContactNotesService < Llm::BaseAiService
+class Atlas::Llm::ContactNotesService < Llm::BaseAiService
   include Integrations::LlmInstrumentation
   def initialize(assistant, conversation)
     super()
@@ -27,7 +27,7 @@ class Captain::Llm::ContactNotesService < Llm::BaseAiService
     end
     parse_response(response.content)
   rescue RubyLLM::Error => e
-    ChatwootExceptionTracker.new(e, account: @conversation.account).capture_exception
+    DeskFlowExceptionTracker.new(e, account: @conversation.account).capture_exception
     []
   end
 
@@ -49,7 +49,7 @@ class Captain::Llm::ContactNotesService < Llm::BaseAiService
 
   def system_prompt
     account_language = @conversation.account.locale_english_name
-    Captain::Llm::SystemPromptsService.notes_generator(account_language)
+    Atlas::Llm::SystemPromptsService.notes_generator(account_language)
   end
 
   def parse_response(response)

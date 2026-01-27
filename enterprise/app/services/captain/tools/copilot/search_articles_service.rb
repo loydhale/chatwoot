@@ -1,4 +1,4 @@
-class Captain::Tools::Copilot::SearchArticlesService < Captain::Tools::BaseTool
+class Atlas::Tools::Copilot::SearchArticlesService < Atlas::Tools::BaseTool
   def self.name
     'search_articles'
   end

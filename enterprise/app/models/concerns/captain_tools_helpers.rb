@@ -1,6 +1,6 @@
-# Provides helper methods for working with Captain agent tools including
+# Provides helper methods for working with Atlas agent tools including
 # tool resolution, text parsing, and metadata retrieval.
-module Concerns::CaptainToolsHelpers
+module Concerns::AtlasToolsHelpers
   extend ActiveSupport::Concern
 
   # Regular expression pattern for matching tool references in text.
@@ -22,7 +22,7 @@ module Concerns::CaptainToolsHelpers
     # @param tool_id [String] The snake_case tool identifier
     # @return [Class, nil] The tool class if found, nil if not resolvable
     def resolve_tool_class(tool_id)
-      class_name = "Captain::Tools::#{tool_id.classify}Tool"
+      class_name = "Atlas::Tools::#{tool_id.classify}Tool"
       class_name.safe_constantize
     end
 

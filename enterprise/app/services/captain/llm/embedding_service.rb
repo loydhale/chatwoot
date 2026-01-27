@@ -1,4 +1,4 @@
-class Captain::Llm::EmbeddingService
+class Atlas::Llm::EmbeddingService
   include Integrations::LlmInstrumentation
 
   class EmbeddingsError < StandardError; end

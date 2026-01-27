@@ -10,9 +10,9 @@ class SuperAdmin::InstanceStatusesController < SuperAdmin::ApplicationController
   end
 
   def chatwoot_edition
-    @metrics['Chatwoot edition'] = if ChatwootApp.enterprise?
+    @metrics['DeskFlow edition'] = if DeskFlowApp.enterprise?
                                      'Enterprise'
-                                   elsif ChatwootApp.custom?
+                                   elsif DeskFlowApp.custom?
                                      'Custom'
                                    else
                                      'Community'
@@ -24,7 +24,7 @@ class SuperAdmin::InstanceStatusesController < SuperAdmin::ApplicationController
   end
 
   def chatwoot_version
-    @metrics['Chatwoot version'] = Chatwoot.config[:version]
+    @metrics['DeskFlow version'] = DeskFlow.config[:version]
   end
 
   def sha

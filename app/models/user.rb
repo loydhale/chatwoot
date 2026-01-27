@@ -189,7 +189,7 @@ class User < ApplicationRecord
   end
 
   def mfa_feature_available?
-    Chatwoot.mfa_enabled?
+    DeskFlow.mfa_enabled?
   end
 
   private

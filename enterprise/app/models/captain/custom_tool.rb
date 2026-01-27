@@ -23,7 +23,7 @@
 #  index_captain_custom_tools_on_account_id           (account_id)
 #  index_captain_custom_tools_on_account_id_and_slug  (account_id,slug) UNIQUE
 #
-class Captain::CustomTool < ApplicationRecord
+class Atlas::CustomTool < ApplicationRecord
   include Concerns::Toolable
   include Concerns::SafeEndpointValidatable
 

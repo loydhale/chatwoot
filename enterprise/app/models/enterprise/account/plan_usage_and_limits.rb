@@ -69,7 +69,7 @@ module Enterprise::Account::PlanUsageAndLimits
   end
 
   def default_captain_limits
-    max_limits = { documents: ChatwootApp.max_limit, responses: ChatwootApp.max_limit }.with_indifferent_access
+    max_limits = { documents: DeskFlowApp.max_limit, responses: DeskFlowApp.max_limit }.with_indifferent_access
     zero_limits = { documents: 0, responses: 0 }.with_indifferent_access
     plan_quota = InstallationConfig.find_by(name: 'CAPTAIN_CLOUD_PLAN_LIMITS')&.value
 
@@ -106,7 +106,7 @@ module Enterprise::Account::PlanUsageAndLimits
 
     return GlobalConfig.get(config_name)[config_name] if GlobalConfig.get(config_name)[config_name].present?
 
-    ChatwootApp.max_limit
+    DeskFlowApp.max_limit
   end
 
   def validate_limit_keys

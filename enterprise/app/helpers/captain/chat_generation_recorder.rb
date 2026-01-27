@@ -1,4 +1,4 @@
-module Captain::ChatGenerationRecorder
+module Atlas::ChatGenerationRecorder
   extend ActiveSupport::Concern
   include Integrations::LlmInstrumentationConstants
 

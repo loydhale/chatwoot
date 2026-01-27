@@ -1,5 +1,5 @@
-class Captain::Copilot::ChatService < Llm::BaseAiService
-  include Captain::ChatHelper
+class Atlas::Copilot::ChatService < Llm::BaseAiService
+  include Atlas::ChatHelper
 
   attr_reader :assistant, :account, :user, :copilot_thread, :previous_history, :messages
 
@@ -62,14 +62,14 @@ class Captain::Copilot::ChatService < Llm::BaseAiService
   def build_tools
     tools = []
 
-    tools << Captain::Tools::SearchDocumentationService.new(@assistant, user: @user)
-    tools << Captain::Tools::Copilot::GetConversationService.new(@assistant, user: @user)
-    tools << Captain::Tools::Copilot::SearchConversationsService.new(@assistant, user: @user)
-    tools << Captain::Tools::Copilot::GetContactService.new(@assistant, user: @user)
-    tools << Captain::Tools::Copilot::GetArticleService.new(@assistant, user: @user)
-    tools << Captain::Tools::Copilot::SearchArticlesService.new(@assistant, user: @user)
-    tools << Captain::Tools::Copilot::SearchContactsService.new(@assistant, user: @user)
-    tools << Captain::Tools::Copilot::SearchLinearIssuesService.new(@assistant, user: @user)
+    tools << Atlas::Tools::SearchDocumentationService.new(@assistant, user: @user)
+    tools << Atlas::Tools::Copilot::GetConversationService.new(@assistant, user: @user)
+    tools << Atlas::Tools::Copilot::SearchConversationsService.new(@assistant, user: @user)
+    tools << Atlas::Tools::Copilot::GetContactService.new(@assistant, user: @user)
+    tools << Atlas::Tools::Copilot::GetArticleService.new(@assistant, user: @user)
+    tools << Atlas::Tools::Copilot::SearchArticlesService.new(@assistant, user: @user)
+    tools << Atlas::Tools::Copilot::SearchContactsService.new(@assistant, user: @user)
+    tools << Atlas::Tools::Copilot::SearchLinearIssuesService.new(@assistant, user: @user)
 
     tools.select(&:active?)
   end
@@ -77,7 +77,7 @@ class Captain::Copilot::ChatService < Llm::BaseAiService
   def system_message
     {
       role: 'system',
-      content: Captain::Llm::SystemPromptsService.copilot_response_generator(
+      content: Atlas::Llm::SystemPromptsService.copilot_response_generator(
         @assistant.config['product_name'],
         tools_summary,
         @assistant.config

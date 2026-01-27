@@ -60,7 +60,7 @@ class Api::V1::Accounts::CompaniesController < Api::V1::Accounts::EnterpriseAcco
   end
 
   def check_authorization
-    raise Pundit::NotAuthorizedError unless ChatwootApp.enterprise?
+    raise Pundit::NotAuthorizedError unless DeskFlowApp.enterprise?
 
     authorize(Company)
   end
