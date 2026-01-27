@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Captain::OpenAiMessageBuilderService do
+RSpec.describe Atlas::OpenAiMessageBuilderService do
   subject(:service) { described_class.new(message: message) }
 
   let(:message) { create(:message, content: 'Hello world') }

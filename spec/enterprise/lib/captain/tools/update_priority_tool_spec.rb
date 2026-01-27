@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Captain::Tools::UpdatePriorityTool, type: :model do
+RSpec.describe Atlas::Tools::UpdatePriorityTool, type: :model do
   let(:account) { create(:account) }
   let(:assistant) { create(:captain_assistant, account: account) }
   let(:tool) { described_class.new(assistant) }

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe CaptainFeaturable do
+RSpec.describe AtlasFeaturable do
   let(:account) { create(:account) }
 
   describe 'dynamic method generation' do

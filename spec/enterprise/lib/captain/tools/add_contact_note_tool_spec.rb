@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Captain::Tools::AddContactNoteTool, type: :model do
+RSpec.describe Atlas::Tools::AddContactNoteTool, type: :model do
   let(:account) { create(:account) }
   let(:assistant) { create(:captain_assistant, account: account) }
   let(:tool) { described_class.new(assistant) }

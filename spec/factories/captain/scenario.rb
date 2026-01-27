@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :captain_scenario, class: 'Captain::Scenario' do
+  factory :captain_scenario, class: 'Atlas::Scenario' do
     sequence(:title) { |n| "Scenario #{n}" }
     description { 'Test scenario description' }
     instruction { 'Test scenario instruction for the assistant to follow' }

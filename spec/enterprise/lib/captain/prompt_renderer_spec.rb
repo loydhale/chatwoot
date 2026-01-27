@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Captain::PromptRenderer do
+RSpec.describe Atlas::PromptRenderer do
   let(:template_name) { 'test_template' }
   let(:template_content) { 'Hello {{name}}, your balance is {{balance}}' }
   let(:template_path) { Rails.root.join('enterprise', 'lib', 'captain', 'prompts', "#{template_name}.liquid") }

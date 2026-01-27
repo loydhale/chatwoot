@@ -278,7 +278,7 @@ RSpec.describe '/api/v1/widget/conversations/toggle_typing', type: :request do
   end
 
   describe 'POST /api/v1/widget/conversations/set_custom_attributes' do
-    let(:params) { { website_token: web_widget.website_token, custom_attributes: { 'product_name': 'Chatwoot' } } }
+    let(:params) { { website_token: web_widget.website_token, custom_attributes: { 'product_name': 'DeskFlow' } } }
 
     context 'with invalid website token' do
       it 'returns unauthorized' do
@@ -296,8 +296,8 @@ RSpec.describe '/api/v1/widget/conversations/toggle_typing', type: :request do
 
         expect(response).to have_http_status(:success)
         conversation.reload
-        # conversation custom attributes should have "product_name" key with value "Chatwoot"
-        expect(conversation.custom_attributes).to include('product_name' => 'Chatwoot')
+        # conversation custom attributes should have "product_name" key with value "DeskFlow"
+        expect(conversation.custom_attributes).to include('product_name' => 'DeskFlow')
       end
     end
   end
@@ -315,9 +315,9 @@ RSpec.describe '/api/v1/widget/conversations/toggle_typing', type: :request do
     context 'with correct website token' do
       it 'sets the values when provided' do
         # ensure conversation has the attribute
-        conversation.custom_attributes = { 'product_name': 'Chatwoot' }
+        conversation.custom_attributes = { 'product_name': 'DeskFlow' }
         conversation.save!
-        expect(conversation.custom_attributes).to include('product_name' => 'Chatwoot')
+        expect(conversation.custom_attributes).to include('product_name' => 'DeskFlow')
 
         post '/api/v1/widget/conversations/destroy_custom_attributes',
              headers: { 'X-Auth-Token' => token },
@@ -326,8 +326,8 @@ RSpec.describe '/api/v1/widget/conversations/toggle_typing', type: :request do
 
         expect(response).to have_http_status(:success)
         conversation.reload
-        # conversation custom attributes should not have "product_name" key with value "Chatwoot"
-        expect(conversation.custom_attributes).not_to include('product_name' => 'Chatwoot')
+        # conversation custom attributes should not have "product_name" key with value "DeskFlow"
+        expect(conversation.custom_attributes).not_to include('product_name' => 'DeskFlow')
       end
     end
   end

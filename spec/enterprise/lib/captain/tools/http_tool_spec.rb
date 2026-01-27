@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Captain::Tools::HttpTool, type: :model do
+RSpec.describe Atlas::Tools::HttpTool, type: :model do
   let(:account) { create(:account) }
   let(:assistant) { create(:captain_assistant, account: account) }
   let(:custom_tool) { create(:captain_custom_tool, account: account) }
@@ -267,13 +267,13 @@ RSpec.describe Captain::Tools::HttpTool, type: :model do
       it 'includes metadata headers in GET request' do
         stub_request(:get, 'https://example.com/api/data')
           .with(headers: {
-                  'X-Chatwoot-Account-Id' => account.id.to_s,
-                  'X-Chatwoot-Assistant-Id' => assistant.id.to_s,
-                  'X-Chatwoot-Tool-Slug' => custom_tool.slug,
-                  'X-Chatwoot-Conversation-Id' => conversation.id.to_s,
-                  'X-Chatwoot-Conversation-Display-Id' => conversation.display_id.to_s,
-                  'X-Chatwoot-Contact-Id' => contact.id.to_s,
-                  'X-Chatwoot-Contact-Email' => contact.email
+                  'X-DeskFlow-Account-Id' => account.id.to_s,
+                  'X-DeskFlow-Assistant-Id' => assistant.id.to_s,
+                  'X-DeskFlow-Tool-Slug' => custom_tool.slug,
+                  'X-DeskFlow-Conversation-Id' => conversation.id.to_s,
+                  'X-DeskFlow-Conversation-Display-Id' => conversation.display_id.to_s,
+                  'X-DeskFlow-Contact-Id' => contact.id.to_s,
+                  'X-DeskFlow-Contact-Email' => contact.email
                 })
           .to_return(status: 200, body: '{"success": true}')
 
@@ -281,8 +281,8 @@ RSpec.describe Captain::Tools::HttpTool, type: :model do
 
         expect(WebMock).to have_requested(:get, 'https://example.com/api/data')
           .with(headers: {
-                  'X-Chatwoot-Account-Id' => account.id.to_s,
-                  'X-Chatwoot-Contact-Email' => contact.email
+                  'X-DeskFlow-Account-Id' => account.id.to_s,
+                  'X-DeskFlow-Contact-Email' => contact.email
                 })
       end
 
@@ -294,9 +294,9 @@ RSpec.describe Captain::Tools::HttpTool, type: :model do
             body: '{"data": "test"}',
             headers: {
               'Content-Type' => 'application/json',
-              'X-Chatwoot-Account-Id' => account.id.to_s,
-              'X-Chatwoot-Tool-Slug' => custom_tool.slug,
-              'X-Chatwoot-Contact-Email' => contact.email
+              'X-DeskFlow-Account-Id' => account.id.to_s,
+              'X-DeskFlow-Tool-Slug' => custom_tool.slug,
+              'X-DeskFlow-Contact-Email' => contact.email
             }
           )
           .to_return(status: 200, body: '{"success": true}')
@@ -315,8 +315,8 @@ RSpec.describe Captain::Tools::HttpTool, type: :model do
         stub_request(:get, 'https://example.com/api/data')
           .with(headers: {
                   'Authorization' => 'Bearer test_token',
-                  'X-Chatwoot-Account-Id' => account.id.to_s,
-                  'X-Chatwoot-Contact-Id' => contact.id.to_s
+                  'X-DeskFlow-Account-Id' => account.id.to_s,
+                  'X-DeskFlow-Contact-Id' => contact.id.to_s
                 })
           .to_return(status: 200, body: '{"success": true}')
 
@@ -325,7 +325,7 @@ RSpec.describe Captain::Tools::HttpTool, type: :model do
         expect(WebMock).to have_requested(:get, 'https://example.com/api/data')
           .with(headers: {
                   'Authorization' => 'Bearer test_token',
-                  'X-Chatwoot-Contact-Id' => contact.id.to_s
+                  'X-DeskFlow-Contact-Id' => contact.id.to_s
                 })
       end
 
@@ -341,8 +341,8 @@ RSpec.describe Captain::Tools::HttpTool, type: :model do
 
         stub_request(:get, 'https://example.com/api/data')
           .with(headers: {
-                  'X-Chatwoot-Account-Id' => account.id.to_s,
-                  'X-Chatwoot-Conversation-Id' => conversation.id.to_s
+                  'X-DeskFlow-Account-Id' => account.id.to_s,
+                  'X-DeskFlow-Conversation-Id' => conversation.id.to_s
                 })
           .to_return(status: 200, body: '{"success": true}')
 
@@ -357,14 +357,14 @@ RSpec.describe Captain::Tools::HttpTool, type: :model do
 
         stub_request(:get, 'https://example.com/api/data')
           .with(headers: {
-                  'X-Chatwoot-Contact-Phone' => '+1234567890'
+                  'X-DeskFlow-Contact-Phone' => '+1234567890'
                 })
           .to_return(status: 200, body: '{"success": true}')
 
         tool.perform(tool_context_with_state)
 
         expect(WebMock).to have_requested(:get, 'https://example.com/api/data')
-          .with(headers: { 'X-Chatwoot-Contact-Phone' => '+1234567890' })
+          .with(headers: { 'X-DeskFlow-Contact-Phone' => '+1234567890' })
       end
     end
   end

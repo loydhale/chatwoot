@@ -113,7 +113,7 @@ RSpec.describe User do
 
   describe '2FA/MFA functionality' do
     before do
-      skip('Skipping since MFA is not configured in this environment') unless Chatwoot.encryption_configured?
+      skip('Skipping since MFA is not configured in this environment') unless DeskFlow.encryption_configured?
     end
 
     let(:user) { create(:user, password: 'Test@123456') }
@@ -172,7 +172,7 @@ RSpec.describe User do
 
         expect(uri).to include('otpauth://totp/')
         expect(uri).to include(CGI.escape(user.email))
-        expect(uri).to include('Chatwoot')
+        expect(uri).to include('DeskFlow')
       end
     end
 

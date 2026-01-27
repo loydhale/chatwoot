@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe CaptainListener do
+describe AtlasListener do
   let(:listener) { described_class.instance }
   let(:account) { create(:account) }
   let(:inbox) { create(:inbox, account: account) }
@@ -26,11 +26,11 @@ describe CaptainListener do
       end
 
       it 'generates and updates notes' do
-        expect(Captain::Llm::ContactNotesService)
+        expect(Atlas::Llm::ContactNotesService)
           .to receive(:new)
           .with(assistant, conversation)
-          .and_return(instance_double(Captain::Llm::ContactNotesService, generate_and_update_notes: nil))
-        expect(Captain::Llm::ConversationFaqService).not_to receive(:new)
+          .and_return(instance_double(Atlas::Llm::ContactNotesService, generate_and_update_notes: nil))
+        expect(Atlas::Llm::ConversationFaqService).not_to receive(:new)
 
         listener.conversation_resolved(event)
       end
@@ -44,11 +44,11 @@ describe CaptainListener do
       end
 
       it 'generates and deduplicates FAQs' do
-        expect(Captain::Llm::ConversationFaqService)
+        expect(Atlas::Llm::ConversationFaqService)
           .to receive(:new)
           .with(assistant, conversation)
-          .and_return(instance_double(Captain::Llm::ConversationFaqService, generate_and_deduplicate: false))
-        expect(Captain::Llm::ContactNotesService).not_to receive(:new)
+          .and_return(instance_double(Atlas::Llm::ConversationFaqService, generate_and_deduplicate: false))
+        expect(Atlas::Llm::ContactNotesService).not_to receive(:new)
 
         listener.conversation_resolved(event)
       end

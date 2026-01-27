@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Captain::Tools::FirecrawlService do
+RSpec.describe Atlas::Tools::FirecrawlService do
   let(:api_key) { 'test-api-key' }
   let(:url) { 'https://example.com' }
   let(:webhook_url) { 'https://webhook.example.com/callback' }

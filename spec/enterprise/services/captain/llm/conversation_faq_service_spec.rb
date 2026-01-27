@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Captain::Llm::ConversationFaqService do
+RSpec.describe Atlas::Llm::ConversationFaqService do
   let(:captain_assistant) { create(:captain_assistant) }
   let(:conversation) { create(:conversation, first_reply_created_at: Time.zone.now) }
   let(:service) { described_class.new(captain_assistant, conversation) }
-  let(:embedding_service) { instance_double(Captain::Llm::EmbeddingService) }
+  let(:embedding_service) { instance_double(Atlas::Llm::EmbeddingService) }
   let(:mock_chat) { instance_double(RubyLLM::Chat) }
   let(:sample_faqs) do
     [
@@ -18,7 +18,7 @@ RSpec.describe Captain::Llm::ConversationFaqService do
 
   before do
     create(:installation_config, name: 'CAPTAIN_OPEN_AI_API_KEY', value: 'test-key')
-    allow(Captain::Llm::EmbeddingService).to receive(:new).and_return(embedding_service)
+    allow(Atlas::Llm::EmbeddingService).to receive(:new).and_return(embedding_service)
     allow(RubyLLM).to receive(:chat).and_return(mock_chat)
     allow(mock_chat).to receive(:with_temperature).and_return(mock_chat)
     allow(mock_chat).to receive(:with_params).and_return(mock_chat)
@@ -143,7 +143,7 @@ RSpec.describe Captain::Llm::ConversationFaqService do
       end
 
       it 'uses account language for system prompt' do
-        expect(Captain::Llm::SystemPromptsService).to receive(:conversation_faq_generator)
+        expect(Atlas::Llm::SystemPromptsService).to receive(:conversation_faq_generator)
           .with('french')
           .at_least(:once)
           .and_call_original

@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :captain_custom_tool, class: 'Captain::CustomTool' do
+  factory :captain_custom_tool, class: 'Atlas::CustomTool' do
     sequence(:title) { |n| "Custom Tool #{n}" }
     description { 'A custom HTTP tool for external API integration' }
     endpoint_url { 'https://api.example.com/endpoint' }

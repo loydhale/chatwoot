@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Captain::Tools::HandoffTool, type: :model do
+RSpec.describe Atlas::Tools::HandoffTool, type: :model do
   let(:account) { create(:account) }
   let(:assistant) { create(:captain_assistant, account: account) }
   let(:tool) { described_class.new(assistant) }
@@ -104,8 +104,8 @@ RSpec.describe Captain::Tools::HandoffTool, type: :model do
           allow(scoped_conversations).to receive(:find_by).with(id: conversation.id).and_return(found_conversation)
           allow(found_conversation).to receive(:bot_handoff!).and_raise(StandardError, 'Handoff error')
 
-          exception_tracker = instance_double(ChatwootExceptionTracker)
-          allow(ChatwootExceptionTracker).to receive(:new).and_return(exception_tracker)
+          exception_tracker = instance_double(DeskFlowExceptionTracker)
+          allow(DeskFlowExceptionTracker).to receive(:new).and_return(exception_tracker)
           allow(exception_tracker).to receive(:capture_exception)
         end
 
@@ -115,8 +115,8 @@ RSpec.describe Captain::Tools::HandoffTool, type: :model do
         end
 
         it 'captures exception' do
-          exception_tracker = instance_double(ChatwootExceptionTracker)
-          expect(ChatwootExceptionTracker).to receive(:new).with(instance_of(StandardError)).and_return(exception_tracker)
+          exception_tracker = instance_double(DeskFlowExceptionTracker)
+          expect(DeskFlowExceptionTracker).to receive(:new).with(instance_of(StandardError)).and_return(exception_tracker)
           expect(exception_tracker).to receive(:capture_exception)
 
           tool.perform(tool_context, reason: 'Test')

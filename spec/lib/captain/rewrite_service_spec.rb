@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Captain::RewriteService do
+RSpec.describe Atlas::RewriteService do
   let(:account) { create(:account) }
   let(:inbox) { create(:inbox, account: account) }
   let(:conversation) { create(:conversation, account: account, inbox: inbox) }

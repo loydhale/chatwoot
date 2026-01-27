@@ -48,7 +48,7 @@ RSpec.describe Inboxes::BulkAutoAssignmentJob do
         before do
           account.update!(custom_attributes: {})
           InstallationConfig.create(name: 'CHATWOOT_CLOUD_PLANS', value: [{ 'name' => 'default' }])
-          allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
+          allow(DeskFlowApp).to receive(:chatwoot_cloud?).and_return(true)
         end
 
         it 'skips auto assignment' do
