@@ -293,6 +293,10 @@ Rails.application.routes.draw do
             resource :authorization, only: [:create]
           end
 
+          namespace :ghl do
+            resource :authorization, only: [:create]
+          end
+
           resources :webhooks, only: [:index, :create, :update, :destroy]
           namespace :integrations do
             resources :apps, only: [:index, :show]
@@ -333,6 +337,12 @@ Rails.application.routes.draw do
             resource :notion, controller: 'notion', only: [] do
               collection do
                 delete :destroy
+              end
+            end
+            resource :ghl, controller: 'ghl', only: [:destroy] do
+              collection do
+                get :status
+                post :refresh
               end
             end
           end
@@ -589,6 +599,7 @@ Rails.application.routes.draw do
   get 'instagram/callback', to: 'instagram/callbacks#show'
   get 'tiktok/callback', to: 'tiktok/callbacks#show'
   get 'notion/callback', to: 'notion/callbacks#show'
+  get 'ghl/callback', to: 'ghl/callbacks#show'
   # ----------------------------------------------------------------------
   # Routes for external service verifications
   get '.well-known/assetlinks.json' => 'android_app#assetlinks'
