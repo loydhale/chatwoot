@@ -337,6 +337,10 @@ en:
       name: 'Shopify'
       short_description: 'Access order details and customer data from your Shopify store.'
       description: 'Connect your Shopify store to access order details, customer information, and product data directly within your conversations and helps your support team provide faster, more contextual assistance to your customers.'
+    gohighlevel:
+      name: 'GoHighLevel'
+      short_description: 'Connect your GHL account for seamless CRM and conversation sync.'
+      description: 'Integrate with GoHighLevel (GHL) to sync contacts, conversations, and enable single sign-on from the GHL marketplace. This integration allows your team to access DeskFlow directly from GHL and automatically sync customer data between both platforms.'
     leadsquared:
       name: 'LeadSquared'
       short_description: 'Sync your contacts and conversations with LeadSquared CRM.'
