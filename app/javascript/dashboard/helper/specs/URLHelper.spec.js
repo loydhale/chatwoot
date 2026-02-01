@@ -262,7 +262,9 @@ describe('#URL Helpers', () => {
     });
 
     it('should correctly handle URLs with non-standard TLDs', () => {
-      expect(getHostNameFromURL('https://chatwoot.help')).toBe('chatwoot.help');
+      expect(getHostNameFromURL('https://deskflows.help')).toBe(
+        'deskflows.help'
+      );
     });
   });
 

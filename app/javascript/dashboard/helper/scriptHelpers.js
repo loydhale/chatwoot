@@ -1,7 +1,7 @@
 import {
   ANALYTICS_IDENTITY,
-  CHATWOOT_RESET,
-  CHATWOOT_SET_USER,
+  DESKFLOWS_RESET,
+  DESKFLOWS_SET_USER,
 } from '../constants/appEvents';
 import AnalyticsHelper from './AnalyticsHelper';
 import DashboardAudioNotificationHelper from './AudioAlerts/DashboardAudioNotificationHelper';
@@ -35,20 +35,20 @@ export const initializeAudioAlerts = user => {
 };
 
 export const initializeDeskFlowsEvents = () => {
-  emitter.on(CHATWOOT_RESET, () => {
-    if (window.$chatwoot) {
-      window.$chatwoot.reset();
+  emitter.on(DESKFLOWS_RESET, () => {
+    if (window.$deskflows) {
+      window.$deskflows.reset();
     }
   });
-  emitter.on(CHATWOOT_SET_USER, ({ user }) => {
-    if (window.$chatwoot) {
-      window.$chatwoot.setUser(user.email, {
+  emitter.on(DESKFLOWS_SET_USER, ({ user }) => {
+    if (window.$deskflows) {
+      window.$deskflows.setUser(user.email, {
         avatar_url: user.avatar_url,
         email: user.email,
         identifier_hash: user.hmac_identifier,
         name: user.name,
       });
-      window.$chatwoot.setCustomAttributes({
+      window.$deskflows.setCustomAttributes({
         signedUpAt: user.created_at,
         cloudCustomer: 'true',
         account_id: user.account_id,

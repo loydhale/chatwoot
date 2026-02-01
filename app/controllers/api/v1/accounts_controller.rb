@@ -17,7 +17,7 @@ class Api::V1::AccountsController < Api::BaseController
               with: :render_error_response
 
   def show
-    @latest_chatwoot_version = ::Redis::Alfred.get(::Redis::Alfred::LATEST_CHATWOOT_VERSION)
+    @latest_deskflows_version = ::Redis::Alfred.get(::Redis::Alfred::LATEST_DESKFLOWS_VERSION)
     render 'api/v1/accounts/show', format: :json
   end
 

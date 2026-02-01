@@ -22,7 +22,7 @@ const i18nKey = props.isOnDeskFlowsCloud ? 'PAYWALL' : 'ENTERPRISE_PAYWALL';
     <BasePaywallModal
       feature-prefix="SLA"
       :i18n-key="i18nKey"
-      :is-on-chatwoot-cloud="isOnDeskFlowsCloud"
+      :is-on-deskflows-cloud="isOnDeskFlowsCloud"
       :is-super-admin="isSuperAdmin"
       @upgrade="emit('upgrade')"
     />

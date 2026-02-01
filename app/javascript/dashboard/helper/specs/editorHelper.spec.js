@@ -17,8 +17,8 @@ import {
   stripUnsupportedFormatting,
 } from '../editorHelper';
 import { FORMATTING } from 'dashboard/constants/editor';
-import { EditorState } from '@chatwoot/prosemirror-schema';
-import { EditorView } from '@chatwoot/prosemirror-schema';
+import { EditorState } from '@deskflows/prosemirror-schema';
+import { EditorView } from '@deskflows/prosemirror-schema';
 import { Schema } from 'prosemirror-model';
 
 // Define a basic ProseMirror schema

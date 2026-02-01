@@ -6,14 +6,14 @@ const portals = [
     id: 1,
     name: 'DeskFlows Help Center',
     articles: 67,
-    domain: 'chatwoot.help',
+    domain: 'deskflows.help',
     slug: 'help-center',
   },
   {
     id: 2,
     name: 'DeskFlows Handbook',
     articles: 42,
-    domain: 'chatwoot.help',
+    domain: 'deskflows.help',
     slug: 'handbook',
   },
   {

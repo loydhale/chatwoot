@@ -17,7 +17,7 @@ module DeskFlowsApp
     @enterprise ||= root.join('enterprise').exist?
   end
 
-  def self.chatwoot_cloud?
+  def self.deskflows_cloud?
     enterprise? && GlobalConfig.get_value('DEPLOYMENT_ENV') == 'cloud'
   end
 

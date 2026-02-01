@@ -123,7 +123,7 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "You can receive emails in your custom domain now."
       }
     },
-    "UPDATE_CHATWOOT": "An update {latestDeskFlowVersion} for DeskFlow is available. Please update your instance.",
+    "UPDATE_DESKFLOWS": "An update {latestDeskFlowVersion} for DeskFlow is available. Please update your instance.",
     "LEARN_MORE": "Learn more",
     "PAYMENT_PENDING": "Your payment is pending. Please update your payment information to continue using DeskFlow",
     "UPGRADE": "Përmirësoni planin për të vazhduar përdorimin e DeskFlow.",

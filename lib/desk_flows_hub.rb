@@ -1,6 +1,6 @@
 # TODO: lets use HTTParty instead of RestClient
 class DeskFlowsHub
-  BASE_URL = ENV.fetch('CHATWOOT_HUB_URL', 'https://hub.2.chatwoot.com')
+  BASE_URL = ENV.fetch('DESKFLOWS_HUB_URL', 'https://hub.2.deskflows.com')
   PING_URL = "#{BASE_URL}/ping".freeze
   REGISTRATION_URL = "#{BASE_URL}/instances".freeze
   PUSH_NOTIFICATION_URL = "#{BASE_URL}/send_push".freeze
@@ -32,9 +32,9 @@ class DeskFlowsHub
 
   def self.support_config
     {
-      support_website_token: InstallationConfig.find_by(name: 'CHATWOOT_SUPPORT_WEBSITE_TOKEN')&.value,
-      support_script_url: InstallationConfig.find_by(name: 'CHATWOOT_SUPPORT_SCRIPT_URL')&.value,
-      support_identifier_hash: InstallationConfig.find_by(name: 'CHATWOOT_SUPPORT_IDENTIFIER_HASH')&.value
+      support_website_token: InstallationConfig.find_by(name: 'DESKFLOWS_SUPPORT_WEBSITE_TOKEN')&.value,
+      support_script_url: InstallationConfig.find_by(name: 'DESKFLOWS_SUPPORT_SCRIPT_URL')&.value,
+      support_identifier_hash: InstallationConfig.find_by(name: 'DESKFLOWS_SUPPORT_IDENTIFIER_HASH')&.value
     }
   end
 
@@ -99,7 +99,7 @@ class DeskFlowsHub
   def self.get_captain_settings(account)
     info = {
       installation_identifier: installation_identifier,
-      chatwoot_account_id: account.id,
+      deskflows_account_id: account.id,
       account_name: account.name
     }
     HTTParty.post(CAPTAIN_ACCOUNTS_URL,

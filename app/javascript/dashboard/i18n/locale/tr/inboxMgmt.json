@@ -693,8 +693,8 @@
       "MESSENGER_SUB_HEAD": "Bu düğmeyi gövde etiketinizin içine yerleştirin",
       "ALLOWED_DOMAINS": {
         "TITLE": "İzin Verilen Alan Adları",
-        "SUBTITLE": "Virgülle ayrılmış joker karakterli veya normal alan adları ekleyin (hepsine izin vermek için boş bırakın), örneğin *.chatwoot.dev, chatwoot.com.",
-        "PLACEHOLDER": "Virgülle ayrılmış alan adlarını girin (ör: *.chatwoot.dev, chatwoot.com)"
+        "SUBTITLE": "Virgülle ayrılmış joker karakterli veya normal alan adları ekleyin (hepsine izin vermek için boş bırakın), örneğin *.deskflows.dev, deskflows.com.",
+        "PLACEHOLDER": "Virgülle ayrılmış alan adlarını girin (ör: *.deskflows.dev, deskflows.com)"
       },
       "INBOX_AGENTS": "Kullanıcılar",
       "INBOX_AGENTS_SUB_TEXT": "Bu gelen kutusuna aracı ekleyin veya aracıları kaldırın",
@@ -1022,7 +1022,7 @@
         "AGENT_MESSAGE": "Merhaba"
       },
       "BRANDING_TEXT": "DeskFlow tarafından desteklenmektedir",
-      "SCRIPT_SETTINGS": "\nwindow.chatwootSettings = {options};"
+      "SCRIPT_SETTINGS": "\nwindow.deskflowsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

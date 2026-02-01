@@ -29,7 +29,7 @@ export default {
       );
     },
     bannerMessage() {
-      return this.$t('GENERAL_SETTINGS.UPDATE_CHATWOOT', {
+      return this.$t('GENERAL_SETTINGS.UPDATE_DESKFLOWS', {
         latestDeskFlowsVersion: this.latestDeskFlowsVersion,
       });
     },
@@ -73,7 +73,7 @@ export default {
     v-if="shouldShowBanner"
     color-scheme="primary"
     :banner-message="bannerMessage"
-    href-link="https://github.com/chatwoot/chatwoot/releases"
+    href-link="https://github.com/deskflows/deskflows/releases"
     :href-link-text="$t('GENERAL_SETTINGS.LEARN_MORE')"
     has-close-button
     @close="dismissUpdateBanner"

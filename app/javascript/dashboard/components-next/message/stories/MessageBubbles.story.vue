@@ -133,13 +133,13 @@ const email = computed(() =>
         'image',
         'https://images.pexels.com/photos/28506417/pexels-photo-28506417/free-photo-of-motorbike-on-scenic-road-in-surat-thani-thailand.jpeg'
       ),
-      getAttachment('file', 'https://chatwoot.dev/invoice.pdf'),
-      getAttachment('file', 'https://chatwoot.dev/logs.txt'),
-      getAttachment('file', 'https://chatwoot.dev/contacts.xls'),
-      getAttachment('file', 'https://chatwoot.dev/customers.csv'),
-      getAttachment('file', 'https://chatwoot.dev/warehousing-policy.docx'),
-      getAttachment('file', 'https://chatwoot.dev/pitch-deck.ppt'),
-      getAttachment('file', 'https://chatwoot.dev/all-files.tar'),
+      getAttachment('file', 'https://deskflows.dev/invoice.pdf'),
+      getAttachment('file', 'https://deskflows.dev/logs.txt'),
+      getAttachment('file', 'https://deskflows.dev/contacts.xls'),
+      getAttachment('file', 'https://deskflows.dev/customers.csv'),
+      getAttachment('file', 'https://deskflows.dev/warehousing-policy.docx'),
+      getAttachment('file', 'https://deskflows.dev/pitch-deck.ppt'),
+      getAttachment('file', 'https://deskflows.dev/all-files.tar'),
       getAttachment(
         'audio',
         'https://cdn.freesound.org/previews/769/769025_16085454-lq.mp3'

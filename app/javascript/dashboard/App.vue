@@ -81,7 +81,7 @@ export default {
     this.listenToThemeChanges();
     // If user locale is set, use it; otherwise use account locale
     this.setLocale(
-      this.uiSettings?.locale || window.chatwootConfig.selectedLocale
+      this.uiSettings?.locale || window.deskflowsConfig.selectedLocale
     );
   },
   unmounted() {
@@ -105,7 +105,7 @@ export default {
       this.$store.dispatch('setActiveAccount', {
         accountId: this.currentAccountId,
       });
-      const { locale, latest_chatwoot_version: latestDeskFlowsVersion } =
+      const { locale, latest_deskflows_version: latestDeskFlowsVersion } =
         this.getAccount(this.currentAccountId);
       const { pubsub_token: pubsubToken } = this.currentUser || {};
       // If user locale is set, use it; otherwise use account locale
@@ -134,7 +134,7 @@ export default {
     class="flex flex-col w-full h-screen min-h-0"
     :dir="isRTL ? 'rtl' : 'ltr'"
   >
-    <UpdateBanner :latest-chatwoot-version="latestDeskFlowsVersion" />
+    <UpdateBanner :latest-deskflows-version="latestDeskFlowsVersion" />
     <template v-if="currentAccountId">
       <PendingEmailVerificationBanner v-if="hideOnOnboardingView" />
       <PaymentPendingBanner v-if="hideOnOnboardingView" />

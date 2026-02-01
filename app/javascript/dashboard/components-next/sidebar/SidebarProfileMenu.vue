@@ -35,8 +35,8 @@ const showChatSupport = computed(() => {
   return (
     isFeatureEnabledonAccount.value(
       accountId.value,
-      FEATURE_FLAGS.CONTACT_CHATWOOT_SUPPORT_TEAM
-    ) && globalConfig.value.chatwootInboxToken
+      FEATURE_FLAGS.CONTACT_DESKFLOWS_SUPPORT_TEAM
+    ) && globalConfig.value.deskflowsInboxToken
   );
 });
 
@@ -48,7 +48,7 @@ const menuItems = computed(() => {
       label: t('SIDEBAR_ITEMS.CONTACT_SUPPORT'),
       icon: 'i-lucide-life-buoy',
       click: () => {
-        window.$chatwoot.toggle();
+        window.$deskflows.toggle();
       },
     },
     {

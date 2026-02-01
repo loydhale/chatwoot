@@ -13,7 +13,7 @@ vi.mock('dashboard/composables/useImpersonation', () => ({
   }),
 }));
 
-global.chatwootConfig = {
+global.deskflowsConfig = {
   websocketURL: 'wss://test.deskflows.app',
 };
 
