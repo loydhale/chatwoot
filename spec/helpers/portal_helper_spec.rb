@@ -235,10 +235,10 @@ describe PortalHelper do
   describe '#render_category_content' do
     let(:markdown_content) { 'This is a *test* markdown content' }
     let(:plain_text_content) { 'This is a test markdown content' }
-    let(:renderer) { instance_double(DeskFlowMarkdownRenderer) }
+    let(:renderer) { instance_double(DeskFlowsMarkdownRenderer) }
 
     before do
-      allow(DeskFlowMarkdownRenderer).to receive(:new).with(markdown_content).and_return(renderer)
+      allow(DeskFlowsMarkdownRenderer).to receive(:new).with(markdown_content).and_return(renderer)
       allow(renderer).to receive(:render_markdown_to_plain_text).and_return(plain_text_content)
     end
 
@@ -260,8 +260,8 @@ describe PortalHelper do
   end
 
   describe '#set_og_image_url' do
-    let(:portal_name) { 'DeskFlow Portal' }
-    let(:title) { 'Welcome to DeskFlow' }
+    let(:portal_name) { 'DeskFlows Portal' }
+    let(:title) { 'Welcome to DeskFlows' }
 
     context 'when CDN URL is present' do
       before do

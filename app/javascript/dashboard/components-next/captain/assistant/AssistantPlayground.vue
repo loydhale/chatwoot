@@ -3,7 +3,7 @@ import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import NextButton from 'dashboard/components-next/button/Button.vue';
 import MessageList from './MessageList.vue';
-import AtlasAssistant from 'dashboard/api/captain/assistant';
+import HudleyAssistant from 'dashboard/api/captain/assistant';
 
 const { assistantId } = defineProps({
   assistantId: {
@@ -53,7 +53,7 @@ const sendMessage = async () => {
 
   try {
     isLoading.value = true;
-    const { data } = await AtlasAssistant.playground({
+    const { data } = await HudleyAssistant.playground({
       assistantId,
       messageContent: currentMessage,
       messageHistory: formatMessagesForApi(),

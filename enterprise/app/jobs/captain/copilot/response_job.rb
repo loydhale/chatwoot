@@ -1,4 +1,4 @@
-class Atlas::Copilot::ResponseJob < ApplicationJob
+class Hudley::Copilot::ResponseJob < ApplicationJob
   queue_as :default
 
   def perform(assistant:, conversation_id:, user_id:, copilot_thread_id:, message:)
@@ -15,7 +15,7 @@ class Atlas::Copilot::ResponseJob < ApplicationJob
   private
 
   def generate_chat_response(assistant:, conversation_id:, user_id:, copilot_thread_id:, message:)
-    service = Atlas::Copilot::ChatService.new(
+    service = Hudley::Copilot::ChatService.new(
       assistant,
       user_id: user_id,
       copilot_thread_id: copilot_thread_id,

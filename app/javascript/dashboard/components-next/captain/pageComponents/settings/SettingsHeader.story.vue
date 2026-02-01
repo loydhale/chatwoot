@@ -4,7 +4,7 @@ import SettingsHeader from './SettingsHeader.vue';
 
 <template>
   <Story
-    title="Atlas/PageComponents/SettingsHeader"
+    title="Hudley/PageComponents/SettingsHeader"
     :layout="{ type: 'grid', width: '800px' }"
   >
     <Variant title="Default">

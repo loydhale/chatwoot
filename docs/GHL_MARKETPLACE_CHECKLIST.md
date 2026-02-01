@@ -11,10 +11,10 @@
 - [ ] **Tagline:** AI-powered customer support desk for agencies (max 80 chars)
 - [ ] **Description:** Comprehensive description (see below)
 - [ ] **Category:** Customer Support / Helpdesk
-- [ ] **Website URL:** https://deskflow.app
-- [ ] **Support Email:** support@deskflow.app
-- [ ] **Privacy Policy URL:** https://deskflow.app/privacy
-- [ ] **Terms of Service URL:** https://deskflow.app/terms
+- [ ] **Website URL:** https://deskflow.ai
+- [ ] **Support Email:** support@deskflow.ai
+- [ ] **Privacy Policy URL:** https://deskflow.ai/privacy
+- [ ] **Terms of Service URL:** https://deskflow.ai/terms
 
 ### Branding Assets
 - [ ] **App Icon:** 512x512 PNG, transparent background

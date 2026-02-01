@@ -1,8 +1,8 @@
-class Atlas::Tools::FirecrawlParserJob < ApplicationJob
+class Hudley::Tools::FirecrawlParserJob < ApplicationJob
   queue_as :low
 
   def perform(assistant_id:, payload:)
-    assistant = Atlas::Assistant.find(assistant_id)
+    assistant = Hudley::Assistant.find(assistant_id)
     metadata = payload[:metadata]
 
     canonical_url = normalize_link(metadata['url'])

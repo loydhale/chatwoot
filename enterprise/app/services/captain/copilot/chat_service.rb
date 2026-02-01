@@ -1,5 +1,5 @@
-class Atlas::Copilot::ChatService < Llm::BaseAiService
-  include Atlas::ChatHelper
+class Hudley::Copilot::ChatService < Llm::BaseAiService
+  include Hudley::ChatHelper
 
   attr_reader :assistant, :account, :user, :copilot_thread, :previous_history, :messages
 
@@ -62,14 +62,14 @@ class Atlas::Copilot::ChatService < Llm::BaseAiService
   def build_tools
     tools = []
 
-    tools << Atlas::Tools::SearchDocumentationService.new(@assistant, user: @user)
-    tools << Atlas::Tools::Copilot::GetConversationService.new(@assistant, user: @user)
-    tools << Atlas::Tools::Copilot::SearchConversationsService.new(@assistant, user: @user)
-    tools << Atlas::Tools::Copilot::GetContactService.new(@assistant, user: @user)
-    tools << Atlas::Tools::Copilot::GetArticleService.new(@assistant, user: @user)
-    tools << Atlas::Tools::Copilot::SearchArticlesService.new(@assistant, user: @user)
-    tools << Atlas::Tools::Copilot::SearchContactsService.new(@assistant, user: @user)
-    tools << Atlas::Tools::Copilot::SearchLinearIssuesService.new(@assistant, user: @user)
+    tools << Hudley::Tools::SearchDocumentationService.new(@assistant, user: @user)
+    tools << Hudley::Tools::Copilot::GetConversationService.new(@assistant, user: @user)
+    tools << Hudley::Tools::Copilot::SearchConversationsService.new(@assistant, user: @user)
+    tools << Hudley::Tools::Copilot::GetContactService.new(@assistant, user: @user)
+    tools << Hudley::Tools::Copilot::GetArticleService.new(@assistant, user: @user)
+    tools << Hudley::Tools::Copilot::SearchArticlesService.new(@assistant, user: @user)
+    tools << Hudley::Tools::Copilot::SearchContactsService.new(@assistant, user: @user)
+    tools << Hudley::Tools::Copilot::SearchLinearIssuesService.new(@assistant, user: @user)
 
     tools.select(&:active?)
   end
@@ -77,7 +77,7 @@ class Atlas::Copilot::ChatService < Llm::BaseAiService
   def system_message
     {
       role: 'system',
-      content: Atlas::Llm::SystemPromptsService.copilot_response_generator(
+      content: Hudley::Llm::SystemPromptsService.copilot_response_generator(
         @assistant.config['product_name'],
         tools_summary,
         @assistant.config

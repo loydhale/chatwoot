@@ -1,4 +1,4 @@
-class Atlas::ReplySuggestionService < Atlas::BaseTaskService
+class Hudley::ReplySuggestionService < Hudley::BaseTaskService
   pattr_initialize [:account!, :conversation_display_id!, :user!]
 
   def perform

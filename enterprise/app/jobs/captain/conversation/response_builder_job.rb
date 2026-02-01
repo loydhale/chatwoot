@@ -1,4 +1,4 @@
-class Atlas::Conversation::ResponseBuilderJob < ApplicationJob
+class Hudley::Conversation::ResponseBuilderJob < ApplicationJob
   MAX_MESSAGE_LENGTH = 10_000
   retry_on ActiveStorage::FileNotFoundError, attempts: 3, wait: 2.seconds
   retry_on Faraday::BadRequestError, attempts: 3, wait: 2.seconds
@@ -30,14 +30,14 @@ class Atlas::Conversation::ResponseBuilderJob < ApplicationJob
   delegate :account, :inbox, to: :@conversation
 
   def generate_and_process_response
-    @response = Atlas::Llm::AssistantChatService.new(assistant: @assistant, conversation_id: @conversation.display_id).generate_response(
+    @response = Hudley::Llm::AssistantChatService.new(assistant: @assistant, conversation_id: @conversation.display_id).generate_response(
       message_history: collect_previous_messages
     )
     process_response
   end
 
   def generate_response_with_v2
-    @response = Atlas::Assistant::AgentRunnerService.new(assistant: @assistant, conversation: @conversation).generate_response(
+    @response = Hudley::Assistant::AgentRunnerService.new(assistant: @assistant, conversation: @conversation).generate_response(
       message_history: collect_previous_messages
     )
     process_response
@@ -74,7 +74,7 @@ class Atlas::Conversation::ResponseBuilderJob < ApplicationJob
   end
 
   def prepare_multimodal_message_content(message)
-    Atlas::OpenAiMessageBuilderService.new(message: message).generate_content
+    Hudley::OpenAiMessageBuilderService.new(message: message).generate_content
   end
 
   def handoff_requested?
@@ -132,7 +132,7 @@ class Atlas::Conversation::ResponseBuilderJob < ApplicationJob
   end
 
   def log_error(error)
-    DeskFlowExceptionTracker.new(error, account: account).capture_exception
+    DeskFlowsExceptionTracker.new(error, account: account).capture_exception
   end
 
   def captain_v2_enabled?

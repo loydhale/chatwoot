@@ -3,7 +3,7 @@ import { useStore, useMapGetter } from 'dashboard/composables/store';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 import { useConversationLabels } from 'dashboard/composables/useConversationLabels';
-import { useAtlas } from 'dashboard/composables/useAtlas';
+import { useHudley } from 'dashboard/composables/useHudley';
 import { useAgentsList } from 'dashboard/composables/useAgentsList';
 import { REPLY_EDITOR_MODES } from 'dashboard/components/widgets/WootWriter/constants';
 import {
@@ -18,7 +18,7 @@ vi.mock('dashboard/composables/store');
 vi.mock('vue-i18n');
 vi.mock('vue-router');
 vi.mock('dashboard/composables/useConversationLabels');
-vi.mock('dashboard/composables/useAtlas');
+vi.mock('dashboard/composables/useHudley');
 vi.mock('dashboard/composables/useAgentsList');
 
 describe('useConversationHotKeys', () => {
@@ -49,7 +49,7 @@ describe('useConversationHotKeys', () => {
       addLabelToConversation: vi.fn(),
       removeLabelFromConversation: vi.fn(),
     });
-    useAtlas.mockReturnValue({ captainTasksEnabled: { value: true } });
+    useHudley.mockReturnValue({ captainTasksEnabled: { value: true } });
     useAgentsList.mockReturnValue({
       agentsList: { value: [] },
       assignableAgents: { value: mockAssignableAgents },
@@ -76,7 +76,7 @@ describe('useConversationHotKeys', () => {
   });
 
   it('should not include AI assist actions when captain tasks is disabled', () => {
-    useAtlas.mockReturnValue({ captainTasksEnabled: { value: false } });
+    useHudley.mockReturnValue({ captainTasksEnabled: { value: false } });
     const { conversationHotKeys } = useConversationHotKeys();
     const aiAssistAction = conversationHotKeys.value.find(
       action => action.id === 'ai_assist'

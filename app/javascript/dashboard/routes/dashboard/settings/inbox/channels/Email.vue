@@ -15,7 +15,7 @@ const getters = useStoreGetters();
 const { t } = useI18n();
 
 const globalConfig = getters['globalConfig/get'];
-const isADeskFlowInstance = getters['globalConfig/isADeskFlowInstance'];
+const isADeskFlowsInstance = getters['globalConfig/isADeskFlowsInstance'];
 
 const emailProviderList = computed(() => {
   return [
@@ -41,7 +41,7 @@ const emailProviderList = computed(() => {
       icon: 'i-woot-mail',
     },
   ].filter(providerConfig => {
-    if (isADeskFlowInstance.value) {
+    if (isADeskFlowsInstance.value) {
       return true;
     }
     return providerConfig.isEnabled;

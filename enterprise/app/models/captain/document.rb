@@ -20,12 +20,12 @@
 #  index_captain_documents_on_assistant_id_and_external_link  (assistant_id,external_link) UNIQUE
 #  index_captain_documents_on_status                          (status)
 #
-class Atlas::Document < ApplicationRecord
+class Hudley::Document < ApplicationRecord
   class LimitExceededError < StandardError; end
   self.table_name = 'captain_documents'
 
-  belongs_to :assistant, class_name: 'Atlas::Assistant'
-  has_many :responses, class_name: 'Atlas::AssistantResponse', dependent: :destroy, as: :documentable
+  belongs_to :assistant, class_name: 'Hudley::Assistant'
+  has_many :responses, class_name: 'Hudley::AssistantResponse', dependent: :destroy, as: :documentable
   belongs_to :account
   has_one_attached :pdf_file
 
@@ -91,13 +91,13 @@ class Atlas::Document < ApplicationRecord
   def enqueue_crawl_job
     return if status != 'in_progress'
 
-    Atlas::Documents::CrawlJob.perform_later(self)
+    Hudley::Documents::CrawlJob.perform_later(self)
   end
 
   def enqueue_response_builder_job
     return unless should_enqueue_response_builder?
 
-    Atlas::Documents::ResponseBuilderJob.perform_later(self)
+    Hudley::Documents::ResponseBuilderJob.perform_later(self)
   end
 
   def should_enqueue_response_builder?

@@ -2,14 +2,14 @@ class Enterprise::Webhooks::FirecrawlController < ActionController::API
   before_action :validate_token
 
   def process_payload
-    Atlas::Tools::FirecrawlParserJob.perform_later(assistant_id: assistant.id, payload: payload) if crawl_page_event?
+    Hudley::Tools::FirecrawlParserJob.perform_later(assistant_id: assistant.id, payload: payload) if crawl_page_event?
 
     head :ok
   end
 
   private
 
-  include Atlas::FirecrawlHelper
+  include Hudley::FirecrawlHelper
 
   def payload
     permitted_params[:data]&.first&.to_h
@@ -20,7 +20,7 @@ class Enterprise::Webhooks::FirecrawlController < ActionController::API
   end
 
   def assistant
-    @assistant ||= Atlas::Assistant.find(permitted_params[:assistant_id])
+    @assistant ||= Hudley::Assistant.find(permitted_params[:assistant_id])
   end
 
   def assistant_token

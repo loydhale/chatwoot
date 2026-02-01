@@ -1,4 +1,4 @@
-class Atlas::Documents::CrawlJob < ApplicationJob
+class Hudley::Documents::CrawlJob < ApplicationJob
   queue_as :low
 
   def perform(document)
@@ -13,10 +13,10 @@ class Atlas::Documents::CrawlJob < ApplicationJob
 
   private
 
-  include Atlas::FirecrawlHelper
+  include Hudley::FirecrawlHelper
 
   def perform_pdf_processing(document)
-    Atlas::Llm::PdfProcessingService.new(document).process
+    Hudley::Llm::PdfProcessingService.new(document).process
     document.update!(status: :available)
   rescue StandardError => e
     Rails.logger.error I18n.t('captain.documents.pdf_processing_failed', document_id: document.id, error: e.message)
@@ -24,16 +24,16 @@ class Atlas::Documents::CrawlJob < ApplicationJob
   end
 
   def perform_simple_crawl(document)
-    page_links = Atlas::Tools::SimplePageCrawlService.new(document.external_link).page_links
+    page_links = Hudley::Tools::SimplePageCrawlService.new(document.external_link).page_links
 
     page_links.each do |page_link|
-      Atlas::Tools::SimplePageCrawlParserJob.perform_later(
+      Hudley::Tools::SimplePageCrawlParserJob.perform_later(
         assistant_id: document.assistant_id,
         page_link: page_link
       )
     end
 
-    Atlas::Tools::SimplePageCrawlParserJob.perform_later(
+    Hudley::Tools::SimplePageCrawlParserJob.perform_later(
       assistant_id: document.assistant_id,
       page_link: document.external_link
     )
@@ -44,7 +44,7 @@ class Atlas::Documents::CrawlJob < ApplicationJob
     document_limit = captain_usage_limits[:documents] || {}
     crawl_limit = [document_limit[:current_available] || 10, 500].min
 
-    Atlas::Tools::FirecrawlService
+    Hudley::Tools::FirecrawlService
       .new
       .perform(
         document.external_link,

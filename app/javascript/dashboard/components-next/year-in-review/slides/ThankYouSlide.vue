@@ -34,7 +34,7 @@ const signatureImage =
       <div class="mt-12">
         <img
           :src="signatureImage"
-          alt="DeskFlow Team Signature"
+          alt="DeskFlows Team Signature"
           class="w-auto h-8 md:h-10"
         />
       </div>

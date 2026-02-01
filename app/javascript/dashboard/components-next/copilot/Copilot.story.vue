@@ -22,7 +22,7 @@ const messages = ref([
   },
 ]);
 
-const isAtlasTyping = ref(false);
+const isHudleyTyping = ref(false);
 
 const sendMessage = message => {
   // Add user message
@@ -33,9 +33,9 @@ const sendMessage = message => {
   });
 
   // Simulate AI response
-  isAtlasTyping.value = true;
+  isHudleyTyping.value = true;
   setTimeout(() => {
-    isAtlasTyping.value = false;
+    isHudleyTyping.value = false;
     messages.value.push({
       id: messages.value.length + 1,
       role: 'assistant',
@@ -47,13 +47,13 @@ const sendMessage = message => {
 
 <template>
   <Story
-    title="Atlas/Copilot"
+    title="Hudley/Copilot"
     :layout="{ type: 'grid', width: '400px', height: '800px' }"
   >
     <Copilot
       :support-agent="supportAgent"
       :messages="messages"
-      :is-captain-typing="isAtlasTyping"
+      :is-captain-typing="isHudleyTyping"
       @send-message="sendMessage"
     />
   </Story>

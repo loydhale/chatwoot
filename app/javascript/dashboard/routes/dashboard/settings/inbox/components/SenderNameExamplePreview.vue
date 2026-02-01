@@ -31,7 +31,7 @@ export default {
           ),
           preview: {
             senderName: 'Smith',
-            businessName: 'DeskFlow',
+            businessName: 'DeskFlows',
             email: '<support@yourbusiness.com>',
           },
         },
@@ -45,7 +45,7 @@ export default {
           ),
           preview: {
             senderName: '',
-            businessName: 'DeskFlow   ',
+            businessName: 'DeskFlows   ',
             email: '<support@yourbusiness.com>',
           },
         },

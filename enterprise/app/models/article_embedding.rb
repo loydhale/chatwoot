@@ -26,6 +26,6 @@ class ArticleEmbedding < ApplicationRecord
   def update_response_embedding
     return unless saved_change_to_term? || embedding.nil?
 
-    Atlas::Llm::UpdateEmbeddingJob.perform_later(self, term)
+    Hudley::Llm::UpdateEmbeddingJob.perform_later(self, term)
   end
 end

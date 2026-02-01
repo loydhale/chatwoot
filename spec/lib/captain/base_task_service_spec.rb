@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Atlas::BaseTaskService do
+RSpec.describe Hudley::BaseTaskService do
   let(:account) { create(:account) }
   let(:inbox) { create(:inbox, account: account) }
   let(:conversation) { create(:conversation, account: account, inbox: inbox) }
@@ -97,12 +97,12 @@ RSpec.describe Atlas::BaseTaskService do
 
       messages = service.send(:conversation_messages)
       total_length = messages.sum { |m| m[:content].length }
-      expect(total_length).to be <= Atlas::BaseTaskService::TOKEN_LIMIT
+      expect(total_length).to be <= Hudley::BaseTaskService::TOKEN_LIMIT
     end
 
     it 'respects start_from offset for token counting' do
       # With a start_from offset, fewer messages should fit
-      start_from = Atlas::BaseTaskService::TOKEN_LIMIT - 100
+      start_from = Hudley::BaseTaskService::TOKEN_LIMIT - 100
       messages = service.send(:conversation_messages, start_from: start_from)
 
       total_length = messages.sum { |m| m[:content].length }
@@ -241,16 +241,16 @@ RSpec.describe Atlas::BaseTaskService do
     let(:model) { 'gpt-4' }
     let(:messages) { [{ role: 'user', content: 'Hello' }] }
     let(:error) { StandardError.new('API Error') }
-    let(:exception_tracker) { instance_double(DeskFlowExceptionTracker) }
+    let(:exception_tracker) { instance_double(DeskFlowsExceptionTracker) }
 
     before do
       allow(Llm::Config).to receive(:with_api_key).and_raise(error)
-      allow(DeskFlowExceptionTracker).to receive(:new).with(error, account: account).and_return(exception_tracker)
+      allow(DeskFlowsExceptionTracker).to receive(:new).with(error, account: account).and_return(exception_tracker)
       allow(exception_tracker).to receive(:capture_exception)
     end
 
     it 'tracks exceptions' do
-      expect(DeskFlowExceptionTracker).to receive(:new).with(error, account: account).and_return(exception_tracker)
+      expect(DeskFlowsExceptionTracker).to receive(:new).with(error, account: account).and_return(exception_tracker)
       expect(exception_tracker).to receive(:capture_exception)
 
       service.send(:make_api_call, model: model, messages: messages)

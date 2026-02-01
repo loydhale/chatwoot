@@ -74,7 +74,7 @@ class Enterprise::Api::V1::AccountsController < Api::BaseController
   private
 
   def check_cloud_env
-    render json: { error: 'Not found' }, status: :not_found unless DeskFlowApp.chatwoot_cloud?
+    render json: { error: 'Not found' }, status: :not_found unless DeskFlowsApp.chatwoot_cloud?
   end
 
   def default_limits

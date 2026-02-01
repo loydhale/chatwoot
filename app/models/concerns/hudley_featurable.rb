@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module AtlasFeaturable
+module HudleyFeaturable
   extend ActiveSupport::Concern
 
   included do

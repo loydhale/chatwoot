@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe DeskFlowHub do
+describe DeskFlowsHub do
   it 'generates installation identifier' do
     installation_identifier = described_class.installation_identifier
     expect(installation_identifier).not_to be_nil
@@ -73,7 +73,7 @@ describe DeskFlowHub do
   context 'when fetching captain settings' do
     it 'returns the captain settings' do
       account = create(:account)
-      stub_request(:post, DeskFlowHub::CAPTAIN_ACCOUNTS_URL).with(
+      stub_request(:post, DeskFlowsHub::CAPTAIN_ACCOUNTS_URL).with(
         body: { installation_identifier: described_class.installation_identifier, chatwoot_account_id: account.id, account_name: account.name }
       ).to_return(
         body: { account_email: 'test@test.com', account_id: '123', access_token: '123', assistant_id: '123' }.to_json

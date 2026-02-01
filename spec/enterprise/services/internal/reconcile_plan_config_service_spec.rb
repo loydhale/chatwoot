@@ -6,7 +6,7 @@ RSpec.describe Internal::ReconcilePlanConfigService do
 
     context 'when pricing plan is community' do
       before do
-        allow(DeskFlowHub).to receive(:pricing_plan).and_return('community')
+        allow(DeskFlowsHub).to receive(:pricing_plan).and_return('community')
       end
 
       it 'disables the premium features for accounts' do
@@ -29,7 +29,7 @@ RSpec.describe Internal::ReconcilePlanConfigService do
       end
 
       it 'will not create a premium config reset warning if config is not modified' do
-        create(:installation_config, name: 'INSTALLATION_NAME', value: 'DeskFlow')
+        create(:installation_config, name: 'INSTALLATION_NAME', value: 'DeskFlows')
         service.perform
         expect(Redis::Alfred.get(Redis::Alfred::CHATWOOT_INSTALLATION_CONFIG_RESET_WARNING)).to be_nil
       end
@@ -38,14 +38,14 @@ RSpec.describe Internal::ReconcilePlanConfigService do
         create(:installation_config, name: 'INSTALLATION_NAME', value: 'custom-name')
         create(:installation_config, name: 'LOGO', value: '/custom-path/logo.svg')
         service.perform
-        expect(InstallationConfig.find_by(name: 'INSTALLATION_NAME').value).to eq('DeskFlow')
+        expect(InstallationConfig.find_by(name: 'INSTALLATION_NAME').value).to eq('DeskFlows')
         expect(InstallationConfig.find_by(name: 'LOGO').value).to eq('/brand-assets/logo.svg')
       end
     end
 
     context 'when pricing plan is not community' do
       before do
-        allow(DeskFlowHub).to receive(:pricing_plan).and_return('enterprise')
+        allow(DeskFlowsHub).to receive(:pricing_plan).and_return('enterprise')
       end
 
       it 'unset premium config warning on upgrade' do

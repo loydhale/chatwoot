@@ -34,7 +34,7 @@ const emit = defineEmits([
   'closeMobileSidebar',
 ]);
 
-const { accountScopedRoute, isOnDeskFlowCloud } = useAccount();
+const { accountScopedRoute, isOnDeskFlowsCloud } = useAccount();
 const store = useStore();
 const searchShortcut = useKbd([`$mod`, 'k']);
 const { t } = useI18n();
@@ -221,7 +221,7 @@ const menuItems = computed(() => {
       ],
     },
     {
-      name: 'Atlas',
+      name: 'Hudley',
       icon: 'i-woot-captain',
       label: t('SIDEBAR.CAPTAIN'),
       activeOn: ['captain_assistants_create_index'],
@@ -485,7 +485,7 @@ const menuItems = computed(() => {
           to: accountScopedRoute('general_settings_index'),
         },
         // {
-        //   name: 'Settings Atlas',
+        //   name: 'Settings Hudley',
         //   label: t('SIDEBAR.CAPTAIN_AI'),
         //   icon: 'i-woot-captain',
         //   to: accountScopedRoute('captain_settings_index'),
@@ -661,7 +661,7 @@ const menuItems = computed(() => {
         class="pointer-events-none absolute inset-x-0 -top-[31px] h-8 bg-gradient-to-t from-n-solid-2 to-transparent"
       />
       <SidebarChangelogCard
-        v-if="isOnDeskFlowCloud && !isACustomBrandedInstance"
+        v-if="isOnDeskFlowsCloud && !isACustomBrandedInstance"
       />
       <div
         class="p-1 flex-shrink-0 flex w-full justify-between z-10 gap-2 items-center border-t border-n-weak shadow-[0px_-2px_4px_0px_rgba(27,28,29,0.02)]"

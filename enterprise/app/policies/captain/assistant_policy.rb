@@ -1,4 +1,4 @@
-class Atlas::AssistantPolicy < ApplicationPolicy
+class Hudley::AssistantPolicy < ApplicationPolicy
   def index?
     true
   end

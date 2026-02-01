@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Atlas::Copilot::ResponseJob, type: :job do
+RSpec.describe Hudley::Copilot::ResponseJob, type: :job do
   let(:account) { create(:account) }
   let(:user) { create(:user, account: account) }
   let(:assistant) { create(:captain_assistant, account: account) }
@@ -9,10 +9,10 @@ RSpec.describe Atlas::Copilot::ResponseJob, type: :job do
   let(:message) { { 'content' => 'Test message' } }
 
   describe '#perform' do
-    let(:chat_service) { instance_double(Atlas::Copilot::ChatService) }
+    let(:chat_service) { instance_double(Hudley::Copilot::ChatService) }
 
     before do
-      allow(Atlas::Copilot::ChatService).to receive(:new).with(
+      allow(Hudley::Copilot::ChatService).to receive(:new).with(
         assistant,
         user_id: user.id,
         copilot_thread_id: copilot_thread.id,
@@ -24,7 +24,7 @@ RSpec.describe Atlas::Copilot::ResponseJob, type: :job do
     end
 
     it 'initializes ChatService with correct parameters and calls generate_response' do
-      expect(Atlas::Copilot::ChatService).to receive(:new).with(
+      expect(Hudley::Copilot::ChatService).to receive(:new).with(
         assistant,
         user_id: user.id,
         copilot_thread_id: copilot_thread.id,

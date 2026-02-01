@@ -31,11 +31,11 @@ RSpec.describe 'Accounts API', type: :request do
         end
       end
 
-      it 'calls DeskFlowCaptcha' do
+      it 'calls DeskFlowsCaptcha' do
         with_modified_env ENABLE_ACCOUNT_SIGNUP: 'true' do
           captcha = double
           allow(account_builder).to receive(:perform).and_return([user, account])
-          allow(DeskFlowCaptcha).to receive(:new).and_return(captcha)
+          allow(DeskFlowsCaptcha).to receive(:new).and_return(captcha)
           allow(captcha).to receive(:valid?).and_return(true)
 
           params = { account_name: 'test', email: email, user: nil, locale: nil, user_full_name: user_full_name, password: 'Password1!',
@@ -45,7 +45,7 @@ RSpec.describe 'Accounts API', type: :request do
                params: params,
                as: :json
 
-          expect(DeskFlowCaptcha).to have_received(:new).with('123')
+          expect(DeskFlowsCaptcha).to have_received(:new).with('123')
           expect(response.headers.keys).to include('access-token', 'token-type', 'client', 'expiry', 'uid')
           expect(response.body).to include('en')
         end

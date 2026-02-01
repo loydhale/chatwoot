@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe Atlas::Onboarding::WebsiteAnalyzerService do
+RSpec.describe Hudley::Onboarding::WebsiteAnalyzerService do
   let(:website_url) { 'https://example.com' }
   let(:service) { described_class.new(website_url) }
-  let(:mock_crawler) { instance_double(Atlas::Tools::SimplePageCrawlService) }
+  let(:mock_crawler) { instance_double(Hudley::Tools::SimplePageCrawlService) }
   let(:mock_chat) { instance_double(RubyLLM::Chat) }
   let(:business_info) do
     {
@@ -18,7 +18,7 @@ RSpec.describe Atlas::Onboarding::WebsiteAnalyzerService do
 
   before do
     create(:installation_config, name: 'CAPTAIN_OPEN_AI_API_KEY', value: 'test-key')
-    allow(Atlas::Tools::SimplePageCrawlService).to receive(:new).and_return(mock_crawler)
+    allow(Hudley::Tools::SimplePageCrawlService).to receive(:new).and_return(mock_crawler)
     allow(RubyLLM).to receive(:chat).and_return(mock_chat)
     allow(mock_chat).to receive(:with_temperature).and_return(mock_chat)
     allow(mock_chat).to receive(:with_params).and_return(mock_chat)

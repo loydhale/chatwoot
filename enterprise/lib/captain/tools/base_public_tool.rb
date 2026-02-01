@@ -1,6 +1,6 @@
 require 'agents'
 
-class Atlas::Tools::BasePublicTool < Agents::Tool
+class Hudley::Tools::BasePublicTool < Agents::Tool
   def initialize(assistant)
     @assistant = assistant
     super()

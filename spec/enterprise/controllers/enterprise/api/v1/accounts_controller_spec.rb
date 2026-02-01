@@ -205,8 +205,8 @@ RSpec.describe 'Enterprise Billing APIs', type: :request do
               },
               'conversation' => {},
               'captain' => {
-                'documents' => { 'consumed' => 0, 'current_available' => DeskFlowApp.max_limit, 'total_count' => DeskFlowApp.max_limit },
-                'responses' => { 'consumed' => 0, 'current_available' => DeskFlowApp.max_limit, 'total_count' => DeskFlowApp.max_limit }
+                'documents' => { 'consumed' => 0, 'current_available' => DeskFlowsApp.max_limit, 'total_count' => DeskFlowsApp.max_limit },
+                'responses' => { 'consumed' => 0, 'current_available' => DeskFlowsApp.max_limit, 'total_count' => DeskFlowsApp.max_limit }
               },
               'non_web_inboxes' => {}
             }

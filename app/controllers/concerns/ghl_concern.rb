@@ -26,7 +26,7 @@ module GhlConcern
   private
 
   def ghl_scopes
-    # Default scopes for DeskFlow integration
+    # Default scopes for DeskFlows integration
     # Adjust based on features needed
     [
       'contacts.readonly',

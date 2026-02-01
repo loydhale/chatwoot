@@ -1,4 +1,4 @@
-class Atlas::Tools::SearchDocumentationService < Atlas::Tools::BaseTool
+class Hudley::Tools::SearchDocumentationService < Hudley::Tools::BaseTool
   def self.name
     'search_documentation'
   end

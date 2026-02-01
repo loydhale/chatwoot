@@ -1,4 +1,4 @@
-module Atlas::ChatResponseHelper
+module Hudley::ChatResponseHelper
   private
 
   def build_response(response)

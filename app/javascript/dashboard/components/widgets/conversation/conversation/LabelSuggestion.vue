@@ -4,7 +4,7 @@ import NextButton from 'dashboard/components-next/button/Button.vue';
 import Avatar from 'dashboard/components-next/avatar/Avatar.vue';
 
 // composables
-import { useAtlas } from 'dashboard/composables/useAtlas';
+import { useHudley } from 'dashboard/composables/useHudley';
 import { useTrack } from 'dashboard/composables';
 
 // store & api
@@ -33,7 +33,7 @@ export default {
     },
   },
   setup() {
-    const { captainTasksEnabled } = useAtlas();
+    const { captainTasksEnabled } = useHudley();
 
     return { captainTasksEnabled };
   },

@@ -33,7 +33,7 @@ if ENV.fetch('JUDOSCALE_URL', false).present?
   require 'judoscale-sidekiq'
 end
 
-module DeskFlow
+module DeskFlows
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
@@ -113,4 +113,4 @@ module DeskFlow
 end
 
 # Alias for backwards compatibility with Chatwoot code
-Chatwoot = DeskFlow unless defined?(Chatwoot)
+Chatwoot = DeskFlows unless defined?(Chatwoot)

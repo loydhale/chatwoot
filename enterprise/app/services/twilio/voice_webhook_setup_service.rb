@@ -25,7 +25,7 @@ class Twilio::VoiceWebhookSetupService
   end
 
   def create_twiml_app!
-    friendly_name = "DeskFlow Voice #{channel.phone_number}"
+    friendly_name = "DeskFlows Voice #{channel.phone_number}"
     app = api_key_client.applications.create(
       friendly_name: friendly_name,
       voice_url: channel.voice_call_webhook_url,

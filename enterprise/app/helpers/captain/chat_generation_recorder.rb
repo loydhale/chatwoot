@@ -1,4 +1,4 @@
-module Atlas::ChatGenerationRecorder
+module Hudley::ChatGenerationRecorder
   extend ActiveSupport::Concern
   include Integrations::LlmInstrumentationConstants
 

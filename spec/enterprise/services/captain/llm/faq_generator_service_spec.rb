@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Atlas::Llm::FaqGeneratorService do
+RSpec.describe Hudley::Llm::FaqGeneratorService do
   let(:content) { 'Sample content for FAQ generation' }
   let(:language) { 'english' }
   let(:service) { described_class.new(content, language) }
@@ -37,7 +37,7 @@ RSpec.describe Atlas::Llm::FaqGeneratorService do
       end
 
       it 'uses SystemPromptsService with the specified language' do
-        expect(Atlas::Llm::SystemPromptsService).to receive(:faq_generator).with(language).at_least(:once).and_call_original
+        expect(Hudley::Llm::SystemPromptsService).to receive(:faq_generator).with(language).at_least(:once).and_call_original
         service.generate
       end
     end
@@ -46,7 +46,7 @@ RSpec.describe Atlas::Llm::FaqGeneratorService do
       let(:language) { 'spanish' }
 
       it 'passes the correct language to SystemPromptsService' do
-        expect(Atlas::Llm::SystemPromptsService).to receive(:faq_generator).with('spanish').at_least(:once).and_call_original
+        expect(Hudley::Llm::SystemPromptsService).to receive(:faq_generator).with('spanish').at_least(:once).and_call_original
         service.generate
       end
     end

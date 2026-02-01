@@ -1,4 +1,4 @@
-class Atlas::Tools::BaseService
+class Hudley::Tools::BaseService
   attr_accessor :assistant
 
   def initialize(assistant, user: nil)

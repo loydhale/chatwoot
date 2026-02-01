@@ -4,7 +4,7 @@ class Internal::CheckNewVersionsJob < ApplicationJob
   def perform
     return unless Rails.env.production?
 
-    @instance_info = DeskFlowHub.sync_with_hub
+    @instance_info = DeskFlowsHub.sync_with_hub
     update_version_info
   end
 

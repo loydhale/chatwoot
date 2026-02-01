@@ -4,14 +4,14 @@ import PortalSwitcher from './PortalSwitcher.vue';
 const portals = [
   {
     id: 1,
-    name: 'DeskFlow Help Center',
+    name: 'DeskFlows Help Center',
     articles: 67,
     domain: 'chatwoot.help',
     slug: 'help-center',
   },
   {
     id: 2,
-    name: 'DeskFlow Handbook',
+    name: 'DeskFlows Handbook',
     articles: 42,
     domain: 'chatwoot.help',
     slug: 'handbook',

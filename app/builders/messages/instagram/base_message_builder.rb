@@ -169,7 +169,7 @@ class Messages::Instagram::BaseMessageBuilder < Messages::Messenger::MessageBuil
   end
 
   def handle_error(error)
-    DeskFlowExceptionTracker.new(error, account: @inbox.account).capture_exception
+    DeskFlowsExceptionTracker.new(error, account: @inbox.account).capture_exception
     true
   end
 

@@ -52,7 +52,7 @@ const onConfirm = dialog => {};
           <Input
             id="portal-name"
             type="text"
-            placeholder="User Guide | DeskFlow"
+            placeholder="User Guide | DeskFlows"
             label="Name"
             message="This will be the name of your public facing portal"
           />

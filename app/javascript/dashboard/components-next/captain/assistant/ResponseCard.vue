@@ -225,7 +225,7 @@ const handleDocumentableClick = () => {
             class="text-sm text-n-slate-11 grid grid-cols-[auto_1fr] items-center gap-1 min-w-0"
           >
             <Icon
-              v-if="documentable.type === 'Atlas::Document'"
+              v-if="documentable.type === 'Hudley::Document'"
               icon="i-ph-files-light"
               class="size-3.5"
             />
@@ -240,7 +240,7 @@ const handleDocumentableClick = () => {
               class="size-3.5"
             />
             <span
-              v-if="documentable.type === 'Atlas::Document'"
+              v-if="documentable.type === 'Hudley::Document'"
               class="truncate"
               :title="documentable.name"
             >

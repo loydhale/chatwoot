@@ -1,6 +1,6 @@
 require 'agents'
 
-class Atlas::Assistant::AgentRunnerService
+class Hudley::Assistant::AgentRunnerService
   CONVERSATION_STATE_ATTRIBUTES = %i[
     id display_id inbox_id contact_id status priority
     label_list custom_attributes additional_attributes
@@ -29,8 +29,8 @@ class Atlas::Assistant::AgentRunnerService
   rescue StandardError => e
     # when running the agent runner service in a rake task, the conversation might not have an account associated
     # for regular production usage, it will run just fine
-    DeskFlowExceptionTracker.new(e, account: @conversation&.account).capture_exception
-    Rails.logger.error "[Atlas V2] AgentRunnerService error: #{e.message}"
+    DeskFlowsExceptionTracker.new(e, account: @conversation&.account).capture_exception
+    Rails.logger.error "[Hudley V2] AgentRunnerService error: #{e.message}"
     Rails.logger.error e.backtrace.join("\n")
 
     error_response(e.message)
@@ -73,7 +73,7 @@ class Atlas::Assistant::AgentRunnerService
 
   # Response formatting methods
   def process_agent_result(result)
-    Rails.logger.info "[Atlas V2] Agent result: #{result.inspect}"
+    Rails.logger.info "[Hudley V2] Agent result: #{result.inspect}"
     response = format_response(result.output)
 
     # Extract agent name from context
@@ -136,7 +136,7 @@ class Atlas::Assistant::AgentRunnerService
     runner.on_agent_thinking do |*args|
       @callbacks[:on_agent_thinking].call(*args)
     rescue StandardError => e
-      Rails.logger.warn "[Atlas] Callback error for agent_thinking: #{e.message}"
+      Rails.logger.warn "[Hudley] Callback error for agent_thinking: #{e.message}"
     end
   end
 
@@ -144,7 +144,7 @@ class Atlas::Assistant::AgentRunnerService
     runner.on_tool_start do |*args|
       @callbacks[:on_tool_start].call(*args)
     rescue StandardError => e
-      Rails.logger.warn "[Atlas] Callback error for tool_start: #{e.message}"
+      Rails.logger.warn "[Hudley] Callback error for tool_start: #{e.message}"
     end
   end
 
@@ -152,7 +152,7 @@ class Atlas::Assistant::AgentRunnerService
     runner.on_tool_complete do |*args|
       @callbacks[:on_tool_complete].call(*args)
     rescue StandardError => e
-      Rails.logger.warn "[Atlas] Callback error for tool_complete: #{e.message}"
+      Rails.logger.warn "[Hudley] Callback error for tool_complete: #{e.message}"
     end
   end
 
@@ -160,7 +160,7 @@ class Atlas::Assistant::AgentRunnerService
     runner.on_agent_handoff do |*args|
       @callbacks[:on_agent_handoff].call(*args)
     rescue StandardError => e
-      Rails.logger.warn "[Atlas] Callback error for agent_handoff: #{e.message}"
+      Rails.logger.warn "[Hudley] Callback error for agent_handoff: #{e.message}"
     end
   end
 end

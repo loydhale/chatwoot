@@ -1,4 +1,4 @@
-class Atlas::Llm::ContactAttributesService < Llm::BaseAiService
+class Hudley::Llm::ContactAttributesService < Llm::BaseAiService
   include Integrations::LlmInstrumentation
   def initialize(assistant, conversation)
     super()
@@ -26,7 +26,7 @@ class Atlas::Llm::ContactAttributesService < Llm::BaseAiService
     end
     parse_response(response.content)
   rescue RubyLLM::Error => e
-    DeskFlowExceptionTracker.new(e, account: @conversation.account).capture_exception
+    DeskFlowsExceptionTracker.new(e, account: @conversation.account).capture_exception
     []
   end
 
@@ -46,7 +46,7 @@ class Atlas::Llm::ContactAttributesService < Llm::BaseAiService
   end
 
   def system_prompt
-    Atlas::Llm::SystemPromptsService.attributes_generator
+    Hudley::Llm::SystemPromptsService.attributes_generator
   end
 
   def parse_response(content)

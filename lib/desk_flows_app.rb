@@ -2,7 +2,7 @@
 
 require 'pathname'
 
-module DeskFlowApp
+module DeskFlowsApp
   def self.root
     Pathname.new(File.expand_path('..', __dir__))
   end

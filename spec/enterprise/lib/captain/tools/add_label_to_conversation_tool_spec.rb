@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Atlas::Tools::AddLabelToConversationTool, type: :model do
+RSpec.describe Hudley::Tools::AddLabelToConversationTool, type: :model do
   let(:account) { create(:account) }
   let(:assistant) { create(:captain_assistant, account: account) }
   let(:tool) { described_class.new(assistant) }

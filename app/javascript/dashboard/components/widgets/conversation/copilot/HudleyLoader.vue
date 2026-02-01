@@ -23,6 +23,6 @@
 
 <script>
 export default {
-  name: 'AtlasLoader',
+  name: 'HudleyLoader',
 };
 </script>

@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isOnDeskFlowCloud: 'globalConfig/isOnDeskFlowCloud',
+      isOnDeskFlowsCloud: 'globalConfig/isOnDeskFlowsCloud',
       isFeatureEnabledonAccount: 'accounts/isFeatureEnabledonAccount',
       records: 'sla/getSLA',
       currentUser: 'getCurrentUser',
@@ -126,7 +126,7 @@ export default {
       <SLAPaywallEnterprise
         v-if="isBehindAPaywall"
         :is-super-admin="isSuperAdmin"
-        :is-on-chatwoot-cloud="isOnDeskFlowCloud"
+        :is-on-chatwoot-cloud="isOnDeskFlowsCloud"
         @upgrade="onClickCTA"
       />
       <SLAEmptyState

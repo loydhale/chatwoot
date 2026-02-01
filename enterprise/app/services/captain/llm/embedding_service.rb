@@ -1,4 +1,4 @@
-class Atlas::Llm::EmbeddingService
+class Hudley::Llm::EmbeddingService
   include Integrations::LlmInstrumentation
 
   class EmbeddingsError < StandardError; end

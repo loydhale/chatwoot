@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Accounts::Atlas::BulkActions', type: :request do
+RSpec.describe 'Api::V1::Accounts::Hudley::BulkActions', type: :request do
   let(:account) { create(:account) }
   let(:assistant) { create(:captain_assistant, account: account) }
   let(:admin) { create(:user, account: account, role: :administrator) }
@@ -61,7 +61,7 @@ RSpec.describe 'Api::V1::Accounts::Atlas::BulkActions', type: :request do
                params: delete_params,
                headers: admin.create_new_auth_token,
                as: :json
-        end.to change(Atlas::AssistantResponse, :count).by(-2)
+        end.to change(Hudley::AssistantResponse, :count).by(-2)
 
         expect(response).to have_http_status(:ok)
         expect(json_response).to eq([])

@@ -14,8 +14,8 @@
 #  index_captain_inboxes_on_captain_assistant_id_and_inbox_id  (captain_assistant_id,inbox_id) UNIQUE
 #  index_captain_inboxes_on_inbox_id                           (inbox_id)
 #
-class AtlasInbox < ApplicationRecord
-  belongs_to :captain_assistant, class_name: 'Atlas::Assistant'
+class HudleyInbox < ApplicationRecord
+  belongs_to :captain_assistant, class_name: 'Hudley::Assistant'
   belongs_to :inbox
 
   validates :inbox_id, uniqueness: true

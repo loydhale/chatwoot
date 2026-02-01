@@ -53,9 +53,9 @@ const state = {
 
 export const getters = {
   get: $state => $state,
-  isOnDeskFlowCloud: $state => $state.deploymentEnv === 'cloud',
-  isACustomBrandedInstance: $state => $state.installationName !== 'DeskFlow',
-  isADeskFlowInstance: $state => $state.installationName === 'DeskFlow',
+  isOnDeskFlowsCloud: $state => $state.deploymentEnv === 'cloud',
+  isACustomBrandedInstance: $state => $state.installationName !== 'DeskFlows',
+  isADeskFlowsInstance: $state => $state.installationName === 'DeskFlows',
 };
 
 export const actions = {};

@@ -4,7 +4,7 @@ import { useStore, useMapGetter } from 'dashboard/composables/store';
 import { useRoute } from 'vue-router';
 import { emitter } from 'shared/helpers/mitt';
 import { useConversationLabels } from 'dashboard/composables/useConversationLabels';
-import { useAtlas } from 'dashboard/composables/useAtlas';
+import { useHudley } from 'dashboard/composables/useHudley';
 import { useAgentsList } from 'dashboard/composables/useAgentsList';
 import { CMD_AI_ASSIST } from 'dashboard/helper/commandbar/events';
 import { REPLY_EDITOR_MODES } from 'dashboard/components/widgets/WootWriter/constants';
@@ -146,7 +146,7 @@ export function useConversationHotKeys() {
     removeLabelFromConversation,
   } = useConversationLabels();
 
-  const { captainTasksEnabled } = useAtlas();
+  const { captainTasksEnabled } = useHudley();
   const { agentsList } = useAgentsList();
 
   const currentChat = useMapGetter('getSelectedChat');

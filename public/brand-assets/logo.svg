@@ -1,5 +1,5 @@
 <svg width="300" height="60" viewBox="0 0 300 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- DeskFlow Logo - Placeholder -->
+  <!-- DeskFlows Logo - Placeholder -->
   <rect width="300" height="60" fill="white"/>
   <!-- Icon - stylized desk/flow -->
   <circle cx="30" cy="30" r="24" fill="#3B82F6"/>
@@ -8,5 +8,5 @@
   <path d="M22 32 L35 32" stroke="#3B82F6" stroke-width="2"/>
   <path d="M22 36 L30 36" stroke="#3B82F6" stroke-width="2"/>
   <!-- Text -->
-  <text x="65" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="600" fill="#1F2937">DeskFlow</text>
+  <text x="65" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="600" fill="#1F2937">DeskFlows</text>
 </svg>

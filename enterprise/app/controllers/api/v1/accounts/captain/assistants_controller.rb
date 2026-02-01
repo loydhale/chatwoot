@@ -1,6 +1,6 @@
-class Api::V1::Accounts::Atlas::AssistantsController < Api::V1::Accounts::BaseController
+class Api::V1::Accounts::Hudley::AssistantsController < Api::V1::Accounts::BaseController
   before_action :current_account
-  before_action -> { check_authorization(Atlas::Assistant) }
+  before_action -> { check_authorization(Hudley::Assistant) }
 
   before_action :set_assistant, only: [:show, :update, :destroy, :playground]
 
@@ -24,7 +24,7 @@ class Api::V1::Accounts::Atlas::AssistantsController < Api::V1::Accounts::BaseCo
   end
 
   def playground
-    response = Atlas::Llm::AssistantChatService.new(assistant: @assistant).generate_response(
+    response = Hudley::Llm::AssistantChatService.new(assistant: @assistant).generate_response(
       additional_message: params[:message_content],
       message_history: message_history
     )
@@ -33,7 +33,7 @@ class Api::V1::Accounts::Atlas::AssistantsController < Api::V1::Accounts::BaseCo
   end
 
   def tools
-    assistant = Atlas::Assistant.new(account: Current.account)
+    assistant = Hudley::Assistant.new(account: Current.account)
     @tools = assistant.available_agent_tools
   end
 
@@ -44,7 +44,7 @@ class Api::V1::Accounts::Atlas::AssistantsController < Api::V1::Accounts::BaseCo
   end
 
   def account_assistants
-    @account_assistants ||= Atlas::Assistant.for_account(Current.account.id)
+    @account_assistants ||= Hudley::Assistant.for_account(Current.account.id)
   end
 
   def assistant_params

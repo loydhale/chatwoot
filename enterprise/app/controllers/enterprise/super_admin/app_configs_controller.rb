@@ -2,7 +2,7 @@ module Enterprise::SuperAdmin::AppConfigsController
   private
 
   def allowed_configs
-    return super if DeskFlowHub.pricing_plan == 'community'
+    return super if DeskFlowsHub.pricing_plan == 'community'
 
     case @config
     when 'custom_branding'
