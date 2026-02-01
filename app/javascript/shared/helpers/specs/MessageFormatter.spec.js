@@ -4,23 +4,23 @@ describe('#MessageFormatter', () => {
   describe('content with links', () => {
     it('should format correctly', () => {
       const message =
-        'DeskFlows is an opensource tool. [DeskFlows](https://www.chatwoot.com)';
+        'DeskFlows is an opensource tool. [DeskFlows](https://www.deskflows.app)';
       expect(new MessageFormatter(message).formattedMessage).toMatch(
-        '<p>DeskFlows is an opensource tool. <a href="https://www.chatwoot.com" class="link" rel="noreferrer noopener nofollow" target="_blank">DeskFlows</a></p>'
+        '<p>DeskFlows is an opensource tool. <a href="https://www.deskflows.app" class="link" rel="noreferrer noopener nofollow" target="_blank">DeskFlows</a></p>'
       );
     });
     it('should format correctly', () => {
       const message =
-        'DeskFlows is an opensource tool. https://www.chatwoot.com';
+        'DeskFlows is an opensource tool. https://www.deskflows.app';
       expect(new MessageFormatter(message).formattedMessage).toMatch(
-        '<p>DeskFlows is an opensource tool. <a href="https://www.chatwoot.com" class="link" rel="noreferrer noopener nofollow" target="_blank">https://www.chatwoot.com</a></p>'
+        '<p>DeskFlows is an opensource tool. <a href="https://www.deskflows.app" class="link" rel="noreferrer noopener nofollow" target="_blank">https://www.deskflows.app</a></p>'
       );
     });
     it('should not convert template variables to links when linkify is disabled', () => {
-      const message = 'Hey {{customer.name}}, check https://chatwoot.com';
+      const message = 'Hey {{customer.name}}, check https://deskflows.app';
       const formatter = new MessageFormatter(message, false, false, false);
       expect(formatter.formattedMessage).toMatch(
-        '<p>Hey {{customer.name}}, check https://chatwoot.com</p>'
+        '<p>Hey {{customer.name}}, check https://deskflows.app</p>'
       );
     });
   });
@@ -38,25 +38,25 @@ describe('#MessageFormatter', () => {
   describe('content with image and has "cw_image_height" query at the end of URL', () => {
     it('should set image height correctly', () => {
       const message =
-        'DeskFlows is an opensource tool. ![](http://chatwoot.com/chatwoot.png?cw_image_height=24px)';
+        'DeskFlows is an opensource tool. ![](http://deskflows.app/chatwoot.png?cw_image_height=24px)';
       expect(new MessageFormatter(message).formattedMessage).toMatch(
-        '<p>DeskFlows is an opensource tool. <img src="http://chatwoot.com/chatwoot.png?cw_image_height=24px" alt="" style="height: 24px;" /></p>'
+        '<p>DeskFlows is an opensource tool. <img src="http://deskflows.app/chatwoot.png?cw_image_height=24px" alt="" style="height: 24px;" /></p>'
       );
     });
 
     it('should set image height correctly if its original size', () => {
       const message =
-        'DeskFlows is an opensource tool. ![](http://chatwoot.com/chatwoot.png?cw_image_height=auto)';
+        'DeskFlows is an opensource tool. ![](http://deskflows.app/chatwoot.png?cw_image_height=auto)';
       expect(new MessageFormatter(message).formattedMessage).toMatch(
-        '<p>DeskFlows is an opensource tool. <img src="http://chatwoot.com/chatwoot.png?cw_image_height=auto" alt="" style="height: auto;" /></p>'
+        '<p>DeskFlows is an opensource tool. <img src="http://deskflows.app/chatwoot.png?cw_image_height=auto" alt="" style="height: auto;" /></p>'
       );
     });
 
     it('should not set height', () => {
       const message =
-        'DeskFlows is an opensource tool. ![](http://chatwoot.com/chatwoot.png)';
+        'DeskFlows is an opensource tool. ![](http://deskflows.app/chatwoot.png)';
       expect(new MessageFormatter(message).formattedMessage).toMatch(
-        '<p>DeskFlows is an opensource tool. <img src="http://chatwoot.com/chatwoot.png" alt="" /></p>'
+        '<p>DeskFlows is an opensource tool. <img src="http://deskflows.app/chatwoot.png" alt="" /></p>'
       );
     });
   });
@@ -112,9 +112,9 @@ describe('#MessageFormatter', () => {
   describe('plain text content', () => {
     it('returns the plain text without HTML', () => {
       const message =
-        '<b>DeskFlows is an opensource tool. https://www.chatwoot.com</b>';
+        '<b>DeskFlows is an opensource tool. https://www.deskflows.app</b>';
       expect(new MessageFormatter(message).plainText).toMatch(
-        'DeskFlows is an opensource tool. https://www.chatwoot.com'
+        'DeskFlows is an opensource tool. https://www.deskflows.app'
       );
     });
   });

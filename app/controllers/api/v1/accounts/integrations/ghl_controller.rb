@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Api::V1::Accounts::Integrations::GhlController < Api::V1::Accounts::BaseController
-  include Ghl::IntegrationHelper
 
   before_action :fetch_hook, except: [:status]
   before_action :check_authorization
@@ -25,14 +24,16 @@ class Api::V1::Accounts::Integrations::GhlController < Api::V1::Accounts::BaseCo
 
   # POST /api/v1/accounts/:account_id/integrations/ghl/refresh
   def refresh
-    return render_token_refresh_not_supported unless @hook.settings['refresh_token'].present?
+    settings = @hook.settings || {}
+    refresh_token = settings['refresh_token']
+    return render_token_refresh_not_supported unless refresh_token.present?
 
-    new_tokens = refresh_access_token(@hook.settings['refresh_token'])
+    new_tokens = Ghl::TokenRefreshService.new(refresh_token).refresh!
 
     @hook.update!(
       access_token: new_tokens['access_token'],
-      settings: @hook.settings.merge(
-        refresh_token: new_tokens['refresh_token'],
+      settings: settings.merge(
+        refresh_token: new_tokens['refresh_token'] || refresh_token,
         expires_in: new_tokens['expires_in'],
         expires_at: (Time.current + new_tokens['expires_in'].to_i.seconds).iso8601
       )
@@ -62,19 +63,6 @@ class Api::V1::Accounts::Integrations::GhlController < Api::V1::Accounts::BaseCo
 
   def check_authorization
     raise Pundit::NotAuthorizedError unless Current.account_user.administrator?
-  end
-
-  def refresh_access_token(refresh_token)
-    client = OAuth2::Client.new(
-      ghl_client_id,
-      ghl_client_secret,
-      site: 'https://services.leadconnectorhq.com',
-      token_url: '/oauth/token'
-    )
-
-    token = OAuth2::AccessToken.from_hash(client, refresh_token: refresh_token)
-    new_token = token.refresh!
-    new_token.to_hash
   end
 
   def render_token_refresh_not_supported
