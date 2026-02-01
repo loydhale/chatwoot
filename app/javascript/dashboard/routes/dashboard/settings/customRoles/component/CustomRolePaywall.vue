@@ -98,7 +98,7 @@ const tableHeaders = computed(() => {
       <BasePaywallModal
         feature-prefix="CUSTOM_ROLE"
         :i18n-key="i18nKey"
-        :is-on-chatwoot-cloud="isOnDeskFlowsCloud"
+        :is-on-deskflows-cloud="isOnDeskFlowsCloud"
         :is-super-admin="isSuperAdmin"
         @upgrade="goToBillingSettings"
       />

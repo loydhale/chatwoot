@@ -11,7 +11,7 @@ const { t } = useI18n();
 const { currentAccount } = useAccount();
 
 const latestDeskFlowsVersion = computed(() => {
-  return currentAccount.value.latest_chatwoot_version;
+  return currentAccount.value.latest_deskflows_version;
 });
 
 const globalConfig = useMapGetter('globalConfig/get');
@@ -37,7 +37,7 @@ const copyGitSha = () => {
   <div class="p-4 text-sm text-center">
     <div v-if="hasAnUpdateAvailable && globalConfig.displayManifest">
       {{
-        t('GENERAL_SETTINGS.UPDATE_CHATWOOT', {
+        t('GENERAL_SETTINGS.UPDATE_DESKFLOWS', {
           latestDeskFlowsVersion: latestDeskFlowsVersion,
         })
       }}

@@ -7,7 +7,7 @@ import { useBranding } from 'shared/composables/useBranding';
 import { clearCookiesOnLogout } from 'dashboard/store/utils/api.js';
 import { copyTextToClipboard } from 'shared/helpers/clipboard';
 import { parseAPIErrorResponse } from 'dashboard/store/utils/api';
-import { parseBoolean } from '@chatwoot/utils';
+import { parseBoolean } from '@deskflows/utils';
 import UserProfilePicture from './UserProfilePicture.vue';
 import UserBasicDetails from './UserBasicDetails.vue';
 import MessageSignature from './MessageSignature.vue';
@@ -99,7 +99,7 @@ export default {
       globalConfig: 'globalConfig/get',
     }),
     isMfaEnabled() {
-      return parseBoolean(window.chatwootConfig?.isMfaEnabled);
+      return parseBoolean(window.deskflowsConfig?.isMfaEnabled);
     },
   },
   mounted() {

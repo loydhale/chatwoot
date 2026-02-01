@@ -76,10 +76,10 @@ describe('useBranding', () => {
     it('should be case-sensitive for "DeskFlows"', () => {
       const { replaceInstallationName } = useBranding();
       const result = replaceInstallationName(
-        'Welcome to chatwoot and CHATWOOT'
+        'Welcome to deskflows and DESKFLOWS'
       );
 
-      expect(result).toBe('Welcome to chatwoot and CHATWOOT');
+      expect(result).toBe('Welcome to deskflows and DESKFLOWS');
     });
 
     it('should handle special characters in installation name', () => {

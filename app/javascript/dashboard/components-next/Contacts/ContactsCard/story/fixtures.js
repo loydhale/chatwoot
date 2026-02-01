@@ -50,7 +50,7 @@ export default [
       city: 'Kerala',
       country: 'India',
       description:
-        "I'm Candice developer focusing on building things for the web 🌍. Currently, I’m working as a Product Developer here at @chatwootapp ⚡️🔥",
+        "I'm Candice developer focusing on building things for the web 🌍. Currently, I’m working as a Product Developer here at @deskflowsapp ⚡️🔥",
       companyName: 'DeskFlow',
       countryCode: 'IN',
       socialProfiles: {
@@ -100,7 +100,7 @@ export default [
     phoneNumber: '',
     identifier: null,
     thumbnail:
-      'https://sivin-tunnel.chatwoot.dev/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBPZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--08dcac8eb72ef12b2cad92d58dddd04cd8a5f513/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--df796c2af3c0153e55236c2f3cf3a199ac2cb6f7/32.jpg',
+      'https://sivin-tunnel.deskflows.dev/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBPZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--08dcac8eb72ef12b2cad92d58dddd04cd8a5f513/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--df796c2af3c0153e55236c2f3cf3a199ac2cb6f7/32.jpg',
     customAttributes: {},
     lastActivityAt: 1712123233,
     createdAt: 1712123233,

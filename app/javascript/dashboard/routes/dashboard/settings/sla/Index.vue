@@ -8,7 +8,7 @@ import SLAListItemLoading from './components/SLAListItemLoading.vue';
 import SLAPaywallEnterprise from './components/SLAPaywallEnterprise.vue';
 
 import { mapGetters } from 'vuex';
-import { convertSecondsToTimeUnit } from '@chatwoot/utils';
+import { convertSecondsToTimeUnit } from '@deskflows/utils';
 import { useAlert } from 'dashboard/composables';
 
 export default {
@@ -126,7 +126,7 @@ export default {
       <SLAPaywallEnterprise
         v-if="isBehindAPaywall"
         :is-super-admin="isSuperAdmin"
-        :is-on-chatwoot-cloud="isOnDeskFlowsCloud"
+        :is-on-deskflows-cloud="isOnDeskFlowsCloud"
         @upgrade="onClickCTA"
       />
       <SLAEmptyState

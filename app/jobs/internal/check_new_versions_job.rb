@@ -13,7 +13,7 @@ class Internal::CheckNewVersionsJob < ApplicationJob
   def update_version_info
     return if @instance_info['version'].blank?
 
-    ::Redis::Alfred.set(::Redis::Alfred::LATEST_CHATWOOT_VERSION, @instance_info['version'])
+    ::Redis::Alfred.set(::Redis::Alfred::LATEST_DESKFLOWS_VERSION, @instance_info['version'])
   end
 end
 

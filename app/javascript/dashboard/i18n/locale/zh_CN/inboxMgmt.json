@@ -693,8 +693,8 @@
       "MESSENGER_SUB_HEAD": "将此按钮放置在窗体标签中",
       "ALLOWED_DOMAINS": {
         "TITLE": "Allowed Domains",
-        "SUBTITLE": "Add wildcard or regular domains separated by commas (leave blank to allow all), e.g. *.chatwoot.dev, chatwoot.com.",
-        "PLACEHOLDER": "Enter domains separated by commas (eg: *.chatwoot.dev, chatwoot.com)"
+        "SUBTITLE": "Add wildcard or regular domains separated by commas (leave blank to allow all), e.g. *.deskflows.dev, deskflows.com.",
+        "PLACEHOLDER": "Enter domains separated by commas (eg: *.deskflows.dev, deskflows.com)"
       },
       "INBOX_AGENTS": "客服代理们",
       "INBOX_AGENTS_SUB_TEXT": "添加或删除此收件箱中的客服",
@@ -1022,7 +1022,7 @@
         "AGENT_MESSAGE": "您好"
       },
       "BRANDING_TEXT": "由 DeskFlow 支持",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "SCRIPT_SETTINGS": "\n      window.deskflowsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

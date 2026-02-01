@@ -693,8 +693,8 @@
       "MESSENGER_SUB_HEAD": "Place this button inside your body tag",
       "ALLOWED_DOMAINS": {
         "TITLE": "Allowed Domains",
-        "SUBTITLE": "Add wildcard or regular domains separated by commas (leave blank to allow all), e.g. *.chatwoot.dev, chatwoot.com.",
-        "PLACEHOLDER": "Enter domains separated by commas (eg: *.chatwoot.dev, chatwoot.com)"
+        "SUBTITLE": "Add wildcard or regular domains separated by commas (leave blank to allow all), e.g. *.deskflows.dev, deskflows.com.",
+        "PLACEHOLDER": "Enter domains separated by commas (eg: *.deskflows.dev, deskflows.com)"
       },
       "INBOX_AGENTS": "Agents",
       "INBOX_AGENTS_SUB_TEXT": "Add or remove agents from this inbox",
@@ -1022,7 +1022,7 @@
         "AGENT_MESSAGE": "Hello"
       },
       "BRANDING_TEXT": "DeskFlow द्वारा संचालित",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "SCRIPT_SETTINGS": "\n      window.deskflowsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

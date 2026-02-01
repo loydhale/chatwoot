@@ -693,8 +693,8 @@
       "MESSENGER_SUB_HEAD": "Поместите эту кнопку внутри тега <body>",
       "ALLOWED_DOMAINS": {
         "TITLE": "Разрешенные домены",
-        "SUBTITLE": "Добавьте подстановочные или обычные домены, разделенные запятыми (оставьте пустым, чтобы разрешить всем), например *.chatwoot.dev, chatwoot.com.",
-        "PLACEHOLDER": "Введите домены, разделенные запятыми (например: *.chatwoot.dev, chatwoot.com)"
+        "SUBTITLE": "Добавьте подстановочные или обычные домены, разделенные запятыми (оставьте пустым, чтобы разрешить всем), например *.deskflows.dev, deskflows.com.",
+        "PLACEHOLDER": "Введите домены, разделенные запятыми (например: *.deskflows.dev, deskflows.com)"
       },
       "INBOX_AGENTS": "Операторы",
       "INBOX_AGENTS_SUB_TEXT": "Добавить или удалить агентов из этого источника",
@@ -1022,7 +1022,7 @@
         "AGENT_MESSAGE": "Привет"
       },
       "BRANDING_TEXT": "Работает на DeskFlow",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "SCRIPT_SETTINGS": "\n      window.deskflowsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

@@ -123,7 +123,7 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "カスタムドメインでのメール受信が有効になりました。"
       }
     },
-    "UPDATE_CHATWOOT": "DeskFlowのアップデート {latestDeskFlowVersion} が利用可能です。インスタンスを更新してください。",
+    "UPDATE_DESKFLOWS": "DeskFlowのアップデート {latestDeskFlowVersion} が利用可能です。インスタンスを更新してください。",
     "LEARN_MORE": "詳細を見る",
     "PAYMENT_PENDING": "お支払いが保留中です。支払い情報を更新してDeskFlowの利用を継続してください。",
     "UPGRADE": "Upgrade to continue using DeskFlow",

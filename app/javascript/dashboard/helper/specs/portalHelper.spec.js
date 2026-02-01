@@ -3,31 +3,31 @@ import { buildPortalArticleURL, buildPortalURL } from '../portalHelper';
 describe('PortalHelper', () => {
   describe('buildPortalURL', () => {
     it('returns the correct url', () => {
-      window.chatwootConfig = {
+      window.deskflowsConfig = {
         hostURL: 'https://app.deskflowss.ai',
         helpCenterURL: 'https://help.deskflows.app',
       };
       expect(buildPortalURL('handbook')).toEqual(
         'https://help.deskflows.app/hc/handbook'
       );
-      window.chatwootConfig = {};
+      window.deskflowsConfig = {};
     });
   });
 
   describe('buildPortalArticleURL', () => {
     it('returns the correct url', () => {
-      window.chatwootConfig = {
+      window.deskflowsConfig = {
         hostURL: 'https://app.deskflowss.ai',
         helpCenterURL: 'https://help.deskflows.app',
       };
       expect(
         buildPortalArticleURL('handbook', 'culture', 'fr', 'article-slug')
       ).toEqual('https://help.deskflows.app/hc/handbook/articles/article-slug');
-      window.chatwootConfig = {};
+      window.deskflowsConfig = {};
     });
 
     it('returns the correct url with custom domain', () => {
-      window.chatwootConfig = {
+      window.deskflowsConfig = {
         hostURL: 'https://app.deskflowss.ai',
         helpCenterURL: 'https://help.deskflows.app',
       };
@@ -43,7 +43,7 @@ describe('PortalHelper', () => {
     });
 
     it('handles https in custom domain correctly', () => {
-      window.chatwootConfig = {
+      window.deskflowsConfig = {
         hostURL: 'https://app.deskflowss.ai',
         helpCenterURL: 'https://help.deskflows.app',
       };
@@ -59,7 +59,7 @@ describe('PortalHelper', () => {
     });
 
     it('uses hostURL when helpCenterURL is not available', () => {
-      window.chatwootConfig = {
+      window.deskflowsConfig = {
         hostURL: 'https://app.deskflowss.ai',
         helpCenterURL: '',
       };

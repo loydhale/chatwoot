@@ -693,8 +693,8 @@
       "MESSENGER_SUB_HEAD": "מקם את הכפתור הזה בתוך תג הגוף שלך",
       "ALLOWED_DOMAINS": {
         "TITLE": "דומיינים מורשים",
-        "SUBTITLE": "הוסף דומיינים כלליים או רגילים מופרדים בפסיקים (השאר ריק כדי לאפשר הכל), לדוגמה: *.chatwoot.dev, chatwoot.com.",
-        "PLACEHOLDER": "הזן דומיינים מופרדים בפסיקים (לדוגמה: *.chatwoot.dev, chatwoot.com)"
+        "SUBTITLE": "הוסף דומיינים כלליים או רגילים מופרדים בפסיקים (השאר ריק כדי לאפשר הכל), לדוגמה: *.deskflows.dev, deskflows.com.",
+        "PLACEHOLDER": "הזן דומיינים מופרדים בפסיקים (לדוגמה: *.deskflows.dev, deskflows.com)"
       },
       "INBOX_AGENTS": "סוכנים",
       "INBOX_AGENTS_SUB_TEXT": "הוסף או הסר נציגים מתיבת הדואר הנכנס הזו",
@@ -1022,7 +1022,7 @@
         "AGENT_MESSAGE": "שלום"
       },
       "BRANDING_TEXT": "מופעל על ידי DeskFlow",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "SCRIPT_SETTINGS": "\n      window.deskflowsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

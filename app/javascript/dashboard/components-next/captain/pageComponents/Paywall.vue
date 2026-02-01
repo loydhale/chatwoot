@@ -34,7 +34,7 @@ const openBilling = () => {
       feature-prefix="CAPTAIN"
       :i18n-key="i18nKey"
       :is-super-admin="isSuperAdmin"
-      :is-on-chatwoot-cloud="isOnDeskFlowsCloud"
+      :is-on-deskflows-cloud="isOnDeskFlowsCloud"
       @upgrade="openBilling"
     />
   </div>

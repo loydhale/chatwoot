@@ -13,7 +13,7 @@ class DashboardController < ActionController::Base
     PRIVACY_URL
     DISPLAY_MANIFEST
     CREATE_NEW_ACCOUNT_FROM_DASHBOARD
-    CHATWOOT_INBOX_TOKEN
+    DESKFLOWS_INBOX_TOKEN
     API_CHANNEL_NAME
     API_CHANNEL_THUMBNAIL
     CLOUD_ANALYTICS_TOKEN
@@ -52,7 +52,7 @@ class DashboardController < ActionController::Base
   end
 
   def ensure_installation_onboarding
-    redirect_to '/installation/onboarding' if ::Redis::Alfred.get(::Redis::Alfred::CHATWOOT_INSTALLATION_ONBOARDING)
+    redirect_to '/installation/onboarding' if ::Redis::Alfred.get(::Redis::Alfred::DESKFLOWS_INSTALLATION_ONBOARDING)
   end
 
   def render_hc_if_custom_domain

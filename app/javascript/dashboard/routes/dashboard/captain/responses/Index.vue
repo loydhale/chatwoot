@@ -4,7 +4,7 @@ import { useMapGetter, useStore } from 'dashboard/composables/store';
 import { useI18n } from 'vue-i18n';
 import { useRouter, useRoute } from 'vue-router';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
-import { debounce } from '@chatwoot/utils';
+import { debounce } from '@deskflows/utils';
 import { useAccount } from 'dashboard/composables/useAccount';
 
 import Banner from 'dashboard/components-next/banner/Banner.vue';

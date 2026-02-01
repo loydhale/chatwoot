@@ -693,8 +693,8 @@
       "MESSENGER_SUB_HEAD": "Įdėkite šį mygtuką savo <body> žymos viduje",
       "ALLOWED_DOMAINS": {
         "TITLE": "Allowed Domains",
-        "SUBTITLE": "Add wildcard or regular domains separated by commas (leave blank to allow all), e.g. *.chatwoot.dev, chatwoot.com.",
-        "PLACEHOLDER": "Enter domains separated by commas (eg: *.chatwoot.dev, chatwoot.com)"
+        "SUBTITLE": "Add wildcard or regular domains separated by commas (leave blank to allow all), e.g. *.deskflows.dev, deskflows.com.",
+        "PLACEHOLDER": "Enter domains separated by commas (eg: *.deskflows.dev, deskflows.com)"
       },
       "INBOX_AGENTS": "Agentai",
       "INBOX_AGENTS_SUB_TEXT": "Pridėti ar pašalinti agentus iš gautų laiškų aplanko",
@@ -1022,7 +1022,7 @@
         "AGENT_MESSAGE": "Sveiki"
       },
       "BRANDING_TEXT": "Parengta pagal DeskFlow",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "SCRIPT_SETTINGS": "\n      window.deskflowsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {
