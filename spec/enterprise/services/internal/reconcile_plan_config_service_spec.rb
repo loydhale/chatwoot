@@ -25,13 +25,13 @@ RSpec.describe Internal::ReconcilePlanConfigService do
       it 'creates a premium config reset warning if config was modified' do
         create(:installation_config, name: 'INSTALLATION_NAME', value: 'custom-name')
         service.perform
-        expect(Redis::Alfred.get(Redis::Alfred::CHATWOOT_INSTALLATION_CONFIG_RESET_WARNING)).to eq('true')
+        expect(Redis::Alfred.get(Redis::Alfred::DESKFLOWS_INSTALLATION_CONFIG_RESET_WARNING)).to eq('true')
       end
 
       it 'will not create a premium config reset warning if config is not modified' do
         create(:installation_config, name: 'INSTALLATION_NAME', value: 'DeskFlows')
         service.perform
-        expect(Redis::Alfred.get(Redis::Alfred::CHATWOOT_INSTALLATION_CONFIG_RESET_WARNING)).to be_nil
+        expect(Redis::Alfred.get(Redis::Alfred::DESKFLOWS_INSTALLATION_CONFIG_RESET_WARNING)).to be_nil
       end
 
       it 'updates the premium configs to default' do
@@ -49,9 +49,9 @@ RSpec.describe Internal::ReconcilePlanConfigService do
       end
 
       it 'unset premium config warning on upgrade' do
-        Redis::Alfred.set(Redis::Alfred::CHATWOOT_INSTALLATION_CONFIG_RESET_WARNING, true)
+        Redis::Alfred.set(Redis::Alfred::DESKFLOWS_INSTALLATION_CONFIG_RESET_WARNING, true)
         service.perform
-        expect(Redis::Alfred.get(Redis::Alfred::CHATWOOT_INSTALLATION_CONFIG_RESET_WARNING)).to be_nil
+        expect(Redis::Alfred.get(Redis::Alfred::DESKFLOWS_INSTALLATION_CONFIG_RESET_WARNING)).to be_nil
       end
 
       it 'does not disable the premium features for accounts' do

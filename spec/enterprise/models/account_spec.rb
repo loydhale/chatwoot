@@ -191,7 +191,7 @@ RSpec.describe Account, type: :model do
     end
 
     before do
-      InstallationConfig.where(name: 'CHATWOOT_CLOUD_PLAN_FEATURES').first_or_create(value: plan_features)
+      InstallationConfig.where(name: 'DESKFLOWS_CLOUD_PLAN_FEATURES').first_or_create(value: plan_features)
     end
 
     context 'when plan_name is hacker' do

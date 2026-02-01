@@ -1,6 +1,6 @@
-# give chatwoot user permission to start/stop/restart chatwoot systemd service
+# give deskflows user permission to start/stop/restart deskflows systemd service
 
-%chatwoot ALL=NOPASSWD: /bin/systemctl start chatwoot.target
-%chatwoot ALL=NOPASSWD: /bin/systemctl stop chatwoot.target
-%chatwoot ALL=NOPASSWD: /bin/systemctl restart chatwoot.target
-%chatwoot ALL=NOPASSWD: /usr/local/bin/cwctl
+%deskflows ALL=NOPASSWD: /bin/systemctl start deskflows.target
+%deskflows ALL=NOPASSWD: /bin/systemctl stop deskflows.target
+%deskflows ALL=NOPASSWD: /bin/systemctl restart deskflows.target
+%deskflows ALL=NOPASSWD: /usr/local/bin/cwctl

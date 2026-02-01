@@ -1,4 +1,4 @@
-name: Run Chatwoot CE spec
+name: Run DeskFlows CE spec
 permissions:
   contents: read
 on:
