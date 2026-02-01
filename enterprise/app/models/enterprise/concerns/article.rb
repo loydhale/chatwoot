@@ -11,7 +11,7 @@ module Enterprise::Concerns::Article
     add_article_embedding_association
 
     def self.vector_search(params)
-      embedding = Atlas::Llm::EmbeddingService.new(account_id: params[:account_id]).get_embedding(params['query'])
+      embedding = Hudley::Llm::EmbeddingService.new(account_id: params[:account_id]).get_embedding(params['query'])
       records = joins(
         :category
       ).search_by_category_slug(

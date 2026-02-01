@@ -1,7 +1,7 @@
-import AtlasAssistantAPI from 'dashboard/api/captain/assistant';
+import HudleyAssistantAPI from 'dashboard/api/captain/assistant';
 import { createStore } from '../storeFactory';
 
 export default createStore({
-  name: 'AtlasAssistant',
-  API: AtlasAssistantAPI,
+  name: 'HudleyAssistant',
+  API: HudleyAssistantAPI,
 });

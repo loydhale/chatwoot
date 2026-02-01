@@ -88,12 +88,12 @@ const shouldShowCopilotPanel = computed(() => {
   if (!isEnterprise) {
     return false;
   }
-  const isAtlasEnabled = isFeatureEnabledonAccount.value(
+  const isHudleyEnabled = isFeatureEnabledonAccount.value(
     currentAccountId.value,
     FEATURE_FLAGS.CAPTAIN
   );
   const { is_copilot_panel_open: isCopilotPanelOpen } = uiSettings.value;
-  return isAtlasEnabled && isCopilotPanelOpen && !uiFlags.value.fetchingList;
+  return isHudleyEnabled && isCopilotPanelOpen && !uiFlags.value.fetchingList;
 });
 
 const handleReset = () => {

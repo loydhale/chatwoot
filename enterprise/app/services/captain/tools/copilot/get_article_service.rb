@@ -1,4 +1,4 @@
-class Atlas::Tools::Copilot::GetArticleService < Atlas::Tools::BaseTool
+class Hudley::Tools::Copilot::GetArticleService < Hudley::Tools::BaseTool
   def self.name
     'get_article'
   end

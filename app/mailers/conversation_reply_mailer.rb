@@ -5,7 +5,7 @@ class ConversationReplyMailer < ApplicationMailer
 
   include ConversationReplyMailerHelper
   include ReferencesHeaderBuilder
-  default from: ENV.fetch('MAILER_SENDER_EMAIL', 'DeskFlow <support@deskflow.app>')
+  default from: ENV.fetch('MAILER_SENDER_EMAIL', 'DeskFlows <support@deskflowss.ai>')
   layout :choose_layout
 
   def reply_with_summary(conversation, last_queued_id)

@@ -22,7 +22,7 @@ export const hasMessageFailedWithExternalError = pendingMessage => {
   // We have two cases
   // 1. Messages that fail from the UI itself (due to large attachments or a failed network):
   //    In this case, the message will have a status of failed but no external error. So we need to create that message again
-  // 2. Messages sent from DeskFlow but failed to deliver to the customer for some reason (user blocking or client system down):
+  // 2. Messages sent from DeskFlows but failed to deliver to the customer for some reason (user blocking or client system down):
   //    In this case, the message will have a status of failed and an external error. So we need to retry that message
   const { content_attributes: contentAttributes, status } = pendingMessage;
   const externalError = contentAttributes?.external_error ?? '';
@@ -505,7 +505,7 @@ const actions = {
     commit(types.SET_CONTEXT_MENU_CHAT_ID, chatId);
   },
 
-  getInboxAtlasAssistantById: async ({ commit }, conversationId) => {
+  getInboxHudleyAssistantById: async ({ commit }, conversationId) => {
     try {
       const response = await ConversationApi.getInboxAssistant(conversationId);
       commit(types.SET_INBOX_CAPTAIN_ASSISTANT, response.data);

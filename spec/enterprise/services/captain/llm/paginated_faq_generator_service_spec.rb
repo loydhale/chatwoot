@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Atlas::Llm::PaginatedFaqGeneratorService do
+RSpec.describe Hudley::Llm::PaginatedFaqGeneratorService do
   let(:document) { create(:captain_document) }
   let(:service) { described_class.new(document, pages_per_chunk: 5) }
   let(:openai_client) { instance_double(OpenAI::Client) }

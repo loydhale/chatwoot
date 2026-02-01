@@ -25,7 +25,7 @@ module Concerns::Agentable
       )
     end
 
-    Atlas::PromptRenderer.render(template_name, enhanced_context.with_indifferent_access)
+    Hudley::PromptRenderer.render(template_name, enhanced_context.with_indifferent_access)
   end
 
   private
@@ -47,7 +47,7 @@ module Concerns::Agentable
   end
 
   def agent_response_schema
-    Atlas::ResponseSchema
+    Hudley::ResponseSchema
   end
 
   def prompt_context

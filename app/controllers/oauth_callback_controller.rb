@@ -7,7 +7,7 @@ class OauthCallbackController < ApplicationController
 
     handle_response
   rescue StandardError => e
-    DeskFlowExceptionTracker.new(e).capture_exception
+    DeskFlowsExceptionTracker.new(e).capture_exception
     redirect_to '/'
   end
 

@@ -34,7 +34,7 @@ export const initializeAudioAlerts = user => {
   });
 };
 
-export const initializeDeskFlowEvents = () => {
+export const initializeDeskFlowsEvents = () => {
   emitter.on(CHATWOOT_RESET, () => {
     if (window.$chatwoot) {
       window.$chatwoot.reset();

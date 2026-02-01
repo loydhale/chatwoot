@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Accounts::Atlas::Scenarios', type: :request do
+RSpec.describe 'Api::V1::Accounts::Hudley::Scenarios', type: :request do
   let(:account) { create(:account) }
   let(:admin) { create(:user, account: account, role: :administrator) }
   let(:agent) { create(:user, account: account, role: :agent) }
@@ -124,7 +124,7 @@ RSpec.describe 'Api::V1::Accounts::Atlas::Scenarios', type: :request do
                params: valid_attributes,
                headers: admin.create_new_auth_token,
                as: :json
-        end.to change(Atlas::Scenario, :count).by(1)
+        end.to change(Hudley::Scenario, :count).by(1)
 
         expect(response).to have_http_status(:success)
         expect(json_response[:title]).to eq('Test Scenario')
@@ -240,7 +240,7 @@ RSpec.describe 'Api::V1::Accounts::Atlas::Scenarios', type: :request do
         expect do
           delete "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios/#{scenario.id}",
                  headers: admin.create_new_auth_token
-        end.to change(Atlas::Scenario, :count).by(-1)
+        end.to change(Hudley::Scenario, :count).by(-1)
 
         expect(response).to have_http_status(:no_content)
       end

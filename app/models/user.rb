@@ -189,7 +189,7 @@ class User < ApplicationRecord
   end
 
   def mfa_feature_available?
-    DeskFlow.mfa_enabled?
+    DeskFlows.mfa_enabled?
   end
 
   private

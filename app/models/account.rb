@@ -28,7 +28,7 @@ class Account < ApplicationRecord
   include Reportable
   include Featurable
   include CacheKeys
-  include AtlasFeaturable
+  include HudleyFeaturable
 
   SETTINGS_PARAMS_SCHEMA = {
     'type': 'object',
@@ -178,8 +178,8 @@ class Account < ApplicationRecord
 
   def usage_limits
     {
-      agents: DeskFlowApp.max_limit.to_i,
-      inboxes: DeskFlowApp.max_limit.to_i
+      agents: DeskFlowsApp.max_limit.to_i,
+      inboxes: DeskFlowsApp.max_limit.to_i
     }
   end
 

@@ -130,7 +130,7 @@ Add these to production `.env`:
 # GHL OAuth Configuration
 GHL_CLIENT_ID=your_client_id_from_marketplace
 GHL_CLIENT_SECRET=your_client_secret_from_marketplace
-GHL_REDIRECT_URI=https://app.deskflow.app/api/v1/auth/ghl/callback
+GHL_REDIRECT_URI=https://app.deskflow.ai/api/v1/auth/ghl/callback
 GHL_WEBHOOK_SECRET=your_webhook_signing_secret
 
 # GHL API Base URL
@@ -190,7 +190,7 @@ Configure these webhooks in the GHL Marketplace app settings:
 | `TaskCreate` | Task created | Optionally sync |
 | `AppointmentCreate` | Appointment booked | Notify agent |
 
-**Webhook URL:** `https://app.deskflow.app/api/v1/webhooks/ghl`
+**Webhook URL:** `https://app.deskflow.ai/api/v1/webhooks/ghl`
 
 ---
 

@@ -1,4 +1,4 @@
-class Atlas::Tools::FaqLookupTool < Atlas::Tools::BasePublicTool
+class Hudley::Tools::FaqLookupTool < Hudley::Tools::BasePublicTool
   description 'Search FAQ responses using semantic similarity to find relevant answers'
   param :query, type: 'string', desc: 'The question or topic to search for in the FAQ database'
 

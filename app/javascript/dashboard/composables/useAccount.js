@@ -14,7 +14,7 @@ export function useAccount() {
   const route = useRoute();
   const store = useStore();
   const getAccountFn = useMapGetter('accounts/getAccount');
-  const isOnDeskFlowCloud = useMapGetter('globalConfig/isOnDeskFlowCloud');
+  const isOnDeskFlowsCloud = useMapGetter('globalConfig/isOnDeskFlowsCloud');
   const isFeatureEnabledonAccount = useMapGetter(
     'accounts/isFeatureEnabledonAccount'
   );
@@ -59,7 +59,7 @@ export function useAccount() {
     accountScopedUrl,
     accountScopedRoute,
     isCloudFeatureEnabled,
-    isOnDeskFlowCloud,
+    isOnDeskFlowsCloud,
     updateAccount,
   };
 }

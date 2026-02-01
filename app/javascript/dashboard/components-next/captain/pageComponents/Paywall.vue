@@ -12,10 +12,10 @@ const currentUser = useMapGetter('getCurrentUser');
 const isSuperAdmin = computed(() => {
   return currentUser.value.type === 'SuperAdmin';
 });
-const { accountId, isOnDeskFlowCloud } = useAccount();
+const { accountId, isOnDeskFlowsCloud } = useAccount();
 
 const i18nKey = computed(() =>
-  isOnDeskFlowCloud.value ? 'PAYWALL' : 'ENTERPRISE_PAYWALL'
+  isOnDeskFlowsCloud.value ? 'PAYWALL' : 'ENTERPRISE_PAYWALL'
 );
 const openBilling = () => {
   router.push({
@@ -34,7 +34,7 @@ const openBilling = () => {
       feature-prefix="CAPTAIN"
       :i18n-key="i18nKey"
       :is-super-admin="isSuperAdmin"
-      :is-on-chatwoot-cloud="isOnDeskFlowCloud"
+      :is-on-chatwoot-cloud="isOnDeskFlowsCloud"
       @upgrade="openBilling"
     />
   </div>

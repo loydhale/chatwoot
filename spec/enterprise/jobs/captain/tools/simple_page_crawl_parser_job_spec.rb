@@ -1,15 +1,15 @@
 require 'rails_helper'
 
-RSpec.describe Atlas::Tools::SimplePageCrawlParserJob, type: :job do
+RSpec.describe Hudley::Tools::SimplePageCrawlParserJob, type: :job do
   describe '#perform' do
     let(:assistant) { create(:captain_assistant) }
     let(:page_link) { 'https://example.com/page/' }
     let(:page_title) { 'Example Page Title' }
     let(:content) { 'Some page content here' }
-    let(:crawler) { instance_double(Atlas::Tools::SimplePageCrawlService) }
+    let(:crawler) { instance_double(Hudley::Tools::SimplePageCrawlService) }
 
     before do
-      allow(Atlas::Tools::SimplePageCrawlService).to receive(:new)
+      allow(Hudley::Tools::SimplePageCrawlService).to receive(:new)
         .with(page_link)
         .and_return(crawler)
 

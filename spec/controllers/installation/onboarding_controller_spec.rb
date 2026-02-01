@@ -28,7 +28,7 @@ RSpec.describe 'Installation::Onboarding API', type: :request do
     before do
       allow(AccountBuilder).to receive(:new).and_return(account_builder)
       allow(account_builder).to receive(:perform).and_return(true)
-      allow(DeskFlowHub).to receive(:register_instance).and_return(true)
+      allow(DeskFlowsHub).to receive(:register_instance).and_return(true)
       Redis::Alfred.set(Redis::Alfred::CHATWOOT_INSTALLATION_ONBOARDING, true)
     end
 
@@ -44,12 +44,12 @@ RSpec.describe 'Installation::Onboarding API', type: :request do
 
       it 'will not call register instance when checkboxes are unchecked' do
         post '/installation/onboarding', params: { user: {} }
-        expect(DeskFlowHub).not_to have_received(:register_instance)
+        expect(DeskFlowsHub).not_to have_received(:register_instance)
       end
 
       it 'will call register instance when checkboxes are checked' do
         post '/installation/onboarding', params: { user: {}, subscribe_to_updates: 1 }
-        expect(DeskFlowHub).to have_received(:register_instance)
+        expect(DeskFlowsHub).to have_received(:register_instance)
       end
     end
 

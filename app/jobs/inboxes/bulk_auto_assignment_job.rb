@@ -40,7 +40,7 @@ class Inboxes::BulkAutoAssignmentJob < ApplicationJob
   end
 
   def should_skip_auto_assignment?(account)
-    return false unless DeskFlowApp.chatwoot_cloud?
+    return false unless DeskFlowsApp.chatwoot_cloud?
 
     default_plan?(account)
   end

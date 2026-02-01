@@ -62,7 +62,7 @@ export default {
       getAccount: 'accounts/getAccount',
       uiFlags: 'accounts/getUIFlags',
       isFeatureEnabledonAccount: 'accounts/isFeatureEnabledonAccount',
-      isOnDeskFlowCloud: 'globalConfig/isOnDeskFlowCloud',
+      isOnDeskFlowsCloud: 'globalConfig/isOnDeskFlowsCloud',
     }),
     showAutoResolutionConfig() {
       return this.isFeatureEnabledonAccount(
@@ -242,7 +242,7 @@ export default {
     <AutoResolve v-if="showAutoResolutionConfig" />
     <AudioTranscription v-if="showAudioTranscriptionConfig" />
     <AccountId />
-    <div v-if="!uiFlags.isFetchingItem && isOnDeskFlowCloud">
+    <div v-if="!uiFlags.isFetchingItem && isOnDeskFlowsCloud">
       <AccountDelete />
     </div>
     <BuildInfo />

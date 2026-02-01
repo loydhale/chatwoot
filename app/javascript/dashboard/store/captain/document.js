@@ -1,7 +1,7 @@
-import AtlasDocumentAPI from 'dashboard/api/captain/document';
+import HudleyDocumentAPI from 'dashboard/api/captain/document';
 import { createStore } from '../storeFactory';
 
 export default createStore({
-  name: 'AtlasDocument',
-  API: AtlasDocumentAPI,
+  name: 'HudleyDocument',
+  API: HudleyDocumentAPI,
 });

@@ -15,7 +15,7 @@ class Integrations::Facebook::MessageCreator
       create_contact_message
     end
     # rescue => e
-    # DeskFlowExceptionTracker.new(e).capture_exception
+    # DeskFlowsExceptionTracker.new(e).capture_exception
     # end
   end
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Accounts::Atlas::CopilotMessagesController', type: :request do
+RSpec.describe 'Api::V1::Accounts::Hudley::CopilotMessagesController', type: :request do
   let(:account) { create(:account) }
   let(:user) { create(:user, account: account, role: :administrator) }
   let(:copilot_thread) { create(:captain_copilot_thread, account: account, user: user) }

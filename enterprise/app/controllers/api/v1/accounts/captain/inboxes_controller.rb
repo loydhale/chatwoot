@@ -1,6 +1,6 @@
-class Api::V1::Accounts::Atlas::InboxesController < Api::V1::Accounts::BaseController
+class Api::V1::Accounts::Hudley::InboxesController < Api::V1::Accounts::BaseController
   before_action :current_account
-  before_action -> { check_authorization(Atlas::Assistant) }
+  before_action -> { check_authorization(Hudley::Assistant) }
 
   before_action :set_assistant
   def index

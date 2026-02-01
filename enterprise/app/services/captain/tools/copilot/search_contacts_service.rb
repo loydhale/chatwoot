@@ -1,4 +1,4 @@
-class Atlas::Tools::Copilot::SearchContactsService < Atlas::Tools::BaseTool
+class Hudley::Tools::Copilot::SearchContactsService < Hudley::Tools::BaseTool
   def self.name
     'search_contacts'
   end

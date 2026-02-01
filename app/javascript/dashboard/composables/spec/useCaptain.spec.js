@@ -1,4 +1,4 @@
-import { useAtlas } from '../useAtlas';
+import { useHudley } from '../useHudley';
 import {
   useFunctionGetter,
   useMapGetter,
@@ -27,7 +27,7 @@ vi.mock('dashboard/helper/AnalyticsHelper/events', () => ({
   },
 }));
 
-describe('useAtlas', () => {
+describe('useHudley', () => {
   const mockStore = {
     dispatch: vi.fn(),
   };
@@ -56,7 +56,7 @@ describe('useAtlas', () => {
 
   it('initializes computed properties correctly', async () => {
     const { captainEnabled, captainTasksEnabled, currentChat, draftMessage } =
-      useAtlas();
+      useHudley();
 
     expect(captainEnabled.value).toBe(true);
     expect(captainTasksEnabled.value).toBe(true);
@@ -69,7 +69,7 @@ describe('useAtlas', () => {
       data: { message: 'Rewritten content', follow_up_context: { id: 'ctx1' } },
     });
 
-    const { rewriteContent } = useAtlas();
+    const { rewriteContent } = useHudley();
     const result = await rewriteContent('Original content', 'improve', {});
 
     expect(TasksAPI.rewrite).toHaveBeenCalledWith(
@@ -91,7 +91,7 @@ describe('useAtlas', () => {
       data: { message: 'Summary', follow_up_context: { id: 'ctx2' } },
     });
 
-    const { summarizeConversation } = useAtlas();
+    const { summarizeConversation } = useHudley();
     const result = await summarizeConversation({});
 
     expect(TasksAPI.summarize).toHaveBeenCalledWith('123', undefined);
@@ -106,7 +106,7 @@ describe('useAtlas', () => {
       data: { message: 'Reply suggestion', follow_up_context: { id: 'ctx3' } },
     });
 
-    const { getReplySuggestion } = useAtlas();
+    const { getReplySuggestion } = useHudley();
     const result = await getReplySuggestion({});
 
     expect(TasksAPI.replySuggestion).toHaveBeenCalledWith('123', undefined);
@@ -124,7 +124,7 @@ describe('useAtlas', () => {
       },
     });
 
-    const { followUp } = useAtlas();
+    const { followUp } = useHudley();
     const result = await followUp({
       followUpContext: { id: 'ctx3' },
       message: 'Make it shorter',
@@ -155,7 +155,7 @@ describe('useAtlas', () => {
       data: { message: 'Rewritten' },
     });
 
-    const { processEvent } = useAtlas();
+    const { processEvent } = useHudley();
 
     // Test summarize
     await processEvent('summarize', '', {});

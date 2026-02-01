@@ -42,7 +42,7 @@ const dummyCustomRolesData = [
 
 const router = useRouter();
 
-const isOnDeskFlowCloud = useMapGetter('globalConfig/isOnDeskFlowCloud');
+const isOnDeskFlowsCloud = useMapGetter('globalConfig/isOnDeskFlowsCloud');
 
 const currentUser = useMapGetter('getCurrentUser');
 const currentAccountId = useMapGetter('getCurrentAccountId');
@@ -51,7 +51,7 @@ const isSuperAdmin = computed(() => {
   return currentUser.value.type === 'SuperAdmin';
 });
 const i18nKey = computed(() =>
-  isOnDeskFlowCloud.value ? 'PAYWALL' : 'ENTERPRISE_PAYWALL'
+  isOnDeskFlowsCloud.value ? 'PAYWALL' : 'ENTERPRISE_PAYWALL'
 );
 
 const goToBillingSettings = () => {
@@ -98,7 +98,7 @@ const tableHeaders = computed(() => {
       <BasePaywallModal
         feature-prefix="CUSTOM_ROLE"
         :i18n-key="i18nKey"
-        :is-on-chatwoot-cloud="isOnDeskFlowCloud"
+        :is-on-chatwoot-cloud="isOnDeskFlowsCloud"
         :is-super-admin="isSuperAdmin"
         @upgrade="goToBillingSettings"
       />

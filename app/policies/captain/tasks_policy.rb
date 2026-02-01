@@ -1,4 +1,4 @@
-class Atlas::TasksPolicy < ApplicationPolicy
+class Hudley::TasksPolicy < ApplicationPolicy
   def rewrite?
     true
   end

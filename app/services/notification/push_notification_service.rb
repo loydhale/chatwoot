@@ -82,7 +82,7 @@ class Notification::PushNotificationService
     when Errno::ECONNRESET, Net::OpenTimeout, Net::ReadTimeout
       Rails.logger.error "WebPush operation error: #{error.message}"
     else
-      DeskFlowExceptionTracker.new(error, account: notification.account).capture_exception
+      DeskFlowsExceptionTracker.new(error, account: notification.account).capture_exception
       true
     end
   end
@@ -104,7 +104,7 @@ class Notification::PushNotificationService
     return unless chatwoot_hub_enabled?
     return unless subscription.fcm?
 
-    DeskFlowHub.send_push(fcm_options(subscription))
+    DeskFlowsHub.send_push(fcm_options(subscription))
   end
 
   def firebase_credentials_present?

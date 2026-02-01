@@ -1,4 +1,4 @@
-class Atlas::RewriteService < Atlas::BaseTaskService
+class Hudley::RewriteService < Hudley::BaseTaskService
   pattr_initialize [:account!, :content!, :operation!, { conversation_display_id: nil }]
 
   TONE_OPERATIONS = %i[casual professional friendly confident straightforward].freeze

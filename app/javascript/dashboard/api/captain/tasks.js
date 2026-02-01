@@ -2,7 +2,7 @@
 import ApiClient from '../ApiClient';
 
 /**
- * A client for the Atlas Tasks API.
+ * A client for the Hudley Tasks API.
  * @extends ApiClient
  */
 class TasksAPI extends ApiClient {

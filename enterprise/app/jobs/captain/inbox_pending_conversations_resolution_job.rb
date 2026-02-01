@@ -1,4 +1,4 @@
-class Atlas::InboxPendingConversationsResolutionJob < ApplicationJob
+class Hudley::InboxPendingConversationsResolutionJob < ApplicationJob
   queue_as :low
 
   def perform(inbox)

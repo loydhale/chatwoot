@@ -1,9 +1,9 @@
-module Enterprise::Atlas::BaseTaskService
+module Enterprise::Hudley::BaseTaskService
   def perform
     return { error: I18n.t('captain.copilot_limit'), error_code: 429 } unless responses_available?
 
     unless captain_tasks_enabled?
-      return { error: I18n.t('captain.upgrade') } if DeskFlowApp.chatwoot_cloud?
+      return { error: I18n.t('captain.upgrade') } if DeskFlowsApp.chatwoot_cloud?
 
       return { error: I18n.t('captain.disabled') }
     end
@@ -16,7 +16,7 @@ module Enterprise::Atlas::BaseTaskService
   private
 
   def responses_available?
-    return true unless DeskFlowApp.chatwoot_cloud?
+    return true unless DeskFlowsApp.chatwoot_cloud?
 
     account.usage_limits[:captain][:responses][:current_available].positive?
   end

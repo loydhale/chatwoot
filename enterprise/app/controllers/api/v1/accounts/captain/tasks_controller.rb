@@ -1,8 +1,8 @@
-class Api::V1::Accounts::Atlas::TasksController < Api::V1::Accounts::BaseController
+class Api::V1::Accounts::Hudley::TasksController < Api::V1::Accounts::BaseController
   before_action :check_authorization
 
   def rewrite
-    result = Atlas::RewriteService.new(
+    result = Hudley::RewriteService.new(
       account: Current.account,
       content: params[:content],
       operation: params[:operation],
@@ -13,7 +13,7 @@ class Api::V1::Accounts::Atlas::TasksController < Api::V1::Accounts::BaseControl
   end
 
   def summarize
-    result = Atlas::SummaryService.new(
+    result = Hudley::SummaryService.new(
       account: Current.account,
       conversation_display_id: params[:conversation_display_id]
     ).perform
@@ -22,7 +22,7 @@ class Api::V1::Accounts::Atlas::TasksController < Api::V1::Accounts::BaseControl
   end
 
   def reply_suggestion
-    result = Atlas::ReplySuggestionService.new(
+    result = Hudley::ReplySuggestionService.new(
       account: Current.account,
       conversation_display_id: params[:conversation_display_id],
       user: Current.user
@@ -32,7 +32,7 @@ class Api::V1::Accounts::Atlas::TasksController < Api::V1::Accounts::BaseControl
   end
 
   def label_suggestion
-    result = Atlas::LabelSuggestionService.new(
+    result = Hudley::LabelSuggestionService.new(
       account: Current.account,
       conversation_display_id: params[:conversation_display_id]
     ).perform
@@ -41,7 +41,7 @@ class Api::V1::Accounts::Atlas::TasksController < Api::V1::Accounts::BaseControl
   end
 
   def follow_up
-    result = Atlas::FollowUpService.new(
+    result = Hudley::FollowUpService.new(
       account: Current.account,
       follow_up_context: params[:follow_up_context]&.to_unsafe_h,
       user_message: params[:message],

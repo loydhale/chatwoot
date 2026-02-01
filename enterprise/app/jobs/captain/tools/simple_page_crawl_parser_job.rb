@@ -1,8 +1,8 @@
-class Atlas::Tools::SimplePageCrawlParserJob < ApplicationJob
+class Hudley::Tools::SimplePageCrawlParserJob < ApplicationJob
   queue_as :low
 
   def perform(assistant_id:, page_link:)
-    assistant = Atlas::Assistant.find(assistant_id)
+    assistant = Hudley::Assistant.find(assistant_id)
     account = assistant.account
 
     if limit_exceeded?(account)
@@ -10,7 +10,7 @@ class Atlas::Tools::SimplePageCrawlParserJob < ApplicationJob
       return
     end
 
-    crawler = Atlas::Tools::SimplePageCrawlService.new(page_link)
+    crawler = Hudley::Tools::SimplePageCrawlService.new(page_link)
 
     page_title = crawler.page_title || ''
     content = crawler.body_text_content || ''

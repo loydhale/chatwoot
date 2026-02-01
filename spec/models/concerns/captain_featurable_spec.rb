@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe AtlasFeaturable do
+RSpec.describe HudleyFeaturable do
   let(:account) { create(:account) }
 
   describe 'dynamic method generation' do

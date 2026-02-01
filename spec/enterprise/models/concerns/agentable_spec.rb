@@ -37,7 +37,7 @@ RSpec.describe Concerns::Agentable do
   before do
     allow(Agents::Agent).to receive(:new).and_return(mock_agents_agent)
     allow(InstallationConfig).to receive(:find_by).with(name: 'CAPTAIN_OPEN_AI_MODEL').and_return(mock_installation_config)
-    allow(Atlas::PromptRenderer).to receive(:render).and_return('rendered_template')
+    allow(Hudley::PromptRenderer).to receive(:render).and_return('rendered_template')
   end
 
   describe '#agent' do
@@ -48,7 +48,7 @@ RSpec.describe Concerns::Agentable do
         tools: [],
         model: 'gpt-4-turbo',
         temperature: 0.8,
-        response_schema: Atlas::ResponseSchema
+        response_schema: Hudley::ResponseSchema
       )
 
       dummy_instance.agent
@@ -76,8 +76,8 @@ RSpec.describe Concerns::Agentable do
   end
 
   describe '#agent_instructions' do
-    it 'calls Atlas::PromptRenderer with base context' do
-      expect(Atlas::PromptRenderer).to receive(:render).with(
+    it 'calls Hudley::PromptRenderer with base context' do
+      expect(Hudley::PromptRenderer).to receive(:render).with(
         'dummy_class',
         hash_including(base_key: 'base_value')
       )
@@ -100,7 +100,7 @@ RSpec.describe Concerns::Agentable do
         contact: { name: 'John' }
       }
 
-      expect(Atlas::PromptRenderer).to receive(:render).with(
+      expect(Hudley::PromptRenderer).to receive(:render).with(
         'dummy_class',
         hash_including(expected_context)
       )
@@ -111,7 +111,7 @@ RSpec.describe Concerns::Agentable do
     it 'handles context without state' do
       context_double = instance_double(Agents::RunContext, context: {})
 
-      expect(Atlas::PromptRenderer).to receive(:render).with(
+      expect(Hudley::PromptRenderer).to receive(:render).with(
         'dummy_class',
         hash_including(
           base_key: 'base_value',
@@ -155,8 +155,8 @@ RSpec.describe Concerns::Agentable do
   end
 
   describe '#agent_response_schema' do
-    it 'returns Atlas::ResponseSchema' do
-      expect(dummy_instance.send(:agent_response_schema)).to eq(Atlas::ResponseSchema)
+    it 'returns Hudley::ResponseSchema' do
+      expect(dummy_instance.send(:agent_response_schema)).to eq(Hudley::ResponseSchema)
     end
   end
 

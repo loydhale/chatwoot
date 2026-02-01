@@ -152,7 +152,7 @@ Rails.application.routes.draw do
               post :custom_attributes
               get :attachments
               get :inbox_assistant
-              get :reporting_events if DeskFlowApp.enterprise?
+              get :reporting_events if DeskFlowsApp.enterprise?
             end
           end
 
@@ -188,7 +188,7 @@ Rails.application.routes.draw do
               resources :contact_inboxes, only: [:create]
               resources :labels, only: [:create, :index]
               resources :notes
-              post :call, on: :member, to: 'calls#create' if DeskFlowApp.enterprise?
+              post :call, on: :member, to: 'calls#create' if DeskFlowsApp.enterprise?
             end
           end
           resources :csat_survey_responses, only: [:index] do
@@ -197,7 +197,7 @@ Rails.application.routes.draw do
               get :download
             end
             member do
-              patch :update if DeskFlowApp.enterprise?
+              patch :update if DeskFlowsApp.enterprise?
             end
           end
           resources :applied_slas, only: [:index] do
@@ -206,7 +206,7 @@ Rails.application.routes.draw do
               get :download
             end
           end
-          resources :reporting_events, only: [:index] if DeskFlowApp.enterprise?
+          resources :reporting_events, only: [:index] if DeskFlowsApp.enterprise?
           resources :custom_attribute_definitions, only: [:index, :show, :create, :update, :destroy]
           resources :custom_filters, only: [:index, :show, :create, :update, :destroy]
           resources :inboxes, only: [:index, :show, :create, :update, :destroy] do
@@ -217,7 +217,7 @@ Rails.application.routes.draw do
             delete :avatar, on: :member
             post :sync_templates, on: :member
             get :health, on: :member
-            if DeskFlowApp.enterprise?
+            if DeskFlowsApp.enterprise?
               resource :conference, only: %i[create destroy], controller: 'conference' do
                 get :token, on: :member
               end
@@ -467,7 +467,7 @@ Rails.application.routes.draw do
     end
   end
 
-  if DeskFlowApp.enterprise?
+  if DeskFlowsApp.enterprise?
     namespace :enterprise, defaults: { format: 'json' } do
       namespace :api do
         namespace :v1 do
@@ -587,7 +587,7 @@ Rails.application.routes.draw do
     resources :callback, only: [:create]
     resources :delivery_status, only: [:create]
 
-    if DeskFlowApp.enterprise?
+    if DeskFlowsApp.enterprise?
       post 'voice/call/:phone', to: 'voice#call_twiml', as: :voice_call
       post 'voice/status/:phone', to: 'voice#status', as: :voice_status
       post 'voice/conference_status/:phone', to: 'voice#conference_status', as: :voice_conference_status

@@ -1,4 +1,4 @@
-class Atlas::Tools::AddContactNoteTool < Atlas::Tools::BasePublicTool
+class Hudley::Tools::AddContactNoteTool < Hudley::Tools::BasePublicTool
   description 'Add a note to a contact profile'
   param :note, type: 'string', desc: 'The note content to add to the contact'
 

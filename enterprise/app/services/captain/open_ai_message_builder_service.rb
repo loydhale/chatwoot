@@ -1,4 +1,4 @@
-class Atlas::OpenAiMessageBuilderService
+class Hudley::OpenAiMessageBuilderService
   pattr_initialize [:message!]
 
   def generate_content

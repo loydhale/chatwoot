@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :captain_document, class: 'Atlas::Document' do
+  factory :captain_document, class: 'Hudley::Document' do
     name { Faker::File.file_name }
     external_link { Faker::Internet.unique.url }
     content { Faker::Lorem.paragraphs.join("\n\n") }

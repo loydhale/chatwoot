@@ -1,4 +1,4 @@
-class Atlas::LabelSuggestionService < Atlas::BaseTaskService
+class Hudley::LabelSuggestionService < Hudley::BaseTaskService
   pattr_initialize [:account!, :conversation_display_id!]
 
   def perform

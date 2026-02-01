@@ -11,7 +11,7 @@ defineProps({
     type: String,
     required: true,
   },
-  isOnDeskFlowCloud: {
+  isOnDeskFlowsCloud: {
     type: Boolean,
     default: false,
   },
@@ -47,11 +47,11 @@ const emit = defineEmits(['upgrade']);
     />
     <p class="text-sm font-normal text-n-slate-11">
       {{ $t(`${featurePrefix}.${i18nKey}.UPGRADE_PROMPT`) }}
-      <span v-if="!isOnDeskFlowCloud && !isSuperAdmin">
+      <span v-if="!isOnDeskFlowsCloud && !isSuperAdmin">
         {{ $t(`${featurePrefix}.ENTERPRISE_PAYWALL.ASK_ADMIN`) }}
       </span>
     </p>
-    <template v-if="isOnDeskFlowCloud">
+    <template v-if="isOnDeskFlowsCloud">
       <ButtonV4 blue solid md @click="emit('upgrade')">
         {{ $t(`${featurePrefix}.PAYWALL.UPGRADE_NOW`) }}
       </ButtonV4>

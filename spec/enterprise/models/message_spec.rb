@@ -14,7 +14,7 @@ RSpec.describe Message do
 
     create(:message, message_type: :outgoing, conversation: conversation, sender: captain_assistant)
 
-    # Atlas::Assistant responses clear waiting_since (like AgentBot)
+    # Hudley::Assistant responses clear waiting_since (like AgentBot)
     expect(conversation.first_reply_created_at).to be_nil
     expect(conversation.waiting_since).to be_nil
 

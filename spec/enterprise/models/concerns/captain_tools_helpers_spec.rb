@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Concerns::AtlasToolsHelpers, type: :concern do
+RSpec.describe Concerns::HudleyToolsHelpers, type: :concern do
   # Create a test class that includes the concern
   let(:test_class) do
     Class.new do
-      include Concerns::AtlasToolsHelpers
+      include Concerns::HudleyToolsHelpers
 
       def self.name
         'TestClass'
@@ -17,7 +17,7 @@ RSpec.describe Concerns::AtlasToolsHelpers, type: :concern do
   describe 'TOOL_REFERENCE_REGEX' do
     it 'matches tool references in text' do
       text = 'Use [@Add Contact Note](tool://add_contact_note) and [Update Priority](tool://update_priority)'
-      matches = text.scan(Concerns::AtlasToolsHelpers::TOOL_REFERENCE_REGEX)
+      matches = text.scan(Concerns::HudleyToolsHelpers::TOOL_REFERENCE_REGEX)
 
       expect(matches.flatten).to eq(%w[add_contact_note update_priority])
     end
@@ -36,7 +36,7 @@ RSpec.describe Concerns::AtlasToolsHelpers, type: :concern do
       ]
 
       invalid_formats.each do |format|
-        matches = format.scan(Concerns::AtlasToolsHelpers::TOOL_REFERENCE_REGEX)
+        matches = format.scan(Concerns::HudleyToolsHelpers::TOOL_REFERENCE_REGEX)
         expect(matches).to be_empty, "Should not match: #{format}"
       end
     end
@@ -45,10 +45,10 @@ RSpec.describe Concerns::AtlasToolsHelpers, type: :concern do
   describe '.resolve_tool_class' do
     it 'resolves valid tool classes' do
       # Mock the constantize to return a class
-      stub_const('Atlas::Tools::AddContactNoteTool', Class.new)
+      stub_const('Hudley::Tools::AddContactNoteTool', Class.new)
 
       result = test_class.resolve_tool_class('add_contact_note')
-      expect(result).to eq(Atlas::Tools::AddContactNoteTool)
+      expect(result).to eq(Hudley::Tools::AddContactNoteTool)
     end
 
     it 'returns nil for invalid tool classes' do
@@ -57,10 +57,10 @@ RSpec.describe Concerns::AtlasToolsHelpers, type: :concern do
     end
 
     it 'converts snake_case to PascalCase' do
-      stub_const('Atlas::Tools::AddPrivateNoteTool', Class.new)
+      stub_const('Hudley::Tools::AddPrivateNoteTool', Class.new)
 
       result = test_class.resolve_tool_class('add_private_note')
-      expect(result).to eq(Atlas::Tools::AddPrivateNoteTool)
+      expect(result).to eq(Hudley::Tools::AddPrivateNoteTool)
     end
   end
 

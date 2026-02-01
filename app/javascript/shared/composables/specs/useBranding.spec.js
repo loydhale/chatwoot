@@ -24,17 +24,17 @@ describe('useBranding', () => {
   });
 
   describe('replaceInstallationName', () => {
-    it('should replace "DeskFlow" with installation name when both text and installation name are provided', () => {
+    it('should replace "DeskFlows" with installation name when both text and installation name are provided', () => {
       const { replaceInstallationName } = useBranding();
-      const result = replaceInstallationName('Welcome to DeskFlow');
+      const result = replaceInstallationName('Welcome to DeskFlows');
 
       expect(result).toBe('Welcome to MyCompany');
     });
 
-    it('should replace multiple occurrences of "DeskFlow"', () => {
+    it('should replace multiple occurrences of "DeskFlows"', () => {
       const { replaceInstallationName } = useBranding();
       const result = replaceInstallationName(
-        'DeskFlow is great! Use DeskFlow today.'
+        'DeskFlows is great! Use DeskFlows today.'
       );
 
       expect(result).toBe('MyCompany is great! Use MyCompany today.');
@@ -44,18 +44,18 @@ describe('useBranding', () => {
       mockGlobalConfig.value = {};
 
       const { replaceInstallationName } = useBranding();
-      const result = replaceInstallationName('Welcome to DeskFlow');
+      const result = replaceInstallationName('Welcome to DeskFlows');
 
-      expect(result).toBe('Welcome to DeskFlow');
+      expect(result).toBe('Welcome to DeskFlows');
     });
 
     it('should return original text when globalConfig is not available', () => {
       mockGlobalConfig.value = undefined;
 
       const { replaceInstallationName } = useBranding();
-      const result = replaceInstallationName('Welcome to DeskFlow');
+      const result = replaceInstallationName('Welcome to DeskFlows');
 
-      expect(result).toBe('Welcome to DeskFlow');
+      expect(result).toBe('Welcome to DeskFlows');
     });
 
     it('should return original text when text is empty or null', () => {
@@ -66,14 +66,14 @@ describe('useBranding', () => {
       expect(replaceInstallationName(undefined)).toBe(undefined);
     });
 
-    it('should handle text without "DeskFlow" gracefully', () => {
+    it('should handle text without "DeskFlows" gracefully', () => {
       const { replaceInstallationName } = useBranding();
       const result = replaceInstallationName('Welcome to our platform');
 
       expect(result).toBe('Welcome to our platform');
     });
 
-    it('should be case-sensitive for "DeskFlow"', () => {
+    it('should be case-sensitive for "DeskFlows"', () => {
       const { replaceInstallationName } = useBranding();
       const result = replaceInstallationName(
         'Welcome to chatwoot and CHATWOOT'
@@ -88,7 +88,7 @@ describe('useBranding', () => {
       };
 
       const { replaceInstallationName } = useBranding();
-      const result = replaceInstallationName('Welcome to DeskFlow');
+      const result = replaceInstallationName('Welcome to DeskFlows');
 
       expect(result).toBe('Welcome to My-Company & Co.');
     });

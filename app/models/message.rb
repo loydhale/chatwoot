@@ -39,7 +39,7 @@
 #
 
 class Message < ApplicationRecord
-  searchkick callbacks: false if DeskFlowApp.advanced_search_allowed?
+  searchkick callbacks: false if DeskFlowsApp.advanced_search_allowed?
 
   include MessageFilterHelpers
   include Liquidable
@@ -211,7 +211,7 @@ class Message < ApplicationRecord
     return false unless human_response? && !private?
     return false if conversation.first_reply_created_at.present?
     return false if conversation.messages.outgoing
-                                .where.not(sender_type: ['AgentBot', 'Atlas::Assistant'])
+                                .where.not(sender_type: ['AgentBot', 'Hudley::Assistant'])
                                 .where.not(private: true)
                                 .where("(additional_attributes->'campaign_id') is null").count > 1
 
@@ -235,9 +235,9 @@ class Message < ApplicationRecord
   end
 
   def should_index?
-    return false unless DeskFlowApp.advanced_search_allowed?
+    return false unless DeskFlowsApp.advanced_search_allowed?
     return false unless incoming? || outgoing?
-    # For DeskFlow Cloud:
+    # For DeskFlows Cloud:
     #   - Enable indexing only if the account is paid.
     #   - The `advanced_search_indexing` feature flag is used only in the cloud.
     #
@@ -245,7 +245,7 @@ class Message < ApplicationRecord
     #   - Adding an extra feature flag here would cause confusion.
     #   - If the user has configured Elasticsearch, enabling `advanced_search`
     #     should automatically work without any additional flags.
-    return false if DeskFlowApp.chatwoot_cloud? && !account.feature_enabled?('advanced_search_indexing')
+    return false if DeskFlowsApp.chatwoot_cloud? && !account.feature_enabled?('advanced_search_indexing')
 
     true
   end
@@ -351,8 +351,8 @@ class Message < ApplicationRecord
   end
 
   def bot_response?
-    # Check if this is a response from AgentBot or Atlas::Assistant
-    outgoing? && sender_type.in?(['AgentBot', 'Atlas::Assistant'])
+    # Check if this is a response from AgentBot or Hudley::Assistant
+    outgoing? && sender_type.in?(['AgentBot', 'Hudley::Assistant'])
   end
 
   def dispatch_create_events
