@@ -29,3 +29,6 @@ db_namespace = namespace :db do
     end
   end
 end
+
+  # Alias for rebrand compatibility
+  task deskflows_prepare: :chatwoot_prepare
