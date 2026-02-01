@@ -5,10 +5,10 @@ describe('PortalHelper', () => {
     it('returns the correct url', () => {
       window.chatwootConfig = {
         hostURL: 'https://app.deskflowss.ai',
-        helpCenterURL: 'https://help.chatwoot.com',
+        helpCenterURL: 'https://help.deskflows.app',
       };
       expect(buildPortalURL('handbook')).toEqual(
-        'https://help.chatwoot.com/hc/handbook'
+        'https://help.deskflows.app/hc/handbook'
       );
       window.chatwootConfig = {};
     });
@@ -18,18 +18,18 @@ describe('PortalHelper', () => {
     it('returns the correct url', () => {
       window.chatwootConfig = {
         hostURL: 'https://app.deskflowss.ai',
-        helpCenterURL: 'https://help.chatwoot.com',
+        helpCenterURL: 'https://help.deskflows.app',
       };
       expect(
         buildPortalArticleURL('handbook', 'culture', 'fr', 'article-slug')
-      ).toEqual('https://help.chatwoot.com/hc/handbook/articles/article-slug');
+      ).toEqual('https://help.deskflows.app/hc/handbook/articles/article-slug');
       window.chatwootConfig = {};
     });
 
     it('returns the correct url with custom domain', () => {
       window.chatwootConfig = {
         hostURL: 'https://app.deskflowss.ai',
-        helpCenterURL: 'https://help.chatwoot.com',
+        helpCenterURL: 'https://help.deskflows.app',
       };
       expect(
         buildPortalArticleURL(
@@ -45,7 +45,7 @@ describe('PortalHelper', () => {
     it('handles https in custom domain correctly', () => {
       window.chatwootConfig = {
         hostURL: 'https://app.deskflowss.ai',
-        helpCenterURL: 'https://help.chatwoot.com',
+        helpCenterURL: 'https://help.deskflows.app',
       };
       expect(
         buildPortalArticleURL(

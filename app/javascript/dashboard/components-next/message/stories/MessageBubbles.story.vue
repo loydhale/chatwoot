@@ -119,7 +119,7 @@ const email = computed(() =>
           quoted:
             'Hi Team,\n\nI hope this email finds you well! I wanted to share some updates regarding\nour integration with *DeskFlow* and outline some key features we’ve\nexplored.',
         },
-        to: ['shivam@chatwoot.com'],
+        to: ['shivam@deskflows.app'],
       },
       ccEmail: null,
       bccEmail: null,

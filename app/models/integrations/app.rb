@@ -1,5 +1,6 @@
 class Integrations::App
   include Linear::IntegrationHelper
+  include Ghl::IntegrationHelper
   attr_accessor :params
 
   def initialize(params)
@@ -95,8 +96,7 @@ class Integrations::App
   end
 
   def encode_ghl_state
-    # Use a secure token that can be verified on callback
-    Current.account.to_sgid(expires_in: 15.minutes).to_s
+    generate_ghl_token(Current.account.id)
   end
 
   def ghl_default_scopes
