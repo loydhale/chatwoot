@@ -18,7 +18,7 @@
 
 ```bash
 # 1. Clone and enter the repo
-git clone git@github.com:loydhale/chatwoot.git /path/to/supportflow
+git clone git@github.com:loydhale/deskflows.git /path/to/supportflow
 cd /path/to/supportflow
 git checkout fix/local-dev-setup
 
@@ -35,7 +35,7 @@ docker compose build rails vite
 docker compose up -d
 
 # 6. Create and migrate the database
-docker compose exec rails bundle exec rails db:chatwoot_prepare
+docker compose exec rails bundle exec rails db:deskflows_prepare
 
 # 7. Open in browser
 open http://localhost:3000
@@ -126,7 +126,7 @@ The base image build is the slowest part (~5-10 min) due to native gem compilati
 
 ## Troubleshooting
 
-### "chatwoot:development" image not found
+### "deskflows:development" image not found
 Build the base image first:
 ```bash
 docker compose build base

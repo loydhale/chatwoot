@@ -20,7 +20,7 @@
 | 1 | Rebrand DeskFlow → DeskFlows | None | Update all instances: DeskFlow → DeskFlows, deskflow → deskflows, Atlas → Hudley. Package names, locales, Vue components, Ruby files, docs, URLs. |
 | 2 | Rebrand Atlas → Hudley | Card #1 | AI assistant rename across all files. Captain was already → Atlas, now Atlas → Hudley. |
 | 3 | Docker full boot verification | None (parallel) | Run docker compose up, fix any errors, verify Rails + Vite + Sidekiq all respond |
-| 4 | Database setup & seed | Card #3 | Run db:chatwoot_prepare, create test account, verify login flow |
+| 4 | Database setup & seed | Card #3 | Run db:deskflows_prepare, create test account, verify login flow |
 
 ### P1 — GHL Integration
 | # | Card | Dependencies | Notes |
@@ -54,7 +54,7 @@
 
 | # | Card | Notes |
 |---|------|-------|
-| — | Chatwoot → DeskFlow rebrand | 1,200+ files (needs update to DeskFlows) |
+| — | DeskFlows → DeskFlow rebrand | 1,200+ files (needs update to DeskFlows) |
 | — | Captain → Atlas rebrand | All files (needs update to Hudley) |
 | — | GHL OAuth backend | 90% — routes, controllers, token storage |
 | — | Docker setup | 80% — compose, Dockerfiles, env overrides |

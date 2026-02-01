@@ -1,11 +1,11 @@
 [Unit]
 Requires=network.target
-PartOf=chatwoot.target
+PartOf=deskflows.target
 
 [Service]
 Type=simple
-User=chatwoot
-WorkingDirectory=/home/chatwoot/chatwoot
+User=deskflows
+WorkingDirectory=/home/deskflows/deskflows
 
 ExecStart=/bin/bash -lc 'bin/rails server -p $PORT -e $RAILS_ENV'
 
@@ -16,10 +16,10 @@ KillMode=mixed
 StandardInput=null
 SyslogIdentifier=%p
 
-Environment="PATH=/home/chatwoot/.rvm/gems/ruby-3.4.4/bin:/home/chatwoot/.rvm/gems/ruby-3.4.4@global/bin:/home/chatwoot/.rvm/rubies/ruby-3.4.4/bin:/home/chatwoot/.rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/home/chatwoot/.rvm/bin:/home/chatwoot/.rvm/bin"
+Environment="PATH=/home/deskflows/.rvm/gems/ruby-3.4.4/bin:/home/deskflows/.rvm/gems/ruby-3.4.4@global/bin:/home/deskflows/.rvm/rubies/ruby-3.4.4/bin:/home/deskflows/.rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/home/deskflows/.rvm/bin:/home/deskflows/.rvm/bin"
 Environment="PORT=3000"
 Environment="RAILS_ENV=production"
 Environment="NODE_ENV=production"
 Environment="RAILS_LOG_TO_STDOUT=true"
-Environment="GEM_HOME=/home/chatwoot/.rvm/gems/ruby-3.4.4"
-Environment="GEM_PATH=/home/chatwoot/.rvm/gems/ruby-3.4.4:/home/chatwoot/.rvm/gems/ruby-3.4.4@global"
+Environment="GEM_HOME=/home/deskflows/.rvm/gems/ruby-3.4.4"
+Environment="GEM_PATH=/home/deskflows/.rvm/gems/ruby-3.4.4:/home/deskflows/.rvm/gems/ruby-3.4.4@global"

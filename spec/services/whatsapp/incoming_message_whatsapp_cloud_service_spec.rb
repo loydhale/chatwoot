@@ -114,7 +114,7 @@ describe Whatsapp::IncomingMessageWhatsappCloudService do
       status: 200,
       body: {
         messaging_product: 'whatsapp',
-        url: 'https://chatwoot-assets.local/sample.png',
+        url: 'https://deskflows-assets.local/sample.png',
         mime_type: 'image/jpeg',
         sha256: 'sha256',
         file_size: 'SIZE',
@@ -125,7 +125,7 @@ describe Whatsapp::IncomingMessageWhatsappCloudService do
   end
 
   def stub_sample_png_request
-    stub_request(:get, 'https://chatwoot-assets.local/sample.png').to_return(
+    stub_request(:get, 'https://deskflows-assets.local/sample.png').to_return(
       status: 200,
       body: File.read('spec/assets/sample.png')
     )

@@ -1,5 +1,5 @@
 class Enterprise::Billing::HandleStripeEventService
-  CLOUD_PLANS_CONFIG = 'CHATWOOT_CLOUD_PLANS'.freeze
+  CLOUD_PLANS_CONFIG = 'DESKFLOWS_CLOUD_PLANS'.freeze
   CAPTAIN_CLOUD_PLAN_LIMITS = 'CAPTAIN_CLOUD_PLAN_LIMITS'.freeze
 
   # Plan hierarchy: Hacker (default) -> Startups -> Business -> Enterprise

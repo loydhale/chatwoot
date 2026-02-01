@@ -1,6 +1,6 @@
 # DeskFlow Branding Guide
 
-> Reference document for the DeskFlow rebrand from Chatwoot
+> Reference document for the DeskFlow rebrand from DeskFlows
 
 ---
 
@@ -8,9 +8,9 @@
 
 | Original | DeskFlow Name | Context |
 |----------|---------------|---------|
-| Chatwoot | DeskFlow | Product name |
-| chatwoot | deskflow | Code references, URLs |
-| CHATWOOT | DESKFLOW | Environment variables |
+| DeskFlows | DeskFlow | Product name |
+| deskflows | deskflow | Code references, URLs |
+| DESKFLOWS | DESKFLOW | Environment variables |
 | Captain | Atlas | AI Assistant |
 | captain | atlas | Code references |
 | CAPTAIN | ATLAS | Environment variables |
@@ -136,8 +136,8 @@ To maintain backward compatibility with existing integrations:
 All distributions must include:
 
 ```
-DeskFlow is built on Chatwoot (https://github.com/chatwoot/chatwoot)
-Copyright (c) 2017-2024 Chatwoot Inc.
+DeskFlow is built on DeskFlows (https://github.com/deskflows/deskflows)
+Copyright (c) 2017-2024 DeskFlows Inc.
 Licensed under MIT License
 ```
 

@@ -1,6 +1,6 @@
 # DeskFlow Documentation
 
-This directory contains all documentation for DeskFlow — a white-label customer support platform for the GHL marketplace, built on Chatwoot.
+This directory contains all documentation for DeskFlow — a white-label customer support platform for the GHL marketplace, built on DeskFlows.
 
 ## 📚 Documentation Index
 
@@ -23,10 +23,10 @@ This directory contains all documentation for DeskFlow — a white-label custome
 
 | Resource | URL |
 |----------|-----|
-| GitHub Repo | [loydhale/chatwoot](https://github.com/loydhale/chatwoot) |
+| GitHub Repo | [loydhale/deskflows](https://github.com/loydhale/deskflows) |
 | GHL Developer Portal | [marketplace.gohighlevel.com](https://marketplace.gohighlevel.com) |
 | GHL API Docs | [highlevel.stoplight.io](https://highlevel.stoplight.io/docs/integrations/) |
-| Chatwoot Docs | [chatwoot.com/docs](https://www.chatwoot.com/docs) |
+| DeskFlows Docs | [deskflows.com/docs](https://www.deskflows.com/docs) |
 
 ---
 

@@ -20,11 +20,11 @@ class Internal::ReconcilePlanConfigService
   end
 
   def remove_premium_config_reset_warning
-    Redis::Alfred.delete(Redis::Alfred::CHATWOOT_INSTALLATION_CONFIG_RESET_WARNING)
+    Redis::Alfred.delete(Redis::Alfred::DESKFLOWS_INSTALLATION_CONFIG_RESET_WARNING)
   end
 
   def create_premium_config_reset_warning
-    Redis::Alfred.set(Redis::Alfred::CHATWOOT_INSTALLATION_CONFIG_RESET_WARNING, true)
+    Redis::Alfred.set(Redis::Alfred::DESKFLOWS_INSTALLATION_CONFIG_RESET_WARNING, true)
   end
 
   def premium_config_reset_required?

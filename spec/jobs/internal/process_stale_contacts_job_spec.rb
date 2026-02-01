@@ -5,7 +5,7 @@ RSpec.describe Internal::ProcessStaleContactsJob do
 
   context 'when in cloud environment' do
     before do
-      allow(DeskFlowsApp).to receive(:chatwoot_cloud?).and_return(true)
+      allow(DeskFlowsApp).to receive(:deskflows_cloud?).and_return(true)
     end
 
     it 'processes accounts based on the day of month' do
@@ -53,7 +53,7 @@ RSpec.describe Internal::ProcessStaleContactsJob do
 
   context 'when not in cloud environment' do
     it 'does not process any accounts' do
-      allow(DeskFlowsApp).to receive(:chatwoot_cloud?).and_return(false)
+      allow(DeskFlowsApp).to receive(:deskflows_cloud?).and_return(false)
 
       expect(Account).not_to receive(:where)
       expect(Internal::RemoveStaleContactsJob).not_to receive(:perform_later)

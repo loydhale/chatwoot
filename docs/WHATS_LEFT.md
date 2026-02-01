@@ -7,7 +7,7 @@
 ## ✅ Completed
 
 ### Rebranding (100%)
-- [x] Chatwoot → DeskFlow across ~1,200 files
+- [x] DeskFlows → DeskFlow across ~1,200 files
 - [x] Captain AI → Atlas AI
 - [x] Locale files (703+ files, all languages)
 - [x] Vue/JS components (144+ files)
@@ -44,7 +44,7 @@
 ### Local Dev Environment
 - [x] Docker build initiated (base image compiles ~5-10 min)
 - [ ] Verify full `docker compose up` boots
-- [ ] Run `db:chatwoot_prepare` to create/migrate database
+- [ ] Run `db:deskflows_prepare` to create/migrate database
 - [ ] Confirm Rails server responds on port 3000
 - [ ] Confirm Vite dev server on port 3036
 
@@ -97,7 +97,7 @@
 
 1. **No GHL-specific Vue component** — The backend integration is built, but there's no custom Vue page for GHL settings. The generic integration hook UI may work, but a dedicated page would be better.
 
-2. **No `ghl_connections` migration** — The OAuth integration stores tokens in the `hooks` table (existing Chatwoot pattern), not the proposed `ghl_connections` table from the docs. This works fine but differs from the architecture doc.
+2. **No `ghl_connections` migration** — The OAuth integration stores tokens in the `hooks` table (existing DeskFlows pattern), not the proposed `ghl_connections` table from the docs. This works fine but differs from the architecture doc.
 
 3. **No webhook receiver** — The `/api/v1/webhooks/ghl` endpoint documented in `GHL_OAUTH_INTEGRATION.md` does not exist yet. This is needed to receive events from GHL.
 
@@ -129,7 +129,7 @@
 - **Vue.js frontend** — No dedicated GHL integration page (uses generic integration UI)
 
 ### Architecture Decision
-The code stores GHL tokens in the `hooks` table, not a separate `ghl_connections` table. This is actually the smarter approach — it follows the existing Chatwoot pattern for integrations (same as Slack, Linear, etc.) and doesn't require a new migration. The docs should be updated to reflect this.
+The code stores GHL tokens in the `hooks` table, not a separate `ghl_connections` table. This is actually the smarter approach — it follows the existing DeskFlows pattern for integrations (same as Slack, Linear, etc.) and doesn't require a new migration. The docs should be updated to reflect this.
 
 ---
 

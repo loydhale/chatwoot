@@ -51,7 +51,7 @@ gem 'csv-safe'
 gem 'aws-sdk-s3', require: false
 # original gem isn't maintained actively
 # we wanted updated version of faraday which is a dependency for slack-ruby-client
-gem 'azure-storage-blob', git: 'https://github.com/chatwoot/azure-storage-ruby', branch: 'chatwoot', require: false
+gem 'azure-storage-blob', git: 'https://github.com/deskflows/azure-storage-ruby', branch: 'deskflows', require: false
 gem 'google-cloud-storage', '>= 1.48.0', require: false
 gem 'image_processing'
 
@@ -80,7 +80,7 @@ gem 'barnes'
 
 ##--- gems for authentication & authorization ---##
 gem 'devise', '>= 4.9.4'
-gem 'devise-secure_password', git: 'https://github.com/chatwoot/devise-secure_password', branch: 'chatwoot'
+gem 'devise-secure_password', git: 'https://github.com/deskflows/devise-secure_password', branch: 'deskflows'
 gem 'devise_token_auth', '>= 1.2.3'
 # two-factor authentication
 gem 'devise-two-factor', '>= 5.0.0'
@@ -102,7 +102,7 @@ gem 'facebook-messenger'
 gem 'line-bot-api'
 gem 'twilio-ruby'
 # twitty will handle subscription of twitter account events
-# gem 'twitty', git: 'https://github.com/chatwoot/twitty'
+# gem 'twitty', git: 'https://github.com/deskflows/twitty'
 gem 'twitty', '~> 0.1.5'
 # facebook client
 gem 'koala'
