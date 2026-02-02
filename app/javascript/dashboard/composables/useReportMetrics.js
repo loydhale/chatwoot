@@ -1,5 +1,5 @@
 import { useMapGetter } from 'dashboard/composables/store';
-import { formatTime } from '@deskflows/utils';
+import { formatTime } from '@chatwoot/utils';
 
 /**
  * A composable function for report metrics calculations and display.

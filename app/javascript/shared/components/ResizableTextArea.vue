@@ -4,7 +4,7 @@ import {
   removeSignature,
   extractTextFromMarkdown,
 } from 'dashboard/helper/editorHelper';
-import { createTypingIndicator } from '@deskflows/utils';
+import { createTypingIndicator } from '@chatwoot/utils';
 
 const TYPING_INDICATOR_IDLE_TIME = 4000;
 export default {

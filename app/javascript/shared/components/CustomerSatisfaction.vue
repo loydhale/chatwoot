@@ -4,7 +4,7 @@ import Spinner from 'shared/components/Spinner.vue';
 import { CSAT_RATINGS, CSAT_DISPLAY_TYPES } from 'shared/constants/messages';
 import FluentIcon from 'shared/components/FluentIcon/Index.vue';
 import StarRating from 'shared/components/StarRating.vue';
-import { getContrastingTextColor } from '@deskflows/utils';
+import { getContrastingTextColor } from '@chatwoot/utils';
 
 export default {
   components: {

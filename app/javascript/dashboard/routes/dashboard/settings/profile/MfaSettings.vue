@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter, useRoute } from 'vue-router';
-import { parseBoolean } from '@deskflows/utils';
+import { parseBoolean } from '@chatwoot/utils';
 import mfaAPI from 'dashboard/api/mfa';
 import { useAlert } from 'dashboard/composables';
 import MfaStatusCard from './MfaStatusCard.vue';

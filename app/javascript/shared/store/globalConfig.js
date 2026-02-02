@@ -1,4 +1,4 @@
-import { parseBoolean } from '@deskflows/utils';
+import { parseBoolean } from '@chatwoot/utils';
 import { resolveMaximumFileUploadSize } from 'shared/helpers/FileHelper';
 
 const {

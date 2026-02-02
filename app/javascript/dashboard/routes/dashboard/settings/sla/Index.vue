@@ -8,7 +8,7 @@ import SLAListItemLoading from './components/SLAListItemLoading.vue';
 import SLAPaywallEnterprise from './components/SLAPaywallEnterprise.vue';
 
 import { mapGetters } from 'vuex';
-import { convertSecondsToTimeUnit } from '@deskflows/utils';
+import { convertSecondsToTimeUnit } from '@chatwoot/utils';
 import { useAlert } from 'dashboard/composables';
 
 export default {

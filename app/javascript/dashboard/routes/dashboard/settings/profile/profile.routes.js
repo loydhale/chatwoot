@@ -1,5 +1,5 @@
 import { frontendURL } from '../../../../helper/URLHelper';
-import { parseBoolean } from '@deskflows/utils';
+import { parseBoolean } from '@chatwoot/utils';
 
 import SettingsContent from './Wrapper.vue';
 import Index from './Index.vue';

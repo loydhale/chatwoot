@@ -7,7 +7,7 @@ import { useUISettings } from 'dashboard/composables/useUISettings';
 import { vOnClickOutside } from '@vueuse/components';
 import { useAlert } from 'dashboard/composables';
 import { ExceptionWithMessage } from 'shared/helpers/CustomErrors';
-import { debounce } from '@deskflows/utils';
+import { debounce } from '@chatwoot/utils';
 import { useKeyboardEvents } from 'dashboard/composables/useKeyboardEvents';
 import { emitter } from 'shared/helpers/mitt';
 import { BUS_EVENTS } from 'shared/constants/busEvents';

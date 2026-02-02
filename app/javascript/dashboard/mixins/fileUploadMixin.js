@@ -1,7 +1,7 @@
 import { mapGetters } from 'vuex';
 import { useAlert } from 'dashboard/composables';
 import { checkFileSizeLimit } from 'shared/helpers/FileHelper';
-import { getMaxUploadSizeByChannel } from '@deskflows/utils';
+import { getMaxUploadSizeByChannel } from '@chatwoot/utils';
 import { DirectUpload } from 'activestorage';
 import {
   DEFAULT_MAXIMUM_FILE_UPLOAD_SIZE,

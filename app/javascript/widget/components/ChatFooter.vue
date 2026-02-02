@@ -1,6 +1,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { getContrastingTextColor } from '@deskflows/utils';
+import { getContrastingTextColor } from '@chatwoot/utils';
 import CustomButton from 'shared/components/Button.vue';
 import FooterReplyTo from 'widget/components/FooterReplyTo.vue';
 import ChatInputWrap from 'widget/components/ChatInputWrap.vue';

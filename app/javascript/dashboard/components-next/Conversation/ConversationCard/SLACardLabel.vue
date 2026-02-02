@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
-import { evaluateSLAStatus } from '@deskflows/utils';
+import { evaluateSLAStatus } from '@chatwoot/utils';
 
 const props = defineProps({
   conversation: {

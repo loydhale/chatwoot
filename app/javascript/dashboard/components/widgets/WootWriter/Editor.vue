@@ -40,11 +40,11 @@ import {
   MessageMarkdownSerializer,
   EditorState,
   Selection,
-} from '@deskflows/prosemirror-schema';
+} from '@chatwoot/prosemirror-schema';
 import {
   suggestionsPlugin,
   triggerCharacters,
-} from '@deskflows/prosemirror-schema/src/mentions/plugin';
+} from '@chatwoot/prosemirror-schema/src/mentions/plugin';
 
 import {
   appendSignature,
@@ -64,7 +64,7 @@ import {
   hasPressedEnterAndNotCmdOrShift,
   hasPressedCommandAndEnter,
 } from 'shared/helpers/KeyboardHelpers';
-import { createTypingIndicator } from '@deskflows/utils';
+import { createTypingIndicator } from '@chatwoot/utils';
 import { checkFileSizeLimit } from 'shared/helpers/FileHelper';
 import { uploadFile } from 'dashboard/helper/uploadHelper';
 
@@ -883,7 +883,7 @@ useEmitter(BUS_EVENTS.INSERT_INTO_RICH_EDITOR, insertContentIntoEditor);
 </template>
 
 <style lang="scss">
-@import '@deskflows/prosemirror-schema/src/styles/base.scss';
+@import '@chatwoot/prosemirror-schema/src/styles/base.scss';
 
 .ProseMirror-menubar-wrapper {
   @apply flex flex-col gap-3;
