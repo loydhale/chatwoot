@@ -1,0 +1,60 @@
+<% content_for(:title) { "Edit #{@subscription.account.name} Subscription" } %>
+
+<header class="main-content__header" role="banner">
+  <h1 class="main-content__page-title">Edit Subscription — <%= @subscription.account.name %></h1>
+  <%= link_to "← Back", super_admin_ghl_tenant_path(@subscription), style: "color: #6b7280;" %>
+</header>
+
+<div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 24px; max-width: 640px;">
+  <%= form_with(model: @subscription, url: super_admin_ghl_tenant_path(@subscription), method: :patch) do |f| %>
+    <% if @subscription.errors.any? %>
+      <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+        <% @subscription.errors.full_messages.each do |msg| %>
+          <p style="color: #dc2626; margin: 0;"><%= msg %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div style="margin-bottom: 16px;">
+      <%= f.label :plan, "Plan", style: "display: block; font-weight: 600; margin-bottom: 4px;" %>
+      <%= f.select :plan, GhlSubscription::PLANS.keys.map { |k| [k.titleize, k] }, {}, style: "width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 6px;" %>
+    </div>
+
+    <div style="margin-bottom: 16px;">
+      <%= f.label :status, "Status", style: "display: block; font-weight: 600; margin-bottom: 4px;" %>
+      <%= f.select :status, GhlSubscription::STATUSES.map { |s| [s.titleize, s] }, {}, style: "width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 6px;" %>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+      <div>
+        <%= f.label :locations_limit, "Locations Limit", style: "display: block; font-weight: 600; margin-bottom: 4px;" %>
+        <%= f.number_field :locations_limit, min: 1, style: "width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 6px;" %>
+      </div>
+      <div>
+        <%= f.label :agents_limit, "Agents Limit", style: "display: block; font-weight: 600; margin-bottom: 4px;" %>
+        <%= f.number_field :agents_limit, min: 1, style: "width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 6px;" %>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 16px;">
+      <%= f.label :ai_credits_limit, "AI Credits Limit", style: "display: block; font-weight: 600; margin-bottom: 4px;" %>
+      <%= f.number_field :ai_credits_limit, min: 0, style: "width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 6px;" %>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+      <div>
+        <%= f.label :trial_ends_at, "Trial Ends At", style: "display: block; font-weight: 600; margin-bottom: 4px;" %>
+        <%= f.datetime_local_field :trial_ends_at, style: "width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 6px;" %>
+      </div>
+      <div>
+        <%= f.label :current_period_ends_at, "Period Ends At", style: "display: block; font-weight: 600; margin-bottom: 4px;" %>
+        <%= f.datetime_local_field :current_period_ends_at, style: "width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 6px;" %>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 8px;">
+      <%= f.submit "Save Changes", class: "btn btn-primary", style: "padding: 8px 24px;" %>
+      <%= link_to "Cancel", super_admin_ghl_tenant_path(@subscription), class: "btn btn-outline", style: "padding: 8px 24px;" %>
+    </div>
+  <% end %>
+</div>

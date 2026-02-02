@@ -7,6 +7,13 @@
 # All events are verified via HMAC-SHA256 signature, then dispatched
 # to background jobs for processing. Returns 200 immediately.
 #
+# Supported events:
+#   - contact.create / contact.update / contact.delete
+#   - InboundMessage / OutboundMessage / conversation.message
+#   - conversation.status (open/closed)
+#   - app.installed / app.uninstalled (marketplace lifecycle)
+#   - location.create / location.update (multi-location tracking)
+#
 # See docs/GHL-OAUTH.md for event types and architecture.
 class Webhooks::GhlController < ActionController::API
   before_action :verify_signature
@@ -17,15 +24,36 @@ class Webhooks::GhlController < ActionController::API
     Rails.logger.info("GHL webhook received: event=#{event_type} location=#{extract_location_id}")
 
     case event_type
+    # --- Contact Events ---
     when 'ContactCreate', 'contact.create'
       Webhooks::GhlEventsJob.perform_later('contact.create', sanitized_params)
     when 'ContactUpdate', 'contact.update'
       Webhooks::GhlEventsJob.perform_later('contact.update', sanitized_params)
     when 'ContactDelete', 'contact.delete'
       Webhooks::GhlEventsJob.perform_later('contact.delete', sanitized_params)
+
+    # --- Message Events ---
     when 'InboundMessage', 'OutboundMessage', 'ConversationProviderOutboundMessage',
          'conversation.message'
       Webhooks::GhlEventsJob.perform_later('conversation.message', sanitized_params)
+
+    # --- Conversation Status Events ---
+    when 'ConversationUnreadUpdate', 'conversation.status',
+         'ConversationAssignmentUpdate'
+      Webhooks::GhlEventsJob.perform_later('conversation.status', sanitized_params)
+
+    # --- App Lifecycle Events ---
+    when 'app.installed', 'AppInstalled'
+      Webhooks::GhlEventsJob.perform_later('app.installed', sanitized_params)
+    when 'app.uninstalled', 'AppUninstalled'
+      Webhooks::GhlEventsJob.perform_later('app.uninstalled', sanitized_params)
+
+    # --- Location Events (multi-tenant) ---
+    when 'location.create', 'LocationCreate'
+      Webhooks::GhlEventsJob.perform_later('location.create', sanitized_params)
+    when 'location.update', 'LocationUpdate'
+      Webhooks::GhlEventsJob.perform_later('location.update', sanitized_params)
+
     else
       Rails.logger.info("GHL webhook: unhandled event type '#{event_type}'")
     end

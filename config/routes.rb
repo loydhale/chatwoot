@@ -295,6 +295,9 @@ Rails.application.routes.draw do
 
           namespace :ghl do
             resource :authorization, only: [:create]
+            resource :subscription, only: [:show, :update] do
+              get :usage, on: :member
+            end
           end
 
           resources :webhooks, only: [:index, :create, :update, :destroy]
@@ -636,6 +639,14 @@ Rails.application.routes.draw do
         delete :avatar, on: :member, action: :destroy_avatar
       end
       resources :platform_apps, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+      resources :ghl_tenants, only: [:index, :show, :edit, :update] do
+        member do
+          post :upgrade
+          post :suspend
+          post :reactivate
+          post :reset_usage
+        end
+      end
       resource :instance_status, only: [:show]
 
       resource :settings, only: [:show] do

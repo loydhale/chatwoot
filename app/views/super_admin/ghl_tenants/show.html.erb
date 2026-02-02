@@ -1,0 +1,101 @@
+<% content_for(:title) { "#{@subscription.account.name} — GHL Tenant" } %>
+
+<header class="main-content__header" role="banner">
+  <h1 class="main-content__page-title"><%= @subscription.account.name %></h1>
+  <div style="display: flex; gap: 8px; margin-top: 8px;">
+    <%= link_to "← Back to Tenants", super_admin_ghl_tenants_path, style: "color: #6b7280; text-decoration: none;" %>
+    <span style="color: #d1d5db;">|</span>
+    <%= link_to "View Account", super_admin_account_path(@subscription.account), style: "color: #2563eb;" %>
+  </div>
+</header>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px;">
+  <!-- Subscription Info -->
+  <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 24px;">
+    <h2 style="margin-bottom: 16px; font-size: 18px;">Subscription</h2>
+    <table style="width: 100%;">
+      <tr><td style="padding: 6px 0; color: #6b7280;">Plan</td><td style="font-weight: 600;"><%= @subscription.plan_name %></td></tr>
+      <tr><td style="padding: 6px 0; color: #6b7280;">Status</td><td style="font-weight: 600;"><%= @subscription.status.titleize %></td></tr>
+      <tr><td style="padding: 6px 0; color: #6b7280;">Locations</td><td><%= @subscription.locations_count %> / <%= @subscription.locations_limit %></td></tr>
+      <tr><td style="padding: 6px 0; color: #6b7280;">Agents Limit</td><td><%= @subscription.agents_limit %></td></tr>
+      <tr><td style="padding: 6px 0; color: #6b7280;">AI Credits</td><td><%= @subscription.ai_credits_used %> / <%= @subscription.ai_credits_limit %> (<%= @subscription.ai_usage_percentage %>%)</td></tr>
+      <% if @subscription.trial_active? %>
+        <tr><td style="padding: 6px 0; color: #6b7280;">Trial Ends</td><td><%= @subscription.trial_ends_at.strftime('%b %d, %Y') %> (<%= @subscription.trial_days_remaining %> days)</td></tr>
+      <% end %>
+      <tr><td style="padding: 6px 0; color: #6b7280;">Period Ends</td><td><%= @subscription.current_period_ends_at&.strftime('%b %d, %Y') || 'N/A' %></td></tr>
+      <tr><td style="padding: 6px 0; color: #6b7280;">Created</td><td><%= @subscription.created_at.strftime('%b %d, %Y %H:%M') %></td></tr>
+    </table>
+  </div>
+
+  <!-- GHL Integration -->
+  <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 24px;">
+    <h2 style="margin-bottom: 16px; font-size: 18px;">GHL Integration</h2>
+    <% if @hook %>
+      <table style="width: 100%;">
+        <tr><td style="padding: 6px 0; color: #6b7280;">Hook Status</td><td style="font-weight: 600; color: <%= @hook.status == 'enabled' ? '#16a34a' : '#dc2626' %>;"><%= @hook.status.titleize %></td></tr>
+        <tr><td style="padding: 6px 0; color: #6b7280;">Location ID</td><td style="font-family: monospace; font-size: 13px;"><%= @subscription.ghl_location_id %></td></tr>
+        <tr><td style="padding: 6px 0; color: #6b7280;">Company ID</td><td style="font-family: monospace; font-size: 13px;"><%= @subscription.ghl_company_id %></td></tr>
+        <tr><td style="padding: 6px 0; color: #6b7280;">User ID</td><td style="font-family: monospace; font-size: 13px;"><%= @subscription.ghl_user_id %></td></tr>
+        <tr><td style="padding: 6px 0; color: #6b7280;">Connected At</td><td><%= @hook.settings&.dig('connected_at') %></td></tr>
+        <tr><td style="padding: 6px 0; color: #6b7280;">Token Expires</td><td><%= @hook.settings&.dig('expires_at') %></td></tr>
+        <tr><td style="padding: 6px 0; color: #6b7280;">Scopes</td><td style="font-size: 12px;"><%= @hook.settings&.dig('scope') %></td></tr>
+      </table>
+    <% else %>
+      <p style="color: #9ca3af;">No GHL integration hook found for this account.</p>
+    <% end %>
+  </div>
+</div>
+
+<!-- AI Usage Chart (last 30 days) -->
+<div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 24px; margin-bottom: 24px;">
+  <h2 style="margin-bottom: 16px; font-size: 18px;">AI Usage — Last 30 Days</h2>
+  <div style="display: flex; align-items: flex-end; gap: 2px; height: 120px;">
+    <% max_credits = [@usage_history.map { |d| d[:credits] }.max || 1, 1].max %>
+    <% @usage_history.each do |day| %>
+      <% height = (day[:credits].to_f / max_credits * 100).round %>
+      <div
+        style="flex: 1; background: #3b82f6; border-radius: 2px 2px 0 0; min-height: 2px; height: <%= height %>%;"
+        title="<%= day[:date] %>: <%= day[:credits] %> credits"
+      ></div>
+    <% end %>
+  </div>
+  <div style="display: flex; justify-content: space-between; margin-top: 4px; font-size: 11px; color: #9ca3af;">
+    <span><%= @usage_history.first&.dig(:date) %></span>
+    <span><%= @usage_history.last&.dig(:date) %></span>
+  </div>
+</div>
+
+<!-- Features -->
+<div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 24px; margin-bottom: 24px;">
+  <h2 style="margin-bottom: 16px; font-size: 18px;">Enabled Features (<%= @subscription.plan_name %>)</h2>
+  <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+    <% @subscription.features.each do |feature| %>
+      <span style="background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 16px; font-size: 13px;">
+        ✓ <%= feature.titleize %>
+      </span>
+    <% end %>
+  </div>
+</div>
+
+<!-- Actions -->
+<div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 24px;">
+  <h2 style="margin-bottom: 16px; font-size: 18px;">Actions</h2>
+  <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+    <%= link_to "Edit Subscription", edit_super_admin_ghl_tenant_path(@subscription), class: "btn btn-primary" %>
+
+    <% if @subscription.status.in?(%w[trialing active]) %>
+      <% GhlSubscription::PLANS.each_key do |plan| %>
+        <% next if GhlSubscription::PLANS.keys.index(plan) <= GhlSubscription::PLANS.keys.index(@subscription.plan) %>
+        <%= button_to "Upgrade to #{plan.titleize}", upgrade_super_admin_ghl_tenant_path(@subscription, plan: plan), method: :post, class: "btn btn-outline", data: { confirm: "Upgrade to #{plan.titleize}?" } %>
+      <% end %>
+    <% end %>
+
+    <%= button_to "Reset AI Usage", reset_usage_super_admin_ghl_tenant_path(@subscription), method: :post, class: "btn btn-outline", data: { confirm: "Reset AI usage for this billing period?" } %>
+
+    <% if @subscription.status.in?(%w[trialing active]) %>
+      <%= button_to "Suspend", suspend_super_admin_ghl_tenant_path(@subscription), method: :post, class: "btn btn-danger", data: { confirm: "Suspend this tenant?" } %>
+    <% elsif @subscription.status.in?(%w[cancelled suspended]) %>
+      <%= button_to "Reactivate", reactivate_super_admin_ghl_tenant_path(@subscription), method: :post, class: "btn btn-success", data: { confirm: "Reactivate this tenant?" } %>
+    <% end %>
+  </div>
+</div>
