@@ -210,4 +210,9 @@ COPY --from=asset-builder /app/.git_sha /app/.git_sha
 
 WORKDIR /app
 
+# ── Database migrations + server start ────────────────────────────────────────
+# Render Docker services don't use Procfile — CMD is the only start mechanism.
+# Run db:prepare (create + migrate, idempotent) then start Rails.
+# PORT is set by Render automatically; fall back to 3000 for local testing.
 EXPOSE 3000
+CMD ["sh", "-c", "bundle exec rails db:prepare && bundle exec rails server -b 0.0.0.0 -p ${PORT:-3000}"]

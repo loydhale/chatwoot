@@ -11,7 +11,7 @@ RSpec.describe Ghl::MessageSyncService, type: :service do
            status: 'enabled',
            reference_id: 'loc_test')
   end
-  let(:inbox) { create(:inbox, account: account, name: 'GHL Messages') }
+  let(:inbox) { create(:inbox, account: account, name: 'GHL Messages', channel: create(:channel_api, account: account)) }
   let(:contact) do
     create(:contact,
            account: account,

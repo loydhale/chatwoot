@@ -233,10 +233,11 @@ class Ghl::OpportunitySyncService
     labels << "stage:#{sanitize_label(data['stageName'])}" if data['stageName'].present?
     labels << 'ghl-opportunity'
 
-    # Merge with existing labels (don't overwrite non-GHL labels)
-    existing = conversation.label_list || []
+    # Remove stale GHL labels, then add current ones via acts_as_taggable_on API
+    existing = conversation.label_list.to_a
     non_ghl_labels = existing.reject { |l| l.start_with?('pipeline:', 'stage:') || l == 'ghl-opportunity' }
-    conversation.update!(cached_label_list: (non_ghl_labels + labels).uniq.join(','))
+    conversation.label_list = (non_ghl_labels + labels).uniq
+    conversation.save!
   end
 
   def sanitize_label(name)

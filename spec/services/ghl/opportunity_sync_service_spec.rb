@@ -72,7 +72,7 @@ RSpec.describe Ghl::OpportunitySyncService, type: :service do
     it 'applies pipeline and stage labels' do
       conversation = service.create_from_ghl(opportunity_params)
 
-      labels = conversation.cached_label_list.to_s.split(',')
+      labels = conversation.label_list.to_a
       expect(labels).to include('ghl-opportunity')
       expect(labels.any? { |l| l.start_with?('pipeline:') }).to be true
       expect(labels.any? { |l| l.start_with?('stage:') }).to be true
