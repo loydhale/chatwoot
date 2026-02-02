@@ -1,7 +1,7 @@
-module Atlas::ChatHelper
+module Hudley::ChatHelper
   include Integrations::LlmInstrumentation
-  include Atlas::ChatResponseHelper
-  include Atlas::ChatGenerationRecorder
+  include Hudley::ChatResponseHelper
+  include Hudley::ChatGenerationRecorder
 
   def request_chat_completion
     log_chat_completion_request

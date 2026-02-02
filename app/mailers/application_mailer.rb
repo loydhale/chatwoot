@@ -1,7 +1,7 @@
 class ApplicationMailer < ActionMailer::Base
   include ActionView::Helpers::SanitizeHelper
 
-  default from: ENV.fetch('MAILER_SENDER_EMAIL', 'DeskFlow <support@deskflow.app>')
+  default from: ENV.fetch('MAILER_SENDER_EMAIL', 'DeskFlows <support@deskflowss.ai>')
   before_action { ensure_current_account(params.try(:[], :account)) }
   around_action :switch_locale
   layout 'mailer/base'

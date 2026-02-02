@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Accounts::Atlas::Documents', type: :request do
+RSpec.describe 'Api::V1::Accounts::Hudley::Documents', type: :request do
   let(:account) { create(:account, custom_attributes: { plan_name: 'startups' }) }
   let(:admin) { create(:user, account: account, role: :administrator) }
   let(:agent) { create(:user, account: account, role: :agent) }
@@ -192,7 +192,7 @@ RSpec.describe 'Api::V1::Accounts::Atlas::Documents', type: :request do
             post "/api/v1/accounts/#{account.id}/captain/documents",
                  params: valid_attributes,
                  headers: admin.create_new_auth_token
-          end.to change(Atlas::Document, :count).by(1)
+          end.to change(Hudley::Document, :count).by(1)
         end
 
         it 'returns success status and the created document' do
@@ -265,7 +265,7 @@ RSpec.describe 'Api::V1::Accounts::Atlas::Documents', type: :request do
           expect do
             delete "/api/v1/accounts/#{account.id}/captain/documents/#{document_to_delete.id}",
                    headers: admin.create_new_auth_token
-          end.to change(Atlas::Document, :count).by(-1)
+          end.to change(Hudley::Document, :count).by(-1)
         end
 
         it 'returns no content status' do

@@ -1,4 +1,4 @@
-class Atlas::SummaryService < Atlas::BaseTaskService
+class Hudley::SummaryService < Hudley::BaseTaskService
   pattr_initialize [:account!, :conversation_display_id!]
 
   def perform

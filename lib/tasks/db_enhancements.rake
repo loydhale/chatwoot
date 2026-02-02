@@ -14,7 +14,7 @@ end
 # ref: https://github.com/rails/rails/blob/main/activerecord/lib/active_record/railties/databases.rake#L356
 db_namespace = namespace :db do
   desc 'Runs setup if database does not exist, or runs migrations if it does'
-  task chatwoot_prepare: :load_config do
+  task deskflows_prepare: :load_config do
     ActiveRecord::Base.configurations.configs_for(env_name: Rails.env).each do |db_config|
       ActiveRecord::Base.establish_connection(db_config.configuration_hash)
       unless ActiveRecord::Base.connection.table_exists? 'ar_internal_metadata'
@@ -29,3 +29,6 @@ db_namespace = namespace :db do
     end
   end
 end
+
+# Alias for rebrand compatibility
+task deskflows_prepare: 'db:deskflows_prepare'

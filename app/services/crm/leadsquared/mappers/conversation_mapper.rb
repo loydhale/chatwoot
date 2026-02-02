@@ -103,6 +103,6 @@ class Crm::Leadsquared::Mappers::ConversationMapper
   end
 
   def brand_name
-    ::GlobalConfig.get('BRAND_NAME')['BRAND_NAME'] || 'DeskFlow'
+    ::GlobalConfig.get('BRAND_NAME')['BRAND_NAME'] || 'DeskFlows'
   end
 end

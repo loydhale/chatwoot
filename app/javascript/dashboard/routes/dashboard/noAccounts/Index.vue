@@ -7,10 +7,10 @@ import NextButton from 'dashboard/components-next/button/Button.vue';
 import Auth from 'dashboard/api/auth';
 
 const { t } = useI18n();
-const isOnDeskFlowCloud = useMapGetter('globalConfig/isOnDeskFlowCloud');
+const isOnDeskFlowsCloud = useMapGetter('globalConfig/isOnDeskFlowsCloud');
 
 const message = computed(() => {
-  if (isOnDeskFlowCloud.value) {
+  if (isOnDeskFlowsCloud.value) {
     return t('APP_GLOBAL.NO_ACCOUNTS.MESSAGE_CLOUD');
   }
   return t('APP_GLOBAL.NO_ACCOUNTS.MESSAGE_SELF_HOSTED');

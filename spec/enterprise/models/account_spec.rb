@@ -124,7 +124,7 @@ RSpec.describe Account, type: :model do
       it 'returns default values' do
         account.custom_attributes = { 'plan_name': 'unknown' }
         expect(account.captain_monthly_limit).to eq(
-          { documents: DeskFlowApp.max_limit, responses: DeskFlowApp.max_limit }.with_indifferent_access
+          { documents: DeskFlowsApp.max_limit, responses: DeskFlowsApp.max_limit }.with_indifferent_access
         )
       end
     end
@@ -177,7 +177,7 @@ RSpec.describe Account, type: :model do
       account.update(limits: { agents: '' })
       InstallationConfig.where(name: 'ACCOUNT_AGENTS_LIMIT').update(value: '')
 
-      expect(account.usage_limits[:agents]).to eq(DeskFlowApp.max_limit)
+      expect(account.usage_limits[:agents]).to eq(DeskFlowsApp.max_limit)
     end
   end
 
@@ -191,7 +191,7 @@ RSpec.describe Account, type: :model do
     end
 
     before do
-      InstallationConfig.where(name: 'CHATWOOT_CLOUD_PLAN_FEATURES').first_or_create(value: plan_features)
+      InstallationConfig.where(name: 'DESKFLOWS_CLOUD_PLAN_FEATURES').first_or_create(value: plan_features)
     end
 
     context 'when plan_name is hacker' do

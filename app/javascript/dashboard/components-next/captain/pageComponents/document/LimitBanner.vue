@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, computed } from 'vue';
 import { useAccount } from 'dashboard/composables/useAccount';
-import { useAtlas } from 'dashboard/composables/useAtlas';
+import { useHudley } from 'dashboard/composables/useHudley';
 import { useRouter } from 'vue-router';
 
 import Banner from 'dashboard/components-next/banner/Banner.vue';
@@ -9,7 +9,7 @@ import Banner from 'dashboard/components-next/banner/Banner.vue';
 const router = useRouter();
 const { accountId } = useAccount();
 
-const { documentLimits, fetchLimits } = useAtlas();
+const { documentLimits, fetchLimits } = useHudley();
 
 const openBilling = () => {
   router.push({

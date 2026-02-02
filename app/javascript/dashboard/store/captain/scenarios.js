@@ -1,15 +1,15 @@
-import AtlasScenarios from 'dashboard/api/captain/scenarios';
+import HudleyScenarios from 'dashboard/api/captain/scenarios';
 import { createStore } from '../storeFactory';
 import { throwErrorMessage } from 'dashboard/store/utils/api';
 
 export default createStore({
-  name: 'AtlasScenario',
-  API: AtlasScenarios,
+  name: 'HudleyScenario',
+  API: HudleyScenarios,
   actions: mutations => ({
     update: async ({ commit }, { id, assistantId, ...updateObj }) => {
       commit(mutations.SET_UI_FLAG, { updatingItem: true });
       try {
-        const response = await AtlasScenarios.update(
+        const response = await HudleyScenarios.update(
           { id, assistantId },
           updateObj
         );
@@ -25,7 +25,7 @@ export default createStore({
     delete: async ({ commit }, { id, assistantId }) => {
       commit(mutations.SET_UI_FLAG, { deletingItem: true });
       try {
-        await AtlasScenarios.delete({ id, assistantId });
+        await HudleyScenarios.delete({ id, assistantId });
         commit(mutations.DELETE, id);
         commit(mutations.SET_UI_FLAG, { deletingItem: false });
         return id;

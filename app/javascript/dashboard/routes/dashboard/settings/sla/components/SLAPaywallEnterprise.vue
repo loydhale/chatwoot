@@ -7,14 +7,14 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  isOnDeskFlowCloud: {
+  isOnDeskFlowsCloud: {
     type: Boolean,
     default: false,
   },
 });
 
 const emit = defineEmits(['upgrade']);
-const i18nKey = props.isOnDeskFlowCloud ? 'PAYWALL' : 'ENTERPRISE_PAYWALL';
+const i18nKey = props.isOnDeskFlowsCloud ? 'PAYWALL' : 'ENTERPRISE_PAYWALL';
 </script>
 
 <template>
@@ -22,7 +22,7 @@ const i18nKey = props.isOnDeskFlowCloud ? 'PAYWALL' : 'ENTERPRISE_PAYWALL';
     <BasePaywallModal
       feature-prefix="SLA"
       :i18n-key="i18nKey"
-      :is-on-chatwoot-cloud="isOnDeskFlowCloud"
+      :is-on-deskflows-cloud="isOnDeskFlowsCloud"
       :is-super-admin="isSuperAdmin"
       @upgrade="emit('upgrade')"
     />

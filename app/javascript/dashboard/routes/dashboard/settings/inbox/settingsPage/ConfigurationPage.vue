@@ -48,7 +48,7 @@ export default {
       return this.inbox.provider_config?.source === 'embedded_signup';
     },
     whatsappAppId() {
-      return window.chatwootConfig?.whatsappAppId;
+      return window.deskflowsConfig?.whatsappAppId;
     },
     isForwardingEnabled() {
       return !!this.inbox.forwarding_enabled;
@@ -206,7 +206,7 @@ export default {
         <woot-code
           :script="inbox.web_widget_script"
           lang="html"
-          :codepen-title="`${inbox.name} - DeskFlow Widget Test`"
+          :codepen-title="`${inbox.name} - DeskFlows Widget Test`"
           enable-code-pen
         />
       </SettingsSection>
@@ -244,7 +244,7 @@ export default {
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href="https://www.chatwoot.com/docs/product/channels/live-chat/sdk/identity-validation/"
+            href="https://www.deskflows.app/docs/product/channels/live-chat/sdk/identity-validation/"
           >
             {{ $t('INBOX_MGMT.SETTINGS_POPUP.HMAC_LINK_TO_DOCS') }}
           </a>

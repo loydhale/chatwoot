@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :captain_custom_tool, class: 'Atlas::CustomTool' do
+  factory :captain_custom_tool, class: 'Hudley::CustomTool' do
     sequence(:title) { |n| "Custom Tool #{n}" }
     description { 'A custom HTTP tool for external API integration' }
     endpoint_url { 'https://api.example.com/endpoint' }
@@ -31,7 +31,7 @@ FactoryBot.define do
     end
 
     trait :with_templates do
-      request_template { '{ "order_id": "{{ order_id }}", "source": "chatwoot" }' }
+      request_template { '{ "order_id": "{{ order_id }}", "source": "deskflows" }' }
       response_template { 'Order status: {{ response.status }}' }
     end
 

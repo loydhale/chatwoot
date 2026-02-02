@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Atlas::Copilot::ChatService do
+RSpec.describe Hudley::Copilot::ChatService do
   let(:account) { create(:account, custom_attributes: { plan_name: 'startups' }) }
   let(:user) { create(:user, account: account) }
   let(:inbox) { create(:inbox, account: account) }

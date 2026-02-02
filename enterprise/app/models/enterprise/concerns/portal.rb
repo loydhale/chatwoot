@@ -7,7 +7,7 @@ module Enterprise::Concerns::Portal
 
   def enqueue_cloudflare_verification
     return if custom_domain.blank?
-    return unless DeskFlowApp.chatwoot_cloud?
+    return unless DeskFlowsApp.deskflows_cloud?
 
     Enterprise::CloudflareVerificationJob.perform_later(id)
   end

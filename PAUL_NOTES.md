@@ -1,16 +1,16 @@
 # Paul's Development Notes - DeskFlow (formerly SupportFlow)
 
 ## Project Overview
-White-label AI support platform for GHL agencies, built on Chatwoot.
+White-label AI support platform for GHL agencies, built on DeskFlows.
 
 **Started:** 2026-01-26 ~9pm CST
-**Repo:** loydhale/chatwoot (GitHub fork)
+**Repo:** loydhale/deskflows (GitHub fork)
 **Local:** /Users/loyd/clawd/projects/supportflow
 **Product Name:** DeskFlow
 **AI Assistant Name:** Atlas (was Captain)
 
 ## Goals (From PRD + Creative License)
-1. ✅ Rebrand Chatwoot completely → DeskFlow
+1. ✅ Rebrand DeskFlows completely → DeskFlow
 2. ✅ Rebrand Captain → Atlas
 3. [ ] Add per-account white-labeling capabilities
 4. [ ] GHL Marketplace integration
@@ -31,13 +31,13 @@ White-label AI support platform for GHL agencies, built on Chatwoot.
 ### Total Files Rebranded: ~1,200+
 
 ### What Was Done:
-- [x] Forked chatwoot/chatwoot to loydhale/chatwoot
+- [x] Forked deskflows/deskflows to loydhale/deskflows
 - [x] Cloned locally
-- [x] Renamed Ruby module to DeskFlow (with Chatwoot alias for compatibility)
+- [x] Renamed Ruby module to DeskFlow (with DeskFlows alias for compatibility)
 - [x] Updated package.json with new name and metadata
 - [x] Created new README.md with DeskFlow branding
 - [x] Created BRANDING.md documentation
-- [x] Replaced "Chatwoot" with "DeskFlow" in:
+- [x] Replaced "DeskFlows" with "DeskFlow" in:
   - All locale files (JSON and YAML) - 703+ files
   - All Vue components - 144+ files
   - All JavaScript files
@@ -47,14 +47,14 @@ White-label AI support platform for GHL agencies, built on Chatwoot.
   - .env.example
 - [x] Replaced "Captain" with "Atlas" in all user-facing strings
 - [x] Created placeholder DeskFlow logos (SVG - light, dark, thumbnail)
-- [x] Updated default email addresses (chatwoot.com → deskflow.app)
+- [x] Updated default email addresses (deskflows.com → deskflow.app)
 - [x] Updated test URLs
 
 ### What Was Preserved (For Compatibility):
-- Technical API references (`chatwootWebChannel`, `chatwootSDK`) 
+- Technical API references (`deskflowsWebChannel`, `deskflowsSDK`) 
 - Database field names (`captain_models`, `captain_features`)
-- External package imports (`@chatwoot/utils`, etc.)
-- Chatwoot module alias in config/application.rb
+- External package imports (`@deskflows/utils`, etc.)
+- DeskFlows module alias in config/application.rb
 
 ### What Still Needs Work:
 - [ ] Set up development environment (Docker)
@@ -68,7 +68,7 @@ White-label AI support platform for GHL agencies, built on Chatwoot.
 ## Files to Note
 
 ### Key Configuration:
-- `config/application.rb` - Main module (DeskFlow with Chatwoot alias)
+- `config/application.rb` - Main module (DeskFlow with DeskFlows alias)
 - `package.json` - NPM package name (@deskflow/deskflow)
 - `.env.example` - Environment variable documentation
 

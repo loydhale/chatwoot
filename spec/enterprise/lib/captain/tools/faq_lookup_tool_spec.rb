@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Atlas::Tools::FaqLookupTool, type: :model do
+RSpec.describe Hudley::Tools::FaqLookupTool, type: :model do
   let(:account) { create(:account) }
   let(:assistant) { create(:captain_assistant, account: account) }
   let(:tool) { described_class.new(assistant) }
@@ -11,8 +11,8 @@ RSpec.describe Atlas::Tools::FaqLookupTool, type: :model do
     create(:installation_config, name: 'CAPTAIN_OPEN_AI_API_KEY', value: 'test-key')
 
     # Mock embedding service to avoid actual API calls
-    embedding_service = instance_double(Atlas::Llm::EmbeddingService)
-    allow(Atlas::Llm::EmbeddingService).to receive(:new).and_return(embedding_service)
+    embedding_service = instance_double(Hudley::Llm::EmbeddingService)
+    allow(Hudley::Llm::EmbeddingService).to receive(:new).and_return(embedding_service)
     allow(embedding_service).to receive(:get_embedding).and_return(Array.new(1536, 0.1))
   end
 
@@ -52,8 +52,8 @@ RSpec.describe Atlas::Tools::FaqLookupTool, type: :model do
 
       before do
         # Mock nearest_neighbors to return our test responses
-        allow(Atlas::AssistantResponse).to receive(:nearest_neighbors).and_return(
-          Atlas::AssistantResponse.where(id: [response1.id, response2.id])
+        allow(Hudley::AssistantResponse).to receive(:nearest_neighbors).and_return(
+          Hudley::AssistantResponse.where(id: [response1.id, response2.id])
         )
       end
 
@@ -85,7 +85,7 @@ RSpec.describe Atlas::Tools::FaqLookupTool, type: :model do
     context 'when no FAQs found' do
       before do
         # Return empty result set
-        allow(Atlas::AssistantResponse).to receive(:nearest_neighbors).and_return(Atlas::AssistantResponse.none)
+        allow(Hudley::AssistantResponse).to receive(:nearest_neighbors).and_return(Hudley::AssistantResponse.none)
       end
 
       it 'returns no results message' do
@@ -104,7 +104,7 @@ RSpec.describe Atlas::Tools::FaqLookupTool, type: :model do
     context 'with blank query' do
       it 'handles empty query' do
         # Return empty result set
-        allow(Atlas::AssistantResponse).to receive(:nearest_neighbors).and_return(Atlas::AssistantResponse.none)
+        allow(Hudley::AssistantResponse).to receive(:nearest_neighbors).and_return(Hudley::AssistantResponse.none)
 
         result = tool.perform(tool_context, query: '')
         expect(result).to eq('No relevant FAQs found for: ')

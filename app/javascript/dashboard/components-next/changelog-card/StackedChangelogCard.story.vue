@@ -2,14 +2,14 @@
 import StackedChangelogCard from './StackedChangelogCard.vue';
 
 const imageCards = {
-  id: 'chatwoot-captain',
-  title: 'DeskFlow Atlas',
-  meta_title: 'DeskFlow Atlas',
+  id: 'deskflows-captain',
+  title: 'DeskFlows Hudley',
+  meta_title: 'DeskFlows Hudley',
   meta_description:
     'Watch how our latest feature can transform your workflow with powerful automation tools.',
-  slug: 'chatwoot-captain',
+  slug: 'deskflows-captain',
   feature_image:
-    'https://www.chatwoot.com/images/captain/captain_thumbnail.jpg',
+    'https://www.deskflows.app/images/captain/captain_thumbnail.jpg',
 };
 
 const handleReadMore = () => {

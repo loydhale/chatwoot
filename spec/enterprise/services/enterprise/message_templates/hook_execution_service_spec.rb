@@ -22,7 +22,7 @@ RSpec.describe MessageTemplates::HookExecutionService do
       end
 
       it 'schedules captain response job for incoming messages on pending conversations' do
-        expect(Atlas::Conversation::ResponseBuilderJob).to receive(:perform_later).with(conversation, assistant)
+        expect(Hudley::Conversation::ResponseBuilderJob).to receive(:perform_later).with(conversation, assistant)
 
         create(:message, conversation: conversation, message_type: :incoming)
       end
@@ -40,8 +40,8 @@ RSpec.describe MessageTemplates::HookExecutionService do
         )
       end
 
-      it 'schedules captain response job outside business hours (Atlas always responds when configured)' do
-        expect(Atlas::Conversation::ResponseBuilderJob).to receive(:perform_later).with(conversation, assistant)
+      it 'schedules captain response job outside business hours (Hudley always responds when configured)' do
+        expect(Hudley::Conversation::ResponseBuilderJob).to receive(:perform_later).with(conversation, assistant)
 
         create(:message, conversation: conversation, message_type: :incoming)
       end
@@ -57,7 +57,7 @@ RSpec.describe MessageTemplates::HookExecutionService do
         expect(conversation.reload.status).to eq('open')
       end
 
-      it 'does not send out of office message when Atlas is handling' do
+      it 'does not send out of office message when Hudley is handling' do
         out_of_office_service = instance_double(MessageTemplates::Template::OutOfOffice)
         allow(MessageTemplates::Template::OutOfOffice).to receive(:new).and_return(out_of_office_service)
         allow(out_of_office_service).to receive(:perform).and_return(true)
@@ -74,7 +74,7 @@ RSpec.describe MessageTemplates::HookExecutionService do
       end
 
       it 'schedules captain response job regardless of time' do
-        expect(Atlas::Conversation::ResponseBuilderJob).to receive(:perform_later).with(conversation, assistant)
+        expect(Hudley::Conversation::ResponseBuilderJob).to receive(:perform_later).with(conversation, assistant)
 
         create(:message, conversation: conversation, message_type: :incoming)
       end
@@ -104,11 +104,11 @@ RSpec.describe MessageTemplates::HookExecutionService do
 
   context 'when no captain assistant is configured' do
     before do
-      AtlasInbox.where(inbox: inbox).destroy_all
+      HudleyInbox.where(inbox: inbox).destroy_all
     end
 
     it 'does not schedule captain response job' do
-      expect(Atlas::Conversation::ResponseBuilderJob).not_to receive(:perform_later)
+      expect(Hudley::Conversation::ResponseBuilderJob).not_to receive(:perform_later)
 
       create(:message, conversation: conversation, message_type: :incoming)
     end
@@ -120,7 +120,7 @@ RSpec.describe MessageTemplates::HookExecutionService do
     end
 
     it 'does not schedule captain response job' do
-      expect(Atlas::Conversation::ResponseBuilderJob).not_to receive(:perform_later)
+      expect(Hudley::Conversation::ResponseBuilderJob).not_to receive(:perform_later)
 
       create(:message, conversation: conversation, message_type: :incoming)
     end
@@ -128,14 +128,14 @@ RSpec.describe MessageTemplates::HookExecutionService do
 
   context 'when message is outgoing' do
     it 'does not schedule captain response job' do
-      expect(Atlas::Conversation::ResponseBuilderJob).not_to receive(:perform_later)
+      expect(Hudley::Conversation::ResponseBuilderJob).not_to receive(:perform_later)
 
       create(:message, conversation: conversation, message_type: :outgoing)
     end
   end
 
-  context 'when greeting and out of office messages with Atlas enabled' do
-    context 'when conversation is pending (Atlas is handling)' do
+  context 'when greeting and out of office messages with Hudley enabled' do
+    context 'when conversation is pending (Hudley is handling)' do
       before do
         conversation.update!(status: :pending)
       end
@@ -202,9 +202,9 @@ RSpec.describe MessageTemplates::HookExecutionService do
     end
   end
 
-  context 'when Atlas is not configured' do
+  context 'when Hudley is not configured' do
     before do
-      AtlasInbox.where(inbox: inbox).destroy_all
+      HudleyInbox.where(inbox: inbox).destroy_all
     end
 
     it 'creates greeting message in conversation' do
@@ -238,7 +238,7 @@ RSpec.describe MessageTemplates::HookExecutionService do
     end
   end
 
-  context 'when Atlas quota is exceeded and handoff happens' do
+  context 'when Hudley quota is exceeded and handoff happens' do
     before do
       account.update!(
         limits: { 'captain_responses' => 100 },

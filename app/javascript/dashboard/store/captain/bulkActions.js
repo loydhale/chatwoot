@@ -1,10 +1,10 @@
-import AtlasBulkActionsAPI from 'dashboard/api/captain/bulkActions';
+import HudleyBulkActionsAPI from 'dashboard/api/captain/bulkActions';
 import { createStore } from '../storeFactory';
 import { throwErrorMessage } from 'dashboard/store/utils/api';
 
 export default createStore({
-  name: 'AtlasBulkAction',
-  API: AtlasBulkActionsAPI,
+  name: 'HudleyBulkAction',
+  API: HudleyBulkActionsAPI,
   actions: mutations => ({
     processBulkAction: async function processBulkAction(
       { commit },
@@ -12,7 +12,7 @@ export default createStore({
     ) {
       commit(mutations.SET_UI_FLAG, { isUpdating: true });
       try {
-        const response = await AtlasBulkActionsAPI.create({
+        const response = await HudleyBulkActionsAPI.create({
           type: type,
           ids,
           fields: { status: actionType },

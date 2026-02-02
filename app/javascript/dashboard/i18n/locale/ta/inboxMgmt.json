@@ -693,8 +693,8 @@
       "MESSENGER_SUB_HEAD": "இந்த பொத்தானை உங்கள் பாடி டேகுக்குள் வைக்கவும்",
       "ALLOWED_DOMAINS": {
         "TITLE": "Allowed Domains",
-        "SUBTITLE": "Add wildcard or regular domains separated by commas (leave blank to allow all), e.g. *.chatwoot.dev, chatwoot.com.",
-        "PLACEHOLDER": "Enter domains separated by commas (eg: *.chatwoot.dev, chatwoot.com)"
+        "SUBTITLE": "Add wildcard or regular domains separated by commas (leave blank to allow all), e.g. *.deskflows.dev, deskflows.com.",
+        "PLACEHOLDER": "Enter domains separated by commas (eg: *.deskflows.dev, deskflows.com)"
       },
       "INBOX_AGENTS": "ஏஜென்ட்கள்",
       "INBOX_AGENTS_SUB_TEXT": "இந்த இன்பாக்ஸிலிருந்து ஏஜென்ட்களைச் சேர்க்கவும் அல்லது அகற்றவும்",
@@ -1022,7 +1022,7 @@
         "AGENT_MESSAGE": "Hello"
       },
       "BRANDING_TEXT": "சாட்வுட் மூலம் இயக்கபடுகிறது",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "SCRIPT_SETTINGS": "\n      window.deskflowsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

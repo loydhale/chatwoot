@@ -507,7 +507,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "Ak, vai! Mēs nevarējām atrast nevienu chatwoot kontu. Lūdzu, izveidojiet jaunu kontu, lai turpinātu.",
+    "NO_ACCOUNT_WARNING": "Ak, vai! Mēs nevarējām atrast nevienu deskflows kontu. Lūdzu, izveidojiet jaunu kontu, lai turpinātu.",
     "NEW_ACCOUNT": "Jauns Konts",
     "SELECTOR_SUBTITLE": "Izveidot jaunu kontu",
     "API": {

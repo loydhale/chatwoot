@@ -1,7 +1,7 @@
 /* global axios */
 import ApiClient from '../ApiClient';
 
-class AtlasPreferences extends ApiClient {
+class HudleyPreferences extends ApiClient {
   constructor() {
     super('captain/preferences', { accountScoped: true });
   }
@@ -15,4 +15,4 @@ class AtlasPreferences extends ApiClient {
   }
 }
 
-export default new AtlasPreferences();
+export default new HudleyPreferences();

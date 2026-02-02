@@ -1,4 +1,4 @@
-class Atlas::Llm::FaqGeneratorService < Llm::BaseAiService
+class Hudley::Llm::FaqGeneratorService < Llm::BaseAiService
   include Integrations::LlmInstrumentation
 
   def initialize(content, language = 'english', account_id: nil)
@@ -27,7 +27,7 @@ class Atlas::Llm::FaqGeneratorService < Llm::BaseAiService
   attr_reader :content, :language
 
   def system_prompt
-    Atlas::Llm::SystemPromptsService.faq_generator(language)
+    Hudley::Llm::SystemPromptsService.faq_generator(language)
   end
 
   def instrumentation_params

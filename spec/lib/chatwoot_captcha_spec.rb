@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe DeskFlowCaptcha do
+describe DeskFlowsCaptcha do
   it 'returns true if HCAPTCHA SERVER KEY is absent' do
     expect(described_class.new('random_key').valid?).to be(true)
   end

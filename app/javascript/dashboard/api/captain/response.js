@@ -1,7 +1,7 @@
 /* global axios */
 import ApiClient from '../ApiClient';
 
-class AtlasResponses extends ApiClient {
+class HudleyResponses extends ApiClient {
   constructor() {
     super('captain/assistant_responses', { accountScoped: true });
   }
@@ -19,4 +19,4 @@ class AtlasResponses extends ApiClient {
   }
 }
 
-export default new AtlasResponses();
+export default new HudleyResponses();

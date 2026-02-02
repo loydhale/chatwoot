@@ -1,6 +1,6 @@
 require 'liquid'
 
-class Atlas::PromptRenderer
+class Hudley::PromptRenderer
   class << self
     def render(template_name, context = {})
       template = load_template(template_name)

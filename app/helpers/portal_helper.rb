@@ -87,7 +87,7 @@ module PortalHelper
   end
 
   def render_category_content(content)
-    DeskFlowMarkdownRenderer.new(content).render_markdown_to_plain_text
+    DeskFlowsMarkdownRenderer.new(content).render_markdown_to_plain_text
   end
 
   def thumbnail_bg_color(username)

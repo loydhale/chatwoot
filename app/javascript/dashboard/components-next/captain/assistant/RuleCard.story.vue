@@ -10,7 +10,7 @@ const sampleRules = [
 
 <template>
   <Story
-    title="Atlas/Assistant/RuleCard"
+    title="Hudley/Assistant/RuleCard"
     :layout="{ type: 'grid', width: '800px' }"
   >
     <Variant title="Selectable List">

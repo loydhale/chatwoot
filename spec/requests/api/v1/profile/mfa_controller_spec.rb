@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'MFA API', type: :request do
   before do
-    skip('Skipping since MFA is not configured in this environment') unless DeskFlow.encryption_configured?
-    allow(DeskFlow).to receive(:mfa_enabled?).and_return(true)
+    skip('Skipping since MFA is not configured in this environment') unless DeskFlows.encryption_configured?
+    allow(DeskFlows).to receive(:mfa_enabled?).and_return(true)
   end
 
   let(:account) { create(:account) }

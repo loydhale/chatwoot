@@ -1,4 +1,4 @@
-class Atlas::Llm::ConversationFaqService < Llm::BaseAiService
+class Hudley::Llm::ConversationFaqService < Llm::BaseAiService
   include Integrations::LlmInstrumentation
   DISTANCE_THRESHOLD = 0.3
 
@@ -36,7 +36,7 @@ class Atlas::Llm::ConversationFaqService < Llm::BaseAiService
 
     faqs.each do |faq|
       combined_text = "#{faq['question']}: #{faq['answer']}"
-      embedding = Atlas::Llm::EmbeddingService.new(account_id: @conversation.account_id).get_embedding(combined_text)
+      embedding = Hudley::Llm::EmbeddingService.new(account_id: @conversation.account_id).get_embedding(combined_text)
       similar_faqs = find_similar_faqs(embedding)
 
       if similar_faqs.any?
@@ -112,7 +112,7 @@ class Atlas::Llm::ConversationFaqService < Llm::BaseAiService
 
   def system_prompt
     account_language = @conversation.account.locale_english_name
-    Atlas::Llm::SystemPromptsService.conversation_faq_generator(account_language)
+    Hudley::Llm::SystemPromptsService.conversation_faq_generator(account_language)
   end
 
   def parse_response(response)

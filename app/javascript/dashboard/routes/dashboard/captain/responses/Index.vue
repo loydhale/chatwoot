@@ -4,7 +4,7 @@ import { useMapGetter, useStore } from 'dashboard/composables/store';
 import { useI18n } from 'vue-i18n';
 import { useRouter, useRoute } from 'vue-router';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
-import { debounce } from '@chatwoot/utils';
+import { debounce } from '@deskflows/utils';
 import { useAccount } from 'dashboard/composables/useAccount';
 
 import Banner from 'dashboard/components-next/banner/Banner.vue';
@@ -13,7 +13,7 @@ import BulkSelectBar from 'dashboard/components-next/captain/assistant/BulkSelec
 import DeleteDialog from 'dashboard/components-next/captain/pageComponents/DeleteDialog.vue';
 import BulkDeleteDialog from 'dashboard/components-next/captain/pageComponents/BulkDeleteDialog.vue';
 import PageLayout from 'dashboard/components-next/captain/PageLayout.vue';
-import AtlasPaywall from 'dashboard/components-next/captain/pageComponents/Paywall.vue';
+import HudleyPaywall from 'dashboard/components-next/captain/pageComponents/Paywall.vue';
 import ResponseCard from 'dashboard/components-next/captain/assistant/ResponseCard.vue';
 import CreateResponseDialog from 'dashboard/components-next/captain/pageComponents/response/CreateResponseDialog.vue';
 import ResponsePageEmptyState from 'dashboard/components-next/captain/pageComponents/emptyStates/ResponsePageEmptyState.vue';
@@ -23,7 +23,7 @@ import LimitBanner from 'dashboard/components-next/captain/pageComponents/respon
 const router = useRouter();
 const route = useRoute();
 const store = useStore();
-const { isOnDeskFlowCloud } = useAccount();
+const { isOnDeskFlowsCloud } = useAccount();
 const uiFlags = useMapGetter('captainResponses/getUIFlags');
 const responseMeta = useMapGetter('captainResponses/getMeta');
 const responses = useMapGetter('captainResponses/getRecords');
@@ -221,7 +221,7 @@ onMounted(() => {
         :button-label="$t('CAPTAIN.HEADER_KNOW_MORE')"
         :title="$t('CAPTAIN.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
         :note="$t('CAPTAIN.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
-        :hide-actions="!isOnDeskFlowCloud"
+        :hide-actions="!isOnDeskFlowsCloud"
         fallback-thumbnail="/assets/images/dashboard/captain/faqs-popover-light.svg"
         fallback-thumbnail-dark="/assets/images/dashboard/captain/faqs-popover-dark.svg"
         learn-more-url="https://chwt.app/captain-faq"
@@ -265,7 +265,7 @@ onMounted(() => {
     </template>
 
     <template #paywall>
-      <AtlasPaywall />
+      <HudleyPaywall />
     </template>
 
     <template #body>

@@ -1,0 +1,120 @@
+# DeskFlows Render Deployment Configuration
+# https://render.com/docs/blueprint-spec
+
+services:
+  # Main Rails Web Application
+  - type: web
+    name: deskflows-web
+    runtime: docker
+    dockerfilePath: ./docker/Dockerfile
+    dockerContext: .
+    plan: standard  # or pro for production
+    healthCheckPath: /api
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: NODE_ENV
+        value: production
+      - key: INSTALLATION_ENV
+        value: render
+      - key: FRONTEND_URL
+        sync: false  # Set manually after deployment
+      - key: SECRET_KEY_BASE
+        generateValue: true
+      - key: FORCE_SSL
+        value: "true"
+      - key: RAILS_LOG_TO_STDOUT
+        value: "true"
+      - key: LOG_LEVEL
+        value: info
+      - key: ENABLE_ACCOUNT_SIGNUP
+        value: "false"
+      - key: RAILS_MAX_THREADS
+        value: "5"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: deskflows-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: deskflows-redis
+          property: connectionString
+      # GHL OAuth (set manually)
+      - key: GHL_CLIENT_ID
+        sync: false
+      - key: GHL_CLIENT_SECRET
+        sync: false
+      - key: GHL_REDIRECT_URI
+        sync: false
+      # SMTP Configuration (set manually)
+      - key: SMTP_ADDRESS
+        sync: false
+      - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: MAILER_SENDER_EMAIL
+        value: "DeskFlows <noreply@deskflowss.ai>"
+      # OpenAI for Hudley AI
+      - key: OPENAI_API_KEY
+        sync: false
+
+  # Sidekiq Background Worker
+  - type: worker
+    name: deskflows-sidekiq
+    runtime: docker
+    dockerfilePath: ./docker/Dockerfile
+    dockerContext: .
+    plan: standard
+    dockerCommand: bundle exec sidekiq -C config/sidekiq.yml
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: NODE_ENV
+        value: production
+      - key: SECRET_KEY_BASE
+        fromService:
+          type: web
+          name: deskflows-web
+          envVarKey: SECRET_KEY_BASE
+      - key: DATABASE_URL
+        fromDatabase:
+          name: deskflows-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: deskflows-redis
+          property: connectionString
+      - key: GHL_CLIENT_ID
+        fromService:
+          type: web
+          name: deskflows-web
+          envVarKey: GHL_CLIENT_ID
+      - key: GHL_CLIENT_SECRET
+        fromService:
+          type: web
+          name: deskflows-web
+          envVarKey: GHL_CLIENT_SECRET
+      - key: OPENAI_API_KEY
+        fromService:
+          type: web
+          name: deskflows-web
+          envVarKey: OPENAI_API_KEY
+
+databases:
+  - name: deskflows-db
+    plan: standard  # or pro for production
+    databaseName: deskflows_production
+    user: deskflows
+    postgresMajorVersion: "16"
+    ipAllowList: []  # Only internal access
+
+# Redis for Sidekiq and caching
+  - type: redis
+    name: deskflows-redis
+    plan: standard
+    ipAllowList: []  # Only internal access

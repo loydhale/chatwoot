@@ -20,7 +20,7 @@ const guidelinesExample = [
 
 <template>
   <Story
-    title="Atlas/Assistant/SuggestedRules"
+    title="Hudley/Assistant/SuggestedRules"
     :layout="{ type: 'grid', width: '800px' }"
   >
     <Variant title="Suggested Rules List">

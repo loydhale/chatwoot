@@ -1,7 +1,7 @@
 /* global axios */
 import ApiClient from '../ApiClient';
 
-class AtlasDocument extends ApiClient {
+class HudleyDocument extends ApiClient {
   constructor() {
     super('captain/documents', { accountScoped: true });
   }
@@ -17,4 +17,4 @@ class AtlasDocument extends ApiClient {
   }
 }
 
-export default new AtlasDocument();
+export default new HudleyDocument();

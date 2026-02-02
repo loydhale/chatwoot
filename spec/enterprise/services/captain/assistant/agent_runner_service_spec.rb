@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Atlas::Assistant::AgentRunnerService do
+RSpec.describe Hudley::Assistant::AgentRunnerService do
   let(:account) { create(:account) }
   let(:inbox) { create(:inbox, account: account) }
   let(:contact) { create(:contact, account: account) }
@@ -25,7 +25,7 @@ RSpec.describe Atlas::Assistant::AgentRunnerService do
 
   before do
     allow(assistant).to receive(:agent).and_return(mock_agent)
-    scenarios_relation = instance_double(Atlas::Scenario)
+    scenarios_relation = instance_double(Hudley::Scenario)
     allow(scenarios_relation).to receive(:enabled).and_return([scenario])
     allow(assistant).to receive(:scenarios).and_return(scenarios_relation)
     allow(scenario).to receive(:agent).and_return(mock_scenario_agent)
@@ -57,7 +57,7 @@ RSpec.describe Atlas::Assistant::AgentRunnerService do
 
     it 'builds agents and wires them together' do
       expect(assistant).to receive(:agent).and_return(mock_agent)
-      scenarios_relation = instance_double(Atlas::Scenario)
+      scenarios_relation = instance_double(Hudley::Scenario)
       allow(scenarios_relation).to receive(:enabled).and_return([scenario])
       expect(assistant).to receive(:scenarios).and_return(scenarios_relation)
       expect(scenario).to receive(:agent).and_return(mock_scenario_agent)
@@ -105,7 +105,7 @@ RSpec.describe Atlas::Assistant::AgentRunnerService do
 
     context 'when no scenarios are enabled' do
       before do
-        scenarios_relation = instance_double(Atlas::Scenario)
+        scenarios_relation = instance_double(Hudley::Scenario)
         allow(scenarios_relation).to receive(:enabled).and_return([])
         allow(assistant).to receive(:scenarios).and_return(scenarios_relation)
       end
@@ -137,13 +137,13 @@ RSpec.describe Atlas::Assistant::AgentRunnerService do
 
       before do
         allow(mock_runner).to receive(:run).and_raise(error)
-        allow(DeskFlowExceptionTracker).to receive(:new).and_return(
-          instance_double(DeskFlowExceptionTracker, capture_exception: true)
+        allow(DeskFlowsExceptionTracker).to receive(:new).and_return(
+          instance_double(DeskFlowsExceptionTracker, capture_exception: true)
         )
       end
 
       it 'captures exception and returns error response' do
-        expect(DeskFlowExceptionTracker).to receive(:new).with(error, account: conversation.account)
+        expect(DeskFlowsExceptionTracker).to receive(:new).with(error, account: conversation.account)
 
         result = service.generate_response(message_history: message_history)
 
@@ -154,7 +154,7 @@ RSpec.describe Atlas::Assistant::AgentRunnerService do
       end
 
       it 'logs error details' do
-        expect(Rails.logger).to receive(:error).with('[Atlas V2] AgentRunnerService error: Test error')
+        expect(Rails.logger).to receive(:error).with('[Hudley V2] AgentRunnerService error: Test error')
         expect(Rails.logger).to receive(:error).with(kind_of(String))
 
         service.generate_response(message_history: message_history)
@@ -164,7 +164,7 @@ RSpec.describe Atlas::Assistant::AgentRunnerService do
         subject(:service) { described_class.new(assistant: assistant, conversation: nil) }
 
         it 'handles missing conversation gracefully' do
-          expect(DeskFlowExceptionTracker).to receive(:new).with(error, account: nil)
+          expect(DeskFlowsExceptionTracker).to receive(:new).with(error, account: nil)
 
           result = service.generate_response(message_history: message_history)
 

@@ -56,10 +56,10 @@ We recommend always running the latest version.
 
 ## Upstream Security
 
-DeskFlow is built on [Chatwoot](https://github.com/chatwoot/chatwoot). For vulnerabilities in core Chatwoot functionality, please also consider reporting to the upstream project:
+DeskFlow is built on [DeskFlows](https://github.com/deskflows/deskflows). For vulnerabilities in core DeskFlows functionality, please also consider reporting to the upstream project:
 
-- Chatwoot Security: https://github.com/chatwoot/chatwoot/security/advisories/new
-- Chatwoot Email: security@chatwoot.com
+- DeskFlows Security: https://github.com/deskflows/deskflows/security/advisories/new
+- DeskFlows Email: security@deskflows.com
 
 ## Thanks
 

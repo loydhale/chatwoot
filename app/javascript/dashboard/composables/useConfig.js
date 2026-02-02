@@ -3,10 +3,10 @@
  * @returns {Object} An object containing configuration values.
  */
 export function useConfig() {
-  const config = window.chatwootConfig || {};
+  const config = window.deskflowsConfig || {};
 
   /**
-   * The host URL of the DeskFlow instance.
+   * The host URL of the DeskFlows instance.
    * @type {string|undefined}
    */
   const hostURL = config.hostURL;
@@ -18,7 +18,7 @@ export function useConfig() {
   const vapidPublicKey = config.vapidPublicKey;
 
   /**
-   * An array of enabled languages in the DeskFlow instance.
+   * An array of enabled languages in the DeskFlows instance.
    * @type {string[]|undefined}
    */
   const enabledLanguages = config.enabledLanguages;

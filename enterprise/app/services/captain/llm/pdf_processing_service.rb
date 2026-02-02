@@ -1,4 +1,4 @@
-class Atlas::Llm::PdfProcessingService < Llm::LegacyBaseOpenAiService
+class Hudley::Llm::PdfProcessingService < Llm::LegacyBaseOpenAiService
   include Integrations::LlmInstrumentation
 
   def initialize(document)
@@ -34,7 +34,7 @@ class Atlas::Llm::PdfProcessingService < Llm::LegacyBaseOpenAiService
   end
 
   def instrument_file_upload(&)
-    return yield unless DeskFlowApp.otel_enabled?
+    return yield unless DeskFlowsApp.otel_enabled?
 
     tracer.in_span('llm.file.upload') do |span|
       span.set_attribute('gen_ai.provider', 'openai')

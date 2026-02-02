@@ -32,13 +32,13 @@ describe('#actions', () => {
         { commit },
         {
           websiteToken: 'XDsafmADasd',
-          currentURL: 'https://chatwoot.com',
+          currentURL: 'https://deskflows.app',
           isInBusinessHours: true,
         }
       );
 
       expect(getFromCache).toHaveBeenCalledWith(
-        'chatwoot_campaigns_XDsafmADasd',
+        'deskflows_campaigns_XDsafmADasd',
         60 * 60 * 1000
       );
       expect(API.get).not.toHaveBeenCalled();
@@ -53,7 +53,7 @@ describe('#actions', () => {
             {
               id: 11,
               timeOnPage: '20',
-              url: 'https://chatwoot.com',
+              url: 'https://deskflows.app',
               triggerOnlyDuringBusinessHours: false,
             },
           ],
@@ -70,18 +70,18 @@ describe('#actions', () => {
         { commit },
         {
           websiteToken: 'XDsafmADasd',
-          currentURL: 'https://chatwoot.com',
+          currentURL: 'https://deskflows.app',
           isInBusinessHours: true,
         }
       );
 
       expect(getFromCache).toHaveBeenCalledWith(
-        'chatwoot_campaigns_XDsafmADasd',
+        'deskflows_campaigns_XDsafmADasd',
         60 * 60 * 1000
       );
       expect(API.get).toHaveBeenCalled();
       expect(setCache).toHaveBeenCalledWith(
-        'chatwoot_campaigns_XDsafmADasd',
+        'deskflows_campaigns_XDsafmADasd',
         campaigns
       );
       expect(commit.mock.calls).toEqual([
@@ -94,7 +94,7 @@ describe('#actions', () => {
             {
               id: 11,
               timeOnPage: '20',
-              url: 'https://chatwoot.com',
+              url: 'https://deskflows.app',
               triggerOnlyDuringBusinessHours: false,
             },
           ],
@@ -110,7 +110,7 @@ describe('#actions', () => {
         { commit },
         {
           websiteToken: 'XDsafmADasd',
-          currentURL: 'https://www.chatwoot.com',
+          currentURL: 'https://www.deskflows.app',
           isInBusinessHours: true,
         }
       );
@@ -120,7 +120,7 @@ describe('#actions', () => {
   describe('#initCampaigns', () => {
     const actionParams = {
       websiteToken: 'XDsafmADasd',
-      currentURL: 'https://chatwoot.com',
+      currentURL: 'https://deskflows.app',
     };
     it('sends correct actions if campaigns are empty', async () => {
       await actions.initCampaigns(
@@ -164,7 +164,7 @@ describe('#actions', () => {
             {
               id: 11,
               timeOnPage: '20',
-              url: 'https://chatwoot.com',
+              url: 'https://deskflows.app',
               triggerOnlyDuringBusinessHours: false,
             },
           ],

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Atlas::BaseTaskService, type: :model do
+RSpec.describe Hudley::BaseTaskService, type: :model do
   let(:account) { create(:account) }
   let(:inbox) { create(:inbox, account: account) }
   let(:conversation) { create(:conversation, account: account, inbox: inbox) }
@@ -17,7 +17,7 @@ RSpec.describe Atlas::BaseTaskService, type: :model do
       end
     end
     # Manually prepend enterprise module to test class
-    klass.prepend(Enterprise::Atlas::BaseTaskService)
+    klass.prepend(Enterprise::Hudley::BaseTaskService)
     klass
   end
 
@@ -36,7 +36,7 @@ RSpec.describe Atlas::BaseTaskService, type: :model do
 
     context 'when usage limit is exceeded' do
       before do
-        allow(DeskFlowApp).to receive(:chatwoot_cloud?).and_return(true)
+        allow(DeskFlowsApp).to receive(:deskflows_cloud?).and_return(true)
         allow(account).to receive(:usage_limits).and_return({
                                                               captain: { responses: { current_available: 0 } }
                                                             })
@@ -116,9 +116,9 @@ RSpec.describe Atlas::BaseTaskService, type: :model do
         allow(account).to receive(:feature_enabled?).with('captain_tasks').and_return(false)
       end
 
-      context 'when on DeskFlow Cloud' do
+      context 'when on DeskFlows Cloud' do
         before do
-          allow(DeskFlowApp).to receive(:chatwoot_cloud?).and_return(true)
+          allow(DeskFlowsApp).to receive(:deskflows_cloud?).and_return(true)
         end
 
         it 'returns upgrade error message' do
@@ -134,7 +134,7 @@ RSpec.describe Atlas::BaseTaskService, type: :model do
 
       context 'when self-hosted' do
         before do
-          allow(DeskFlowApp).to receive(:chatwoot_cloud?).and_return(false)
+          allow(DeskFlowsApp).to receive(:deskflows_cloud?).and_return(false)
         end
 
         it 'returns disabled error message' do

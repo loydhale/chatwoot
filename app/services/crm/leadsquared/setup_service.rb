@@ -14,10 +14,10 @@ class Crm::Leadsquared::SetupService
     setup_endpoint
     setup_activity
   rescue Crm::Leadsquared::Api::BaseClient::ApiError => e
-    DeskFlowExceptionTracker.new(e, account: @hook.account).capture_exception
+    DeskFlowsExceptionTracker.new(e, account: @hook.account).capture_exception
     Rails.logger.error "LeadSquared API error in setup: #{e.message}"
   rescue StandardError => e
-    DeskFlowExceptionTracker.new(e, account: @hook.account).capture_exception
+    DeskFlowsExceptionTracker.new(e, account: @hook.account).capture_exception
     Rails.logger.error "Error during LeadSquared setup: #{e.message}"
   end
 
@@ -104,6 +104,6 @@ class Crm::Leadsquared::SetupService
   end
 
   def brand_name
-    ::GlobalConfig.get('BRAND_NAME')['BRAND_NAME'].presence || 'DeskFlow'
+    ::GlobalConfig.get('BRAND_NAME')['BRAND_NAME'].presence || 'DeskFlows'
   end
 end

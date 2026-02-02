@@ -1,7 +1,7 @@
 /* global axios */
 import ApiClient from '../ApiClient';
 
-class AtlasInboxes extends ApiClient {
+class HudleyInboxes extends ApiClient {
   constructor() {
     super('captain/assistants', { accountScoped: true });
   }
@@ -23,4 +23,4 @@ class AtlasInboxes extends ApiClient {
   }
 }
 
-export default new AtlasInboxes();
+export default new HudleyInboxes();

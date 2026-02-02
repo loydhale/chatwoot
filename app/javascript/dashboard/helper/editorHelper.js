@@ -2,8 +2,8 @@ import {
   messageSchema,
   MessageMarkdownTransformer,
   MessageMarkdownSerializer,
-} from '@chatwoot/prosemirror-schema';
-import { replaceVariablesInMessage } from '@chatwoot/utils';
+} from '@deskflows/prosemirror-schema';
+import { replaceVariablesInMessage } from '@deskflows/utils';
 import * as Sentry from '@sentry/vue';
 import { FORMATTING, MARKDOWN_PATTERNS } from 'dashboard/constants/editor';
 import { INBOX_TYPES, TWILIO_CHANNEL_MEDIUM } from 'dashboard/helper/inbox';
@@ -524,11 +524,11 @@ export const getContentNode = (
  * @param {string} channelType - The channel type (e.g., 'Channel::FacebookPage', 'Channel::WebWidget')
  * @returns {Object} The formatting configuration with marks, nodes, and menu properties
  */
-export function getFormattingForEditor(channelType, showAtlas = false) {
+export function getFormattingForEditor(channelType, showHudley = false) {
   const formatting = FORMATTING[channelType] || FORMATTING['Context::Default'];
   return {
     ...formatting,
-    menu: showAtlas
+    menu: showHudley
       ? formatting.menu
       : formatting.menu.filter(item => item !== 'copilot'),
   };

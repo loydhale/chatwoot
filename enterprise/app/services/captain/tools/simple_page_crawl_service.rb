@@ -1,4 +1,4 @@
-class Atlas::Tools::SimplePageCrawlService
+class Hudley::Tools::SimplePageCrawlService
   attr_reader :external_link
 
   def initialize(external_link)

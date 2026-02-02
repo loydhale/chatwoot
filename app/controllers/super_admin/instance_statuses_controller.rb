@@ -1,18 +1,18 @@
 class SuperAdmin::InstanceStatusesController < SuperAdmin::ApplicationController
   def show
     @metrics = {}
-    chatwoot_version
+    deskflows_version
     sha
     postgres_status
     redis_metrics
-    chatwoot_edition
+    deskflows_edition
     instance_meta
   end
 
-  def chatwoot_edition
-    @metrics['DeskFlow edition'] = if DeskFlowApp.enterprise?
+  def deskflows_edition
+    @metrics['DeskFlows edition'] = if DeskFlowsApp.enterprise?
                                      'Enterprise'
-                                   elsif DeskFlowApp.custom?
+                                   elsif DeskFlowsApp.custom?
                                      'Custom'
                                    else
                                      'Community'
@@ -23,8 +23,8 @@ class SuperAdmin::InstanceStatusesController < SuperAdmin::ApplicationController
     @metrics['Database Migrations'] = ActiveRecord::Base.connection.migration_context.needs_migration? ? 'pending' : 'completed'
   end
 
-  def chatwoot_version
-    @metrics['DeskFlow version'] = DeskFlow.config[:version]
+  def deskflows_version
+    @metrics['DeskFlows version'] = DeskFlows.config[:version]
   end
 
   def sha

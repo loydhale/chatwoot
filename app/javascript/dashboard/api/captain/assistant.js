@@ -1,7 +1,7 @@
 /* global axios */
 import ApiClient from '../ApiClient';
 
-class AtlasAssistant extends ApiClient {
+class HudleyAssistant extends ApiClient {
   constructor() {
     super('captain/assistants', { accountScoped: true });
   }
@@ -23,4 +23,4 @@ class AtlasAssistant extends ApiClient {
   }
 }
 
-export default new AtlasAssistant();
+export default new HudleyAssistant();

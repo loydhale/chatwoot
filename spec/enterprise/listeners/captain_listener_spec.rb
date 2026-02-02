@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe AtlasListener do
+describe HudleyListener do
   let(:listener) { described_class.instance }
   let(:account) { create(:account) }
   let(:inbox) { create(:inbox, account: account) }
@@ -26,11 +26,11 @@ describe AtlasListener do
       end
 
       it 'generates and updates notes' do
-        expect(Atlas::Llm::ContactNotesService)
+        expect(Hudley::Llm::ContactNotesService)
           .to receive(:new)
           .with(assistant, conversation)
-          .and_return(instance_double(Atlas::Llm::ContactNotesService, generate_and_update_notes: nil))
-        expect(Atlas::Llm::ConversationFaqService).not_to receive(:new)
+          .and_return(instance_double(Hudley::Llm::ContactNotesService, generate_and_update_notes: nil))
+        expect(Hudley::Llm::ConversationFaqService).not_to receive(:new)
 
         listener.conversation_resolved(event)
       end
@@ -44,11 +44,11 @@ describe AtlasListener do
       end
 
       it 'generates and deduplicates FAQs' do
-        expect(Atlas::Llm::ConversationFaqService)
+        expect(Hudley::Llm::ConversationFaqService)
           .to receive(:new)
           .with(assistant, conversation)
-          .and_return(instance_double(Atlas::Llm::ConversationFaqService, generate_and_deduplicate: false))
-        expect(Atlas::Llm::ContactNotesService).not_to receive(:new)
+          .and_return(instance_double(Hudley::Llm::ConversationFaqService, generate_and_deduplicate: false))
+        expect(Hudley::Llm::ContactNotesService).not_to receive(:new)
 
         listener.conversation_resolved(event)
       end

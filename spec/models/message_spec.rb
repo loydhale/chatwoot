@@ -641,7 +641,7 @@ RSpec.describe Message do
         end
 
         it 'returns only the base content without URL when survey_url stored separately' do
-          message.content_attributes = { 'survey_url' => 'https://app.chatwoot.com/survey/responses/12345' }
+          message.content_attributes = { 'survey_url' => 'https://app.deskflows.com/survey/responses/12345' }
           expect(message.content).to eq('Rate your experience')
         end
       end
@@ -734,13 +734,13 @@ RSpec.describe Message do
     let(:message) { create(:message, conversation: conversation, account: account) }
 
     before do
-      allow(DeskFlowApp).to receive(:advanced_search_allowed?).and_return(true)
+      allow(DeskFlowsApp).to receive(:advanced_search_allowed?).and_return(true)
       account.enable_features('advanced_search_indexing')
     end
 
     context 'when advanced search is not allowed globally' do
       before do
-        allow(DeskFlowApp).to receive(:advanced_search_allowed?).and_return(false)
+        allow(DeskFlowsApp).to receive(:advanced_search_allowed?).and_return(false)
       end
 
       it 'returns false' do
@@ -748,9 +748,9 @@ RSpec.describe Message do
       end
     end
 
-    context 'when advanced search feature is not enabled for account on chatwoot cloud' do
+    context 'when advanced search feature is not enabled for account on deskflows cloud' do
       before do
-        allow(DeskFlowApp).to receive(:chatwoot_cloud?).and_return(true)
+        allow(DeskFlowsApp).to receive(:deskflows_cloud?).and_return(true)
         account.disable_features('advanced_search_indexing')
       end
 
@@ -761,7 +761,7 @@ RSpec.describe Message do
 
     context 'when advanced search feature is not enabled for account on self-hosted' do
       before do
-        allow(DeskFlowApp).to receive(:chatwoot_cloud?).and_return(false)
+        allow(DeskFlowsApp).to receive(:deskflows_cloud?).and_return(false)
         account.disable_features('advanced_search_indexing')
       end
 
@@ -798,7 +798,7 @@ RSpec.describe Message do
     let(:conversation) { create(:conversation, account: account) }
 
     before do
-      allow(DeskFlowApp).to receive(:advanced_search_allowed?).and_return(true)
+      allow(DeskFlowsApp).to receive(:advanced_search_allowed?).and_return(true)
       account.enable_features('advanced_search_indexing')
     end
 
@@ -827,7 +827,7 @@ RSpec.describe Message do
       end
 
       it 'does not call reindex_for_search for unpaid account on cloud' do
-        allow(DeskFlowApp).to receive(:chatwoot_cloud?).and_return(true)
+        allow(DeskFlowsApp).to receive(:deskflows_cloud?).and_return(true)
         account.disable_features('advanced_search_indexing')
         message = build(:message, conversation: conversation, account: account, message_type: :incoming)
         expect(message).not_to receive(:reindex_for_search)
@@ -835,7 +835,7 @@ RSpec.describe Message do
       end
 
       it 'does not call reindex_for_search when advanced search is not allowed' do
-        allow(DeskFlowApp).to receive(:advanced_search_allowed?).and_return(false)
+        allow(DeskFlowsApp).to receive(:advanced_search_allowed?).and_return(false)
         message = build(:message, conversation: conversation, account: account, message_type: :incoming)
         expect(message).not_to receive(:reindex_for_search)
         message.save!

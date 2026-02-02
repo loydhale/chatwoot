@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Atlas::Tools::SimplePageCrawlService do
+RSpec.describe Hudley::Tools::SimplePageCrawlService do
   let(:base_url) { 'https://example.com' }
   let(:service) { described_class.new(base_url) }
 

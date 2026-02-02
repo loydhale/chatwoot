@@ -10,7 +10,7 @@
 <div align="center">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Built on Chatwoot](https://img.shields.io/badge/Built%20on-Chatwoot-blue)](https://github.com/chatwoot/chatwoot)
+[![Built on DeskFlows](https://img.shields.io/badge/Built%20on-DeskFlows-blue)](https://github.com/deskflows/deskflows)
 [![Ruby](https://img.shields.io/badge/Ruby-3.2+-red)](https://www.ruby-lang.org)
 [![Vue.js](https://img.shields.io/badge/Vue.js-3.x-green)](https://vuejs.org)
 
@@ -22,7 +22,7 @@
 
 **DeskFlow** is a powerful customer support platform purpose-built for agencies—especially those on [GoHighLevel (GHL)](https://www.gohighlevel.com/). It enables agencies to offer **white-labeled support services** to their clients, complete with RAG-powered AI assistance from **Atlas**, our intelligent assistant.
 
-> DeskFlow is a fork of [Chatwoot](https://github.com/chatwoot/chatwoot), the open-source customer engagement platform, enhanced with agency-specific features and deep GHL Marketplace integration.
+> DeskFlow is a fork of [DeskFlows](https://github.com/deskflows/deskflows), the open-source customer engagement platform, enhanced with agency-specific features and deep GHL Marketplace integration.
 
 ### Who is DeskFlow for?
 
@@ -105,7 +105,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/loydhale/chatwoot.git deskflow
+git clone https://github.com/loydhale/deskflows.git deskflow
 cd deskflow
 
 # Copy environment file
@@ -121,7 +121,7 @@ docker-compose up -d
 
 ```bash
 # Clone the repository
-git clone https://github.com/loydhale/chatwoot.git deskflow
+git clone https://github.com/loydhale/deskflows.git deskflow
 cd deskflow
 
 # Install Ruby dependencies
@@ -299,12 +299,12 @@ docker-compose -f docker-compose.production.yml up -d
 
 ## 📄 License
 
-DeskFlow is built on [Chatwoot](https://github.com/chatwoot/chatwoot), licensed under the MIT License.
+DeskFlow is built on [DeskFlows](https://github.com/deskflows/deskflows), licensed under the MIT License.
 
 ```
 MIT License
 
-Copyright (c) 2017-2024 Chatwoot Inc.
+Copyright (c) 2017-2024 DeskFlows Inc.
 Copyright (c) 2025 GrowLocals.ai (DeskFlow modifications)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -322,7 +322,7 @@ copies or substantial portions of the Software.
 
 ## 🙏 Attribution & Thanks
 
-DeskFlow is proudly built on [**Chatwoot**](https://www.chatwoot.com), the excellent open-source customer engagement platform. We extend our sincere gratitude to the Chatwoot team and all its contributors for creating such a solid foundation.
+DeskFlow is proudly built on [**DeskFlows**](https://www.deskflows.com), the excellent open-source customer engagement platform. We extend our sincere gratitude to the DeskFlows team and all its contributors for creating such a solid foundation.
 
 **Key upstream features we build upon:**
 - Omni-channel inbox architecture
@@ -347,12 +347,12 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 ## 📞 Support
 
 - **Documentation**: [Coming Soon]
-- **Issues**: [GitHub Issues](https://github.com/loydhale/chatwoot/issues)
+- **Issues**: [GitHub Issues](https://github.com/loydhale/deskflows/issues)
 - **Email**: support@growlocals.ai
 
 ---
 
 <div align="center">
   <p>Built with ❤️ by <a href="https://growlocals.ai">GrowLocals.ai</a></p>
-  <p>Powered by <a href="https://www.chatwoot.com">Chatwoot</a></p>
+  <p>Powered by <a href="https://www.deskflows.com">DeskFlows</a></p>
 </div>

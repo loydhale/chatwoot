@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Atlas::OpenAiMessageBuilderService do
+RSpec.describe Hudley::OpenAiMessageBuilderService do
   subject(:service) { described_class.new(message: message) }
 
   let(:message) { create(:message, content: 'Hello world') }

@@ -107,9 +107,9 @@ export default {
 
     runFBInit() {
       FB.init({
-        appId: window.chatwootConfig.fbAppId,
+        appId: window.deskflowsConfig.fbAppId,
         xfbml: true,
-        version: window.chatwootConfig.fbApiVersion,
+        version: window.deskflowsConfig.fbApiVersion,
         status: true,
       });
       window.fbSDKLoaded = true;

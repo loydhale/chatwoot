@@ -1,7 +1,6 @@
 module Enterprise::AsyncDispatcher
   def listeners
-    super + [
-      AtlasListener.instance
-    ]
+    # TODO: Add HudleyListener once implemented
+    super
   end
 end

@@ -5,7 +5,7 @@ import { assistantsList } from 'dashboard/components-next/captain/pageComponents
 
 <template>
   <Story
-    title="Atlas/Assistant/AssistantCard"
+    title="Hudley/Assistant/AssistantCard"
     :layout="{ type: 'grid', width: '700px' }"
   >
     <Variant title="Assistant Card">
