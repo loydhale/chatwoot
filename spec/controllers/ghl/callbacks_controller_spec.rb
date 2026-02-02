@@ -95,7 +95,7 @@ RSpec.describe Ghl::CallbacksController, type: :request do
 
       it 'redirects with error' do
         get ghl_callback_path, params: { code: code, state: state }
-        expect(response).to redirect_to("#{ghl_redirect_uri}?error=true")
+        expect(response).to redirect_to("#{frontend_url}/app/settings/integrations/gohighlevel?error=unknown")
       end
     end
 
@@ -104,11 +104,13 @@ RSpec.describe Ghl::CallbacksController, type: :request do
         allow_any_instance_of(described_class).to receive(:verify_ghl_token).and_return(nil)
         allow_any_instance_of(described_class).to receive(:ghl_client).and_return(oauth_client)
         allow(Account).to receive(:find_by).with(id: nil).and_return(nil)
+        allow(oauth_client).to receive(:auth_code).and_return(auth_code_strategy)
+        allow(auth_code_strategy).to receive(:get_token).and_return(token_response)
       end
 
       it 'redirects with error' do
         get ghl_callback_path, params: { code: code, state: state }
-        expect(response).to redirect_to("#{frontend_url}?error=true")
+        expect(response).to redirect_to("#{frontend_url}/app/settings/integrations/gohighlevel?error=unknown")
       end
     end
   end
