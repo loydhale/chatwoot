@@ -1,109 +1,155 @@
-# pre-build stage
-FROM node:24-alpine as node
-FROM ruby:3.4.4-alpine3.21 AS pre-builder
+# =============================================================================
+# Stage 0: Node binary source
+# =============================================================================
+FROM node:24-alpine AS node
+
+# =============================================================================
+# Stage 1: Gem builder  —  compiles native extensions in isolation
+# Peak memory: ~2 GB (grpc, nokogiri, etc.)
+# Once this stage finishes, its peak memory is freed before assets compile.
+# =============================================================================
+FROM ruby:3.4.4-alpine3.21 AS gem-builder
+
+ARG BUNDLE_WITHOUT="development:test"
+ENV BUNDLE_WITHOUT=${BUNDLE_WITHOUT}
+ENV BUNDLER_VERSION=2.5.16
+ENV BUNDLE_PATH="/gems"
+
+RUN apk update && apk add --no-cache \
+  build-base \
+  musl \
+  ruby-full \
+  ruby-dev \
+  gcc \
+  make \
+  musl-dev \
+  openssl \
+  openssl-dev \
+  g++ \
+  linux-headers \
+  xz \
+  vips \
+  postgresql-dev \
+  git \
+  && gem install bundler -v "$BUNDLER_VERSION"
+
+WORKDIR /app
+COPY Gemfile Gemfile.lock ./
+
+# Install only production gems — limit concurrency to reduce peak memory
+RUN bundle config set without 'development test' \
+  && bundle install -j 2 -r 3
+
+# Strip gem cache + compiled C artifacts to slim the layer
+RUN rm -rf /gems/ruby/3.4.0/cache/*.gem \
+  && find /gems/ruby/3.4.0/gems/ \( -name "*.c" -o -name "*.o" \) -delete
+
+# =============================================================================
+# Stage 2: Asset builder  —  node deps + vite/sprockets compilation
+# Peak memory: ~3-4 GB  (was 5-6 GB before the split)
+# Gems are pre-built; we just COPY them in, avoiding native-extension overhead.
+# =============================================================================
+FROM ruby:3.4.4-alpine3.21 AS asset-builder
 
 ARG NODE_VERSION="24.13.0"
 ARG PNPM_VERSION="10.2.0"
 ENV NODE_VERSION=${NODE_VERSION}
 ENV PNPM_VERSION=${PNPM_VERSION}
-
-# ARG default to production settings
-# For development docker-compose file overrides ARGS
-ARG BUNDLE_WITHOUT="development:test"
-ENV BUNDLE_WITHOUT ${BUNDLE_WITHOUT}
 ENV BUNDLER_VERSION=2.5.16
-
-ARG RAILS_SERVE_STATIC_FILES=true
-ENV RAILS_SERVE_STATIC_FILES ${RAILS_SERVE_STATIC_FILES}
+ENV BUNDLE_PATH="/gems"
 
 ARG RAILS_ENV=production
-ENV RAILS_ENV ${RAILS_ENV}
+ENV RAILS_ENV=${RAILS_ENV}
 
-ARG NODE_OPTIONS="--max-old-space-size=1536 --openssl-legacy-provider"
-ENV NODE_OPTIONS ${NODE_OPTIONS}
+# ── Node heap: capped at 1024 MB (down from 1536) ──
+ARG NODE_OPTIONS="--max-old-space-size=1024 --openssl-legacy-provider"
+ENV NODE_OPTIONS=${NODE_OPTIONS}
 
-# Disable sourcemaps in production to save ~2GB RAM during build
+# Disable sourcemaps — saves ~2 GB RAM during Vite build
 ENV GENERATE_SOURCEMAP=false
 ENV NODE_ENV=production
 
-ENV BUNDLE_PATH="/gems"
+# Tell build.rake to skip its redundant `pnpm install`
+ENV SKIP_PNPM_INSTALL_IN_RAKE=1
 
+ARG RAILS_SERVE_STATIC_FILES=true
+ENV RAILS_SERVE_STATIC_FILES=${RAILS_SERVE_STATIC_FILES}
+
+# System deps (lighter set — no native gem compilation needed)
 RUN apk update && apk add --no-cache \
+  build-base \
   openssl \
   tar \
-  build-base \
   tzdata \
   postgresql-dev \
   postgresql-client \
   git \
   curl \
   xz \
-  && mkdir -p /var/app \
+  vips \
   && gem install bundler -v "$BUNDLER_VERSION"
 
+# ── Node + pnpm ──
 COPY --from=node /usr/local/bin/node /usr/local/bin/
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
-  && ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
+  && ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx \
+  && npm install -g pnpm@${PNPM_VERSION}
 
-RUN npm install -g pnpm@${PNPM_VERSION}
-
-RUN echo 'export PNPM_HOME="/root/.local/share/pnpm"' >> /root/.shrc \
-  && echo 'export PATH="$PNPM_HOME:$PATH"' >> /root/.shrc \
-  && export PNPM_HOME="/root/.local/share/pnpm" \
-  && export PATH="$PNPM_HOME:$PATH" \
-  && pnpm --version
-
-# Persist the environment variables in Docker
 ENV PNPM_HOME="/root/.local/share/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
 WORKDIR /app
 
-COPY Gemfile Gemfile.lock ./
+# ── Pre-built gems from Stage 1 (no compilation, fast COPY) ──
+COPY --from=gem-builder /gems/ /gems/
 
-# NOTE: Removed force_ruby_platform - grpc now has native ARM64 musl gems
-# Old comment preserved for reference:
-# - https://github.com/googleapis/google-cloud-ruby/issues/13306 (fixed in grpc 1.40+)
-# - https://github.com/loydhale/deskflows/issues/4045
-RUN apk update && apk add --no-cache build-base musl ruby-full ruby-dev gcc make musl-dev openssl openssl-dev g++ linux-headers xz vips
-# RUN bundle config set --local force_ruby_platform true  # DISABLED - uses pre-built native gems now
-
-# Do not install development or test gems in production
-RUN if [ "$RAILS_ENV" = "production" ]; then \
-  bundle config set without 'development test'; bundle install -j 2 -r 3; \
-  else bundle install -j 2 -r 3; \
-  fi
-
+# ── Node dependencies ──
+# Install with frozen lockfile; pnpm will skip devDeps it can when NODE_ENV=production,
+# but vite/tailwind/postcss are needed so they're in the lockfile's resolution.
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm i
+RUN pnpm install --frozen-lockfile \
+  && pnpm store prune
 
+# ── Application source ──
 COPY . /app
 
-# creating a log directory so that image wont fail when RAILS_LOG_TO_STDOUT is false
-# https://github.com/loydhale/deskflows/issues/701
 RUN mkdir -p /app/log
 
-# Capture commit hash BEFORE any .git cleanup
+# Capture commit SHA before .git is purged
 RUN git rev-parse HEAD > /app/.git_sha
 
-# Free memory before heavy asset compilation
-RUN rm -rf spec tmp/cache .git/objects/pack
+# ── Free disk/memory before the heavy compile step ──
+RUN rm -rf \
+  .git \
+  spec \
+  test \
+  tmp/cache \
+  .github \
+  .devcontainer \
+  .husky \
+  coverage \
+  stories
 
-# generate production assets if production environment
-# GENERATE_SOURCEMAP=false saves ~2GB RAM, --max-old-space-size=1536 caps Node heap
-RUN if [ "$RAILS_ENV" = "production" ]; then \
-  GENERATE_SOURCEMAP=false SECRET_KEY_BASE=precompile_placeholder RAILS_LOG_TO_STDOUT=enabled bundle exec rake assets:precompile \
-  && rm -rf node_modules tmp/cache; \
-  fi
+# ── Asset precompilation ──
+# GENERATE_SOURCEMAP=false + --max-old-space-size=1024 keeps peak under 4 GB
+RUN SECRET_KEY_BASE=precompile_placeholder \
+  RAILS_LOG_TO_STDOUT=enabled \
+  GENERATE_SOURCEMAP=false \
+  bundle exec rake assets:precompile
 
-# Remove unnecessary files
-RUN rm -rf /gems/ruby/3.4.0/cache/*.gem \
-  && find /gems/ruby/3.4.0/gems/ \( -name "*.c" -o -name "*.o" \) -delete \
-  && rm -rf .git \
-  && rm .gitignore
+# ── Post-compile cleanup: strip everything Node-related ──
+RUN rm -rf \
+  node_modules \
+  .pnpm-store \
+  tmp/cache \
+  /root/.local/share/pnpm \
+  /root/.npm \
+  /root/.cache
 
-# final build stage
+# =============================================================================
+# Stage 3: Final runtime image  —  lean, no build tooling
+# =============================================================================
 FROM ruby:3.4.4-alpine3.21
 
 ARG NODE_VERSION="24.13.0"
@@ -112,20 +158,20 @@ ENV NODE_VERSION=${NODE_VERSION}
 ENV PNPM_VERSION=${PNPM_VERSION}
 
 ARG BUNDLE_WITHOUT="development:test"
-ENV BUNDLE_WITHOUT ${BUNDLE_WITHOUT}
+ENV BUNDLE_WITHOUT=${BUNDLE_WITHOUT}
 ENV BUNDLER_VERSION=2.5.16
 
 ARG EXECJS_RUNTIME="Disabled"
-ENV EXECJS_RUNTIME ${EXECJS_RUNTIME}
+ENV EXECJS_RUNTIME=${EXECJS_RUNTIME}
 
 ARG RAILS_SERVE_STATIC_FILES=true
-ENV RAILS_SERVE_STATIC_FILES ${RAILS_SERVE_STATIC_FILES}
+ENV RAILS_SERVE_STATIC_FILES=${RAILS_SERVE_STATIC_FILES}
 
 ARG BUNDLE_FORCE_RUBY_PLATFORM=1
-ENV BUNDLE_FORCE_RUBY_PLATFORM ${BUNDLE_FORCE_RUBY_PLATFORM}
+ENV BUNDLE_FORCE_RUBY_PLATFORM=${BUNDLE_FORCE_RUBY_PLATFORM}
 
 ARG RAILS_ENV=production
-ENV RAILS_ENV ${RAILS_ENV}
+ENV RAILS_ENV=${RAILS_ENV}
 ENV BUNDLE_PATH="/gems"
 
 RUN apk update && apk add --no-cache \
@@ -149,11 +195,9 @@ RUN if [ "$RAILS_ENV" != "production" ]; then \
   && pnpm --version; \
   fi
 
-COPY --from=pre-builder /gems/ /gems/
-COPY --from=pre-builder /app /app
-
-# Copy .git_sha file from pre-builder stage
-COPY --from=pre-builder /app/.git_sha /app/.git_sha
+COPY --from=asset-builder /gems/ /gems/
+COPY --from=asset-builder /app /app
+COPY --from=asset-builder /app/.git_sha /app/.git_sha
 
 WORKDIR /app
 

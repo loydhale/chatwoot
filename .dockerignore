@@ -15,3 +15,11 @@ vendor/bundle
 .DS_Store
 *.swp
 *~
+
+# Reduce build context — saves transfer to Docker daemon
+coverage
+.github
+.devcontainer
+.husky
+stories
+.pnpm-store
