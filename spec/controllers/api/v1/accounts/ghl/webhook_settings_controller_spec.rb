@@ -48,6 +48,7 @@ RSpec.describe 'Api::V1::Accounts::Ghl::WebhookSettingsController', type: :reque
       end
 
       it 'shows not configured when no secret is set' do
+        GlobalConfig.clear_cache
         get base_url, headers: admin.create_new_auth_token, as: :json
 
         json = response.parsed_body

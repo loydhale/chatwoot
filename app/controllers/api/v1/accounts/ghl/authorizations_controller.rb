@@ -8,7 +8,7 @@
 # The frontend redirects the user to this URL. GHL sends them back to GET /ghl/callback.
 #
 # See docs/GHL-OAUTH.md for the full OAuth flow.
-class Api::V1::Accounts::Ghl::AuthorizationController < Api::V1::Accounts::BaseController
+class Api::V1::Accounts::Ghl::AuthorizationsController < Api::V1::Accounts::BaseController
   include GhlConcern
   include Ghl::IntegrationHelper
 
