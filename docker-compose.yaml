@@ -8,17 +8,20 @@ services:
         EXECJS_RUNTIME: 'Node'
         RAILS_ENV: 'development'
         RAILS_SERVE_STATIC_FILES: 'false'
-    profiles:
-      - build
     tty: true
     stdin_open: true
     image: deskflows:development
     env_file:
       - .env
       - .env.docker
+    # base is a build-only target — never run directly
+    profiles:
+      - build
 
   rails:
     <<: *base
+    # Override profiles so this service starts with `docker compose up`
+    profiles: []
     build:
       context: .
       dockerfile: ./docker/dockerfiles/rails.Dockerfile
@@ -30,11 +33,14 @@ services:
       - cache:/app/tmp/cache
       - bundle:/usr/local/bundle
     depends_on:
-      - postgres
-      - redis
-      - vite
-      - mailhog
-      - sidekiq
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      vite:
+        condition: service_started
+      mailhog:
+        condition: service_started
     ports:
       - 3000:3000
     env_file:
@@ -49,6 +55,12 @@ services:
 
   sidekiq:
     <<: *base
+    # Override profiles so this service starts with `docker compose up`
+    profiles: []
+    # Use the same Dockerfile as rails — sidekiq runs the same codebase
+    build:
+      context: .
+      dockerfile: ./docker/dockerfiles/rails.Dockerfile
     image: deskflows-rails:development
     volumes:
       - ./:/app:delegated
@@ -57,9 +69,12 @@ services:
       - cache:/app/tmp/cache
       - bundle:/usr/local/bundle
     depends_on:
-      - postgres
-      - redis
-      - mailhog
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      mailhog:
+        condition: service_started
     env_file:
       - .env
       - .env.docker
@@ -71,6 +86,8 @@ services:
 
   vite:
     <<: *base
+    # Override profiles so this service starts with `docker compose up`
+    profiles: []
     build:
       context: .
       dockerfile: ./docker/dockerfiles/vite.Dockerfile
@@ -102,6 +119,11 @@ services:
       - postgres:/var/lib/postgresql/data
     env_file:
       - .env.docker
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   redis:
     image: redis:alpine
@@ -113,6 +135,11 @@ services:
       - redis:/data
     ports:
       - '6379:6379'
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "redis", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   mailhog:
     image: mailhog/mailhog

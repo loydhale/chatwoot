@@ -56,7 +56,25 @@ debug:
 debug_worker:
 	overmind connect worker
 
-docker: 
+docker:
 	docker build -t $(APP_NAME) -f ./docker/Dockerfile .
 
-.PHONY: setup db_create db_migrate db_seed db_reset db console server burn docker run force_run force_run_tunnel debug debug_worker
+docker_setup:
+	./bin/docker-dev-setup
+
+docker_up:
+	docker compose up -d
+
+docker_down:
+	docker compose down
+
+docker_reset:
+	./bin/docker-dev-setup --reset
+
+docker_logs:
+	docker compose logs -f
+
+docker_console:
+	docker compose exec rails bundle exec rails console
+
+.PHONY: setup db_create db_migrate db_seed db_reset db console server burn docker docker_setup docker_up docker_down docker_reset docker_logs docker_console run force_run force_run_tunnel debug debug_worker
