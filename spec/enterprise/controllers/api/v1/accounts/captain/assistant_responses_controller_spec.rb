@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Accounts::Hudley::AssistantResponses', type: :request do
+RSpec.describe 'Api::V1::Accounts::Captain::AssistantResponses', type: :request do
   let(:account) { create(:account) }
   let(:assistant) { create(:captain_assistant, account: account) }
   let(:document) { create(:captain_document, assistant: assistant, account: account) }
@@ -171,7 +171,7 @@ RSpec.describe 'Api::V1::Accounts::Hudley::AssistantResponses', type: :request d
              params: valid_params,
              headers: admin.create_new_auth_token,
              as: :json
-      end.to change(Hudley::AssistantResponse, :count).by(1)
+      end.to change(Captain::AssistantResponse, :count).by(1)
 
       expect(response).to have_http_status(:success)
 
@@ -252,7 +252,7 @@ RSpec.describe 'Api::V1::Accounts::Hudley::AssistantResponses', type: :request d
         delete "/api/v1/accounts/#{account.id}/captain/assistant_responses/#{response_record.id}",
                headers: admin.create_new_auth_token,
                as: :json
-      end.to change(Hudley::AssistantResponse, :count).by(-1)
+      end.to change(Captain::AssistantResponse, :count).by(-1)
 
       expect(response).to have_http_status(:no_content)
     end

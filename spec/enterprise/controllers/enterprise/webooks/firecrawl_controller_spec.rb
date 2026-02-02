@@ -29,7 +29,7 @@ RSpec.describe 'Firecrawl Webhooks', type: :request do
         end
 
         it 'processes the webhook and returns success' do
-          expect(Hudley::Tools::FirecrawlParserJob).to receive(:perform_later)
+          expect(Captain::Tools::FirecrawlParserJob).to receive(:perform_later)
             .with(
               assistant_id: assistant.id,
               payload: payload_data
@@ -53,7 +53,7 @@ RSpec.describe 'Firecrawl Webhooks', type: :request do
         end
 
         it 'returns success without enqueuing job' do
-          expect(Hudley::Tools::FirecrawlParserJob).not_to receive(:perform_later)
+          expect(Captain::Tools::FirecrawlParserJob).not_to receive(:perform_later)
 
           post("/enterprise/webhooks/firecrawl?assistant_id=#{assistant.id}&token=#{valid_token}",
                params: valid_params,

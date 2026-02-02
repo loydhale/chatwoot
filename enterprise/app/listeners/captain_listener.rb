@@ -1,4 +1,4 @@
-class HudleyListener < BaseListener
+class CaptainListener < BaseListener
   include ::Events::Types
 
   def conversation_resolved(event)
@@ -7,7 +7,7 @@ class HudleyListener < BaseListener
 
     return unless conversation.inbox.captain_active?
 
-    Hudley::Llm::ContactNotesService.new(assistant, conversation).generate_and_update_notes if assistant.config['feature_memory'].present?
-    Hudley::Llm::ConversationFaqService.new(assistant, conversation).generate_and_deduplicate if assistant.config['feature_faq'].present?
+    Captain::Llm::ContactNotesService.new(assistant, conversation).generate_and_update_notes if assistant.config['feature_memory'].present?
+    Captain::Llm::ConversationFaqService.new(assistant, conversation).generate_and_deduplicate if assistant.config['feature_faq'].present?
   end
 end

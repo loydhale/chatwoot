@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::FollowUpService do
+RSpec.describe Captain::FollowUpService do
   let(:account) { create(:account) }
   let(:inbox) { create(:inbox, account: account) }
   let(:conversation) { create(:conversation, account: account, inbox: inbox) }

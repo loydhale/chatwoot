@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Accounts::Hudley::Assistants', type: :request do
+RSpec.describe 'Api::V1::Accounts::Captain::Assistants', type: :request do
   let(:account) { create(:account) }
   let(:admin) { create(:user, account: account, role: :administrator) }
   let(:agent) { create(:user, account: account, role: :agent) }
@@ -101,7 +101,7 @@ RSpec.describe 'Api::V1::Accounts::Hudley::Assistants', type: :request do
                params: valid_attributes,
                headers: admin.create_new_auth_token,
                as: :json
-        end.to change(Hudley::Assistant, :count).by(1)
+        end.to change(Captain::Assistant, :count).by(1)
 
         expect(json_response[:name]).to eq('New Assistant')
         expect(json_response[:response_guidelines]).to eq(['Be helpful', 'Be concise'])
@@ -120,7 +120,7 @@ RSpec.describe 'Api::V1::Accounts::Hudley::Assistants', type: :request do
                params: attributes_with_disabled_citation,
                headers: admin.create_new_auth_token,
                as: :json
-        end.to change(Hudley::Assistant, :count).by(1)
+        end.to change(Captain::Assistant, :count).by(1)
 
         expect(json_response[:config][:feature_citation]).to be(false)
         expect(response).to have_http_status(:success)
@@ -245,7 +245,7 @@ RSpec.describe 'Api::V1::Accounts::Hudley::Assistants', type: :request do
           delete "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}",
                  headers: admin.create_new_auth_token,
                  as: :json
-        end.to change(Hudley::Assistant, :count).by(-1)
+        end.to change(Captain::Assistant, :count).by(-1)
 
         expect(response).to have_http_status(:no_content)
       end
@@ -276,8 +276,8 @@ RSpec.describe 'Api::V1::Accounts::Hudley::Assistants', type: :request do
 
     context 'when it is an agent' do
       it 'generates a response' do
-        chat_service = instance_double(Hudley::Llm::AssistantChatService)
-        allow(Hudley::Llm::AssistantChatService).to receive(:new).with(assistant: assistant).and_return(chat_service)
+        chat_service = instance_double(Captain::Llm::AssistantChatService)
+        allow(Captain::Llm::AssistantChatService).to receive(:new).with(assistant: assistant).and_return(chat_service)
         allow(chat_service).to receive(:generate_response).and_return({ content: 'Assistant response' })
 
         post "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/playground",
@@ -297,8 +297,8 @@ RSpec.describe 'Api::V1::Accounts::Hudley::Assistants', type: :request do
     context 'when message_history is not provided' do
       it 'uses empty array as default' do
         params_without_history = { message_content: 'Hello assistant' }
-        chat_service = instance_double(Hudley::Llm::AssistantChatService)
-        allow(Hudley::Llm::AssistantChatService).to receive(:new).with(assistant: assistant).and_return(chat_service)
+        chat_service = instance_double(Captain::Llm::AssistantChatService)
+        allow(Captain::Llm::AssistantChatService).to receive(:new).with(assistant: assistant).and_return(chat_service)
         allow(chat_service).to receive(:generate_response).and_return({ content: 'Assistant response' })
 
         post "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/playground",

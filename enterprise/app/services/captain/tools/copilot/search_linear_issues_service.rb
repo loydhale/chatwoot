@@ -1,4 +1,4 @@
-class Hudley::Tools::Copilot::SearchLinearIssuesService < Hudley::Tools::BaseTool
+class Captain::Tools::Copilot::SearchLinearIssuesService < Captain::Tools::BaseTool
   def self.name
     'search_linear_issues'
   end

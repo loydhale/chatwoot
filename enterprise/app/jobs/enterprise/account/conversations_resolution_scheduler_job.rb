@@ -8,12 +8,12 @@ module Enterprise::Account::ConversationsResolutionSchedulerJob
   private
 
   def resolve_captain_conversations
-    HudleyInbox.all.find_each(batch_size: 100) do |captain_inbox|
+    CaptainInbox.all.find_each(batch_size: 100) do |captain_inbox|
       inbox = captain_inbox.inbox
 
       next if inbox.email?
 
-      Hudley::InboxPendingConversationsResolutionJob.perform_later(
+      Captain::InboxPendingConversationsResolutionJob.perform_later(
         inbox
       )
     end

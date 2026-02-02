@@ -7,7 +7,7 @@ module Concerns::Toolable
     class_name = custom_tool_record.slug.underscore.camelize
 
     # Always create a fresh class to reflect current metadata
-    tool_class = Class.new(Hudley::Tools::HttpTool) do
+    tool_class = Class.new(Captain::Tools::HttpTool) do
       description custom_tool_record.description
 
       custom_tool_record.param_schema.each do |param_def|
@@ -18,15 +18,15 @@ module Concerns::Toolable
       end
     end
 
-    # Register the dynamically created class as a constant in the Hudley::Tools namespace.
+    # Register the dynamically created class as a constant in the Captain::Tools namespace.
     # This is required because RubyLLM's Tool base class derives the tool name from the class name
     # (via Class#name). Anonymous classes created with Class.new have no name and return empty strings,
     # which causes "Invalid 'tools[].function.name': empty string" errors from the LLM API.
-    # By setting it as a constant, the class gets a proper name (e.g., "Hudley::Tools::CatFactLookup")
+    # By setting it as a constant, the class gets a proper name (e.g., "Captain::Tools::CatFactLookup")
     # which RubyLLM extracts and normalizes to "cat-fact-lookup" for the LLM API.
     # We refresh the constant on each call to ensure tool metadata changes are reflected.
-    Hudley::Tools.send(:remove_const, class_name) if Hudley::Tools.const_defined?(class_name, false)
-    Hudley::Tools.const_set(class_name, tool_class)
+    Captain::Tools.send(:remove_const, class_name) if Captain::Tools.const_defined?(class_name, false)
+    Captain::Tools.const_set(class_name, tool_class)
 
     tool_class.new(assistant, self)
   end

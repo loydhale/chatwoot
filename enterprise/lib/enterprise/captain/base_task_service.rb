@@ -1,4 +1,4 @@
-module Enterprise::Hudley::BaseTaskService
+module Enterprise::Captain::BaseTaskService
   def perform
     return { error: I18n.t('captain.copilot_limit'), error_code: 429 } unless responses_available?
 

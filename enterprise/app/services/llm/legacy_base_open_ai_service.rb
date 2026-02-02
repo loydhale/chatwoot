@@ -2,8 +2,8 @@
 
 # DEPRECATED: This class uses the legacy OpenAI Ruby gem directly.
 # Only used for PDF/file operations that require OpenAI's files API:
-# - Hudley::Llm::PdfProcessingService (files.upload for assistants)
-# - Hudley::Llm::PaginatedFaqGeneratorService (uses file_id from uploaded files)
+# - Captain::Llm::PdfProcessingService (files.upload for assistants)
+# - Captain::Llm::PaginatedFaqGeneratorService (uses file_id from uploaded files)
 #
 # For all other LLM operations, use Llm::BaseAiService with RubyLLM instead.
 class Llm::LegacyBaseOpenAiService

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::ReplySuggestionService do
+RSpec.describe Captain::ReplySuggestionService do
   subject(:service) { described_class.new(account: account, conversation_display_id: conversation.display_id, user: agent) }
 
   let(:account) { create(:account) }

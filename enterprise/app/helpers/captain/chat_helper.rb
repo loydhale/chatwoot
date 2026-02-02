@@ -1,7 +1,7 @@
-module Hudley::ChatHelper
+module Captain::ChatHelper
   include Integrations::LlmInstrumentation
-  include Hudley::ChatResponseHelper
-  include Hudley::ChatGenerationRecorder
+  include Captain::ChatResponseHelper
+  include Captain::ChatGenerationRecorder
 
   def request_chat_completion
     log_chat_completion_request

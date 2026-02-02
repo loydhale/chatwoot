@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::Tools::SearchDocumentationService do
+RSpec.describe Captain::Tools::SearchDocumentationService do
   let(:assistant) { create(:captain_assistant) }
   let(:service) { described_class.new(assistant) }
   let(:question) { 'How to create a new account?' }
@@ -41,7 +41,7 @@ RSpec.describe Hudley::Tools::SearchDocumentationService do
     context 'when matching responses exist' do
       before do
         response.update(documentable: documentable)
-        allow(Hudley::AssistantResponse).to receive(:search).with(question).and_return([response])
+        allow(Captain::AssistantResponse).to receive(:search).with(question).and_return([response])
       end
 
       it 'returns formatted responses for the search query' do
@@ -55,7 +55,7 @@ RSpec.describe Hudley::Tools::SearchDocumentationService do
 
     context 'when no matching responses exist' do
       before do
-        allow(Hudley::AssistantResponse).to receive(:search).with(question).and_return([])
+        allow(Captain::AssistantResponse).to receive(:search).with(question).and_return([])
       end
 
       it 'returns an empty string' do

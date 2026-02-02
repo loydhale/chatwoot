@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Accounts::Hudley::Inboxes', type: :request do
+RSpec.describe 'Api::V1::Accounts::Captain::Inboxes', type: :request do
   let(:account) { create(:account) }
   let(:assistant) { create(:captain_assistant, account: account) }
   let(:inbox) { create(:inbox, account: account) }
@@ -57,7 +57,7 @@ RSpec.describe 'Api::V1::Accounts::Hudley::Inboxes', type: :request do
           post "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/inboxes",
                params: valid_params,
                headers: admin.create_new_auth_token
-        end.to change(HudleyInbox, :count).by(1)
+        end.to change(CaptainInbox, :count).by(1)
 
         expect(response).to have_http_status(:success)
         expect(json_response[:id]).to eq(inbox2.id)
@@ -101,7 +101,7 @@ RSpec.describe 'Api::V1::Accounts::Hudley::Inboxes', type: :request do
         expect do
           delete "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/inboxes/#{inbox.id}",
                  headers: admin.create_new_auth_token
-        end.to change(HudleyInbox, :count).by(-1)
+        end.to change(CaptainInbox, :count).by(-1)
 
         expect(response).to have_http_status(:no_content)
       end

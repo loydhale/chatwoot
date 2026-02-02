@@ -1,4 +1,4 @@
-class Hudley::Tools::FaqLookupTool < Hudley::Tools::BasePublicTool
+class Captain::Tools::FaqLookupTool < Captain::Tools::BasePublicTool
   description 'Search FAQ responses using semantic similarity to find relevant answers'
   param :query, type: 'string', desc: 'The question or topic to search for in the FAQ database'
 

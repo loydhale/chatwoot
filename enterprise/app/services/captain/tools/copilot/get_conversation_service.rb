@@ -1,4 +1,4 @@
-class Hudley::Tools::Copilot::GetConversationService < Hudley::Tools::BaseTool
+class Captain::Tools::Copilot::GetConversationService < Captain::Tools::BaseTool
   def self.name
     'get_conversation'
   end

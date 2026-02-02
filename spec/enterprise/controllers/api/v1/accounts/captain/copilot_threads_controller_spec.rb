@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Accounts::Hudley::CopilotThreads', type: :request do
+RSpec.describe 'Api::V1::Accounts::Captain::CopilotThreads', type: :request do
   let(:account) { create(:account) }
   let(:admin) { create(:user, account: account, role: :administrator) }
   let(:agent) { create(:user, account: account, role: :agent) }
@@ -126,7 +126,7 @@ RSpec.describe 'Api::V1::Accounts::Hudley::CopilotThreads', type: :request do
           message = thread.copilot_messages.last
           expect(message.message).to eq({ 'content' => valid_params[:message] })
 
-          expect(Hudley::Copilot::ResponseJob).to have_been_enqueued.with(
+          expect(Captain::Copilot::ResponseJob).to have_been_enqueued.with(
             assistant: assistant,
             conversation_id: valid_params[:conversation_id],
             user_id: agent.id,

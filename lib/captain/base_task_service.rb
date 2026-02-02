@@ -1,4 +1,4 @@
-class Hudley::BaseTaskService
+class Captain::BaseTaskService
   include Integrations::LlmInstrumentation
 
   # gpt-4o-mini supports 128,000 tokens
@@ -14,7 +14,7 @@ class Hudley::BaseTaskService
   # the module before the class in the ancestor chain.
   def self.inherited(subclass)
     super
-    subclass.prepend_mod_with('Hudley::BaseTaskService')
+    subclass.prepend_mod_with('Captain::BaseTaskService')
   end
 
   pattr_initialize [:account!, { conversation_display_id: nil }]
@@ -158,7 +158,7 @@ class Hudley::BaseTaskService
   # Follow-up context for client-side refinement
   def build_follow_up_context?
     # FollowUpService should return its own updated context
-    !is_a?(Hudley::FollowUpService)
+    !is_a?(Captain::FollowUpService)
   end
 
   def build_follow_up_context(messages, response)
@@ -178,4 +178,4 @@ class Hudley::BaseTaskService
   end
 end
 
-Hudley::BaseTaskService.prepend_mod_with('Hudley::BaseTaskService')
+Captain::BaseTaskService.prepend_mod_with('Captain::BaseTaskService')

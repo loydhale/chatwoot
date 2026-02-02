@@ -1,4 +1,4 @@
-class Hudley::Llm::ContactNotesService < Llm::BaseAiService
+class Captain::Llm::ContactNotesService < Llm::BaseAiService
   include Integrations::LlmInstrumentation
   def initialize(assistant, conversation)
     super()
@@ -49,7 +49,7 @@ class Hudley::Llm::ContactNotesService < Llm::BaseAiService
 
   def system_prompt
     account_language = @conversation.account.locale_english_name
-    Hudley::Llm::SystemPromptsService.notes_generator(account_language)
+    Captain::Llm::SystemPromptsService.notes_generator(account_language)
   end
 
   def parse_response(response)

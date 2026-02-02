@@ -1,6 +1,6 @@
 require 'liquid'
 
-class Hudley::PromptRenderer
+class Captain::PromptRenderer
   class << self
     def render(template_name, context = {})
       template = load_template(template_name)

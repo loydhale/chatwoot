@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::RewriteService do
+RSpec.describe Captain::RewriteService do
   let(:account) { create(:account) }
   let(:inbox) { create(:inbox, account: account) }
   let(:conversation) { create(:conversation, account: account, inbox: inbox) }

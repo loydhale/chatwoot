@@ -1,4 +1,4 @@
-class Hudley::ToolRegistryService
+class Captain::ToolRegistryService
   attr_reader :registered_tools, :tools
 
   def initialize(assistant, user: nil)

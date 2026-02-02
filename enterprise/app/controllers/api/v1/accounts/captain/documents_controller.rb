@@ -1,6 +1,6 @@
-class Api::V1::Accounts::Hudley::DocumentsController < Api::V1::Accounts::BaseController
+class Api::V1::Accounts::Captain::DocumentsController < Api::V1::Accounts::BaseController
   before_action :current_account
-  before_action -> { check_authorization(Hudley::Assistant) }
+  before_action -> { check_authorization(Captain::Assistant) }
 
   before_action :set_current_page, only: [:index]
   before_action :set_documents, except: [:create]
@@ -23,7 +23,7 @@ class Api::V1::Accounts::Hudley::DocumentsController < Api::V1::Accounts::BaseCo
 
     @document = @assistant.documents.build(document_params)
     @document.save!
-  rescue Hudley::Document::LimitExceededError => e
+  rescue Captain::Document::LimitExceededError => e
     render_could_not_create_error(e.message)
   rescue ActiveRecord::RecordInvalid => e
     render_could_not_create_error(e.record.errors.full_messages.join(', '))

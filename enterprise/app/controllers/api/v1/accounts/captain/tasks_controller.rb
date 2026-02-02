@@ -1,8 +1,8 @@
-class Api::V1::Accounts::Hudley::TasksController < Api::V1::Accounts::BaseController
+class Api::V1::Accounts::Captain::TasksController < Api::V1::Accounts::BaseController
   before_action :check_authorization
 
   def rewrite
-    result = Hudley::RewriteService.new(
+    result = Captain::RewriteService.new(
       account: Current.account,
       content: params[:content],
       operation: params[:operation],
@@ -13,7 +13,7 @@ class Api::V1::Accounts::Hudley::TasksController < Api::V1::Accounts::BaseContro
   end
 
   def summarize
-    result = Hudley::SummaryService.new(
+    result = Captain::SummaryService.new(
       account: Current.account,
       conversation_display_id: params[:conversation_display_id]
     ).perform
@@ -22,7 +22,7 @@ class Api::V1::Accounts::Hudley::TasksController < Api::V1::Accounts::BaseContro
   end
 
   def reply_suggestion
-    result = Hudley::ReplySuggestionService.new(
+    result = Captain::ReplySuggestionService.new(
       account: Current.account,
       conversation_display_id: params[:conversation_display_id],
       user: Current.user
@@ -32,7 +32,7 @@ class Api::V1::Accounts::Hudley::TasksController < Api::V1::Accounts::BaseContro
   end
 
   def label_suggestion
-    result = Hudley::LabelSuggestionService.new(
+    result = Captain::LabelSuggestionService.new(
       account: Current.account,
       conversation_display_id: params[:conversation_display_id]
     ).perform
@@ -41,7 +41,7 @@ class Api::V1::Accounts::Hudley::TasksController < Api::V1::Accounts::BaseContro
   end
 
   def follow_up
-    result = Hudley::FollowUpService.new(
+    result = Captain::FollowUpService.new(
       account: Current.account,
       follow_up_context: params[:follow_up_context]&.to_unsafe_h,
       user_message: params[:message],

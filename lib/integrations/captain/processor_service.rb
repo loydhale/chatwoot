@@ -1,4 +1,4 @@
-class Integrations::Hudley::ProcessorService < Integrations::BotProcessorService
+class Integrations::Captain::ProcessorService < Integrations::BotProcessorService
   pattr_initialize [:event_name!, :hook!, :event_data!]
 
   private

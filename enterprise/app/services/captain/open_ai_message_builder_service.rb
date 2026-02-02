@@ -1,4 +1,4 @@
-class Hudley::OpenAiMessageBuilderService
+class Captain::OpenAiMessageBuilderService
   pattr_initialize [:message!]
 
   def generate_content

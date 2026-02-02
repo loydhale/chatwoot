@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::Tools::Copilot::GetArticleService do
+RSpec.describe Captain::Tools::Copilot::GetArticleService do
   let(:account) { create(:account) }
   let(:user) { create(:user, account: account) }
   let(:assistant) { create(:captain_assistant, account: account) }

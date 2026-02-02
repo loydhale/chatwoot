@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::CustomTool, type: :model do
+RSpec.describe Captain::CustomTool, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:account) }
   end
@@ -444,7 +444,7 @@ RSpec.describe Hudley::CustomTool, type: :model do
         tool = create(:captain_custom_tool, account: account)
 
         tool_instance = tool.tool(assistant)
-        expect(tool_instance).to be_a(Hudley::Tools::HttpTool)
+        expect(tool_instance).to be_a(Captain::Tools::HttpTool)
       end
 
       it 'sets description on the tool class' do

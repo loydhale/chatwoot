@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Accounts::Hudley::CustomTools', type: :request do
+RSpec.describe 'Api::V1::Accounts::Captain::CustomTools', type: :request do
   let(:account) { create(:account) }
   let(:admin) { create(:user, account: account, role: :administrator) }
   let(:agent) { create(:user, account: account, role: :agent) }
@@ -263,7 +263,7 @@ RSpec.describe 'Api::V1::Accounts::Hudley::CustomTools', type: :request do
         expect do
           delete "/api/v1/accounts/#{account.id}/captain/custom_tools/#{custom_tool.id}",
                  headers: admin.create_new_auth_token
-        end.to change(Hudley::CustomTool, :count).by(-1)
+        end.to change(Captain::CustomTool, :count).by(-1)
 
         expect(response).to have_http_status(:no_content)
       end

@@ -1,4 +1,4 @@
-class Hudley::Llm::EmbeddingService
+class Captain::Llm::EmbeddingService
   include Integrations::LlmInstrumentation
 
   class EmbeddingsError < StandardError; end

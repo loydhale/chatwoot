@@ -1,4 +1,4 @@
-class Hudley::ReplySuggestionService < Hudley::BaseTaskService
+class Captain::ReplySuggestionService < Captain::BaseTaskService
   pattr_initialize [:account!, :conversation_display_id!, :user!]
 
   def perform

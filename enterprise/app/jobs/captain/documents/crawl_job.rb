@@ -1,4 +1,4 @@
-class Hudley::Documents::CrawlJob < ApplicationJob
+class Captain::Documents::CrawlJob < ApplicationJob
   queue_as :low
 
   def perform(document)
@@ -13,10 +13,10 @@ class Hudley::Documents::CrawlJob < ApplicationJob
 
   private
 
-  include Hudley::FirecrawlHelper
+  include Captain::FirecrawlHelper
 
   def perform_pdf_processing(document)
-    Hudley::Llm::PdfProcessingService.new(document).process
+    Captain::Llm::PdfProcessingService.new(document).process
     document.update!(status: :available)
   rescue StandardError => e
     Rails.logger.error I18n.t('captain.documents.pdf_processing_failed', document_id: document.id, error: e.message)
@@ -24,16 +24,16 @@ class Hudley::Documents::CrawlJob < ApplicationJob
   end
 
   def perform_simple_crawl(document)
-    page_links = Hudley::Tools::SimplePageCrawlService.new(document.external_link).page_links
+    page_links = Captain::Tools::SimplePageCrawlService.new(document.external_link).page_links
 
     page_links.each do |page_link|
-      Hudley::Tools::SimplePageCrawlParserJob.perform_later(
+      Captain::Tools::SimplePageCrawlParserJob.perform_later(
         assistant_id: document.assistant_id,
         page_link: page_link
       )
     end
 
-    Hudley::Tools::SimplePageCrawlParserJob.perform_later(
+    Captain::Tools::SimplePageCrawlParserJob.perform_later(
       assistant_id: document.assistant_id,
       page_link: document.external_link
     )
@@ -44,7 +44,7 @@ class Hudley::Documents::CrawlJob < ApplicationJob
     document_limit = captain_usage_limits[:documents] || {}
     crawl_limit = [document_limit[:current_available] || 10, 500].min
 
-    Hudley::Tools::FirecrawlService
+    Captain::Tools::FirecrawlService
       .new
       .perform(
         document.external_link,

@@ -1,4 +1,4 @@
-class Hudley::Tools::BaseService
+class Captain::Tools::BaseService
   attr_accessor :assistant
 
   def initialize(assistant, user: nil)

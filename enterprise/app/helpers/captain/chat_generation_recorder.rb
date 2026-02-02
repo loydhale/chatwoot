@@ -1,4 +1,4 @@
-module Hudley::ChatGenerationRecorder
+module Captain::ChatGenerationRecorder
   extend ActiveSupport::Concern
   include Integrations::LlmInstrumentationConstants
 

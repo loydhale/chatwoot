@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::InboxPendingConversationsResolutionJob, type: :job do
+RSpec.describe Captain::InboxPendingConversationsResolutionJob, type: :job do
   let!(:inbox) { create(:inbox) }
 
   let!(:resolvable_pending_conversation) { create(:conversation, inbox: inbox, last_activity_at: 2.hours.ago, status: :pending) }
@@ -50,7 +50,7 @@ RSpec.describe Hudley::InboxPendingConversationsResolutionJob, type: :job do
     )
   end
 
-  it 'adds the correct activity message after resolution by Hudley' do
+  it 'adds the correct activity message after resolution by Captain' do
     described_class.perform_now(inbox)
     expected_content = I18n.t('conversations.activity.captain.resolved', user_name: captain_assistant.name)
     expect(Conversations::ActivityMessageJob)

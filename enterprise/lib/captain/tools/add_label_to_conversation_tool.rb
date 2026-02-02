@@ -1,4 +1,4 @@
-class Hudley::Tools::AddLabelToConversationTool < Hudley::Tools::BasePublicTool
+class Captain::Tools::AddLabelToConversationTool < Captain::Tools::BasePublicTool
   description 'Add a label to a conversation'
   param :label_name, type: 'string', desc: 'The name of the label to add'
 

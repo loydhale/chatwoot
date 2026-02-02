@@ -38,7 +38,7 @@ class CopilotMessage < ApplicationRecord
   end
 
   def enqueue_response_job(conversation_id, user_id)
-    Hudley::Copilot::ResponseJob.perform_later(
+    Captain::Copilot::ResponseJob.perform_later(
       assistant: copilot_thread.assistant,
       conversation_id: conversation_id,
       user_id: user_id,

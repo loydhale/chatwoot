@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::Llm::PdfProcessingService do
+RSpec.describe Captain::Llm::PdfProcessingService do
   let(:document) { create(:captain_document) }
   let(:service) { described_class.new(document) }
 

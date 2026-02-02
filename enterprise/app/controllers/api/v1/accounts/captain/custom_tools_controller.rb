@@ -1,6 +1,6 @@
-class Api::V1::Accounts::Hudley::CustomToolsController < Api::V1::Accounts::BaseController
+class Api::V1::Accounts::Captain::CustomToolsController < Api::V1::Accounts::BaseController
   before_action :current_account
-  before_action -> { check_authorization(Hudley::CustomTool) }
+  before_action -> { check_authorization(Captain::CustomTool) }
   before_action :set_custom_tool, only: [:show, :update, :destroy]
 
   def index

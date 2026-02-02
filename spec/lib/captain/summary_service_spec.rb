@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::SummaryService do
+RSpec.describe Captain::SummaryService do
   let(:account) { create(:account) }
   let(:inbox) { create(:inbox, account: account) }
   let(:conversation) { create(:conversation, account: account, inbox: inbox) }
@@ -23,7 +23,7 @@ RSpec.describe Hudley::SummaryService do
   describe '#perform' do
     it 'passes correct model to API' do
       expect(service).to receive(:make_api_call).with(
-        hash_including(model: Hudley::BaseTaskService::GPT_MODEL)
+        hash_including(model: Captain::BaseTaskService::GPT_MODEL)
       ).and_call_original
 
       service.perform

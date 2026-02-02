@@ -28,7 +28,7 @@ class Account < ApplicationRecord
   include Reportable
   include Featurable
   include CacheKeys
-  include HudleyFeaturable
+  include CaptainFeaturable
 
   SETTINGS_PARAMS_SCHEMA = {
     'type': 'object',

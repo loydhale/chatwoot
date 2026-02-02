@@ -1,4 +1,4 @@
-class Hudley::Documents::ResponseBuilderJob < ApplicationJob
+class Captain::Documents::ResponseBuilderJob < ApplicationJob
   queue_as :low
 
   def perform(document, options = {})
@@ -26,11 +26,11 @@ class Hudley::Documents::ResponseBuilderJob < ApplicationJob
   end
 
   def generate_standard_faqs(document)
-    Hudley::Llm::FaqGeneratorService.new(document.content, document.account.locale_english_name, account_id: document.account_id).generate
+    Captain::Llm::FaqGeneratorService.new(document.content, document.account.locale_english_name, account_id: document.account_id).generate
   end
 
   def build_paginated_service(document, options)
-    Hudley::Llm::PaginatedFaqGeneratorService.new(
+    Captain::Llm::PaginatedFaqGeneratorService.new(
       document,
       pages_per_chunk: options[:pages_per_chunk],
       max_pages: options[:max_pages],

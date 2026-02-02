@@ -1,4 +1,4 @@
-class Hudley::Llm::ContactAttributesService < Llm::BaseAiService
+class Captain::Llm::ContactAttributesService < Llm::BaseAiService
   include Integrations::LlmInstrumentation
   def initialize(assistant, conversation)
     super()
@@ -46,7 +46,7 @@ class Hudley::Llm::ContactAttributesService < Llm::BaseAiService
   end
 
   def system_prompt
-    Hudley::Llm::SystemPromptsService.attributes_generator
+    Captain::Llm::SystemPromptsService.attributes_generator
   end
 
   def parse_response(content)

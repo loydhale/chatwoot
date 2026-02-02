@@ -1,6 +1,6 @@
-class Api::V1::Accounts::Hudley::AssistantResponsesController < Api::V1::Accounts::BaseController
+class Api::V1::Accounts::Captain::AssistantResponsesController < Api::V1::Accounts::BaseController
   before_action :current_account
-  before_action -> { check_authorization(Hudley::Assistant) }
+  before_action -> { check_authorization(Captain::Assistant) }
 
   before_action :set_current_page, only: [:index]
   before_action :set_assistant, only: [:create]
@@ -40,7 +40,7 @@ class Api::V1::Accounts::Hudley::AssistantResponsesController < Api::V1::Account
     if permitted_params[:document_id].present?
       base_query = base_query.where(
         documentable_id: permitted_params[:document_id],
-        documentable_type: 'Hudley::Document'
+        documentable_type: 'Captain::Document'
       )
     end
 

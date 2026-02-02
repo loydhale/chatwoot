@@ -1,5 +1,5 @@
-class Hudley::Llm::AssistantChatService < Llm::BaseAiService
-  include Hudley::ChatHelper
+class Captain::Llm::AssistantChatService < Llm::BaseAiService
+  include Captain::ChatHelper
 
   def initialize(assistant: nil, conversation_id: nil)
     super()
@@ -28,13 +28,13 @@ class Hudley::Llm::AssistantChatService < Llm::BaseAiService
   private
 
   def build_tools
-    [Hudley::Tools::SearchDocumentationService.new(@assistant, user: nil)]
+    [Captain::Tools::SearchDocumentationService.new(@assistant, user: nil)]
   end
 
   def system_message
     {
       role: 'system',
-      content: Hudley::Llm::SystemPromptsService.assistant_response_generator(@assistant.name, @assistant.config['product_name'], @assistant.config)
+      content: Captain::Llm::SystemPromptsService.assistant_response_generator(@assistant.name, @assistant.config['product_name'], @assistant.config)
     }
   end
 

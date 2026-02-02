@@ -1,4 +1,4 @@
-class Hudley::Tools::Copilot::GetContactService < Hudley::Tools::BaseTool
+class Captain::Tools::Copilot::GetContactService < Captain::Tools::BaseTool
   def self.name
     'get_contact'
   end

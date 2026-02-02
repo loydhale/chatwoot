@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Hudley::Assistant::AgentRunnerService do
+RSpec.describe Captain::Assistant::AgentRunnerService do
   let(:account) { create(:account) }
   let(:inbox) { create(:inbox, account: account) }
   let(:contact) { create(:contact, account: account) }
@@ -25,7 +25,7 @@ RSpec.describe Hudley::Assistant::AgentRunnerService do
 
   before do
     allow(assistant).to receive(:agent).and_return(mock_agent)
-    scenarios_relation = instance_double(Hudley::Scenario)
+    scenarios_relation = instance_double(Captain::Scenario)
     allow(scenarios_relation).to receive(:enabled).and_return([scenario])
     allow(assistant).to receive(:scenarios).and_return(scenarios_relation)
     allow(scenario).to receive(:agent).and_return(mock_scenario_agent)
@@ -57,7 +57,7 @@ RSpec.describe Hudley::Assistant::AgentRunnerService do
 
     it 'builds agents and wires them together' do
       expect(assistant).to receive(:agent).and_return(mock_agent)
-      scenarios_relation = instance_double(Hudley::Scenario)
+      scenarios_relation = instance_double(Captain::Scenario)
       allow(scenarios_relation).to receive(:enabled).and_return([scenario])
       expect(assistant).to receive(:scenarios).and_return(scenarios_relation)
       expect(scenario).to receive(:agent).and_return(mock_scenario_agent)
@@ -105,7 +105,7 @@ RSpec.describe Hudley::Assistant::AgentRunnerService do
 
     context 'when no scenarios are enabled' do
       before do
-        scenarios_relation = instance_double(Hudley::Scenario)
+        scenarios_relation = instance_double(Captain::Scenario)
         allow(scenarios_relation).to receive(:enabled).and_return([])
         allow(assistant).to receive(:scenarios).and_return(scenarios_relation)
       end
@@ -154,7 +154,7 @@ RSpec.describe Hudley::Assistant::AgentRunnerService do
       end
 
       it 'logs error details' do
-        expect(Rails.logger).to receive(:error).with('[Hudley V2] AgentRunnerService error: Test error')
+        expect(Rails.logger).to receive(:error).with('[Captain V2] AgentRunnerService error: Test error')
         expect(Rails.logger).to receive(:error).with(kind_of(String))
 
         service.generate_response(message_history: message_history)

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::BaseTaskService do
+RSpec.describe Captain::BaseTaskService do
   let(:account) { create(:account) }
   let(:inbox) { create(:inbox, account: account) }
   let(:conversation) { create(:conversation, account: account, inbox: inbox) }
@@ -97,12 +97,12 @@ RSpec.describe Hudley::BaseTaskService do
 
       messages = service.send(:conversation_messages)
       total_length = messages.sum { |m| m[:content].length }
-      expect(total_length).to be <= Hudley::BaseTaskService::TOKEN_LIMIT
+      expect(total_length).to be <= Captain::BaseTaskService::TOKEN_LIMIT
     end
 
     it 'respects start_from offset for token counting' do
       # With a start_from offset, fewer messages should fit
-      start_from = Hudley::BaseTaskService::TOKEN_LIMIT - 100
+      start_from = Captain::BaseTaskService::TOKEN_LIMIT - 100
       messages = service.send(:conversation_messages, start_from: start_from)
 
       total_length = messages.sum { |m| m[:content].length }

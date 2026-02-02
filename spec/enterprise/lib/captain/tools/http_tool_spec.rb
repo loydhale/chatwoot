@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::Tools::HttpTool, type: :model do
+RSpec.describe Captain::Tools::HttpTool, type: :model do
   let(:account) { create(:account) }
   let(:assistant) { create(:captain_assistant, account: account) }
   let(:custom_tool) { create(:captain_custom_tool, account: account) }

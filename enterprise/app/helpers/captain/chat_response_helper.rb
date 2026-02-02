@@ -1,4 +1,4 @@
-module Hudley::ChatResponseHelper
+module Captain::ChatResponseHelper
   private
 
   def build_response(response)

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::LabelSuggestionService do
+RSpec.describe Captain::LabelSuggestionService do
   let(:account) { create(:account) }
   let(:inbox) { create(:inbox, account: account) }
   let(:conversation) { create(:conversation, account: account, inbox: inbox) }

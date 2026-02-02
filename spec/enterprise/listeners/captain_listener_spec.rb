@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe HudleyListener do
+describe CaptainListener do
   let(:listener) { described_class.instance }
   let(:account) { create(:account) }
   let(:inbox) { create(:inbox, account: account) }
@@ -26,11 +26,11 @@ describe HudleyListener do
       end
 
       it 'generates and updates notes' do
-        expect(Hudley::Llm::ContactNotesService)
+        expect(Captain::Llm::ContactNotesService)
           .to receive(:new)
           .with(assistant, conversation)
-          .and_return(instance_double(Hudley::Llm::ContactNotesService, generate_and_update_notes: nil))
-        expect(Hudley::Llm::ConversationFaqService).not_to receive(:new)
+          .and_return(instance_double(Captain::Llm::ContactNotesService, generate_and_update_notes: nil))
+        expect(Captain::Llm::ConversationFaqService).not_to receive(:new)
 
         listener.conversation_resolved(event)
       end
@@ -44,11 +44,11 @@ describe HudleyListener do
       end
 
       it 'generates and deduplicates FAQs' do
-        expect(Hudley::Llm::ConversationFaqService)
+        expect(Captain::Llm::ConversationFaqService)
           .to receive(:new)
           .with(assistant, conversation)
-          .and_return(instance_double(Hudley::Llm::ConversationFaqService, generate_and_deduplicate: false))
-        expect(Hudley::Llm::ContactNotesService).not_to receive(:new)
+          .and_return(instance_double(Captain::Llm::ConversationFaqService, generate_and_deduplicate: false))
+        expect(Captain::Llm::ContactNotesService).not_to receive(:new)
 
         listener.conversation_resolved(event)
       end

@@ -1,5 +1,5 @@
-class Hudley::Copilot::ChatService < Llm::BaseAiService
-  include Hudley::ChatHelper
+class Captain::Copilot::ChatService < Llm::BaseAiService
+  include Captain::ChatHelper
 
   attr_reader :assistant, :account, :user, :copilot_thread, :previous_history, :messages
 
@@ -62,14 +62,14 @@ class Hudley::Copilot::ChatService < Llm::BaseAiService
   def build_tools
     tools = []
 
-    tools << Hudley::Tools::SearchDocumentationService.new(@assistant, user: @user)
-    tools << Hudley::Tools::Copilot::GetConversationService.new(@assistant, user: @user)
-    tools << Hudley::Tools::Copilot::SearchConversationsService.new(@assistant, user: @user)
-    tools << Hudley::Tools::Copilot::GetContactService.new(@assistant, user: @user)
-    tools << Hudley::Tools::Copilot::GetArticleService.new(@assistant, user: @user)
-    tools << Hudley::Tools::Copilot::SearchArticlesService.new(@assistant, user: @user)
-    tools << Hudley::Tools::Copilot::SearchContactsService.new(@assistant, user: @user)
-    tools << Hudley::Tools::Copilot::SearchLinearIssuesService.new(@assistant, user: @user)
+    tools << Captain::Tools::SearchDocumentationService.new(@assistant, user: @user)
+    tools << Captain::Tools::Copilot::GetConversationService.new(@assistant, user: @user)
+    tools << Captain::Tools::Copilot::SearchConversationsService.new(@assistant, user: @user)
+    tools << Captain::Tools::Copilot::GetContactService.new(@assistant, user: @user)
+    tools << Captain::Tools::Copilot::GetArticleService.new(@assistant, user: @user)
+    tools << Captain::Tools::Copilot::SearchArticlesService.new(@assistant, user: @user)
+    tools << Captain::Tools::Copilot::SearchContactsService.new(@assistant, user: @user)
+    tools << Captain::Tools::Copilot::SearchLinearIssuesService.new(@assistant, user: @user)
 
     tools.select(&:active?)
   end
@@ -77,7 +77,7 @@ class Hudley::Copilot::ChatService < Llm::BaseAiService
   def system_message
     {
       role: 'system',
-      content: Hudley::Llm::SystemPromptsService.copilot_response_generator(
+      content: Captain::Llm::SystemPromptsService.copilot_response_generator(
         @assistant.config['product_name'],
         tools_summary,
         @assistant.config

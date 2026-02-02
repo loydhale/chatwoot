@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::Scenario, type: :model do
+RSpec.describe Captain::Scenario, type: :model do
   describe 'associations' do
-    it { is_expected.to belong_to(:assistant).class_name('Hudley::Assistant') }
+    it { is_expected.to belong_to(:assistant).class_name('Captain::Assistant') }
     it { is_expected.to belong_to(:account) }
   end
 
@@ -250,7 +250,7 @@ RSpec.describe Hudley::Scenario, type: :model do
 
         tool_metadata = { id: 'custom_fetch-order', custom: true }
         tool_instance = scenario.send(:resolve_tool_instance, tool_metadata)
-        expect(tool_instance).to be_a(Hudley::Tools::HttpTool)
+        expect(tool_instance).to be_a(Captain::Tools::HttpTool)
       end
 
       it 'returns nil for disabled custom tools' do
@@ -273,7 +273,7 @@ RSpec.describe Hudley::Scenario, type: :model do
         tool_metadata = { id: 'add_contact_note' }
         tool_instance = scenario.send(:resolve_tool_instance, tool_metadata)
         expect(tool_instance).not_to be_nil
-        expect(tool_instance).not_to be_a(Hudley::Tools::HttpTool)
+        expect(tool_instance).not_to be_a(Captain::Tools::HttpTool)
       end
     end
 
@@ -287,7 +287,7 @@ RSpec.describe Hudley::Scenario, type: :model do
 
         tools = scenario.send(:agent_tools)
         expect(tools.length).to eq(1)
-        expect(tools.first).to be_a(Hudley::Tools::HttpTool)
+        expect(tools.first).to be_a(Captain::Tools::HttpTool)
       end
 
       it 'excludes disabled custom tools from execution' do
@@ -318,7 +318,7 @@ RSpec.describe Hudley::Scenario, type: :model do
 
         tools = scenario.send(:agent_tools)
         expect(tools.length).to eq(2)
-        expect(tools.last).to be_a(Hudley::Tools::HttpTool)
+        expect(tools.last).to be_a(Captain::Tools::HttpTool)
       end
     end
   end

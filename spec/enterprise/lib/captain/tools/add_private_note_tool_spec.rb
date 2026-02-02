@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::Tools::AddPrivateNoteTool, type: :model do
+RSpec.describe Captain::Tools::AddPrivateNoteTool, type: :model do
   let(:account) { create(:account) }
   let(:assistant) { create(:captain_assistant, account: account) }
   let(:tool) { described_class.new(assistant) }

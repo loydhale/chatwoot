@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::Documents::CrawlJob, type: :job do
+RSpec.describe Captain::Documents::CrawlJob, type: :job do
   let(:document) { create(:captain_document, external_link: 'https://example.com/page') }
   let(:assistant_id) { document.assistant_id }
   let(:webhook_url) { Rails.application.routes.url_helpers.enterprise_webhooks_firecrawl_url }
 
   describe '#perform' do
     context 'when CAPTAIN_FIRECRAWL_API_KEY is configured' do
-      let(:firecrawl_service) { instance_double(Hudley::Tools::FirecrawlService) }
+      let(:firecrawl_service) { instance_double(Captain::Tools::FirecrawlService) }
       let(:account) { document.account }
       let(:token) { Digest::SHA256.hexdigest("-key#{document.assistant_id}#{document.account_id}") }
 
       before do
-        allow(Hudley::Tools::FirecrawlService).to receive(:new).and_return(firecrawl_service)
+        allow(Captain::Tools::FirecrawlService).to receive(:new).and_return(firecrawl_service)
         allow(firecrawl_service).to receive(:perform)
         create(:installation_config, name: 'CAPTAIN_FIRECRAWL_API_KEY', value: 'test-key')
       end
@@ -68,10 +68,10 @@ RSpec.describe Hudley::Documents::CrawlJob, type: :job do
 
     context 'when CAPTAIN_FIRECRAWL_API_KEY is not configured' do
       let(:page_links) { ['https://example.com/page1', 'https://example.com/page2'] }
-      let(:simple_crawler) { instance_double(Hudley::Tools::SimplePageCrawlService) }
+      let(:simple_crawler) { instance_double(Captain::Tools::SimplePageCrawlService) }
 
       before do
-        allow(Hudley::Tools::SimplePageCrawlService)
+        allow(Captain::Tools::SimplePageCrawlService)
           .to receive(:new)
           .with(document.external_link)
           .and_return(simple_crawler)
@@ -81,7 +81,7 @@ RSpec.describe Hudley::Documents::CrawlJob, type: :job do
 
       it 'enqueues SimplePageCrawlParserJob for each discovered link' do
         page_links.each do |link|
-          expect(Hudley::Tools::SimplePageCrawlParserJob)
+          expect(Captain::Tools::SimplePageCrawlParserJob)
             .to receive(:perform_later)
             .with(
               assistant_id: assistant_id,
@@ -90,7 +90,7 @@ RSpec.describe Hudley::Documents::CrawlJob, type: :job do
         end
 
         # Should also crawl the original link
-        expect(Hudley::Tools::SimplePageCrawlParserJob)
+        expect(Captain::Tools::SimplePageCrawlParserJob)
           .to receive(:perform_later)
           .with(
             assistant_id: assistant_id,
@@ -115,8 +115,8 @@ RSpec.describe Hudley::Documents::CrawlJob, type: :job do
       end
 
       it 'processes PDF using PdfProcessingService' do
-        pdf_service = instance_double(Hudley::Llm::PdfProcessingService)
-        expect(Hudley::Llm::PdfProcessingService).to receive(:new).with(pdf_document).and_return(pdf_service)
+        pdf_service = instance_double(Captain::Llm::PdfProcessingService)
+        expect(Captain::Llm::PdfProcessingService).to receive(:new).with(pdf_document).and_return(pdf_service)
         expect(pdf_service).to receive(:process)
         expect(pdf_document).to receive(:update!).with(status: :available)
 
@@ -124,7 +124,7 @@ RSpec.describe Hudley::Documents::CrawlJob, type: :job do
       end
 
       it 'handles PDF processing errors' do
-        allow(Hudley::Llm::PdfProcessingService).to receive(:new).and_raise(StandardError, 'Processing failed')
+        allow(Captain::Llm::PdfProcessingService).to receive(:new).and_raise(StandardError, 'Processing failed')
 
         expect { described_class.perform_now(pdf_document) }.to raise_error(StandardError, 'Processing failed')
       end

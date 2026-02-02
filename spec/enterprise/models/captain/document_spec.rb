@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::Document, type: :model do
+RSpec.describe Captain::Document, type: :model do
   let(:account) { create(:account) }
   let(:assistant) { create(:captain_assistant, account: account) }
 
@@ -101,13 +101,13 @@ RSpec.describe Hudley::Document, type: :model do
       it 'enqueues when created with available status and content' do
         expect do
           create(:captain_document, assistant: assistant, account: account, status: :available)
-        end.to have_enqueued_job(Hudley::Documents::ResponseBuilderJob)
+        end.to have_enqueued_job(Captain::Documents::ResponseBuilderJob)
       end
 
       it 'does not enqueue when created available without content' do
         expect do
           create(:captain_document, assistant: assistant, account: account, status: :available, content: nil)
-        end.not_to have_enqueued_job(Hudley::Documents::ResponseBuilderJob)
+        end.not_to have_enqueued_job(Captain::Documents::ResponseBuilderJob)
       end
 
       it 'enqueues when status transitions to available with existing content' do
@@ -115,7 +115,7 @@ RSpec.describe Hudley::Document, type: :model do
 
         expect do
           document.update!(status: :available)
-        end.to have_enqueued_job(Hudley::Documents::ResponseBuilderJob)
+        end.to have_enqueued_job(Captain::Documents::ResponseBuilderJob)
       end
 
       it 'does not enqueue when status transitions to available without content' do
@@ -129,7 +129,7 @@ RSpec.describe Hudley::Document, type: :model do
 
         expect do
           document.update!(status: :available)
-        end.not_to have_enqueued_job(Hudley::Documents::ResponseBuilderJob)
+        end.not_to have_enqueued_job(Captain::Documents::ResponseBuilderJob)
       end
 
       it 'enqueues when content is populated on an available document' do
@@ -144,7 +144,7 @@ RSpec.describe Hudley::Document, type: :model do
 
         expect do
           document.update!(content: 'Fresh content from crawl')
-        end.to have_enqueued_job(Hudley::Documents::ResponseBuilderJob)
+        end.to have_enqueued_job(Captain::Documents::ResponseBuilderJob)
       end
 
       it 'enqueues when content changes on an available document' do
@@ -159,7 +159,7 @@ RSpec.describe Hudley::Document, type: :model do
 
         expect do
           document.update!(content: 'Updated crawl content')
-        end.to have_enqueued_job(Hudley::Documents::ResponseBuilderJob)
+        end.to have_enqueued_job(Captain::Documents::ResponseBuilderJob)
       end
 
       it 'does not enqueue when content is cleared on an available document' do
@@ -174,7 +174,7 @@ RSpec.describe Hudley::Document, type: :model do
 
         expect do
           document.update!(content: nil)
-        end.not_to have_enqueued_job(Hudley::Documents::ResponseBuilderJob)
+        end.not_to have_enqueued_job(Captain::Documents::ResponseBuilderJob)
       end
 
       it 'does not enqueue for metadata-only updates' do
@@ -183,7 +183,7 @@ RSpec.describe Hudley::Document, type: :model do
 
         expect do
           document.update!(metadata: { 'title' => 'Updated Again' })
-        end.not_to have_enqueued_job(Hudley::Documents::ResponseBuilderJob)
+        end.not_to have_enqueued_job(Captain::Documents::ResponseBuilderJob)
       end
 
       it 'does not enqueue while document remains in progress' do
@@ -191,7 +191,7 @@ RSpec.describe Hudley::Document, type: :model do
 
         expect do
           document.update!(metadata: { 'title' => 'Updated' })
-        end.not_to have_enqueued_job(Hudley::Documents::ResponseBuilderJob)
+        end.not_to have_enqueued_job(Captain::Documents::ResponseBuilderJob)
       end
     end
 
@@ -217,7 +217,7 @@ RSpec.describe Hudley::Document, type: :model do
 
         expect do
           document.save!
-        end.to have_enqueued_job(Hudley::Documents::ResponseBuilderJob)
+        end.to have_enqueued_job(Captain::Documents::ResponseBuilderJob)
       end
 
       it 'enqueues when status transitions to available' do
@@ -227,7 +227,7 @@ RSpec.describe Hudley::Document, type: :model do
 
         expect do
           document.update!(status: :available)
-        end.to have_enqueued_job(Hudley::Documents::ResponseBuilderJob)
+        end.to have_enqueued_job(Captain::Documents::ResponseBuilderJob)
       end
 
       it 'does not enqueue when content updates without status change' do
@@ -237,7 +237,7 @@ RSpec.describe Hudley::Document, type: :model do
 
         expect do
           document.update!(content: 'Extracted PDF text')
-        end.not_to have_enqueued_job(Hudley::Documents::ResponseBuilderJob)
+        end.not_to have_enqueued_job(Captain::Documents::ResponseBuilderJob)
       end
     end
 
@@ -247,7 +247,7 @@ RSpec.describe Hudley::Document, type: :model do
 
       expect do
         document.destroy!
-      end.not_to have_enqueued_job(Hudley::Documents::ResponseBuilderJob)
+      end.not_to have_enqueued_job(Captain::Documents::ResponseBuilderJob)
     end
   end
 end

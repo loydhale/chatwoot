@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module HudleyFeaturable
+module CaptainFeaturable
   extend ActiveSupport::Concern
 
   included do

@@ -1,6 +1,6 @@
 module Enterprise::ActivityMessageHandler
   def automation_status_change_activity_content
-    if Current.executed_by.instance_of?(Hudley::Assistant)
+    if Current.executed_by.instance_of?(Captain::Assistant)
       locale = Current.executed_by.account.locale
       if resolved?
         I18n.t(

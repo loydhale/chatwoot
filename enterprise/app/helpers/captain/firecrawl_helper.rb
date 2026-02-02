@@ -1,4 +1,4 @@
-module Hudley::FirecrawlHelper
+module Captain::FirecrawlHelper
   def generate_firecrawl_token(assistant_id, account_id)
     api_key = InstallationConfig.find_by(name: 'CAPTAIN_FIRECRAWL_API_KEY')&.value
     return nil unless api_key

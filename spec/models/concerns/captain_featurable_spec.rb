@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe HudleyFeaturable do
+RSpec.describe CaptainFeaturable do
   let(:account) { create(:account) }
 
   describe 'dynamic method generation' do

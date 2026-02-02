@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::BaseTaskService, type: :model do
+RSpec.describe Captain::BaseTaskService, type: :model do
   let(:account) { create(:account) }
   let(:inbox) { create(:inbox, account: account) }
   let(:conversation) { create(:conversation, account: account, inbox: inbox) }
@@ -17,7 +17,7 @@ RSpec.describe Hudley::BaseTaskService, type: :model do
       end
     end
     # Manually prepend enterprise module to test class
-    klass.prepend(Enterprise::Hudley::BaseTaskService)
+    klass.prepend(Enterprise::Captain::BaseTaskService)
     klass
   end
 

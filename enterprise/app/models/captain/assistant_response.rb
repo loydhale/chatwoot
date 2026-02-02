@@ -22,10 +22,10 @@
 #  index_captain_assistant_responses_on_status        (status)
 #  vector_idx_knowledge_entries_embedding             (embedding) USING ivfflat
 #
-class Hudley::AssistantResponse < ApplicationRecord
+class Captain::AssistantResponse < ApplicationRecord
   self.table_name = 'captain_assistant_responses'
 
-  belongs_to :assistant, class_name: 'Hudley::Assistant'
+  belongs_to :assistant, class_name: 'Captain::Assistant'
   belongs_to :account
   belongs_to :documentable, polymorphic: true, optional: true
   has_neighbors :embedding, normalize: true
@@ -45,7 +45,7 @@ class Hudley::AssistantResponse < ApplicationRecord
   enum status: { pending: 0, approved: 1 }
 
   def self.search(query, account_id: nil)
-    embedding = Hudley::Llm::EmbeddingService.new(account_id: account_id).get_embedding(query)
+    embedding = Captain::Llm::EmbeddingService.new(account_id: account_id).get_embedding(query)
     nearest_neighbors(:embedding, embedding, distance: 'cosine').limit(5)
   end
 
@@ -62,6 +62,6 @@ class Hudley::AssistantResponse < ApplicationRecord
   def update_response_embedding
     return unless saved_change_to_question? || saved_change_to_answer? || embedding.nil?
 
-    Hudley::Llm::UpdateEmbeddingJob.perform_later(self, "#{question}: #{answer}")
+    Captain::Llm::UpdateEmbeddingJob.perform_later(self, "#{question}: #{answer}")
   end
 end

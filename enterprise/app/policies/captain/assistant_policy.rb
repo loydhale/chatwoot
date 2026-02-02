@@ -1,4 +1,4 @@
-class Hudley::AssistantPolicy < ApplicationPolicy
+class Captain::AssistantPolicy < ApplicationPolicy
   def index?
     true
   end

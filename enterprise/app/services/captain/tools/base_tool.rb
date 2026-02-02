@@ -1,4 +1,4 @@
-class Hudley::Tools::BaseTool < RubyLLM::Tool
+class Captain::Tools::BaseTool < RubyLLM::Tool
   attr_accessor :assistant
 
   def initialize(assistant, user: nil)

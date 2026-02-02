@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::Tools::Copilot::SearchConversationsService do
+RSpec.describe Captain::Tools::Copilot::SearchConversationsService do
   let(:account) { create(:account) }
   let(:user) { create(:user, role: 'administrator', account: account) }
   let(:assistant) { create(:captain_assistant, account: account) }

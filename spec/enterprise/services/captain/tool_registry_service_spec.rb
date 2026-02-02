@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 # Test tool implementation
-class TestTool < Hudley::Tools::BaseService
+class TestTool < Captain::Tools::BaseService
   attr_accessor :tool_active
 
   def initialize(assistant, user: nil)
@@ -37,7 +37,7 @@ class TestTool < Hudley::Tools::BaseService
   end
 end
 
-RSpec.describe Hudley::ToolRegistryService do
+RSpec.describe Captain::ToolRegistryService do
   let(:assistant) { create(:captain_assistant) }
   let(:service) { described_class.new(assistant) }
 
@@ -123,7 +123,7 @@ RSpec.describe Hudley::ToolRegistryService do
 
     context 'when multiple tools are registered' do
       let(:another_tool_class) do
-        Class.new(Hudley::Tools::BaseService) do
+        Class.new(Captain::Tools::BaseService) do
           def name
             'another_tool'
           end

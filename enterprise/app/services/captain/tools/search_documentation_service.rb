@@ -1,4 +1,4 @@
-class Hudley::Tools::SearchDocumentationService < Hudley::Tools::BaseTool
+class Captain::Tools::SearchDocumentationService < Captain::Tools::BaseTool
   def self.name
     'search_documentation'
   end

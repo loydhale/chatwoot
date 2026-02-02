@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :captain_assistant_response, class: 'Hudley::AssistantResponse' do
+  factory :captain_assistant_response, class: 'Captain::AssistantResponse' do
     association :assistant, factory: :captain_assistant
     association :account
     sequence(:question) { |n| "Test question #{n}?" }

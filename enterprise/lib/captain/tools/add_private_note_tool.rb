@@ -1,4 +1,4 @@
-class Hudley::Tools::AddPrivateNoteTool < Hudley::Tools::BasePublicTool
+class Captain::Tools::AddPrivateNoteTool < Captain::Tools::BasePublicTool
   description 'Add a private note to a conversation'
   param :note, type: 'string', desc: 'The private note content'
 

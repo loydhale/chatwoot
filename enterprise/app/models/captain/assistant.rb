@@ -16,25 +16,25 @@
 #
 #  index_captain_assistants_on_account_id  (account_id)
 #
-class Hudley::Assistant < ApplicationRecord
+class Captain::Assistant < ApplicationRecord
   include Avatarable
-  include Concerns::HudleyToolsHelpers
+  include Concerns::CaptainToolsHelpers
   include Concerns::Agentable
 
   self.table_name = 'captain_assistants'
 
   belongs_to :account
-  has_many :documents, class_name: 'Hudley::Document', dependent: :destroy_async
-  has_many :responses, class_name: 'Hudley::AssistantResponse', dependent: :destroy_async
+  has_many :documents, class_name: 'Captain::Document', dependent: :destroy_async
+  has_many :responses, class_name: 'Captain::AssistantResponse', dependent: :destroy_async
   has_many :captain_inboxes,
-           class_name: 'HudleyInbox',
+           class_name: 'CaptainInbox',
            foreign_key: :captain_assistant_id,
            dependent: :destroy_async
   has_many :inboxes,
            through: :captain_inboxes
   has_many :messages, as: :sender, dependent: :nullify
   has_many :copilot_threads, dependent: :destroy_async
-  has_many :scenarios, class_name: 'Hudley::Scenario', dependent: :destroy_async
+  has_many :scenarios, class_name: 'Captain::Scenario', dependent: :destroy_async
 
   store_accessor :config, :temperature, :feature_faq, :feature_memory, :product_name
 

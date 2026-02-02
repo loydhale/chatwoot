@@ -1,4 +1,4 @@
-class Hudley::CustomToolPolicy < ApplicationPolicy
+class Captain::CustomToolPolicy < ApplicationPolicy
   def index?
     true
   end

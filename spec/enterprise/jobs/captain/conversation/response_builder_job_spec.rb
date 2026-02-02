@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::Conversation::ResponseBuilderJob, type: :job do
+RSpec.describe Captain::Conversation::ResponseBuilderJob, type: :job do
   let(:account) { create(:account, custom_attributes: { plan_name: 'startups' }) }
   let(:inbox) { create(:inbox, account: account) }
   let(:assistant) { create(:captain_assistant, account: account) }
@@ -8,17 +8,17 @@ RSpec.describe Hudley::Conversation::ResponseBuilderJob, type: :job do
 
   describe '#perform' do
     let(:conversation) { create(:conversation, inbox: inbox, account: account) }
-    let(:mock_llm_chat_service) { instance_double(Hudley::Llm::AssistantChatService) }
-    let(:mock_agent_runner_service) { instance_double(Hudley::Assistant::AgentRunnerService) }
+    let(:mock_llm_chat_service) { instance_double(Captain::Llm::AssistantChatService) }
+    let(:mock_agent_runner_service) { instance_double(Captain::Assistant::AgentRunnerService) }
 
     before do
       create(:message, conversation: conversation, content: 'Hello', message_type: :incoming)
 
       allow(inbox).to receive(:captain_active?).and_return(true)
-      allow(Hudley::Llm::AssistantChatService).to receive(:new).and_return(mock_llm_chat_service)
-      allow(mock_llm_chat_service).to receive(:generate_response).and_return({ 'response' => 'Hey, welcome to Hudley Specs' })
-      allow(Hudley::Assistant::AgentRunnerService).to receive(:new).and_return(mock_agent_runner_service)
-      allow(mock_agent_runner_service).to receive(:generate_response).and_return({ 'response' => 'Hey, welcome to Hudley V2' })
+      allow(Captain::Llm::AssistantChatService).to receive(:new).and_return(mock_llm_chat_service)
+      allow(mock_llm_chat_service).to receive(:generate_response).and_return({ 'response' => 'Hey, welcome to Captain Specs' })
+      allow(Captain::Assistant::AgentRunnerService).to receive(:new).and_return(mock_agent_runner_service)
+      allow(mock_agent_runner_service).to receive(:generate_response).and_return({ 'response' => 'Hey, welcome to Captain V2' })
     end
 
     context 'when captain_v2 is disabled' do
@@ -27,19 +27,19 @@ RSpec.describe Hudley::Conversation::ResponseBuilderJob, type: :job do
         allow(account).to receive(:feature_enabled?).with('captain_integration_v2').and_return(false)
       end
 
-      it 'uses Hudley::Llm::AssistantChatService' do
-        expect(Hudley::Llm::AssistantChatService).to receive(:new).with(assistant: assistant, conversation_id: conversation.display_id)
-        expect(Hudley::Assistant::AgentRunnerService).not_to receive(:new)
+      it 'uses Captain::Llm::AssistantChatService' do
+        expect(Captain::Llm::AssistantChatService).to receive(:new).with(assistant: assistant, conversation_id: conversation.display_id)
+        expect(Captain::Assistant::AgentRunnerService).not_to receive(:new)
 
         described_class.perform_now(conversation, assistant)
-        expect(conversation.messages.last.content).to eq('Hey, welcome to Hudley Specs')
+        expect(conversation.messages.last.content).to eq('Hey, welcome to Captain Specs')
       end
 
       it 'generates and processes response' do
         described_class.perform_now(conversation, assistant)
         expect(conversation.messages.count).to eq(2)
         expect(conversation.messages.outgoing.count).to eq(1)
-        expect(conversation.messages.last.content).to eq('Hey, welcome to Hudley Specs')
+        expect(conversation.messages.last.content).to eq('Hey, welcome to Captain Specs')
       end
 
       it 'increments usage response' do
@@ -55,15 +55,15 @@ RSpec.describe Hudley::Conversation::ResponseBuilderJob, type: :job do
         allow(account).to receive(:feature_enabled?).with('captain_integration_v2').and_return(true)
       end
 
-      it 'uses Hudley::Assistant::AgentRunnerService' do
-        expect(Hudley::Assistant::AgentRunnerService).to receive(:new).with(
+      it 'uses Captain::Assistant::AgentRunnerService' do
+        expect(Captain::Assistant::AgentRunnerService).to receive(:new).with(
           assistant: assistant,
           conversation: conversation
         )
-        expect(Hudley::Llm::AssistantChatService).not_to receive(:new)
+        expect(Captain::Llm::AssistantChatService).not_to receive(:new)
 
         described_class.perform_now(conversation, assistant)
-        expect(conversation.messages.last.content).to eq('Hey, welcome to Hudley V2')
+        expect(conversation.messages.last.content).to eq('Hey, welcome to Captain V2')
       end
 
       it 'passes message history to agent runner service' do
@@ -82,7 +82,7 @@ RSpec.describe Hudley::Conversation::ResponseBuilderJob, type: :job do
         described_class.perform_now(conversation, assistant)
         expect(conversation.messages.count).to eq(2)
         expect(conversation.messages.outgoing.count).to eq(1)
-        expect(conversation.messages.last.content).to eq('Hey, welcome to Hudley V2')
+        expect(conversation.messages.last.content).to eq('Hey, welcome to Captain V2')
       end
 
       it 'increments usage response' do
@@ -120,13 +120,13 @@ RSpec.describe Hudley::Conversation::ResponseBuilderJob, type: :job do
 
   describe 'retry mechanisms for image processing' do
     let(:conversation) { create(:conversation, inbox: inbox, account: account) }
-    let(:mock_llm_chat_service) { instance_double(Hudley::Llm::AssistantChatService) }
-    let(:mock_message_builder) { instance_double(Hudley::OpenAiMessageBuilderService) }
+    let(:mock_llm_chat_service) { instance_double(Captain::Llm::AssistantChatService) }
+    let(:mock_message_builder) { instance_double(Captain::OpenAiMessageBuilderService) }
 
     before do
       create(:message, conversation: conversation, content: 'Hello with image', message_type: :incoming)
-      allow(Hudley::Llm::AssistantChatService).to receive(:new).and_return(mock_llm_chat_service)
-      allow(Hudley::OpenAiMessageBuilderService).to receive(:new).with(message: anything).and_return(mock_message_builder)
+      allow(Captain::Llm::AssistantChatService).to receive(:new).and_return(mock_llm_chat_service)
+      allow(Captain::OpenAiMessageBuilderService).to receive(:new).with(message: anything).and_return(mock_message_builder)
       allow(mock_message_builder).to receive(:generate_content).and_return('Hello with image')
       allow(mock_llm_chat_service).to receive(:generate_response).and_return({ 'response' => 'Test response' })
     end
@@ -232,11 +232,11 @@ RSpec.describe Hudley::Conversation::ResponseBuilderJob, type: :job do
 
   describe 'out of office message after handoff' do
     let(:conversation) { create(:conversation, inbox: inbox, account: account, status: :pending) }
-    let(:mock_llm_chat_service) { instance_double(Hudley::Llm::AssistantChatService) }
+    let(:mock_llm_chat_service) { instance_double(Captain::Llm::AssistantChatService) }
 
     before do
       create(:message, conversation: conversation, content: 'Hello', message_type: :incoming)
-      allow(Hudley::Llm::AssistantChatService).to receive(:new).and_return(mock_llm_chat_service)
+      allow(Captain::Llm::AssistantChatService).to receive(:new).and_return(mock_llm_chat_service)
       allow(account).to receive(:feature_enabled?).and_return(false)
       allow(account).to receive(:feature_enabled?).with('captain_integration_v2').and_return(false)
     end

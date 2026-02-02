@@ -1,4 +1,4 @@
-class Hudley::Llm::PdfProcessingService < Llm::LegacyBaseOpenAiService
+class Captain::Llm::PdfProcessingService < Llm::LegacyBaseOpenAiService
   include Integrations::LlmInstrumentation
 
   def initialize(document)

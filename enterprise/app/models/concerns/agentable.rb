@@ -25,7 +25,7 @@ module Concerns::Agentable
       )
     end
 
-    Hudley::PromptRenderer.render(template_name, enhanced_context.with_indifferent_access)
+    Captain::PromptRenderer.render(template_name, enhanced_context.with_indifferent_access)
   end
 
   private
@@ -47,7 +47,7 @@ module Concerns::Agentable
   end
 
   def agent_response_schema
-    Hudley::ResponseSchema
+    Captain::ResponseSchema
   end
 
   def prompt_context

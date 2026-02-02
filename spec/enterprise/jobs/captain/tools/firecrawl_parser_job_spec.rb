@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hudley::Tools::FirecrawlParserJob, type: :job do
+RSpec.describe Captain::Tools::FirecrawlParserJob, type: :job do
   describe '#perform' do
     let(:assistant) { create(:captain_assistant) }
     let(:payload) do
@@ -53,7 +53,7 @@ RSpec.describe Hudley::Tools::FirecrawlParserJob, type: :job do
 
     context 'when an error occurs' do
       it 'raises an error with a descriptive message' do
-        allow(Hudley::Assistant).to receive(:find).and_raise(ActiveRecord::RecordNotFound)
+        allow(Captain::Assistant).to receive(:find).and_raise(ActiveRecord::RecordNotFound)
 
         expect do
           described_class.perform_now(assistant_id: -1, payload: payload)
