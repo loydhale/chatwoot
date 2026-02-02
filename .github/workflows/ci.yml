@@ -46,7 +46,7 @@ jobs:
     name: RSpec (${{ matrix.suite }})
     runs-on: ubuntu-latest
     needs: lint
-    timeout-minutes: 30
+    timeout-minutes: 25
 
     strategy:
       fail-fast: false
@@ -54,8 +54,38 @@ jobs:
         include:
           - suite: models-services
             paths: spec/models/ spec/services/
-          - suite: controllers
-            paths: spec/controllers/
+          - suite: controllers-api
+            paths: spec/controllers/api/
+          - suite: controllers-other
+            paths: >-
+              spec/controllers/concerns/
+              spec/controllers/devise/
+              spec/controllers/devise_overrides/
+              spec/controllers/ghl/
+              spec/controllers/google/
+              spec/controllers/instagram/
+              spec/controllers/installation/
+              spec/controllers/linear/
+              spec/controllers/microsoft/
+              spec/controllers/notion/
+              spec/controllers/platform/
+              spec/controllers/public/
+              spec/controllers/service/
+              spec/controllers/shopify/
+              spec/controllers/super_admin/
+              spec/controllers/tiktok/
+              spec/controllers/twilio/
+              spec/controllers/twitter/
+              spec/controllers/webhooks/
+              spec/controllers/android_assetlinks_spec.rb
+              spec/controllers/api_controller_spec.rb
+              spec/controllers/apple_app_spec.rb
+              spec/controllers/dashboard_controller_spec.rb
+              spec/controllers/microsoft_controller_spec.rb
+              spec/controllers/slack_uploads_controller_spec.rb
+              spec/controllers/swagger_controller_spec.rb
+              spec/controllers/widget_tests_controller_spec.rb
+              spec/controllers/widgets_controller_spec.rb
           - suite: jobs
             paths: spec/jobs/
 
@@ -111,7 +141,11 @@ jobs:
           bundle exec rake db:schema:load
 
       - name: Run specs
-        run: bundle exec rspec ${{ matrix.paths }} --format documentation --no-color
+        run: |
+          timeout 1200 bundle exec rspec ${{ matrix.paths }} \
+            --format documentation \
+            --no-color \
+            || { echo "::error::RSpec exited with code $?"; exit 1; }
 
   docker-build:
     name: Docker build smoke test
