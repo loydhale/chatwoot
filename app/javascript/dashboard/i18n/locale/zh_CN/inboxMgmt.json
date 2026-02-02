@@ -13,7 +13,7 @@
     "CREATE_FLOW": {
       "CHANNEL": {
         "TITLE": "选择频道",
-        "BODY": "选择你想要与DeskFlow 集成的提供商。"
+        "BODY": "选择你想要与DeskFlows 集成的提供商。"
       },
       "INBOX": {
         "TITLE": "新增收件箱",
@@ -1021,7 +1021,7 @@
         "USER_MESSAGE": "嗨",
         "AGENT_MESSAGE": "您好"
       },
-      "BRANDING_TEXT": "由 DeskFlow 支持",
+      "BRANDING_TEXT": "由 DeskFlows 支持",
       "SCRIPT_SETTINGS": "\n      window.deskflowsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {

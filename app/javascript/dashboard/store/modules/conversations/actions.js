@@ -16,6 +16,7 @@ import {
   handleVoiceCallCreated,
   handleVoiceCallUpdated,
 } from 'dashboard/helper/voice';
+import { getAutoTagLabels } from 'dashboard/helpers/autoTagging';
 
 export const hasMessageFailedWithExternalError = pendingMessage => {
   // This helper is used to check if the message has failed with an external error.
@@ -303,7 +304,7 @@ const actions = {
     }
   },
 
-  addMessage({ commit, rootGetters }, message) {
+  addMessage({ commit, dispatch, rootGetters }, message) {
     commit(types.ADD_MESSAGE, message);
     if (message.message_type === MESSAGE_TYPE.INCOMING) {
       commit(types.SET_CONVERSATION_CAN_REPLY, {
@@ -311,6 +312,17 @@ const actions = {
         canReply: true,
       });
       commit(types.ADD_CONVERSATION_ATTACHMENTS, message);
+
+      // Auto-tagging: detect labels from incoming message content
+      if (message.content) {
+        const autoTags = getAutoTagLabels(message.content);
+        if (autoTags.length > 0) {
+          dispatch('autoApplyLabels', {
+            conversationId: message.conversation_id,
+            detectedLabels: autoTags,
+          });
+        }
+      }
     }
     handleVoiceCallCreated(message, rootGetters?.getCurrentUserID);
   },
@@ -511,6 +523,41 @@ const actions = {
       commit(types.SET_INBOX_CAPTAIN_ASSISTANT, response.data);
     } catch (error) {
       // Handle error
+    }
+  },
+
+  /**
+   * Auto-apply labels to a conversation based on detected keywords.
+   * Only adds labels that don't already exist on the conversation.
+   */
+  autoApplyLabels: async (
+    { dispatch, rootGetters },
+    { conversationId, detectedLabels }
+  ) => {
+    try {
+      // Get current labels on the conversation
+      const currentLabels =
+        rootGetters['conversationLabels/getConversationLabels'](
+          conversationId
+        ) || [];
+
+      // Only add labels that aren't already applied
+      const newLabels = detectedLabels.filter(
+        label => !currentLabels.includes(label)
+      );
+
+      if (newLabels.length === 0) return;
+
+      // Merge with existing labels
+      const mergedLabels = [...currentLabels, ...newLabels];
+
+      await dispatch(
+        'conversationLabels/update',
+        { conversationId, labels: mergedLabels },
+        { root: true }
+      );
+    } catch {
+      // Silent fail — auto-tagging is a convenience, not critical
     }
   },
 

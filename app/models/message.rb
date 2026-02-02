@@ -43,6 +43,7 @@ class Message < ApplicationRecord
 
   include MessageFilterHelpers
   include Liquidable
+  include AutoTaggable
   NUMBER_OF_PERMITTED_ATTACHMENTS = 15
 
   TEMPLATE_PARAMS_SCHEMA = {
@@ -315,6 +316,16 @@ class Message < ApplicationRecord
     send_reply
     execute_message_template_hooks
     update_contact_activity
+    auto_tag_conversation_async
+  end
+
+  def auto_tag_conversation_async
+    return unless incoming?
+
+    # Run auto-tagging in background to avoid blocking message creation
+    AutoTagJob.perform_later(id) if defined?(AutoTagJob)
+  rescue StandardError => e
+    Rails.logger.warn("Auto-tagging skipped: #{e.message}")
   end
 
   def update_contact_activity

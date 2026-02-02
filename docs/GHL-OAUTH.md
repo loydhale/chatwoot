@@ -1,14 +1,14 @@
 # GHL OAuth Integration — Technical Reference
 
-> DeskFlow ↔ GoHighLevel OAuth 2.0 Authorization Code flow.
+> DeskFlowss ↔ GoHighLevel OAuth 2.0 Authorization Code flow.
 > Last updated: 2026-02-01 by Avery 🛡️ (CTO)
 
 ---
 
 ## Architecture Overview
 
-DeskFlow integrates with GHL as a **Marketplace App**. Tokens are stored in the
-existing `integrations_hooks` table (Chatwoot's hook system) with `app_id = 'gohighlevel'`.
+DeskFlows integrates with GHL as a **Marketplace App**. Tokens are stored in the
+existing `integrations_hooks` table (DeskFlows' hook system) with `app_id = 'gohighlevel'`.
 
 We intentionally avoided a separate `ghl_connections` table — the hook model already
 provides `access_token`, `settings` (JSONB for refresh tokens / metadata), `reference_id`
@@ -20,7 +20,7 @@ provides `access_token`, `settings` (JSONB for refresh tokens / metadata), `refe
 
 ```
 ┌──────────┐   1. Click "Connect GHL"   ┌──────────┐
-│ DeskFlow │ ──────────────────────────▶ │  Rails   │
+│ DeskFlowss │ ──────────────────────────▶ │  Rails   │
 │ Frontend │                             │  API     │
 └──────────┘                             └────┬─────┘
                                               │
@@ -188,13 +188,13 @@ Tokens live in `integrations_hooks`:
 | Scope | Purpose |
 |-------|---------|
 | `contacts.readonly` | Read contact data for sidebar context |
-| `contacts.write` | Create/update contacts from DeskFlow |
+| `contacts.write` | Create/update contacts from DeskFlowss |
 | `conversations.readonly` | Import conversation history |
 | `conversations.write` | Send support replies |
 | `conversations/message.readonly` | Read message content |
 | `conversations/message.write` | Send messages via GHL |
 | `locations.readonly` | Get sub-account info |
-| `users.readonly` | Map GHL users to DeskFlow agents (SSO) |
+| `users.readonly` | Map GHL users to DeskFlowss agents (SSO) |
 
 ---
 
@@ -202,7 +202,7 @@ Tokens live in `integrations_hooks`:
 
 Subscribed in the GHL Marketplace app settings:
 
-| GHL Event | DeskFlow Action |
+| GHL Event | DeskFlowss Action |
 |-----------|-----------------|
 | `ContactCreate` | Create contact via `ContactSyncService` |
 | `ContactUpdate` | Update contact attributes |
@@ -232,9 +232,9 @@ Webhook signature verification uses HMAC-SHA256 with `GHL_WEBHOOK_SECRET`.
 - [ ] Delivery status tracking (sent/delivered/read)
 
 ### Phase 3: SSO (DSK-013)
-- [ ] GHL SSO login flow (user clicks DeskFlow from GHL sidebar)
+- [ ] GHL SSO login flow (user clicks DeskFlowss from GHL sidebar)
 - [ ] `ghl_user_id` column on `users` table
-- [ ] Auto-provisioning of DeskFlow agents from GHL users
+- [ ] Auto-provisioning of DeskFlowss agents from GHL users
 
 ### Phase 4: Enhanced Sync
 - [ ] `ghl_contact_id` indexed column on `contacts` (currently uses `identifier` + `custom_attributes`)

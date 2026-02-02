@@ -396,10 +396,10 @@
       "MESSAGE_PLACEHOLDER": "Type your message...",
       "HEADER": "Playground",
       "DESCRIPTION": "Use this playground to send messages to your assistant and check if it responds accurately, quickly, and in the tone you expect.",
-      "CREDIT_NOTE": "Messages sent here will count toward your Atlas credits."
+      "CREDIT_NOTE": "Messages sent here will count toward your Hudley credits."
     },
     "PAYWALL": {
-      "TITLE": "アップグレードしてAtlas AIを利用する",
+      "TITLE": "アップグレードしてHudley AIを利用する",
       "AVAILABLE_ON": "Atlasは無料プランでは利用できません。",
       "UPGRADE_PROMPT": "アシスタント、Copilotなどにアクセスするには、プランをアップグレードしてください。",
       "UPGRADE_NOW": "今すぐアップグレード",
@@ -410,8 +410,8 @@
       "ASK_ADMIN": "管理者にアップグレードを依頼してください。"
     },
     "BANNER": {
-      "RESPONSES": "利用制限の 80% を超過しました。引き続き Atlas AI を利用するには、アップグレードしてください。",
-      "DOCUMENTS": "ドキュメントの上限に達しました。Atlas AI を引き続き利用するには、アップグレードしてください。"
+      "RESPONSES": "利用制限の 80% を超過しました。引き続き Hudley AI を利用するには、アップグレードしてください。",
+      "DOCUMENTS": "ドキュメントの上限に達しました。Hudley AI を引き続き利用するには、アップグレードしてください。"
     },
     "FORM": {
       "CANCEL": "キャンセル",
@@ -531,8 +531,8 @@
         "TITLE": "利用可能なアシスタントがありません",
         "SUBTITLE": "アシスタントを作成して、お客様に迅速かつ正確な回答を提供します。アシスタントは、ヘルプ記事や過去の会話から学習します。",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Atlas Assistant",
-          "NOTE": "Atlas Assistant engages directly with customers, learns from your help docs and past conversations, and delivers instant, accurate responses. It handles the initial queries, providing quick resolutions before  transferring to an agent when needed."
+          "TITLE": "Hudley Assistant",
+          "NOTE": "Hudley Assistant engages directly with customers, learns from your help docs and past conversations, and delivers instant, accurate responses. It handles the initial queries, providing quick resolutions before  transferring to an agent when needed."
         }
       },
       "GUARDRAILS": {
@@ -742,8 +742,8 @@
         "TITLE": "利用可能なドキュメントがありません",
         "SUBTITLE": "ドキュメントはアシスタントがFAQを生成するために使用されます。ドキュメントをインポートしてアシスタントにコンテキストを提供できます。",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Atlas Document",
-          "NOTE": "A document in Atlas serves as a knowledge resource for the assistant. By connecting your help center or guides, Atlas can analyze the content and provide accurate responses for customer inquiries."
+          "TITLE": "Hudley Document",
+          "NOTE": "A document in Hudley serves as a knowledge resource for the assistant. By connecting your help center or guides, Hudley can analyze the content and provide accurate responses for customer inquiries."
         }
       }
     },
@@ -899,7 +899,7 @@
         "ALL": "すべて"
       },
       "PENDING_BANNER": {
-        "TITLE": "Atlas has found some FAQs your customers were looking for.",
+        "TITLE": "Hudley has found some FAQs your customers were looking for.",
         "ACTION": "Click here to review"
       },
       "FORM_DESCRIPTION": "質問とその対応する回答をナレッジベースに追加し、それに関連付けるアシスタントを選択してください。",
@@ -937,8 +937,8 @@
         "SUBTITLE": "FAQは、アシスタントがお客様からの質問に迅速かつ正確に回答するのに役立ちます。コンテンツから自動的に生成することも、手動で追加することもできます。",
         "CLEAR_SEARCH": "Clear active filters",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Atlas FAQ",
-          "NOTE": "Atlas FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
+          "TITLE": "Hudley FAQ",
+          "NOTE": "Hudley FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
         }
       }
     },

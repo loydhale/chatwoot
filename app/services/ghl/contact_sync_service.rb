@@ -11,7 +11,7 @@ module Ghl
       @hook = hook
     end
 
-    # --- Inbound: GHL → DeskFlow ---
+    # --- Inbound: GHL → DeskFlows ---
 
     def create_from_ghl(params)
       ghl_contact = extract_contact_data(params)
@@ -71,7 +71,7 @@ module Ghl
       contact
     end
 
-    # --- Outbound: DeskFlow → GHL ---
+    # --- Outbound: DeskFlows → GHL ---
 
     def push_to_ghl(contact)
       ghl_id = extract_ghl_id_from_contact(contact)

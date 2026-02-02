@@ -38,7 +38,7 @@ module GhlConcern
   end
 
   def ghl_scopes
-    # Default scopes for DeskFlow integration
+    # Default scopes for DeskFlows integration
     # See docs/GHL-OAUTH.md for scope descriptions
     [
       'contacts.readonly',

@@ -1,6 +1,6 @@
 {
   "LOGIN": {
-    "TITLE": "Войти в DeskFlow",
+    "TITLE": "Войти в DeskFlows",
     "EMAIL": {
       "LABEL": "Email",
       "PLACEHOLDER": "example{'@'}companyname.com",

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# DeskFlow Docker Dev Environment — One-command setup
+# DeskFlows Docker Dev Environment — One-command setup
 # Usage: ./bin/docker-dev-setup [--reset]
 #
 # Builds images, starts services, prepares the database.
@@ -125,7 +125,7 @@ ok "Database ready"
 # ------------------------------------------------------------------
 echo ""
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${GREEN}  DeskFlow is running! 🚀${NC}"
+echo -e "${GREEN}  DeskFlows is running! 🚀${NC}"
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 echo -e "  App:      ${CYAN}http://localhost:3000${NC}"

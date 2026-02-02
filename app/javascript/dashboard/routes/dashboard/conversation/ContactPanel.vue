@@ -23,6 +23,7 @@ import ShopifyOrdersList from 'dashboard/components/widgets/conversation/Shopify
 import SidebarActionsHeader from 'dashboard/components-next/SidebarActionsHeader.vue';
 import LinearIssuesList from 'dashboard/components/widgets/conversation/linear/IssuesList.vue';
 import LinearSetupCTA from 'dashboard/components/widgets/conversation/linear/LinearSetupCTA.vue';
+import GHLContactSidebar from './ghl/GHLContactSidebar.vue';
 
 const props = defineProps({
   conversationId: {
@@ -137,6 +138,7 @@ onMounted(() => {
       @close="closeContactPanel"
     />
     <ContactInfo :contact="contact" :channel-type="channelType" />
+    <GHLContactSidebar />
     <div class="px-2 pb-8 list-group">
       <Draggable
         :list="conversationSidebarItems"

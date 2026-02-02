@@ -16,14 +16,14 @@
       "ERROR": "There was an error connecting to Shopify. Please try again or contact support if the issue persists."
     },
     "HEADER": "การเชื่อมต่อกับระบบ",
-    "DESCRIPTION": "DeskFlow integrates with multiple tools and services to improve your team's efficiency. Explore the list below to configure your favorite apps.",
+    "DESCRIPTION": "DeskFlows integrates with multiple tools and services to improve your team's efficiency. Explore the list below to configure your favorite apps.",
     "LEARN_MORE": "Learn more about integrations",
     "LOADING": "Fetching integrations",
     "CAPTAIN": {
-      "DISABLED": "Atlas is not enabled on your account.",
+      "DISABLED": "Hudley is not enabled on your account.",
       "CLICK_HERE_TO_CONFIGURE": "Click here to configure",
-      "LOADING_CONSOLE": "Loading Atlas Console...",
-      "FAILED_TO_LOAD_CONSOLE": "Failed to load Atlas Console. Please refresh and try again."
+      "LOADING_CONSOLE": "Loading Hudley Console...",
+      "FAILED_TO_LOAD_CONSOLE": "Failed to load Hudley Console. Please refresh and try again."
     },
     "WEBHOOK": {
       "SUBSCRIBED_EVENTS": "เหตุการณ์ที่ติดตามอยู่",
@@ -64,7 +64,7 @@
       "HEADER_BTN_TXT": "เพิ่ม Webhook ใหม่",
       "LOADING": "กำลังดึงข้อมูล Webhook",
       "SEARCH_404": "ไม่มีรายการที่ตรงกับเนื้อหานี้",
-      "SIDEBAR_TXT": "<p><b>Webhooks</b> </p> <p>Webhooks คือ การเรียกกลับ HTTP ซึ่งสามารถระบุได้สำหรับทุกบัญชี สามารถถูกเรียกใช้งานได้จากเหตุการณ์ เช่น ข้อความที่ถูกสร้างใน DeskFlow คุณสามารถสร้างมากกว่า 1 Webhook ได้สำหรับบัญนี้ <br /><br /> สำหรับการสร้าง <b>Webhook</b> ให้คลิกที่ <b> ปุ่มเพิ่ม Webhook ใหม่ </b> คุณยังสามารถลบ Webhook ที่ใช้งานอยู่ได้โดยการคลิกปุ่มลบ</p>",
+      "SIDEBAR_TXT": "<p><b>Webhooks</b> </p> <p>Webhooks คือ การเรียกกลับ HTTP ซึ่งสามารถระบุได้สำหรับทุกบัญชี สามารถถูกเรียกใช้งานได้จากเหตุการณ์ เช่น ข้อความที่ถูกสร้างใน DeskFlows คุณสามารถสร้างมากกว่า 1 Webhook ได้สำหรับบัญนี้ <br /><br /> สำหรับการสร้าง <b>Webhook</b> ให้คลิกที่ <b> ปุ่มเพิ่ม Webhook ใหม่ </b> คุณยังสามารถลบ Webhook ที่ใช้งานอยู่ได้โดยการคลิกปุ่มลบ</p>",
       "LIST": {
         "404": "ไม่มีการตั้งค่า Webhooks กับบัญชีนี้",
         "TITLE": "จัดการ Webhooks",
@@ -111,14 +111,14 @@
       },
       "HELP_TEXT": {
         "TITLE": "เชื่อมต่อกับ Slack",
-        "BODY": "With this integration, all of your incoming conversations will be synced to the ***{selectedChannelName}*** channel in your Slack workspace. You can manage all your customer conversations right within the channel and never miss a message.\n\nHere are the main features of the integration:\n\n**Respond to conversations from within Slack:** To respond to a conversation in the ***{selectedChannelName}*** Slack channel, simply type out your message and send it as a thread. This will create a response back to the customer through DeskFlow. It's that simple!\n\n **Create private notes:** If you want to create private notes instead of replies, start your message with ***`note:`***. This ensures that your message is kept private and won't be visible to the customer.\n\n**Associate an agent profile:** If the person who replied on Slack has an agent profile in DeskFlow under the same email, the replies will be associated with that agent profile automatically. This means you can easily track who said what and when. On the other hand, when the replier doesn't have an associated agent profile, the replies will appear from the bot profile to the customer.",
+        "BODY": "With this integration, all of your incoming conversations will be synced to the ***{selectedChannelName}*** channel in your Slack workspace. You can manage all your customer conversations right within the channel and never miss a message.\n\nHere are the main features of the integration:\n\n**Respond to conversations from within Slack:** To respond to a conversation in the ***{selectedChannelName}*** Slack channel, simply type out your message and send it as a thread. This will create a response back to the customer through DeskFlows. It's that simple!\n\n **Create private notes:** If you want to create private notes instead of replies, start your message with ***`note:`***. This ensures that your message is kept private and won't be visible to the customer.\n\n**Associate an agent profile:** If the person who replied on Slack has an agent profile in DeskFlows under the same email, the replies will be associated with that agent profile automatically. This means you can easily track who said what and when. On the other hand, when the replier doesn't have an associated agent profile, the replies will appear from the bot profile to the customer.",
         "SELECTED": "selected"
       },
       "SELECT_CHANNEL": {
         "OPTION_LABEL": "Select a channel",
         "UPDATE": "อัพเดท",
         "BUTTON_TEXT": "Connect channel",
-        "DESCRIPTION": "Your Slack workspace is now linked with DeskFlow. However, the integration is currently inactive. To activate the integration and connect a channel to DeskFlow, please click the button below.\n\n**Note:** If you are attempting to connect a private channel, add the DeskFlow app to the Slack channel before proceeding with this step.",
+        "DESCRIPTION": "Your Slack workspace is now linked with DeskFlows. However, the integration is currently inactive. To activate the integration and connect a channel to DeskFlows, please click the button below.\n\n**Note:** If you are attempting to connect a private channel, add the DeskFlows app to the Slack channel before proceeding with this step.",
         "ATTENTION_REQUIRED": "Attention required",
         "EXPIRED": "Your Slack integration has expired. To continue receiving messages on Slack, please delete the integration and connect your workspace again."
       },
@@ -198,7 +198,7 @@
     "DASHBOARD_APPS": {
       "TITLE": "Dashboard Apps",
       "HEADER_BTN_TXT": "Add a new dashboard app",
-      "SIDEBAR_TXT": "<p><b>Dashboard Apps</b></p><p>Dashboard Apps allow organizations to embed an application inside the DeskFlow dashboard to provide the context for customer support agents. This feature allows you to create an application independently and embed that inside the dashboard to provide user information, their orders, or their previous payment history.</p><p>When you embed your application using the dashboard in DeskFlow, your application will get the context of the conversation and contact as a window event. Implement a listener for the message event on your page to receive the context.</p><p>To add a new dashboard app, click on the button 'Add a new dashboard app'.</p>",
+      "SIDEBAR_TXT": "<p><b>Dashboard Apps</b></p><p>Dashboard Apps allow organizations to embed an application inside the DeskFlows dashboard to provide the context for customer support agents. This feature allows you to create an application independently and embed that inside the dashboard to provide user information, their orders, or their previous payment history.</p><p>When you embed your application using the dashboard in DeskFlows, your application will get the context of the conversation and contact as a window event. Implement a listener for the message event on your page to receive the context.</p><p>To add a new dashboard app, click on the button 'Add a new dashboard app'.</p>",
       "DESCRIPTION": "Dashboard Apps allow organizations to embed an application inside the dashboard to provide the context for customer support agents. This feature allows you to create an application independently and embed that to provide user information, their orders, or their previous payment history.",
       "LEARN_MORE": "Learn more about Dashboard Apps",
       "LIST": {
@@ -346,7 +346,7 @@
     }
   },
   "CAPTAIN": {
-    "NAME": "Atlas",
+    "NAME": "Hudley",
     "HEADER_KNOW_MORE": "Know more",
     "ASSISTANT_SWITCHER": {
       "ASSISTANTS": "Assistants",
@@ -361,7 +361,7 @@
       "KICK_OFF_MESSAGE": "Need a quick summary, want to check past conversations, or draft a better reply? Copilot’s here to speed things up.",
       "SEND_MESSAGE": "ส่วข้อความ...",
       "EMPTY_MESSAGE": "There was an error generating the response. Please try again.",
-      "LOADER": "Atlas is thinking",
+      "LOADER": "Hudley is thinking",
       "YOU": "You",
       "USE": "Use this",
       "RESET": "Reset",
@@ -396,11 +396,11 @@
       "MESSAGE_PLACEHOLDER": "พิมพ์ข้อความ...",
       "HEADER": "Playground",
       "DESCRIPTION": "Use this playground to send messages to your assistant and check if it responds accurately, quickly, and in the tone you expect.",
-      "CREDIT_NOTE": "Messages sent here will count toward your Atlas credits."
+      "CREDIT_NOTE": "Messages sent here will count toward your Hudley credits."
     },
     "PAYWALL": {
-      "TITLE": "Upgrade to use Atlas AI",
-      "AVAILABLE_ON": "Atlas is not available on the free plan.",
+      "TITLE": "Upgrade to use Hudley AI",
+      "AVAILABLE_ON": "Hudley is not available on the free plan.",
       "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, copilot and more.",
       "UPGRADE_NOW": "Upgrade now",
       "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
@@ -410,8 +410,8 @@
       "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
     },
     "BANNER": {
-      "RESPONSES": "You've used over 80% of your response limit. To continue using Atlas AI, please upgrade.",
-      "DOCUMENTS": "Document limit reached. Upgrade to continue using Atlas AI."
+      "RESPONSES": "You've used over 80% of your response limit. To continue using Hudley AI, please upgrade.",
+      "DOCUMENTS": "Document limit reached. Upgrade to continue using Hudley AI."
     },
     "FORM": {
       "CANCEL": "ยกเลิก",
@@ -531,8 +531,8 @@
         "TITLE": "No assistants available",
         "SUBTITLE": "Create an assistant to provide quick and accurate responses to your users. It can learn from your help articles and past conversations.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Atlas Assistant",
-          "NOTE": "Atlas Assistant engages directly with customers, learns from your help docs and past conversations, and delivers instant, accurate responses. It handles the initial queries, providing quick resolutions before  transferring to an agent when needed."
+          "TITLE": "Hudley Assistant",
+          "NOTE": "Hudley Assistant engages directly with customers, learns from your help docs and past conversations, and delivers instant, accurate responses. It handles the initial queries, providing quick resolutions before  transferring to an agent when needed."
         }
       },
       "GUARDRAILS": {
@@ -742,8 +742,8 @@
         "TITLE": "No documents available",
         "SUBTITLE": "Documents are used by your assistant to generate FAQs. You can import documents to provide context for your assistant.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Atlas Document",
-          "NOTE": "A document in Atlas serves as a knowledge resource for the assistant. By connecting your help center or guides, Atlas can analyze the content and provide accurate responses for customer inquiries."
+          "TITLE": "Hudley Document",
+          "NOTE": "A document in Hudley serves as a knowledge resource for the assistant. By connecting your help center or guides, Hudley can analyze the content and provide accurate responses for customer inquiries."
         }
       }
     },
@@ -899,7 +899,7 @@
         "ALL": "ทั้งหมด"
       },
       "PENDING_BANNER": {
-        "TITLE": "Atlas has found some FAQs your customers were looking for.",
+        "TITLE": "Hudley has found some FAQs your customers were looking for.",
         "ACTION": "Click here to review"
       },
       "FORM_DESCRIPTION": "Add a question and its corresponding answer to the knowledge base and select the assistant it should be associated with.",
@@ -937,8 +937,8 @@
         "SUBTITLE": "FAQs help your assistant provide quick and accurate answers to questions from your customers. They can be generated automatically from your content or can be added manually.",
         "CLEAR_SEARCH": "Clear active filters",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Atlas FAQ",
-          "NOTE": "Atlas FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
+          "TITLE": "Hudley FAQ",
+          "NOTE": "Hudley FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
         }
       }
     },

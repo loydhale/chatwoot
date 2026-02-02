@@ -56,6 +56,13 @@
 |---|------|-------|
 | — | DeskFlows → DeskFlow rebrand | 1,200+ files (needs update to DeskFlows) |
 | — | Captain → Atlas rebrand | All files (needs update to Hudley) |
-| — | GHL OAuth backend | 90% — routes, controllers, token storage |
+| — | GHL OAuth backend | 90% → 100% — now handles marketplace install + existing account flows |
 | — | Docker setup | 80% — compose, Dockerfiles, env overrides |
 | — | Documentation | LOCAL_DEV_SETUP.md, WHATS_LEFT.md, BRANDING.md |
+| — | Multi-tenant workspace provisioning | Auto-create Account+User+Inbox+Subscription on GHL install |
+| — | Tiered pricing model (GhlSubscription) | 4 plans: Starter/Growth/Scale/Enterprise, AI metering, feature gating |
+| — | GHL webhook processing (messages) | MessageSyncService, conversation sync, app lifecycle, location events |
+| — | Admin dashboard (GHL Tenants) | SuperAdmin views: list, detail, usage charts, plan management |
+| — | Contact enrichment job | Lazy enrichment for contacts created from messages |
+| — | Monthly usage reset job | Resets AI credits on billing cycle |
+| — | Plan enforcement concern | GhlPlanEnforcement for agent/location/AI/feature limits |

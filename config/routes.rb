@@ -346,6 +346,8 @@ Rails.application.routes.draw do
               collection do
                 get :status
                 post :refresh
+                get :contacts
+                get 'contacts/:id', action: :show_contact, as: :show_contact
               end
             end
           end

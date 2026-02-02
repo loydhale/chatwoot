@@ -16,7 +16,7 @@
       "ERROR": "There was an error connecting to Shopify. Please try again or contact support if the issue persists."
     },
     "HEADER": "Integraciones",
-    "DESCRIPTION": "DeskFlow se integra con múltiples herramientas y servicios para mejorar la eficiencia de tu equipo. Explora la lista de abajo para configurar tus aplicaciones favoritas.",
+    "DESCRIPTION": "DeskFlows se integra con múltiples herramientas y servicios para mejorar la eficiencia de tu equipo. Explora la lista de abajo para configurar tus aplicaciones favoritas.",
     "LEARN_MORE": "Más información acerca de integraciones",
     "LOADING": "Obteniendo integraciones",
     "CAPTAIN": {
@@ -30,7 +30,7 @@
       "LEARN_MORE": "Aprenda más sobre webhooks",
       "FORM": {
         "CANCEL": "Cancelar",
-        "DESC": "Los eventos Webhook te proporcionan la información en tiempo real sobre lo que está sucediendo en tu cuenta de DeskFlow. Por favor, introduce una URL válida para configurar un callback.",
+        "DESC": "Los eventos Webhook te proporcionan la información en tiempo real sobre lo que está sucediendo en tu cuenta de DeskFlows. Por favor, introduce una URL válida para configurar un callback.",
         "SUBSCRIPTIONS": {
           "LABEL": "Eventos",
           "EVENTS": {
@@ -64,7 +64,7 @@
       "HEADER_BTN_TXT": "Añadir nuevo webhook",
       "LOADING": "Obteniendo webhooks adjuntos",
       "SEARCH_404": "No hay elementos que coincidan con esta consulta",
-      "SIDEBAR_TXT": "<p><b>Webhooks</b> </p> <p>Webhooks son callbacks HTTP que se pueden definir para cada cuenta. Son activados por eventos como la creación de mensajes en DeskFlow. Puede crear más de un webhook para esta cuenta. <br /><br /> Para crear un webhook <b></b>, haga clic en el <b>Añadir un nuevo webhook</b> botón. También puede eliminar cualquier webhook existente haciendo clic en el botón Borrar.</p>",
+      "SIDEBAR_TXT": "<p><b>Webhooks</b> </p> <p>Webhooks son callbacks HTTP que se pueden definir para cada cuenta. Son activados por eventos como la creación de mensajes en DeskFlows. Puede crear más de un webhook para esta cuenta. <br /><br /> Para crear un webhook <b></b>, haga clic en el <b>Añadir un nuevo webhook</b> botón. También puede eliminar cualquier webhook existente haciendo clic en el botón Borrar.</p>",
       "LIST": {
         "404": "No hay webhooks configurados para esta cuenta.",
         "TITLE": "Administrar webhooks",
@@ -111,14 +111,14 @@
       },
       "HELP_TEXT": {
         "TITLE": "¿Cómo utilizar la Integración Slack?",
-        "BODY": "Con esta integración, todas tus conversaciones entrantes serán sincronizadas con el canal ***{selectedChannelName}*** en tu espacio de trabajo en Slack. Puedes administrar todas tus conversaciones con los clientes directamente en tu canal y nunca perder un mensaje.\n\nEstas son las principales características de la integración:\n\n**Responda a conversaciones desde Slack:** Para responder a una conversación en el canal Slack ***{selectedChannelName}***, simplemente escriba el mensaje y envíalo como un hilo. Esto creará una respuesta que se enviará al cliente mediante DeskFlow. ¡Es así de simple!\n\n**Crea notas privadas:** Si quieres crear una nota privada en lugar de una respuesta, comience su mensaje con ***`note:`***. Esto asegurará que tu mensaje se mantenga privado y no será visible al cliente.\n\n**Asociar un perfil de agente:** Si la persona que responde en Slack tiene un agente de perfil en DeskFlow bajo el mismo correo electrónico, las respuestas serán asociadas con ese perfil de agente automáticamente. Esto quiere decir que puedes fácilmente estar al tanto de quién dijo qué y cuándo. Por el otro lado, cuando la persona que responde no tiene un perfil de agente, las respuestas aparecerán desde el perfil de bot al cliente.",
+        "BODY": "Con esta integración, todas tus conversaciones entrantes serán sincronizadas con el canal ***{selectedChannelName}*** en tu espacio de trabajo en Slack. Puedes administrar todas tus conversaciones con los clientes directamente en tu canal y nunca perder un mensaje.\n\nEstas son las principales características de la integración:\n\n**Responda a conversaciones desde Slack:** Para responder a una conversación en el canal Slack ***{selectedChannelName}***, simplemente escriba el mensaje y envíalo como un hilo. Esto creará una respuesta que se enviará al cliente mediante DeskFlows. ¡Es así de simple!\n\n**Crea notas privadas:** Si quieres crear una nota privada en lugar de una respuesta, comience su mensaje con ***`note:`***. Esto asegurará que tu mensaje se mantenga privado y no será visible al cliente.\n\n**Asociar un perfil de agente:** Si la persona que responde en Slack tiene un agente de perfil en DeskFlows bajo el mismo correo electrónico, las respuestas serán asociadas con ese perfil de agente automáticamente. Esto quiere decir que puedes fácilmente estar al tanto de quién dijo qué y cuándo. Por el otro lado, cuando la persona que responde no tiene un perfil de agente, las respuestas aparecerán desde el perfil de bot al cliente.",
         "SELECTED": "seleccionado"
       },
       "SELECT_CHANNEL": {
         "OPTION_LABEL": "Seleccione un canal",
         "UPDATE": "Actualizar",
         "BUTTON_TEXT": "Conectar canal",
-        "DESCRIPTION": "Su espacio de trabajo de Slack ahora esta enlazado con DeskFlow. Sin embarbo, la integración esta actualmente inactiva. Para activar la integración y conectar un canal a DeskFlow, por favor haga clic en el siguiente boton.\n\n**Nota.** Si esta intentando conectar un canal privado, agregue la aplicación DeskFlow al canal de Slack antes de proceder con este paso.",
+        "DESCRIPTION": "Su espacio de trabajo de Slack ahora esta enlazado con DeskFlows. Sin embarbo, la integración esta actualmente inactiva. Para activar la integración y conectar un canal a DeskFlows, por favor haga clic en el siguiente boton.\n\n**Nota.** Si esta intentando conectar un canal privado, agregue la aplicación DeskFlows al canal de Slack antes de proceder con este paso.",
         "ATTENTION_REQUIRED": "Atención requerida",
         "EXPIRED": "Su integración de Slack ha caducado. Para continuar recibiendo mensajes en Slack, por favor elimine la integración y vuelva a conectar su área de trabajo."
       },
@@ -198,7 +198,7 @@
     "DASHBOARD_APPS": {
       "TITLE": "Panel de aplicaciones",
       "HEADER_BTN_TXT": "Añadir una nueva aplicación",
-      "SIDEBAR_TXT": "<p><b>Aplicaciones de panel</b></p><p>Aplicaciones de panel de control permiten a las organizaciones incrustar una aplicación dentro del panel de control de DeskFlow para proporcionar el contexto para los agentes de atención al cliente. Esta característica le permite crear una aplicación de forma independiente e incrustarla dentro del panel de control para proporcionar información de usuario, sus pedidos, o su historial de pagos anterior.</p><p>Cuando incrustas tu aplicación usando el panel de control en DeskFlow, tu aplicación obtendrá el contexto de la conversación y el contacto como un evento de ventana. Implementa un oyente para el evento del mensaje en tu página para recibir el contexto.</p><p>Para añadir una nueva aplicación de panel, haga clic en el botón 'Añadir una nueva aplicación de panel'.</p>",
+      "SIDEBAR_TXT": "<p><b>Aplicaciones de panel</b></p><p>Aplicaciones de panel de control permiten a las organizaciones incrustar una aplicación dentro del panel de control de DeskFlows para proporcionar el contexto para los agentes de atención al cliente. Esta característica le permite crear una aplicación de forma independiente e incrustarla dentro del panel de control para proporcionar información de usuario, sus pedidos, o su historial de pagos anterior.</p><p>Cuando incrustas tu aplicación usando el panel de control en DeskFlows, tu aplicación obtendrá el contexto de la conversación y el contacto como un evento de ventana. Implementa un oyente para el evento del mensaje en tu página para recibir el contexto.</p><p>Para añadir una nueva aplicación de panel, haga clic en el botón 'Añadir una nueva aplicación de panel'.</p>",
       "DESCRIPTION": "Las aplicaciones de panel permiten a las organizaciones incrustar una aplicación dentro del panel de control para proporcionar el contexto para los agentes de soporte al cliente. Esta función le permite crear una aplicación de forma independiente e incrustada para proporcionar información de usuario, sus pedidos o su historial de pagos anterior.",
       "LEARN_MORE": "Aprende más sobre el panel de aplicaciones",
       "LIST": {
@@ -361,7 +361,7 @@
       "KICK_OFF_MESSAGE": "Need a quick summary, want to check past conversations, or draft a better reply? Copilot’s here to speed things up.",
       "SEND_MESSAGE": "Enviar mensaje...",
       "EMPTY_MESSAGE": "There was an error generating the response. Please try again.",
-      "LOADER": "Atlas is thinking",
+      "LOADER": "Hudley is thinking",
       "YOU": "Tú",
       "USE": "Use this",
       "RESET": "Reset",
@@ -396,11 +396,11 @@
       "MESSAGE_PLACEHOLDER": "Escribe tu mensaje...",
       "HEADER": "Playground",
       "DESCRIPTION": "Use this playground to send messages to your assistant and check if it responds accurately, quickly, and in the tone you expect.",
-      "CREDIT_NOTE": "Messages sent here will count toward your Atlas credits."
+      "CREDIT_NOTE": "Messages sent here will count toward your Hudley credits."
     },
     "PAYWALL": {
-      "TITLE": "Upgrade to use Atlas AI",
-      "AVAILABLE_ON": "Atlas is not available on the free plan.",
+      "TITLE": "Upgrade to use Hudley AI",
+      "AVAILABLE_ON": "Hudley is not available on the free plan.",
       "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, copilot and more.",
       "UPGRADE_NOW": "Actualizar ahora",
       "CANCEL_ANYTIME": "Puede cambiar o cancelar su plan en cualquier momento"
@@ -410,8 +410,8 @@
       "ASK_ADMIN": "Por favor, comuníquese con su administrador para la actualización."
     },
     "BANNER": {
-      "RESPONSES": "You've used over 80% of your response limit. To continue using Atlas AI, please upgrade.",
-      "DOCUMENTS": "Document limit reached. Upgrade to continue using Atlas AI."
+      "RESPONSES": "You've used over 80% of your response limit. To continue using Hudley AI, please upgrade.",
+      "DOCUMENTS": "Document limit reached. Upgrade to continue using Hudley AI."
     },
     "FORM": {
       "CANCEL": "Cancelar",
@@ -531,8 +531,8 @@
         "TITLE": "No assistants available",
         "SUBTITLE": "Create an assistant to provide quick and accurate responses to your users. It can learn from your help articles and past conversations.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Atlas Assistant",
-          "NOTE": "Atlas Assistant engages directly with customers, learns from your help docs and past conversations, and delivers instant, accurate responses. It handles the initial queries, providing quick resolutions before  transferring to an agent when needed."
+          "TITLE": "Hudley Assistant",
+          "NOTE": "Hudley Assistant engages directly with customers, learns from your help docs and past conversations, and delivers instant, accurate responses. It handles the initial queries, providing quick resolutions before  transferring to an agent when needed."
         }
       },
       "GUARDRAILS": {
@@ -742,8 +742,8 @@
         "TITLE": "No documents available",
         "SUBTITLE": "Documents are used by your assistant to generate FAQs. You can import documents to provide context for your assistant.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Atlas Document",
-          "NOTE": "A document in Atlas serves as a knowledge resource for the assistant. By connecting your help center or guides, Atlas can analyze the content and provide accurate responses for customer inquiries."
+          "TITLE": "Hudley Document",
+          "NOTE": "A document in Hudley serves as a knowledge resource for the assistant. By connecting your help center or guides, Hudley can analyze the content and provide accurate responses for customer inquiries."
         }
       }
     },
@@ -899,7 +899,7 @@
         "ALL": "Todos"
       },
       "PENDING_BANNER": {
-        "TITLE": "Atlas has found some FAQs your customers were looking for.",
+        "TITLE": "Hudley has found some FAQs your customers were looking for.",
         "ACTION": "Click here to review"
       },
       "FORM_DESCRIPTION": "Add a question and its corresponding answer to the knowledge base and select the assistant it should be associated with.",
@@ -937,8 +937,8 @@
         "SUBTITLE": "FAQs help your assistant provide quick and accurate answers to questions from your customers. They can be generated automatically from your content or can be added manually.",
         "CLEAR_SEARCH": "Clear active filters",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Atlas FAQ",
-          "NOTE": "Atlas FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
+          "TITLE": "Hudley FAQ",
+          "NOTE": "Hudley FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
         }
       }
     },

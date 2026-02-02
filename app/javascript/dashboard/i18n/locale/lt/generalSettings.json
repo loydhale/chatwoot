@@ -123,11 +123,11 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Dabar galite gauti el. laiškus pasirinktame domene."
       }
     },
-    "UPDATE_DESKFLOWS": "Yra DeskFlow naujinimas {latestDeskFlowVersion}. Atnaujinkite savo versiją.",
+    "UPDATE_DESKFLOWS": "Yra DeskFlows naujinimas {latestDeskFlowVersion}. Atnaujinkite savo versiją.",
     "LEARN_MORE": "Sužinoti daugiau",
-    "PAYMENT_PENDING": "Laukiama jūsų mokėjimo. Atnaujinkite savo mokėjimo informaciją, kad galėtumėte toliau naudoti DeskFlow",
-    "UPGRADE": "Upgrade to continue using DeskFlow",
-    "LIMITS_UPGRADE": "Jūsų paskyra viršijo naudojimo apribojimus, atnaujinkite savo planą, kad galėtumėte toliau naudoti DeskFlow",
+    "PAYMENT_PENDING": "Laukiama jūsų mokėjimo. Atnaujinkite savo mokėjimo informaciją, kad galėtumėte toliau naudoti DeskFlows",
+    "UPGRADE": "Upgrade to continue using DeskFlows",
+    "LIMITS_UPGRADE": "Jūsų paskyra viršijo naudojimo apribojimus, atnaujinkite savo planą, kad galėtumėte toliau naudoti DeskFlows",
     "OPEN_BILLING": "Atidaryti mokėjimą"
   },
   "FORMS": {

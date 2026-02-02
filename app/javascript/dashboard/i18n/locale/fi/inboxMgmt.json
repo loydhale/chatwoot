@@ -39,7 +39,7 @@
         "PLACEHOLDER": "Anna sivuston nimi (esim. Acme Oy)"
       },
       "FB": {
-        "HELP": "PS: Kirjautumalla sisään saamme vain pääsyn sivusi viesteihin. DeskFlow ei koskaan näe yksityisviestejäsi.",
+        "HELP": "PS: Kirjautumalla sisään saamme vain pääsyn sivusi viesteihin. DeskFlows ei koskaan näe yksityisviestejäsi.",
         "CHOOSE_PAGE": "Valitse sivu",
         "CHOOSE_PLACEHOLDER": "Valitse sivu listasta",
         "INBOX_NAME": "Kansion nimi",
@@ -438,7 +438,7 @@
       },
       "AUTH": {
         "TITLE": "Choose a channel",
-        "DESC": "DeskFlow tukee live-chat-widgetejä, Facebook Messenger, WhatsApp, sähköpostit jne. kanavina. Jos haluat rakentaa mukautetun kanavan, voit luoda sen API-kanavalla. Päästäksesi alkuun, valitse jokin kanava alta.",
+        "DESC": "DeskFlows tukee live-chat-widgetejä, Facebook Messenger, WhatsApp, sähköpostit jne. kanavina. Jos haluat rakentaa mukautetun kanavan, voit luoda sen API-kanavalla. Päästäksesi alkuun, valitse jokin kanava alta.",
         "TITLE_NEXT": "Complete the setup",
         "TITLE_FINISH": "Voilà!",
         "CHANNEL": {
@@ -1021,7 +1021,7 @@
         "USER_MESSAGE": "Hei",
         "AGENT_MESSAGE": "Moi"
       },
-      "BRANDING_TEXT": "Palvelun tarjoaa DeskFlow",
+      "BRANDING_TEXT": "Palvelun tarjoaa DeskFlows",
       "SCRIPT_SETTINGS": "\n      window.deskflowsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {

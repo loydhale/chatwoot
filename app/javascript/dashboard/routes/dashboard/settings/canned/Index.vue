@@ -9,6 +9,7 @@ import { useStoreGetters, useStore } from 'dashboard/composables/store';
 import { useMessageFormatter } from 'shared/composables/useMessageFormatter';
 
 import Button from 'dashboard/components-next/button/Button.vue';
+import { seedHealthcareCannedResponses } from 'dashboard/helpers/seedHealthcareCannedResponses';
 
 defineOptions({
   name: 'CannedResponseSettings',
@@ -28,6 +29,8 @@ const activeResponse = ref({});
 const cannedResponseAPI = ref({ message: '' });
 
 const sortOrder = ref('asc');
+const isSeeding = ref(false);
+
 const records = computed(() =>
   getters.getSortedCannedResponses.value(sortOrder.value)
 );
@@ -56,6 +59,26 @@ const fetchCannedResponses = async () => {
     await store.dispatch('getCannedResponse');
   } catch (error) {
     // Ignore Error
+  }
+};
+
+const importHealthcareTemplates = async () => {
+  isSeeding.value = true;
+  try {
+    const existing = records.value || [];
+    const result = await seedHealthcareCannedResponses(existing);
+    if (result.created > 0) {
+      useAlert(
+        `Imported ${result.created} healthcare templates (${result.skipped} already existed)`
+      );
+      fetchCannedResponses();
+    } else {
+      useAlert('All healthcare templates already exist!');
+    }
+  } catch {
+    useAlert('Failed to import templates. Please try again.');
+  } finally {
+    isSeeding.value = false;
   }
 };
 
@@ -129,11 +152,21 @@ const tableHeaders = computed(() => {
       feature-name="canned_responses"
     >
       <template #actions>
-        <Button
-          icon="i-lucide-circle-plus"
-          :label="$t('CANNED_MGMT.HEADER_BTN_TXT')"
-          @click="openAddPopup"
-        />
+        <div class="flex gap-2">
+          <Button
+            icon="i-lucide-heart-pulse"
+            label="Import Healthcare Templates"
+            faded
+            slate
+            :is-loading="isSeeding"
+            @click="importHealthcareTemplates"
+          />
+          <Button
+            icon="i-lucide-circle-plus"
+            :label="$t('CANNED_MGMT.HEADER_BTN_TXT')"
+            @click="openAddPopup"
+          />
+        </div>
       </template>
     </BaseSettingsHeader>
 

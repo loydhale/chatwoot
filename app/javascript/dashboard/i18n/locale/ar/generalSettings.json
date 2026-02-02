@@ -123,11 +123,11 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "يمكنك تلقي رسائل البريد الإلكتروني في النطاق المخصص الخاص بك الآن."
       }
     },
-    "UPDATE_DESKFLOWS": "يتوفر تحديث {latestDeskFlowVersion} لـ DeskFlow. الرجاء التحديث.",
+    "UPDATE_DESKFLOWS": "يتوفر تحديث {latestDeskFlowVersion} لـ DeskFlows. الرجاء التحديث.",
     "LEARN_MORE": "اعرف المزيد",
-    "PAYMENT_PENDING": "الدفعة الخاصة بك معلقة. الرجاء تحديث معلومات الدفع الخاصة بك للاستمرار في استخدام DeskFlow",
-    "UPGRADE": "Upgrade to continue using DeskFlow",
-    "LIMITS_UPGRADE": "لقد تجاوز حسابك حدود الاستخدام، يرجى ترقية خطتك للاستمرار في استخدام DeskFlow",
+    "PAYMENT_PENDING": "الدفعة الخاصة بك معلقة. الرجاء تحديث معلومات الدفع الخاصة بك للاستمرار في استخدام DeskFlows",
+    "UPGRADE": "Upgrade to continue using DeskFlows",
+    "LIMITS_UPGRADE": "لقد تجاوز حسابك حدود الاستخدام، يرجى ترقية خطتك للاستمرار في استخدام DeskFlows",
     "OPEN_BILLING": "فتح الفواتير"
   },
   "FORMS": {

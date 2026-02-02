@@ -123,11 +123,11 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Τώρα μπορείτε να λαμβάνετε emails στον τομέα (domain) σας."
       }
     },
-    "UPDATE_DESKFLOWS": "Μια ενημέρωση {latestDeskFlowVersion} για το DeskFlow είναι διαθέσιμη. Ενημερώστε την εφαρμογή σας.",
+    "UPDATE_DESKFLOWS": "Μια ενημέρωση {latestDeskFlowVersion} για το DeskFlows είναι διαθέσιμη. Ενημερώστε την εφαρμογή σας.",
     "LEARN_MORE": "Μάθετε περισσότερα",
-    "PAYMENT_PENDING": "Your payment is pending. Please update your payment information to continue using DeskFlow",
-    "UPGRADE": "Upgrade to continue using DeskFlow",
-    "LIMITS_UPGRADE": "Your account has exceeded the usage limits, please upgrade your plan to continue using DeskFlow",
+    "PAYMENT_PENDING": "Your payment is pending. Please update your payment information to continue using DeskFlows",
+    "UPGRADE": "Upgrade to continue using DeskFlows",
+    "LIMITS_UPGRADE": "Your account has exceeded the usage limits, please upgrade your plan to continue using DeskFlows",
     "OPEN_BILLING": "Open billing"
   },
   "FORMS": {

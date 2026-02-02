@@ -695,7 +695,7 @@
       "CONFIRM_BUTTON_LABEL": "Criar",
       "NAME": {
         "LABEL": "Nome:",
-        "PLACEHOLDER": "User Guide | DeskFlow",
+        "PLACEHOLDER": "User Guide | DeskFlows",
         "MESSAGE": "Choose an name for your portal.",
         "ERROR": "Nome é obrigatório"
       },

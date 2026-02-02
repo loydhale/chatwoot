@@ -60,9 +60,9 @@ export const ONGOING_CAMPAIGN_EMPTY_STATE_CONTENT = [
     },
     sender: {
       id: 1,
-      name: 'DeskFlow',
+      name: 'DeskFlows',
     },
-    message: 'Hi! DeskFlow here. Need help setting up? Let me know!',
+    message: 'Hi! DeskFlows here. Need help setting up? Let me know!',
     campaign_status: 'active',
     enabled: false,
     campaign_type: 'ongoing',

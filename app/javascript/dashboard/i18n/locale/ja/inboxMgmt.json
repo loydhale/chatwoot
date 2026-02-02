@@ -1021,7 +1021,7 @@
         "USER_MESSAGE": "こんにちは",
         "AGENT_MESSAGE": "こんにちは"
       },
-      "BRANDING_TEXT": "提供：DeskFlow",
+      "BRANDING_TEXT": "提供：DeskFlows",
       "SCRIPT_SETTINGS": "\n      window.deskflowsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {

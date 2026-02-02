@@ -1,4 +1,4 @@
-class Atlas::Llm::PaginatedFaqGeneratorService < Llm::LegacyBaseOpenAiService
+class Hudley::Llm::PaginatedFaqGeneratorService < Llm::LegacyBaseOpenAiService
   include Integrations::LlmInstrumentation
 
   # Default pages per chunk - easily configurable
@@ -139,7 +139,7 @@ class Atlas::Llm::PaginatedFaqGeneratorService < Llm::LegacyBaseOpenAiService
   end
 
   def page_chunk_prompt(start_page, end_page)
-    Atlas::Llm::SystemPromptsService.paginated_faq_generator(start_page, end_page, @language)
+    Hudley::Llm::SystemPromptsService.paginated_faq_generator(start_page, end_page, @language)
   end
 
   def standard_chat_parameters
@@ -149,7 +149,7 @@ class Atlas::Llm::PaginatedFaqGeneratorService < Llm::LegacyBaseOpenAiService
       messages: [
         {
           role: 'system',
-          content: Atlas::Llm::SystemPromptsService.faq_generator(@language)
+          content: Hudley::Llm::SystemPromptsService.faq_generator(@language)
         },
         {
           role: 'user',
