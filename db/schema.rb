@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_01_20_121402) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -73,6 +73,10 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_20_121402) do
     t.integer "status", default: 0
     t.jsonb "internal_attributes", default: {}, null: false
     t.jsonb "settings", default: {}
+    t.string "ghl_location_id"
+    t.string "ghl_company_id"
+    t.index ["ghl_company_id"], name: "index_accounts_on_ghl_company_id"
+    t.index ["ghl_location_id"], name: "index_accounts_on_ghl_location_id", unique: true, where: "(ghl_location_id IS NOT NULL)"
     t.index ["status"], name: "index_accounts_on_status"
   end
 
@@ -825,6 +829,33 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_20_121402) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ghl_subscriptions", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "plan", default: "starter", null: false
+    t.string "status", default: "trialing", null: false
+    t.string "ghl_company_id"
+    t.string "ghl_location_id"
+    t.string "ghl_user_id"
+    t.string "ghl_app_id"
+    t.integer "locations_count", default: 1, null: false
+    t.integer "locations_limit", default: 1, null: false
+    t.integer "agents_limit", default: 3, null: false
+    t.integer "ai_credits_used", default: 0, null: false
+    t.integer "ai_credits_limit", default: 500, null: false
+    t.jsonb "usage_data", default: {}, null: false
+    t.jsonb "metadata", default: {}, null: false
+    t.datetime "trial_ends_at"
+    t.datetime "current_period_ends_at"
+    t.datetime "cancelled_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_ghl_subscriptions_on_account_id", unique: true
+    t.index ["ghl_company_id"], name: "index_ghl_subscriptions_on_ghl_company_id"
+    t.index ["ghl_location_id"], name: "index_ghl_subscriptions_on_ghl_location_id"
+    t.index ["plan"], name: "index_ghl_subscriptions_on_plan"
+    t.index ["status"], name: "index_ghl_subscriptions_on_status"
+  end
+
   create_table "inbox_assignment_policies", force: :cascade do |t|
     t.bigint "inbox_id", null: false
     t.bigint "assignment_policy_id", null: false
@@ -903,6 +934,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_20_121402) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "settings", default: {}
+    t.index ["app_id", "status", "reference_id"], name: "index_integrations_hooks_on_app_status_reference"
+    t.index ["app_id"], name: "index_integrations_hooks_on_app_id"
   end
 
   create_table "labels", force: :cascade do |t|
@@ -1270,6 +1303,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_20_121402) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "ghl_subscriptions", "accounts"
   add_foreign_key "inboxes", "portals"
   create_trigger("accounts_after_insert_row_tr", :generated => true, :compatibility => 1).
       on("accounts").

@@ -29,12 +29,14 @@ module Ghl
     end
 
     def perform
+      result = nil
+
       ActiveRecord::Base.transaction do
         # Check for existing workspace first
         existing = find_existing_workspace
         if existing
           reconnect_existing(existing)
-          return Result.new(
+          result = Result.new(
             'success?': true,
             account: existing,
             user: existing.administrators.first,
@@ -42,29 +44,31 @@ module Ghl
             hook: existing.hooks.find_by(app_id: 'gohighlevel'),
             error: nil
           )
+        else
+          account = create_account
+          user = create_admin_user(account)
+          subscription = create_subscription(account)
+          hook = create_integration_hook(account)
+          inbox = create_default_inbox(account)
+          configure_account_defaults(account, inbox)
+
+          Rails.logger.info(
+            "GHL provisioning: created workspace account=#{account.id} " \
+            "location=#{location_id} company=#{company_id} user=#{user.id}"
+          )
+
+          result = Result.new(
+            'success?': true,
+            account: account,
+            user: user,
+            subscription: subscription,
+            hook: hook,
+            error: nil
+          )
         end
-
-        account = create_account
-        user = create_admin_user(account)
-        subscription = create_subscription(account)
-        hook = create_integration_hook(account)
-        inbox = create_default_inbox(account)
-        configure_account_defaults(account, inbox)
-
-        Rails.logger.info(
-          "GHL provisioning: created workspace account=#{account.id} " \
-          "location=#{location_id} company=#{company_id} user=#{user.id}"
-        )
-
-        Result.new(
-          'success?': true,
-          account: account,
-          user: user,
-          subscription: subscription,
-          hook: hook,
-          error: nil
-        )
       end
+
+      result
     rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique => e
       Rails.logger.error("GHL provisioning failed: #{e.message}")
       Result.new('success?': false, error: e.message)
@@ -106,7 +110,7 @@ module Ghl
       user = User.create!(
         email: email,
         name: derive_name,
-        password: SecureRandom.alphanumeric(24),
+        password: generate_secure_password,
         confirmed_at: Time.current,
         custom_attributes: {
           'ghl_user_id' => ghl_user_id,
@@ -240,6 +244,13 @@ module Ghl
       oauth_data['userId']
     end
 
+    # Generate a password that satisfies devise-secure_password rules:
+    # at least 1 uppercase, 1 lowercase, 1 digit, and 1 special character
+    def generate_secure_password
+      base = SecureRandom.alphanumeric(20)
+      "#{base}!A1z"
+    end
+
     def derive_email
       ghl_user_info['email'].presence ||
         "ghl-#{ghl_user_id || SecureRandom.hex(6)}@deskflows.ai"
@@ -247,8 +258,8 @@ module Ghl
 
     def derive_name
       ghl_user_info['name'].presence ||
-        ghl_user_info['firstName'].present? ? "#{ghl_user_info['firstName']} #{ghl_user_info['lastName']}".strip : nil ||
-        "GHL User"
+        (ghl_user_info['firstName'].present? && "#{ghl_user_info['firstName']} #{ghl_user_info['lastName']}".strip.presence) ||
+        'GHL User'
     end
 
     def workspace_name
