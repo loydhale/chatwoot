@@ -44,6 +44,16 @@ class Webhooks::GhlEventsJob < ApplicationJob
     when 'conversation.status'
       Ghl::MessageSyncService.new(account: account, hook: hook).sync_conversation_status(params)
 
+    # --- Opportunity Events ---
+    when 'opportunity.create'
+      Ghl::OpportunitySyncService.new(account: account, hook: hook).create_from_ghl(params)
+    when 'opportunity.update'
+      Ghl::OpportunitySyncService.new(account: account, hook: hook).update_from_ghl(params)
+    when 'opportunity.delete'
+      Ghl::OpportunitySyncService.new(account: account, hook: hook).delete_from_ghl(params)
+    when 'opportunity.status_change'
+      Ghl::OpportunitySyncService.new(account: account, hook: hook).status_change_from_ghl(params)
+
     # --- Location Events (multi-tenant) ---
     when 'location.create'
       handle_location_create(account, params)

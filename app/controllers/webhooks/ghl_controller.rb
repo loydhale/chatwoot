@@ -11,6 +11,7 @@
 #   - contact.create / contact.update / contact.delete
 #   - InboundMessage / OutboundMessage / conversation.message
 #   - conversation.status (open/closed)
+#   - opportunity.create / opportunity.update / opportunity.delete / opportunity.status_change
 #   - app.installed / app.uninstalled (marketplace lifecycle)
 #   - location.create / location.update (multi-location tracking)
 #
@@ -41,6 +42,19 @@ class Webhooks::GhlController < ActionController::API
     when 'ConversationUnreadUpdate', 'conversation.status',
          'ConversationAssignmentUpdate'
       Webhooks::GhlEventsJob.perform_later('conversation.status', sanitized_params)
+
+    # --- Opportunity Events ---
+    when 'OpportunityCreate', 'opportunity.create'
+      Webhooks::GhlEventsJob.perform_later('opportunity.create', sanitized_params)
+    when 'OpportunityUpdate', 'opportunity.update'
+      Webhooks::GhlEventsJob.perform_later('opportunity.update', sanitized_params)
+    when 'OpportunityDelete', 'opportunity.delete'
+      Webhooks::GhlEventsJob.perform_later('opportunity.delete', sanitized_params)
+    when 'OpportunityStageUpdate', 'OpportunityStatusUpdate',
+         'opportunity.stage_change', 'opportunity.status_change'
+      Webhooks::GhlEventsJob.perform_later('opportunity.status_change', sanitized_params)
+    when 'OpportunityMonetaryValueUpdate', 'opportunity.monetary_value_update'
+      Webhooks::GhlEventsJob.perform_later('opportunity.update', sanitized_params)
 
     # --- App Lifecycle Events ---
     when 'app.installed', 'AppInstalled'
@@ -85,6 +99,7 @@ class Webhooks::GhlController < ActionController::API
   end
 
   def extract_location_id
-    params['locationId'] || params.dig('contact', 'locationId') || params.dig('data', 'locationId')
+    params['locationId'] || params.dig('contact', 'locationId') ||
+      params.dig('data', 'locationId') || params.dig('opportunity', 'locationId')
   end
 end

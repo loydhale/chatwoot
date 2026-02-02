@@ -48,5 +48,20 @@ FactoryBot.define do
         }
       end
     end
+
+    trait :gohighlevel do
+      app_id { 'gohighlevel' }
+      access_token { SecureRandom.hex }
+      reference_id { "loc_#{SecureRandom.hex(6)}" }
+      settings do
+        {
+          'location_id' => reference_id,
+          'company_id' => "comp_#{SecureRandom.hex(6)}",
+          'connected_at' => Time.current.iso8601,
+          'expires_at' => 1.day.from_now.iso8601,
+          'refresh_token' => SecureRandom.hex
+        }
+      end
+    end
   end
 end

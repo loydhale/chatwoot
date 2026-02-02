@@ -298,6 +298,7 @@ Rails.application.routes.draw do
             resource :subscription, only: [:show, :update] do
               get :usage, on: :member
             end
+            resource :webhook_settings, only: [:show, :create, :update]
           end
 
           resources :webhooks, only: [:index, :create, :update, :destroy]
@@ -649,6 +650,7 @@ Rails.application.routes.draw do
           post :reset_usage
         end
       end
+      resource :ghl_webhook_settings, only: [:show, :update]
       resource :instance_status, only: [:show]
 
       resource :settings, only: [:show] do
