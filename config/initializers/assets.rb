@@ -3,16 +3,16 @@
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = '1.0'
 
-# Add additional assets to the asset load path.
-# Rails.application.config.assets.paths << Emoji.images_path
-# Add Yarn node_modules folder to the asset load path.
-Rails.application.config.assets.paths << Rails.root.join('node_modules')
+# NOTE: node_modules was previously added to the Sprockets asset load path
+# (legacy from the Yarn/Webpacker era). Now that the dashboard uses Vite,
+# node_modules is NOT needed by Sprockets. Including it caused Sprockets to
+# scan 800+ MB of node_modules on first request, resulting in ~19-minute hangs
+# in CI tests that render Administrate views.
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-# Rails.application.config.assets.precompile += %w( admin.js admin.css )
-Rails.application.config.assets.precompile += %w[dashboardChart.js]
+Rails.application.config.assets.precompile += %w[secretField.js]
 
 # to take care of fonts in assets pre-compiling
 # Ref: https://stackoverflow.com/questions/56960709/rails-font-cors-policy
