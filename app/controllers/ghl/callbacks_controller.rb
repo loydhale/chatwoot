@@ -13,7 +13,7 @@ class Ghl::CallbacksController < ApplicationController
   include GhlConcern
   include Ghl::IntegrationHelper
 
-  skip_before_action :verify_authenticity_token, only: [:show]
+  # verify_authenticity_token is already skipped globally in ApplicationController
 
   def show
     return redirect_to_error('missing_params') if params[:code].blank?
