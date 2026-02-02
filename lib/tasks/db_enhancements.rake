@@ -30,5 +30,5 @@ db_namespace = namespace :db do
   end
 end
 
-  # Alias for rebrand compatibility
-  task deskflows_prepare: :deskflows_prepare
+# Alias for rebrand compatibility
+task deskflows_prepare: 'db:deskflows_prepare'
