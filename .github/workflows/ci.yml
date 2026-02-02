@@ -128,4 +128,5 @@ jobs:
           DOCKER_BUILDKIT: 1
 
       - name: Verify image exists
-        run: docker image inspect deskflow-ci-test --format '{{.Size}}' | awk '{printf "Image size: %.0f MB\n", $1/1024/1024}'
+        run: |
+          docker image inspect deskflow-ci-test --format '{{.Size}}' | awk '{printf "Image size: %.0f MB\n", $1/1024/1024}'
