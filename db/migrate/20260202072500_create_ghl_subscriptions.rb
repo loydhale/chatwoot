@@ -32,7 +32,7 @@ class CreateGhlSubscriptions < ActiveRecord::Migration[7.0]
     # Add GHL-specific fields to accounts for quick lookups
     add_column :accounts, :ghl_location_id, :string
     add_column :accounts, :ghl_company_id, :string
-    add_index :accounts, :ghl_location_id, unique: true, where: "ghl_location_id IS NOT NULL"
+    add_index :accounts, :ghl_location_id, unique: true, where: 'ghl_location_id IS NOT NULL'
     add_index :accounts, :ghl_company_id
   end
 end

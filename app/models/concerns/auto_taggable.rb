@@ -7,41 +7,23 @@ module AutoTaggable
   extend ActiveSupport::Concern
 
   AUTO_TAG_RULES = {
-    'billing' => %w[
-      bill billing invoice payment charge charged refund
-      credit\ card insurance copay co-pay deductible
-      receipt statement balance owe price cost fee
-      expensive overcharged transaction pay paid
+    'billing' => [
+      'bill', 'billing', 'invoice', 'payment', 'charge', 'charged', 'refund', 'credit card', 'insurance', 'copay', 'co-pay', 'deductible', 'receipt', 'statement', 'balance', 'owe', 'price', 'cost', 'fee', 'expensive', 'overcharged', 'transaction', 'pay', 'paid'
     ],
-    'appointment' => %w[
-      appointment schedule scheduling book booking
-      reschedule cancel\ appointment availability available
-      slot time\ slot visit come\ in check-in checkin
-      walk-in walkin next\ available earliest opening
+    'appointment' => [
+      'appointment', 'schedule', 'scheduling', 'book', 'booking', 'reschedule', 'cancel appointment', 'availability', 'available', 'slot', 'time slot', 'visit', 'come in', 'check-in', 'checkin', 'walk-in', 'walkin', 'next available', 'earliest', 'opening'
     ],
-    'membership' => %w[
-      membership member subscribe subscription plan
-      upgrade downgrade cancel\ membership renew renewal
-      benefits tier credits points loyalty VIP premium
-      package monthly annual
+    'membership' => [
+      'membership', 'member', 'subscribe', 'subscription', 'plan', 'upgrade', 'downgrade', 'cancel membership', 'renew', 'renewal', 'benefits', 'tier', 'credits', 'points', 'loyalty', 'VIP', 'premium', 'package', 'monthly', 'annual'
     ],
-    'complaint' => %w[
-      complaint complain upset angry furious terrible
-      horrible worst awful disappointed disappointing
-      unacceptable disgusted rude unprofessional
-      poor\ service bad\ experience never\ coming\ back
-      want\ to\ speak\ to\ manager manager supervisor
-      escalate not\ happy dissatisfied frustrated ridiculous
+    'complaint' => [
+      'complaint', 'complain', 'upset', 'angry', 'furious', 'terrible', 'horrible', 'worst', 'awful', 'disappointed', 'disappointing', 'unacceptable', 'disgusted', 'rude', 'unprofessional', 'poor service', 'bad experience', 'never coming back', 'want to speak to manager', 'manager', 'supervisor', 'escalate', 'not happy', 'dissatisfied', 'frustrated', 'ridiculous'
     ],
-    'new-patient' => %w[
-      new\ patient first\ time first\ visit never\ been
-      new\ here just\ moved looking\ for\ a accepting\ new
-      new\ client getting\ started sign\ up register registration
+    'new-patient' => [
+      'new patient', 'first time', 'first visit', 'never been', 'new here', 'just moved', 'looking for a', 'accepting new', 'new client', 'getting started', 'sign up', 'register', 'registration'
     ],
-    'urgent' => %w[
-      urgent emergency asap immediately right\ away
-      critical severe pain bleeding allergic\ reaction
-      chest\ pain help\ now
+    'urgent' => [
+      'urgent', 'emergency', 'asap', 'immediately', 'right away', 'critical', 'severe', 'pain', 'bleeding', 'allergic reaction', 'chest pain', 'help now'
     ]
   }.freeze
 

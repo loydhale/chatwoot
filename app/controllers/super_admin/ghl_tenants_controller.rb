@@ -11,9 +11,9 @@ class SuperAdmin::GhlTenantsController < SuperAdmin::ApplicationController
 
   def index
     @subscriptions = GhlSubscription
-                       .includes(:account)
-                       .order(created_at: :desc)
-                       .page(params[:page])
+                     .includes(:account)
+                     .order(created_at: :desc)
+                     .page(params[:page])
 
     # Filters
     @subscriptions = @subscriptions.where(plan: params[:plan]) if params[:plan].present?

@@ -95,7 +95,7 @@ RSpec.describe Ghl::ContactSyncService, type: :service do
     end
 
     it 'links to existing contact when email conflicts' do
-      existing = create(:contact, account: account, email: 'john@example.com', name: 'Existing John')
+      create(:contact, account: account, email: 'john@example.com', name: 'Existing John')
 
       contact = service.create_from_ghl(contact_params)
 

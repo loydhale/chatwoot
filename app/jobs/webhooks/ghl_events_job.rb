@@ -87,7 +87,7 @@ class Webhooks::GhlEventsJob < ApplicationJob
       sub&.activate! if sub&.status.in?(%w[cancelled suspended])
     else
       # Provision will happen when OAuth callback fires — just log for now
-      Rails.logger.info("GHL app installed: awaiting OAuth callback for provisioning")
+      Rails.logger.info('GHL app installed: awaiting OAuth callback for provisioning')
     end
   end
 

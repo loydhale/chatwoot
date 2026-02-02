@@ -109,7 +109,7 @@ class Ghl::CallbacksController < ApplicationController
   end
 
   def fetch_ghl_user_info
-    return {} unless parsed_body['access_token'].present?
+    return {} if parsed_body['access_token'].blank?
 
     # Try to fetch user/location info from GHL API for better naming
     uri = URI("https://services.leadconnectorhq.com/locations/#{parsed_body['locationId']}")

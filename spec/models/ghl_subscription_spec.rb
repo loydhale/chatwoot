@@ -3,8 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe GhlSubscription, type: :model do
-  let(:account) { create(:account) }
-
   subject(:subscription) do
     described_class.create!(
       account: account,
@@ -14,6 +12,8 @@ RSpec.describe GhlSubscription, type: :model do
       current_period_ends_at: 14.days.from_now
     )
   end
+
+  let(:account) { create(:account) }
 
   describe 'validations' do
     it { is_expected.to be_valid }

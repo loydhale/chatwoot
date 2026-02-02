@@ -21,9 +21,7 @@ class Integrations::Ghl::RefreshTokensJob < ApplicationJob
       next if refresh_token.blank?
 
       # If we can't parse expires_at, refresh proactively
-      if expires_at.present? && expires_at > REFRESH_WINDOW.from_now
-        next
-      end
+      next if expires_at.present? && expires_at > REFRESH_WINDOW.from_now
 
       new_tokens = Ghl::TokenRefreshService.new(refresh_token).refresh!
 

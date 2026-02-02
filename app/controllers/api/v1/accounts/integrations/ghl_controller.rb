@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Api::V1::Accounts::Integrations::GhlController < Api::V1::Accounts::BaseController
-
   before_action :fetch_hook, except: [:status, :contacts, :show_contact]
   before_action :check_authorization, except: [:contacts, :show_contact]
   before_action :check_agent_authorization, only: [:contacts, :show_contact]
@@ -27,7 +26,7 @@ class Api::V1::Accounts::Integrations::GhlController < Api::V1::Accounts::BaseCo
   def refresh
     settings = @hook.settings || {}
     refresh_token = settings['refresh_token']
-    return render_token_refresh_not_supported unless refresh_token.present?
+    return render_token_refresh_not_supported if refresh_token.blank?
 
     new_tokens = Ghl::TokenRefreshService.new(refresh_token).refresh!
 
@@ -55,7 +54,7 @@ class Api::V1::Accounts::Integrations::GhlController < Api::V1::Accounts::BaseCo
     return render json: { error: 'email or phone required' }, status: :bad_request if email.blank? && phone.blank?
 
     hook = Current.account.hooks.find_by(app_id: 'gohighlevel')
-    unless hook&.access_token.present?
+    if hook&.access_token.blank?
       # Fallback to PIT token
       return render json: ghl_pit_search(email, phone)
     end
@@ -69,7 +68,7 @@ class Api::V1::Accounts::Integrations::GhlController < Api::V1::Accounts::BaseCo
     )
 
     if response.success?
-      contacts_data = JSON.parse(response.body).dig('contacts') || []
+      contacts_data = JSON.parse(response.body)['contacts'] || []
       render json: contacts_data.first || {}
     else
       render json: ghl_pit_search(email, phone)
@@ -81,9 +80,7 @@ class Api::V1::Accounts::Integrations::GhlController < Api::V1::Accounts::BaseCo
     contact_id = params[:id]
     hook = Current.account.hooks.find_by(app_id: 'gohighlevel')
 
-    unless hook&.access_token.present?
-      return render json: ghl_pit_get_contact(contact_id)
-    end
+    return render json: ghl_pit_get_contact(contact_id) if hook&.access_token.blank?
 
     location_id = hook.settings&.dig('location_id') || ENV.fetch('GHL_LOCATION_ID', 'GYkUAluHxTzXjFjq9Pxx')
 
@@ -93,7 +90,7 @@ class Api::V1::Accounts::Integrations::GhlController < Api::V1::Accounts::BaseCo
     )
 
     if response.success?
-      contact = JSON.parse(response.body).dig('contact') || {}
+      contact = JSON.parse(response.body)['contact'] || {}
       render json: contact
     else
       render json: { error: 'GHL contact not found' }, status: :not_found
@@ -147,7 +144,7 @@ class Api::V1::Accounts::Integrations::GhlController < Api::V1::Accounts::BaseCo
 
     response = ghl_api_request(pit_token, "/contacts/?locationId=#{location_id}&#{query}")
     if response.success?
-      contacts = JSON.parse(response.body).dig('contacts') || []
+      contacts = JSON.parse(response.body)['contacts'] || []
       contacts.first || {}
     else
       {}
@@ -160,7 +157,7 @@ class Api::V1::Accounts::Integrations::GhlController < Api::V1::Accounts::BaseCo
 
     response = ghl_api_request(pit_token, "/contacts/#{contact_id}?locationId=#{location_id}")
     if response.success?
-      JSON.parse(response.body).dig('contact') || {}
+      JSON.parse(response.body)['contact'] || {}
     else
       {}
     end

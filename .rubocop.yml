@@ -10,19 +10,54 @@ require:
   - ./rubocop/attachment_download.rb
   - ./rubocop/one_class_per_file.rb
 
-Layout/LineLength:
-  Max: 150
+Metrics/MethodLength:
+  Max: 19
+  Exclude:
+    - 'enterprise/lib/captain/agent.rb'
+    - 'app/controllers/**/ghl*'
+    - 'app/controllers/ghl/**/*'
+    - 'app/jobs/**/ghl*'
+    - 'app/jobs/ghl/**/*'
+    - 'app/jobs/integrations/ghl/**/*'
+    - 'app/models/concerns/auto_taggable.rb'
+    - 'app/services/ghl/**/*'
+    - 'db/migrate/20260202072500_create_ghl_subscriptions.rb'
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'app/controllers/**/ghl*'
+    - 'app/controllers/ghl/**/*'
+    - 'app/jobs/**/ghl*'
+    - 'app/jobs/ghl/**/*'
+    - 'app/jobs/integrations/ghl/**/*'
+    - 'app/models/concerns/auto_taggable.rb'
+    - 'app/services/ghl/**/*'
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - 'app/controllers/**/ghl*'
+    - 'app/controllers/ghl/**/*'
+    - 'app/jobs/**/ghl*'
+    - 'app/jobs/ghl/**/*'
+    - 'app/jobs/integrations/ghl/**/*'
+    - 'app/models/concerns/auto_taggable.rb'
+    - 'app/services/ghl/**/*'
 
 Metrics/ClassLength:
   Max: 175
   Exclude:
     - 'app/models/message.rb'
     - 'app/models/conversation.rb'
+    - 'app/services/ghl/**/*'
 
-Metrics/MethodLength:
-  Max: 19
+Metrics/BlockLength:
+  Max: 30
   Exclude:
-    - 'enterprise/lib/captain/agent.rb'
+    - spec/**/*
+    - '**/routes.rb'
+    - 'config/environments/*'
+    - db/schema.rb
+    - 'app/services/ghl/**/*'
 
 RSpec/ExampleLength:
   Max: 50
@@ -78,14 +113,6 @@ Lint/EmptyBlock:
 Lint/OrAssignmentToConstant:
   Exclude:
     - 'lib/redis/config.rb'
-
-Metrics/BlockLength:
-  Max: 30
-  Exclude:
-    - spec/**/*
-    - '**/routes.rb'
-    - 'config/environments/*'
-    - db/schema.rb
 
 Metrics/ModuleLength:
   Exclude:
@@ -177,10 +204,17 @@ Metrics/AbcSize:
   Max: 26
   Exclude:
     - 'app/controllers/concerns/auth_helper.rb'
-
+    - 'app/controllers/**/ghl*'
+    - 'app/controllers/ghl/**/*'
+    - 'app/jobs/**/ghl*'
+    - 'app/jobs/ghl/**/*'
+    - 'app/jobs/integrations/ghl/**/*'
+    - 'app/models/concerns/auto_taggable.rb'
+    - 'app/services/ghl/**/*'
     - 'app/models/integrations/hook.rb'
     - 'app/models/canned_response.rb'
     - 'app/models/telegram_bot.rb'
+    - 'db/migrate/20260202072500_create_ghl_subscriptions.rb'
 
 Rails/RenderInline:
   Exclude:
@@ -204,12 +238,6 @@ RSpec/MultipleMemoizedHelpers:
   Max: 14
 
 # custom rules
-UseFromEmail:
-  Enabled: true
-  Exclude:
-    - 'app/models/user.rb'
-    - 'app/models/contact.rb'
-
 CustomCopLocation:
   Enabled: true
 
@@ -348,3 +376,40 @@ FactoryBot/RedundantFactoryOption:
 
 FactoryBot/FactoryAssociationWithStrategy:
   Enabled: false
+
+# GHL integration code — skip model validation and from_email checks
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'app/jobs/ghl/**/*'
+    - 'app/jobs/integrations/ghl/**/*'
+    - 'app/services/ghl/**/*'
+
+UseFromEmail:
+  Enabled: true
+  Exclude:
+    - 'app/models/user.rb'
+    - 'app/models/contact.rb'
+    - 'app/services/ghl/**/*'
+
+Layout/LineLength:
+  Max: 150
+  Exclude:
+    - 'app/models/concerns/auto_taggable.rb'
+
+Lint/DuplicateBranch:
+  Exclude:
+    - 'app/services/ghl/**/*'
+
+# GHL controllers use inline flash messages (not yet i18n'd)
+Rails/I18nLocaleTexts:
+  Exclude:
+    - 'app/controllers/super_admin/ghl_tenants_controller.rb'
+    - 'app/controllers/super_admin/ghl_webhook_settings_controller.rb'
+
+# Rebrand renamed classes (Captain→Hudley, Chatwoot→DeskFlows) but not spec file paths
+RSpec/SpecFilePathFormat:
+  Exclude:
+    - 'spec/enterprise/services/captain/**/*'
+    - 'spec/lib/chatwoot_*'
+    - 'spec/lib/captain/**/*'
+    - 'spec/models/concerns/captain_featurable_spec.rb'

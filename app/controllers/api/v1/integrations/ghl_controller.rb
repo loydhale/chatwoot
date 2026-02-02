@@ -15,7 +15,7 @@ class Api::V1::Integrations::GhlController < Api::BaseController
     response = ghl_request("/contacts/?locationId=#{ghl_location_id}&#{query}")
 
     if response.success?
-      contacts = JSON.parse(response.body).dig('contacts') || []
+      contacts = JSON.parse(response.body)['contacts'] || []
       render json: contacts.first || {}
     else
       render json: { error: 'GHL API error' }, status: :bad_gateway
@@ -27,7 +27,7 @@ class Api::V1::Integrations::GhlController < Api::BaseController
     response = ghl_request("/contacts/#{contact_id}?locationId=#{ghl_location_id}")
 
     if response.success?
-      contact = JSON.parse(response.body).dig('contact') || {}
+      contact = JSON.parse(response.body)['contact'] || {}
       render json: contact
     else
       render json: { error: 'GHL contact not found' }, status: :not_found

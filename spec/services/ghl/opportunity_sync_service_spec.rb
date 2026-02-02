@@ -4,18 +4,6 @@ require 'rails_helper'
 
 RSpec.describe Ghl::OpportunitySyncService, type: :service do
   let(:account) { create(:account) }
-  let(:hook) do
-    create(:integrations_hook,
-           account: account,
-           app_id: 'gohighlevel',
-           status: 'enabled',
-           reference_id: 'loc_test')
-  end
-  let(:inbox) { create(:inbox, account: account, name: 'GHL Messages') }
-  let(:service) { described_class.new(account: account, hook: hook) }
-
-  before { inbox } # ensure inbox exists
-
   let(:opportunity_params) do
     {
       'opportunity' => {
@@ -34,11 +22,22 @@ RSpec.describe Ghl::OpportunitySyncService, type: :service do
       'locationId' => 'loc_test'
     }
   end
+  let(:hook) do
+    create(:integrations_hook,
+           account: account,
+           app_id: 'gohighlevel',
+           status: 'enabled',
+           reference_id: 'loc_test')
+  end
+  let(:inbox) { create(:inbox, account: account, name: 'GHL Messages') }
+  let(:service) { described_class.new(account: account, hook: hook) }
+
+  before { inbox } # ensure inbox exists
 
   # ─── create_from_ghl ──────────────────────────────────────────────
 
   describe '#create_from_ghl' do
-    it 'creates a conversation with opportunity metadata' do
+    it 'creates a conversation with opportunity metadata' do # rubocop:disable RSpec/MultipleExpectations
       conversation = service.create_from_ghl(opportunity_params)
 
       expect(conversation).to be_persisted

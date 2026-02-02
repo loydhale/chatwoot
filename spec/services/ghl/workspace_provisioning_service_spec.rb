@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Ghl::WorkspaceProvisioningService do
+  subject(:service) do
+    described_class.new(oauth_data: oauth_data, ghl_user_info: ghl_user_info)
+  end
+
   let(:oauth_data) do
     {
       'access_token' => 'ghl_test_token_123',
@@ -25,10 +29,6 @@ RSpec.describe Ghl::WorkspaceProvisioningService do
       'email' => 'admin@testagency.com',
       'name' => 'John Smith'
     }
-  end
-
-  subject(:service) do
-    described_class.new(oauth_data: oauth_data, ghl_user_info: ghl_user_info)
   end
 
   describe '#perform' do

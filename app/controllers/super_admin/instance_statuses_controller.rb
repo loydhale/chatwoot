@@ -11,12 +11,12 @@ class SuperAdmin::InstanceStatusesController < SuperAdmin::ApplicationController
 
   def deskflows_edition
     @metrics['DeskFlows edition'] = if DeskFlowsApp.enterprise?
-                                     'Enterprise'
-                                   elsif DeskFlowsApp.custom?
-                                     'Custom'
-                                   else
-                                     'Community'
-                                   end
+                                      'Enterprise'
+                                    elsif DeskFlowsApp.custom?
+                                      'Custom'
+                                    else
+                                      'Community'
+                                    end
   end
 
   def instance_meta
