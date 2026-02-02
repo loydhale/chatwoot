@@ -84,6 +84,9 @@ COPY . /app
 # https://github.com/loydhale/deskflows/issues/701
 RUN mkdir -p /app/log
 
+# Capture commit hash BEFORE any .git cleanup
+RUN git rev-parse HEAD > /app/.git_sha
+
 # Free memory before heavy asset compilation
 RUN rm -rf spec tmp/cache .git/objects/pack
 
@@ -93,9 +96,6 @@ RUN if [ "$RAILS_ENV" = "production" ]; then \
   GENERATE_SOURCEMAP=false SECRET_KEY_BASE=precompile_placeholder RAILS_LOG_TO_STDOUT=enabled bundle exec rake assets:precompile \
   && rm -rf node_modules tmp/cache; \
   fi
-
-# Generate .git_sha file with current commit hash
-RUN git rev-parse HEAD > /app/.git_sha
 
 # Remove unnecessary files
 RUN rm -rf /gems/ruby/3.4.0/cache/*.gem \
