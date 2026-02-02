@@ -252,6 +252,7 @@ class Ghl::OpportunitySyncService
 
     conversation.messages.create!(
       account: account,
+      inbox: conversation.inbox,
       message_type: :activity,
       content: content,
       content_type: :text,

@@ -215,6 +215,7 @@ class Ghl::MessageSyncService
 
     message = conversation.messages.create!(
       account: account,
+      inbox: conversation.inbox,
       message_type: message_type,
       content: sanitize_content(data['body']),
       source_id: data['id'],
