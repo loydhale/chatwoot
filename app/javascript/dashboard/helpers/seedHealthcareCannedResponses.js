@@ -5,9 +5,7 @@
 import HEALTHCARE_CANNED_RESPONSES from './healthcareCannedResponses';
 import CannedResponseAPI from 'dashboard/api/cannedResponse';
 
-export const seedHealthcareCannedResponses = async (
-  existingResponses = []
-) => {
+export const seedHealthcareCannedResponses = async (existingResponses = []) => {
   const existingCodes = new Set(existingResponses.map(r => r.short_code));
   const toCreate = HEALTHCARE_CANNED_RESPONSES.filter(
     r => !existingCodes.has(r.short_code)

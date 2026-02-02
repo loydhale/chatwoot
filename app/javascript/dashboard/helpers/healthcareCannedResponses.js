@@ -61,7 +61,7 @@ const HEALTHCARE_CANNED_RESPONSES = [
   {
     short_code: 'billing_payment_received',
     content:
-      'Great news! ✅ We\'ve received your payment of {{payment.amount}}.\n\nTransaction ID: {{payment.transaction_id}}\nDate: {{payment.date}}\n\nYour account is now current. If you have any questions, feel free to ask!',
+      "Great news! ✅ We've received your payment of {{payment.amount}}.\n\nTransaction ID: {{payment.transaction_id}}\nDate: {{payment.date}}\n\nYour account is now current. If you have any questions, feel free to ask!",
     category: 'billing',
   },
   {
@@ -79,7 +79,7 @@ const HEALTHCARE_CANNED_RESPONSES = [
   {
     short_code: 'billing_payment_plan',
     content:
-      "We totally understand — healthcare costs can add up. 💙\n\nWe offer flexible payment plans:\n• Split your balance into monthly payments\n• No interest for qualifying plans\n• Easy automatic payments\n\nYour current balance: {{billing.balance}}\n\nWould you like me to set up a payment plan? I can walk you through the options!",
+      'We totally understand — healthcare costs can add up. 💙\n\nWe offer flexible payment plans:\n• Split your balance into monthly payments\n• No interest for qualifying plans\n• Easy automatic payments\n\nYour current balance: {{billing.balance}}\n\nWould you like me to set up a payment plan? I can walk you through the options!',
     category: 'billing',
   },
 
@@ -93,7 +93,7 @@ const HEALTHCARE_CANNED_RESPONSES = [
   {
     short_code: 'membership_renewal',
     content:
-      "Hi {{contact.name}}! Your {{membership.tier}} membership is up for renewal on {{membership.renewal_date}}. 📋\n\nCurrent plan: {{membership.plan}}\nMonthly rate: {{membership.rate}}\n\nYour membership will auto-renew unless you let us know otherwise. Want to make any changes to your plan? Just reply here!",
+      'Hi {{contact.name}}! Your {{membership.tier}} membership is up for renewal on {{membership.renewal_date}}. 📋\n\nCurrent plan: {{membership.plan}}\nMonthly rate: {{membership.rate}}\n\nYour membership will auto-renew unless you let us know otherwise. Want to make any changes to your plan? Just reply here!',
     category: 'membership',
   },
   {
@@ -119,7 +119,7 @@ const HEALTHCARE_CANNED_RESPONSES = [
   {
     short_code: 'greeting',
     content:
-      "Hi {{contact.name}}! 👋 Thanks for reaching out to us. How can I help you today?",
+      'Hi {{contact.name}}! 👋 Thanks for reaching out to us. How can I help you today?',
     category: 'general',
   },
   {
@@ -143,7 +143,7 @@ const HEALTHCARE_CANNED_RESPONSES = [
   {
     short_code: 'hours_info',
     content:
-      "Our hours of operation are:\n\n🕐 Monday - Friday: 8:00 AM - 6:00 PM\n🕐 Saturday: 9:00 AM - 2:00 PM\n🕐 Sunday: Closed\n\nFor after-hours emergencies, please call {{emergency_phone}}.",
+      'Our hours of operation are:\n\n🕐 Monday - Friday: 8:00 AM - 6:00 PM\n🕐 Saturday: 9:00 AM - 2:00 PM\n🕐 Sunday: Closed\n\nFor after-hours emergencies, please call {{emergency_phone}}.',
     category: 'general',
   },
 

@@ -158,7 +158,7 @@ const AUTO_TAG_RULES = [
       'pain',
       'bleeding',
       'allergic reaction',
-      'can\'t breathe',
+      "can't breathe",
       'chest pain',
       'help now',
     ],

@@ -1,3 +1,9 @@
+<script>
+export default {
+  name: 'HudleyLoader',
+};
+</script>
+
 <template>
   <svg
     class="animate-spin"
@@ -20,9 +26,3 @@
     />
   </svg>
 </template>
-
-<script>
-export default {
-  name: 'HudleyLoader',
-};
-</script>
