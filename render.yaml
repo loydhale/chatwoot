@@ -57,7 +57,7 @@ services:
       - key: SMTP_PASSWORD
         sync: false
       - key: MAILER_SENDER_EMAIL
-        value: "DeskFlows <noreply@deskflowss.ai>"
+        value: "DeskFlows <noreply@deskflows.ai>"
       # OpenAI for Hudley AI
       - key: OPENAI_API_KEY
         sync: false
@@ -105,16 +105,16 @@ services:
           name: deskflows-web
           envVarKey: OPENAI_API_KEY
 
+  # Redis for Sidekiq and caching
+  - type: redis
+    name: deskflows-redis
+    plan: standard
+    ipAllowList: []  # Only internal access
+
 databases:
   - name: deskflows-db
     plan: standard  # or pro for production
     databaseName: deskflows_production
     user: deskflows
     postgresMajorVersion: "16"
-    ipAllowList: []  # Only internal access
-
-# Redis for Sidekiq and caching
-  - type: redis
-    name: deskflows-redis
-    plan: standard
     ipAllowList: []  # Only internal access
