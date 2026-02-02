@@ -1,5 +1,13 @@
 # DeskFlows Render Deployment Configuration
 # https://render.com/docs/blueprint-spec
+#
+# Build Pipeline:
+#   Starter tier (default): 2 CPU / 8 GB RAM — Dockerfile is optimized for this.
+#   Performance tier:       16 CPU / 64 GB RAM — enable in Dashboard → Workspace
+#   Settings → Build Pipeline if Starter OOMs (costs more per pipeline minute).
+#
+# The Docker multi-stage build keeps peak memory ~4 GB on Starter. If OOM
+# recurs after optimizations, enable Performance tier as a fallback.
 
 services:
   # Main Rails Web Application

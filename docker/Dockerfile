@@ -1,12 +1,25 @@
 # =============================================================================
+# DeskFlows Production Dockerfile — Multi-stage, memory-optimized
+# Target: Render Starter pipeline (2 CPU / 8 GB RAM)
+#
+# Memory budget per stage (must stay under 8 GB total):
+#   Stage 1 (gem-builder):   ~2 GB peak  (grpc, nokogiri native compilation)
+#   Stage 2 (asset-builder): ~3-4 GB peak (pnpm install + Rails + Vite build)
+#   Stage 3 (final):         copy only — negligible
+#
+# If builds still OOM, enable the Performance pipeline tier in Render
+# Dashboard → Workspace Settings → Build Pipeline → Performance (16 CPU / 64 GB).
+# =============================================================================
+
+# =============================================================================
 # Stage 0: Node binary source
 # =============================================================================
 FROM node:24-alpine AS node
 
 # =============================================================================
-# Stage 1: Gem builder  —  compiles native extensions in isolation
-# Peak memory: ~2 GB (grpc, nokogiri, etc.)
-# Once this stage finishes, its peak memory is freed before assets compile.
+# Stage 1: Gem builder — compiles native extensions in isolation
+# Once this stage completes, its peak memory is freed before Stage 2 starts
+# (Stage 2 depends on Stage 1 via COPY --from, so BuildKit serializes them).
 # =============================================================================
 FROM ruby:3.4.4-alpine3.21 AS gem-builder
 
@@ -15,28 +28,21 @@ ENV BUNDLE_WITHOUT=${BUNDLE_WITHOUT}
 ENV BUNDLER_VERSION=2.5.16
 ENV BUNDLE_PATH="/gems"
 
+# build-base = gcc + g++ + make + musl-dev + binutils (no need to list them individually)
 RUN apk update && apk add --no-cache \
   build-base \
-  musl \
-  ruby-full \
-  ruby-dev \
-  gcc \
-  make \
-  musl-dev \
-  openssl \
-  openssl-dev \
-  g++ \
   linux-headers \
-  xz \
-  vips \
+  openssl-dev \
   postgresql-dev \
+  vips \
+  xz \
   git \
   && gem install bundler -v "$BUNDLER_VERSION"
 
 WORKDIR /app
 COPY Gemfile Gemfile.lock ./
 
-# Install only production gems — limit concurrency to reduce peak memory
+# Limit parallel gem compilation to 2 jobs to cap peak memory
 RUN bundle config set without 'development test' \
   && bundle install -j 2 -r 3
 
@@ -45,9 +51,8 @@ RUN rm -rf /gems/ruby/3.4.0/cache/*.gem \
   && find /gems/ruby/3.4.0/gems/ \( -name "*.c" -o -name "*.o" \) -delete
 
 # =============================================================================
-# Stage 2: Asset builder  —  node deps + vite/sprockets compilation
-# Peak memory: ~3-4 GB  (was 5-6 GB before the split)
-# Gems are pre-built; we just COPY them in, avoiding native-extension overhead.
+# Stage 2: Asset builder — node deps + vite/sprockets compilation
+# Gems are pre-built; we COPY them in from Stage 1 (no native compilation).
 # =============================================================================
 FROM ruby:3.4.4-alpine3.21 AS asset-builder
 
@@ -61,9 +66,18 @@ ENV BUNDLE_PATH="/gems"
 ARG RAILS_ENV=production
 ENV RAILS_ENV=${RAILS_ENV}
 
-# ── Node heap: capped at 1024 MB (down from 1536) ──
-ARG NODE_OPTIONS="--max-old-space-size=1024 --openssl-legacy-provider"
+# ── Memory optimizations ─────────────────────────────────────────────────────
+# Cap Node.js V8 heap at 768 MB (Vite + Rollup peak). Down from 1024 to leave
+# headroom for Ruby + Docker daemon within the 8 GB pipeline limit.
+ARG NODE_OPTIONS="--max-old-space-size=768 --openssl-legacy-provider"
 ENV NODE_OPTIONS=${NODE_OPTIONS}
+
+# Reduce glibc per-thread memory arenas (default = 8 × cores = 16 on Starter).
+# With MALLOC_ARENA_MAX=2, fragmented free memory is reclaimed much faster.
+ENV MALLOC_ARENA_MAX=2
+
+# Slow Ruby GC heap growth to avoid allocating memory we won't use.
+ENV RUBY_GC_HEAP_GROWTH_FACTOR=1.1
 
 # Disable sourcemaps — saves ~2 GB RAM during Vite build
 ENV GENERATE_SOURCEMAP=false
@@ -75,15 +89,21 @@ ENV SKIP_PNPM_INSTALL_IN_RAKE=1
 ARG RAILS_SERVE_STATIC_FILES=true
 ENV RAILS_SERVE_STATIC_FILES=${RAILS_SERVE_STATIC_FILES}
 
-# System deps (lighter set — no native gem compilation needed)
+# ── Git commit SHA ────────────────────────────────────────────────────────────
+# .git is excluded from the build context (.dockerignore) to save ~514 MB.
+# Render provides RENDER_GIT_COMMIT automatically; fall back to GIT_SHA arg.
+ARG RENDER_GIT_COMMIT=""
+ARG GIT_SHA=""
+
+# ── Runtime-only system packages ─────────────────────────────────────────────
+# No compilers needed — gems are pre-built in Stage 1, and npm packages
+# for this project don't require node-gyp / native compilation.
 RUN apk update && apk add --no-cache \
-  build-base \
   openssl \
+  libstdc++ \
   tar \
   tzdata \
-  postgresql-dev \
   postgresql-client \
-  git \
   curl \
   xz \
   vips \
@@ -105,34 +125,23 @@ WORKDIR /app
 COPY --from=gem-builder /gems/ /gems/
 
 # ── Node dependencies ──
-# Install with frozen lockfile; pnpm will skip devDeps it can when NODE_ENV=production,
-# but vite/tailwind/postcss are needed so they're in the lockfile's resolution.
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile \
   && pnpm store prune
 
 # ── Application source ──
+# Build context is ~100 MB thanks to comprehensive .dockerignore
+# (.git, node_modules, vendor/bundle, spec, etc. are all excluded)
 COPY . /app
 
 RUN mkdir -p /app/log
 
-# Capture commit SHA before .git is purged
-RUN git rev-parse HEAD > /app/.git_sha
-
-# ── Free disk/memory before the heavy compile step ──
-RUN rm -rf \
-  .git \
-  spec \
-  test \
-  tmp/cache \
-  .github \
-  .devcontainer \
-  .husky \
-  coverage \
-  stories
+# Write git SHA from Render env var or CI build arg
+RUN echo "${RENDER_GIT_COMMIT:-${GIT_SHA:-unknown}}" > /app/.git_sha
 
 # ── Asset precompilation ──
-# GENERATE_SOURCEMAP=false + --max-old-space-size=1024 keeps peak under 4 GB
+# Runs: SDK library build (Vite) → main app build (Vite) → Sprockets
+# Peak memory: Ruby (~800 MB) + Vite (~768 MB cap) ≈ 1.6 GB
 RUN SECRET_KEY_BASE=precompile_placeholder \
   RAILS_LOG_TO_STDOUT=enabled \
   GENERATE_SOURCEMAP=false \
@@ -148,7 +157,7 @@ RUN rm -rf \
   /root/.cache
 
 # =============================================================================
-# Stage 3: Final runtime image  —  lean, no build tooling
+# Stage 3: Final runtime image — lean, no build tooling
 # =============================================================================
 FROM ruby:3.4.4-alpine3.21
 
