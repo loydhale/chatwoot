@@ -19,8 +19,12 @@ ENV RAILS_SERVE_STATIC_FILES ${RAILS_SERVE_STATIC_FILES}
 ARG RAILS_ENV=production
 ENV RAILS_ENV ${RAILS_ENV}
 
-ARG NODE_OPTIONS="--max-old-space-size=2048 --openssl-legacy-provider"
+ARG NODE_OPTIONS="--max-old-space-size=1536 --openssl-legacy-provider"
 ENV NODE_OPTIONS ${NODE_OPTIONS}
+
+# Disable sourcemaps in production to save ~2GB RAM during build
+ENV GENERATE_SOURCEMAP=false
+ENV NODE_ENV=production
 
 ENV BUNDLE_PATH="/gems"
 
@@ -80,10 +84,14 @@ COPY . /app
 # https://github.com/loydhale/deskflows/issues/701
 RUN mkdir -p /app/log
 
+# Free memory before heavy asset compilation
+RUN rm -rf spec tmp/cache .git/objects/pack
+
 # generate production assets if production environment
+# GENERATE_SOURCEMAP=false saves ~2GB RAM, --max-old-space-size=1536 caps Node heap
 RUN if [ "$RAILS_ENV" = "production" ]; then \
-  SECRET_KEY_BASE=precompile_placeholder RAILS_LOG_TO_STDOUT=enabled bundle exec rake assets:precompile \
-  && rm -rf spec node_modules tmp/cache; \
+  GENERATE_SOURCEMAP=false SECRET_KEY_BASE=precompile_placeholder RAILS_LOG_TO_STDOUT=enabled bundle exec rake assets:precompile \
+  && rm -rf node_modules tmp/cache; \
   fi
 
 # Generate .git_sha file with current commit hash
