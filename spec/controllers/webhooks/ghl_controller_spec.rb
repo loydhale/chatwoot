@@ -14,7 +14,7 @@ RSpec.describe 'Webhooks::GhlController', type: :request do
     OpenSSL::HMAC.hexdigest('SHA256', secret, payload)
   end
 
-  def post_webhook(params, secret: webhook_secret)
+  def post_webhook(secret: webhook_secret, **params)
     payload = params.to_json
     signature = sign_payload(payload, secret)
 
@@ -77,7 +77,7 @@ RSpec.describe 'Webhooks::GhlController', type: :request do
       InstallationConfig.find_by(name: 'GHL_WEBHOOK_SECRET')&.destroy
       create(:installation_config, name: 'GHL_CLIENT_SECRET', value: client_secret)
 
-      post_webhook({ type: 'contact.create', contact: { id: 'c1' } }, secret: client_secret)
+      post_webhook(type: 'contact.create', contact: { id: 'c1' }, secret: client_secret)
       expect(response).to have_http_status(:ok)
     end
   end
