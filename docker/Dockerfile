@@ -103,6 +103,9 @@ RUN apk update && apk add --no-cache \
   libstdc++ \
   tar \
   tzdata \
+  yaml-dev \
+  pkgconf \
+  postgresql-dev \
   postgresql-client \
   curl \
   xz \
