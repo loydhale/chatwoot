@@ -16,18 +16,24 @@ class Ghl::ContactSyncService
     ghl_contact = extract_contact_data(params)
     return if ghl_contact['id'].blank?
 
-    # Don't create duplicates
-    existing = find_contact_by_ghl_id(ghl_contact['id'])
-    return update_contact_attributes(existing, ghl_contact) if existing
+    # Atomic find-or-create to avoid race conditions
+    contact = account.contacts.find_or_initialize_by(identifier: ghl_identifier(ghl_contact['id']))
 
-    contact = account.contacts.create!(
-      map_ghl_to_deskflow(ghl_contact).merge(
-        identifier: ghl_identifier(ghl_contact['id'])
-      )
-    )
+    if contact.persisted?
+      return update_contact_attributes(contact, ghl_contact)
+    end
+
+    contact.assign_attributes(map_ghl_to_deskflow(ghl_contact))
+    contact.save!
 
     Rails.logger.info("GHL sync: created contact #{contact.id} from GHL #{ghl_contact['id']}")
     contact
+  rescue ActiveRecord::RecordNotUnique
+    # Lost the race — another thread created the record first; retry once
+    contact = find_contact_by_ghl_id(ghl_contact['id'])
+    return update_contact_attributes(contact, ghl_contact) if contact
+
+    raise # re-raise if we still can't find it
   rescue ActiveRecord::RecordInvalid => e
     # Handle uniqueness conflicts (email/phone already exists)
     handle_duplicate_contact(ghl_contact, e)

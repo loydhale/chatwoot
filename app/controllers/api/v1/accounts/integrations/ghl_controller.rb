@@ -24,16 +24,16 @@ class Api::V1::Accounts::Integrations::GhlController < Api::V1::Accounts::BaseCo
 
   # POST /api/v1/accounts/:account_id/integrations/ghl/refresh
   def refresh
-    settings = @hook.settings || {}
-    refresh_token = settings['refresh_token']
+    refresh_token = @hook.refresh_token.presence || @hook.settings&.dig('refresh_token')
     return render_token_refresh_not_supported if refresh_token.blank?
 
     new_tokens = Ghl::TokenRefreshService.new(refresh_token).refresh!
 
+    settings = @hook.settings || {}
     @hook.update!(
       access_token: new_tokens['access_token'],
+      refresh_token: new_tokens['refresh_token'] || refresh_token,
       settings: settings.merge(
-        refresh_token: new_tokens['refresh_token'] || refresh_token,
         expires_in: new_tokens['expires_in'],
         expires_at: (Time.current + new_tokens['expires_in'].to_i.seconds).iso8601
       )
@@ -54,12 +54,11 @@ class Api::V1::Accounts::Integrations::GhlController < Api::V1::Accounts::BaseCo
     return render json: { error: 'email or phone required' }, status: :bad_request if email.blank? && phone.blank?
 
     hook = Current.account.hooks.find_by(app_id: 'gohighlevel')
-    if hook&.access_token.blank?
-      # Fallback to PIT token
-      return render json: ghl_pit_search(email, phone)
-    end
+    return render json: { error: 'GHL integration not connected' }, status: :unprocessable_entity if hook&.access_token.blank?
 
-    location_id = hook.settings&.dig('location_id') || ENV.fetch('GHL_LOCATION_ID', 'GYkUAluHxTzXjFjq9Pxx')
+    location_id = hook.settings&.dig('location_id')
+    return render json: { error: 'GHL location_id not configured for this account' }, status: :unprocessable_entity if location_id.blank?
+
     query = email.present? ? "email=#{CGI.escape(email)}" : "phone=#{CGI.escape(phone)}"
 
     response = ghl_api_request(
@@ -71,7 +70,7 @@ class Api::V1::Accounts::Integrations::GhlController < Api::V1::Accounts::BaseCo
       contacts_data = JSON.parse(response.body)['contacts'] || []
       render json: contacts_data.first || {}
     else
-      render json: ghl_pit_search(email, phone)
+      render json: { error: 'GHL API request failed' }, status: :bad_gateway
     end
   end
 
@@ -80,9 +79,10 @@ class Api::V1::Accounts::Integrations::GhlController < Api::V1::Accounts::BaseCo
     contact_id = params[:id]
     hook = Current.account.hooks.find_by(app_id: 'gohighlevel')
 
-    return render json: ghl_pit_get_contact(contact_id) if hook&.access_token.blank?
+    return render json: { error: 'GHL integration not connected' }, status: :unprocessable_entity if hook&.access_token.blank?
 
-    location_id = hook.settings&.dig('location_id') || ENV.fetch('GHL_LOCATION_ID', 'GYkUAluHxTzXjFjq9Pxx')
+    location_id = hook.settings&.dig('location_id')
+    return render json: { error: 'GHL location_id not configured for this account' }, status: :unprocessable_entity if location_id.blank?
 
     response = ghl_api_request(
       hook.access_token,
@@ -137,29 +137,4 @@ class Api::V1::Accounts::Integrations::GhlController < Api::V1::Accounts::BaseCo
     end
   end
 
-  def ghl_pit_search(email, phone)
-    pit_token = ENV.fetch('GHL_PIT_TOKEN', 'pit-75cb14b9-1b1f-47f8-b344-2e906c6ef853')
-    location_id = ENV.fetch('GHL_LOCATION_ID', 'GYkUAluHxTzXjFjq9Pxx')
-    query = email.present? ? "email=#{CGI.escape(email)}" : "phone=#{CGI.escape(phone)}"
-
-    response = ghl_api_request(pit_token, "/contacts/?locationId=#{location_id}&#{query}")
-    if response.success?
-      contacts = JSON.parse(response.body)['contacts'] || []
-      contacts.first || {}
-    else
-      {}
-    end
-  end
-
-  def ghl_pit_get_contact(contact_id)
-    pit_token = ENV.fetch('GHL_PIT_TOKEN', 'pit-75cb14b9-1b1f-47f8-b344-2e906c6ef853')
-    location_id = ENV.fetch('GHL_LOCATION_ID', 'GYkUAluHxTzXjFjq9Pxx')
-
-    response = ghl_api_request(pit_token, "/contacts/#{contact_id}?locationId=#{location_id}")
-    if response.success?
-      JSON.parse(response.body)['contact'] || {}
-    else
-      {}
-    end
-  end
 end

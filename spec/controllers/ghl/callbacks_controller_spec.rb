@@ -69,7 +69,8 @@ RSpec.describe Ghl::CallbacksController, type: :request do
         expect(hook.reference_id).to eq(location_id)
         expect(hook.settings['location_id']).to eq(location_id)
         expect(hook.settings['company_id']).to eq(company_id)
-        expect(hook.settings['refresh_token']).to eq(refresh_token)
+        expect(hook.refresh_token).to eq(refresh_token)
+        expect(hook.settings).not_to have_key('refresh_token')
         expect(response).to redirect_to(ghl_redirect_uri)
       end
 
@@ -102,15 +103,11 @@ RSpec.describe Ghl::CallbacksController, type: :request do
     context 'when state parameter is invalid' do
       before do
         allow_any_instance_of(described_class).to receive(:verify_ghl_token).and_return(nil)
-        allow_any_instance_of(described_class).to receive(:ghl_client).and_return(oauth_client)
-        allow(Account).to receive(:find_by).with(id: nil).and_return(nil)
-        allow(oauth_client).to receive(:auth_code).and_return(auth_code_strategy)
-        allow(auth_code_strategy).to receive(:get_token).and_return(token_response)
       end
 
-      it 'redirects with error' do
+      it 'redirects with invalid_state error BEFORE exchanging the code' do
         get ghl_callback_path, params: { code: code, state: state }
-        expect(response).to redirect_to("#{frontend_url}/app/settings/integrations/gohighlevel?error=unknown")
+        expect(response).to redirect_to("#{frontend_url}/app/settings/integrations/gohighlevel?error=invalid_state")
       end
     end
   end

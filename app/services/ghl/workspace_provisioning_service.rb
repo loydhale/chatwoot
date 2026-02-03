@@ -156,12 +156,13 @@ class Ghl::WorkspaceProvisioningService
 
     hook.update!(
       access_token: oauth_data['access_token'],
+      refresh_token: oauth_data['refresh_token'],
       status: 'enabled',
       reference_id: location_id || company_id,
       settings: {
         token_type: oauth_data['token_type'],
         expires_in: oauth_data['expires_in'],
-        refresh_token: oauth_data['refresh_token'],
+        # refresh_token now stored in encrypted column — not in settings JSON
         scope: oauth_data['scope'],
         user_type: oauth_data['userType'],
         location_id: location_id,

@@ -52,8 +52,8 @@ RSpec.describe 'Api::V1::Accounts::Integrations::GhlController', type: :request 
       create(:integrations_hook,
              account: account,
              app_id: 'gohighlevel',
+             refresh_token: 'old_refresh_token',
              settings: {
-               'refresh_token' => 'old_refresh_token',
                'expires_at' => 1.hour.ago.iso8601
              })
     end

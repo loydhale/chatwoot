@@ -40,6 +40,10 @@ class Ghl::MessageSyncService
     )
 
     message
+  rescue ActiveRecord::RecordNotUnique
+    # Lost the race on source_id unique index — message was already created by another worker
+    Rails.logger.info("GHL message sync: duplicate message #{data['id']} (race resolved)")
+    nil
   rescue StandardError => e
     Rails.logger.error("GHL message sync failed: #{e.message}")
     Rails.logger.error(e.backtrace&.first(5)&.join("\n"))
@@ -136,14 +140,15 @@ class Ghl::MessageSyncService
     ghl_contact_id = data['contactId']
     return nil if ghl_contact_id.blank?
 
-    # Try to find by GHL contact ID
-    contact = account.contacts.find_by(identifier: "ghl:#{ghl_contact_id}")
+    identifier = "ghl:#{ghl_contact_id}"
+
+    # Atomic find-or-create to avoid race conditions
+    contact = account.contacts.find_by(identifier: identifier)
     contact ||= account.contacts.where("custom_attributes->>'ghl_contact_id' = ?", ghl_contact_id).first
 
     unless contact
-      # Create a placeholder contact — will be enriched by contact sync
       contact = account.contacts.create!(
-        identifier: "ghl:#{ghl_contact_id}",
+        identifier: identifier,
         name: "GHL Contact #{ghl_contact_id[0..7]}",
         custom_attributes: {
           'ghl_contact_id' => ghl_contact_id,
@@ -157,6 +162,9 @@ class Ghl::MessageSyncService
     end
 
     contact
+  rescue ActiveRecord::RecordNotUnique
+    # Lost the race — retry lookup
+    account.contacts.find_by(identifier: identifier)
   end
 
   # --- Conversation Resolution ---

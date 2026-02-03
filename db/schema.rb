@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_03_164501) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -56,6 +56,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.index ["account_id"], name: "index_account_users_on_account_id"
     t.index ["agent_capacity_policy_id"], name: "index_account_users_on_agent_capacity_policy_id"
     t.index ["custom_role_id"], name: "index_account_users_on_custom_role_id"
+    t.index ["inviter_id"], name: "index_account_users_on_inviter_id"
     t.index ["user_id"], name: "index_account_users_on_user_id"
   end
 
@@ -124,6 +125,9 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "account_id"
+    t.index ["account_id"], name: "index_agent_bot_inboxes_on_account_id"
+    t.index ["agent_bot_id"], name: "index_agent_bot_inboxes_on_agent_bot_id"
+    t.index ["inbox_id"], name: "index_agent_bot_inboxes_on_inbox_id"
   end
 
   create_table "agent_bots", force: :cascade do |t|
@@ -167,6 +171,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.vector "embedding", limit: 1536
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_article_embeddings_on_article_id"
     t.index ["embedding"], name: "index_article_embeddings_on_embedding", using: :ivfflat
   end
 
@@ -191,6 +196,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.index ["account_id"], name: "index_articles_on_account_id"
     t.index ["associated_article_id"], name: "index_articles_on_associated_article_id"
     t.index ["author_id"], name: "index_articles_on_author_id"
+    t.index ["category_id"], name: "index_articles_on_category_id"
+    t.index ["folder_id"], name: "index_articles_on_folder_id"
     t.index ["portal_id"], name: "index_articles_on_portal_id"
     t.index ["slug"], name: "index_articles_on_slug", unique: true
     t.index ["status"], name: "index_articles_on_status"
@@ -287,6 +294,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.index ["campaign_type"], name: "index_campaigns_on_campaign_type"
     t.index ["inbox_id"], name: "index_campaigns_on_inbox_id"
     t.index ["scheduled_at"], name: "index_campaigns_on_scheduled_at"
+    t.index ["sender_id"], name: "index_campaigns_on_sender_id"
   end
 
   create_table "canned_responses", id: :serial, force: :cascade do |t|
@@ -417,6 +425,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.string "hmac_token"
     t.boolean "hmac_mandatory", default: false
     t.jsonb "additional_attributes", default: {}
+    t.index ["account_id"], name: "index_channel_api_on_account_id"
     t.index ["hmac_token"], name: "index_channel_api_on_hmac_token", unique: true
     t.index ["identifier"], name: "index_channel_api_on_identifier", unique: true
   end
@@ -446,6 +455,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.jsonb "provider_config", default: {}
     t.string "provider"
     t.boolean "verified_for_sending", default: false, null: false
+    t.index ["account_id"], name: "index_channel_email_on_account_id"
     t.index ["email"], name: "index_channel_email_on_email", unique: true
     t.index ["forward_to_email"], name: "index_channel_email_on_forward_to_email", unique: true
   end
@@ -469,6 +479,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.string "instagram_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_channel_instagram_on_account_id"
     t.index ["instagram_id"], name: "index_channel_instagram_on_instagram_id", unique: true
   end
 
@@ -479,6 +490,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.string "line_channel_token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_channel_line_on_account_id"
     t.index ["line_channel_id"], name: "index_channel_line_on_line_channel_id", unique: true
   end
 
@@ -489,6 +501,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.jsonb "provider_config", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_channel_sms_on_account_id"
     t.index ["phone_number"], name: "index_channel_sms_on_phone_number", unique: true
   end
 
@@ -498,6 +511,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.string "bot_token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_channel_telegram_on_account_id"
     t.index ["bot_token"], name: "index_channel_telegram_on_bot_token", unique: true
   end
 
@@ -510,6 +524,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.datetime "refresh_token_expires_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_channel_tiktok_on_account_id"
     t.index ["business_id"], name: "index_channel_tiktok_on_business_id", unique: true
   end
 
@@ -525,6 +540,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.string "api_key_sid"
     t.jsonb "content_templates", default: {}
     t.datetime "content_templates_last_updated"
+    t.index ["account_id"], name: "index_channel_twilio_sms_on_account_id"
     t.index ["account_sid", "phone_number"], name: "index_channel_twilio_sms_on_account_sid_and_phone_number", unique: true
     t.index ["messaging_service_sid"], name: "index_channel_twilio_sms_on_messaging_service_sid", unique: true
     t.index ["phone_number"], name: "index_channel_twilio_sms_on_phone_number", unique: true
@@ -570,6 +586,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.boolean "hmac_mandatory", default: false
     t.boolean "continuity_via_email", default: true, null: false
     t.text "allowed_domains", default: ""
+    t.index ["account_id"], name: "index_channel_web_widgets_on_account_id"
     t.index ["hmac_token"], name: "index_channel_web_widgets_on_hmac_token", unique: true
     t.index ["website_token"], name: "index_channel_web_widgets_on_website_token", unique: true
   end
@@ -583,6 +600,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.datetime "updated_at", null: false
     t.jsonb "message_templates", default: {}
     t.datetime "message_templates_last_updated", precision: nil
+    t.index ["account_id"], name: "index_channel_whatsapp_on_account_id"
     t.index ["phone_number"], name: "index_channel_whatsapp_on_phone_number", unique: true
   end
 
@@ -827,6 +845,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_folders_on_account_id"
+    t.index ["category_id"], name: "index_folders_on_category_id"
   end
 
   create_table "ghl_subscriptions", force: :cascade do |t|
@@ -934,8 +954,11 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "settings", default: {}
+    t.string "refresh_token"
+    t.index ["account_id"], name: "index_integrations_hooks_on_account_id"
     t.index ["app_id", "status", "reference_id"], name: "index_integrations_hooks_on_app_status_reference"
     t.index ["app_id"], name: "index_integrations_hooks_on_app_id"
+    t.index ["inbox_id"], name: "index_integrations_hooks_on_inbox_id"
   end
 
   create_table "labels", force: :cascade do |t|
@@ -978,6 +1001,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_macros_on_account_id"
+    t.index ["created_by_id"], name: "index_macros_on_created_by_id"
+    t.index ["updated_by_id"], name: "index_macros_on_updated_by_id"
   end
 
   create_table "mentions", force: :cascade do |t|
@@ -1016,6 +1041,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.index ["account_id", "content_type", "created_at"], name: "idx_messages_account_content_created"
     t.index ["account_id", "created_at", "message_type"], name: "index_messages_on_account_created_type"
     t.index ["account_id", "inbox_id"], name: "index_messages_on_account_id_and_inbox_id"
+    t.index ["account_id", "source_id"], name: "index_messages_on_account_id_and_source_id_unique", unique: true, where: "(source_id IS NOT NULL)"
     t.index ["account_id"], name: "index_messages_on_account_id"
     t.index ["content"], name: "index_messages_on_content", opclass: :gin_trgm_ops, using: :gin
     t.index ["conversation_id", "account_id", "message_type", "created_at"], name: "index_messages_on_conversation_account_type_created"
@@ -1023,7 +1049,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.index ["created_at"], name: "index_messages_on_created_at"
     t.index ["inbox_id"], name: "index_messages_on_inbox_id"
     t.index ["sender_type", "sender_id"], name: "index_messages_on_sender_type_and_sender_id"
-    t.index ["source_id"], name: "index_messages_on_source_id"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -1284,6 +1309,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_02_072500) do
     t.jsonb "subscriptions", default: ["conversation_status_changed", "conversation_updated", "conversation_created", "contact_created", "contact_updated", "message_created", "message_updated", "webwidget_triggered"]
     t.string "name"
     t.index ["account_id", "url"], name: "index_webhooks_on_account_id_and_url", unique: true
+    t.index ["inbox_id"], name: "index_webhooks_on_inbox_id"
   end
 
   create_table "working_hours", force: :cascade do |t|

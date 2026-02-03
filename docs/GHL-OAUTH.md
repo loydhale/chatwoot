@@ -227,7 +227,7 @@ Webhook signature verification uses HMAC-SHA256 with `GHL_WEBHOOK_SECRET`.
 ## What's Missing / Next Steps
 
 ### Phase 2: Message Sync (DSK-012)
-- [ ] `Ghl::MessageSyncService` — referenced in `GhlEventsJob` but not yet implemented
+- [x] `Ghl::MessageSyncService` — syncs inbound/outbound GHL messages to DeskFlows conversations
 - [ ] `Channel::Ghl` model — for native channel support in conversations
 - [ ] Delivery status tracking (sent/delivered/read)
 

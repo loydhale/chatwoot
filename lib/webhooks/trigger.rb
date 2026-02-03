@@ -13,9 +13,22 @@ class Webhooks::Trigger
 
   def execute
     perform_request
-  rescue StandardError => e
+  rescue RestClient::Exceptions::OpenTimeout,
+         RestClient::Exceptions::ReadTimeout,
+         RestClient::GatewayTimeout,
+         RestClient::BadGateway,
+         RestClient::ServiceUnavailable,
+         RestClient::InternalServerError,
+         Errno::ECONNREFUSED,
+         SocketError => e
+    # Transient errors — log, handle side effects, then re-raise for Sidekiq retry
     handle_error(e)
-    Rails.logger.warn "Exception: Invalid webhook URL #{@url} : #{e.message}"
+    Rails.logger.error "Transient webhook error for #{@url}: #{e.class} — #{e.message}"
+    raise
+  rescue StandardError => e
+    # Permanent failures (404, 401, validation, etc.) — log and swallow
+    handle_error(e)
+    Rails.logger.warn "Permanent webhook error for #{@url}: #{e.class} — #{e.message}"
   end
 
   private

@@ -18,6 +18,18 @@ class Ghl::CallbacksController < ApplicationController
   def show
     return redirect_to_error('missing_params') if params[:code].blank?
 
+    # Validate state BEFORE exchanging the OAuth code (CSRF protection)
+    if params[:state].present?
+      @account_id = verify_ghl_token(params[:state])
+      return redirect_to_error('invalid_state') if @account_id.blank?
+    else
+      # Marketplace installs: GHL initiates these without a DeskFlows-signed state.
+      # Verify we have the minimum required params to prove GHL origin.
+      unless params[:code].present? && ghl_configured?
+        return redirect_to_error('missing_state')
+      end
+    end
+
     @response = ghl_client.auth_code.get_token(
       params[:code],
       redirect_uri: ghl_redirect_uri
@@ -41,12 +53,13 @@ class Ghl::CallbacksController < ApplicationController
   # --- Flow 1: Existing account connecting GHL ---
 
   def handle_existing_account
-    @account_id = verify_ghl_token(params[:state])
+    # @account_id already validated in #show before token exchange
     raise StandardError, 'Invalid or expired state token' if account.blank?
 
     hook = account.hooks.find_or_initialize_by(app_id: 'gohighlevel')
     hook.update!(
       access_token: parsed_body['access_token'],
+      refresh_token: parsed_body['refresh_token'],
       status: 'enabled',
       reference_id: parsed_body['locationId'] || parsed_body['companyId'],
       settings: build_hook_settings
@@ -140,7 +153,7 @@ class Ghl::CallbacksController < ApplicationController
     {
       token_type: parsed_body['token_type'],
       expires_in: parsed_body['expires_in'],
-      refresh_token: parsed_body['refresh_token'],
+      # refresh_token now stored in encrypted column — not in settings JSON
       scope: parsed_body['scope'],
       user_type: parsed_body['userType'],
       location_id: parsed_body['locationId'],

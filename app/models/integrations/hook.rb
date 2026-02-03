@@ -23,6 +23,7 @@ class Integrations::Hook < ApplicationRecord
 
   # TODO: Remove guard once encryption keys become mandatory (target 3-4 releases out).
   encrypts :access_token, deterministic: true if DeskFlows.encryption_configured?
+  encrypts :refresh_token, deterministic: true if DeskFlows.encryption_configured?
 
   validates :account_id, presence: true
   validates :app_id, presence: true

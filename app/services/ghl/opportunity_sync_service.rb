@@ -65,9 +65,6 @@ class Ghl::OpportunitySyncService
     )
 
     conversation
-  rescue ActiveRecord::RecordInvalid => e
-    Rails.logger.error("GHL opportunity sync: failed to create conversation: #{e.message}")
-    nil
   end
 
   def update_from_ghl(params)

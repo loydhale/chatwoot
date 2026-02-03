@@ -126,11 +126,12 @@ class Webhooks::GhlEventsJob < ApplicationJob
       )
     end
 
+    current_usage = sub.usage_data || {}
     sub.update!(
       locations_count: new_count,
-      usage_data: sub.usage_data.merge(
+      usage_data: current_usage.merge(
         'last_location_added' => Time.current.iso8601,
-        'location_ids' => ((sub.usage_data['location_ids'] || []) + [extract_location_id(params)]).uniq
+        'location_ids' => ((current_usage['location_ids'] || []) + [extract_location_id(params)]).uniq
       )
     )
   end

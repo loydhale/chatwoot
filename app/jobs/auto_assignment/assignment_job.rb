@@ -9,9 +9,16 @@ class AutoAssignment::AssignmentJob < ApplicationJob
 
     assigned_count = service.perform_bulk_assignment(limit: bulk_assignment_limit)
     Rails.logger.info "Assigned #{assigned_count} conversations for inbox #{inbox.id}"
+  rescue Errno::ECONNREFUSED, SocketError, Net::OpenTimeout, Net::ReadTimeout,
+         Redis::CannotConnectError, Redis::TimeoutError,
+         ActiveRecord::ConnectionNotEstablished,
+         ActiveRecord::Deadlocked => e
+    # Transient errors — log and re-raise for Sidekiq retry
+    Rails.logger.error "Bulk assignment transient error for inbox #{inbox_id}: #{e.class} — #{e.message}"
+    raise
   rescue StandardError => e
-    Rails.logger.error "Bulk assignment failed for inbox #{inbox_id}: #{e.message}"
-    raise e if Rails.env.test?
+    # Permanent failures — log but swallow to prevent infinite retries
+    Rails.logger.error "Bulk assignment permanent error for inbox #{inbox_id}: #{e.class} — #{e.message}"
   end
 
   private
