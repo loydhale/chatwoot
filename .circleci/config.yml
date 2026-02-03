@@ -144,7 +144,7 @@ jobs:
   # Backend tests with parallelization
   backend-tests:
     <<: *defaults
-    parallelism: 16
+    parallelism: 20
     steps:
       - checkout
       - node/install:
@@ -279,7 +279,7 @@ jobs:
             echo -en "\nINSTALLATION_ENV=circleci" >> ".env"
             echo -en "\nOPENSEARCH_URL=http://localhost:9200" >> ".env"
 
-      # Database setup
+      # Database setup (match GitHub Actions flow)
       - run:
           name: Run DB migrations
           command: bundle exec rails db:deskflows_prepare
