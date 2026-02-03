@@ -20,6 +20,13 @@ ghl_refresh_tokens_job:
   class: 'Integrations::Ghl::RefreshTokensJob'
   queue: scheduled_jobs
 
+# executed every hour
+# Tighter token refresh — catches tokens expiring within 2 hours
+ghl_token_refresh_job:
+  cron: '0 * * * *'
+  class: 'Ghl::TokenRefreshJob'
+  queue: scheduled_jobs
+
 # executed At every minute..
 trigger_imap_email_inboxes_job:
   cron: '*/1 * * * *'

@@ -365,6 +365,65 @@
         "CONFIRM": "Yes, delete",
         "CANCEL": "Cancel"
       }
+    },
+    "GHL": {
+      "TITLE": "GoHighLevel Integration",
+      "DESCRIPTION": "Connect your GoHighLevel account to sync contacts, conversations, and manage your CRM data directly from DeskFlow.",
+      "CONNECT": {
+        "BUTTON_TEXT": "Connect GoHighLevel",
+        "DESCRIPTION": "Click the button below to connect your GoHighLevel location to DeskFlow."
+      },
+      "STATUS": {
+        "CONNECTED": "Connected",
+        "DISCONNECTED": "Not Connected",
+        "LOCATION_ID": "Location ID",
+        "COMPANY_ID": "Company ID",
+        "CONNECTED_AT": "Connected since",
+        "TOKEN_EXPIRES": "Token expires",
+        "TOKEN_VALID": "Token valid",
+        "TOKEN_EXPIRING_SOON": "Token expiring soon",
+        "TOKEN_EXPIRED": "Token expired",
+        "LAST_REFRESHED": "Last refreshed"
+      },
+      "ACTIONS": {
+        "REFRESH_TOKEN": "Refresh Token",
+        "DISCONNECT": "Disconnect",
+        "SYNC_CONTACTS": "Sync Contacts",
+        "SYNC_CONVERSATIONS": "Sync Conversations"
+      },
+      "SYNC": {
+        "TITLE": "Sync Controls",
+        "CONTACTS_DESCRIPTION": "Manually trigger a sync of contacts between GoHighLevel and DeskFlow.",
+        "CONVERSATIONS_DESCRIPTION": "Manually trigger a sync of conversations from GoHighLevel.",
+        "SYNC_STARTED": "Sync started successfully",
+        "SYNC_ERROR": "Failed to start sync. Please try again."
+      },
+      "WEBHOOKS": {
+        "TITLE": "Webhook Status",
+        "DESCRIPTION": "GoHighLevel sends real-time events to DeskFlow via webhooks.",
+        "ENDPOINT": "Webhook Endpoint",
+        "EVENTS": "Subscribed Events",
+        "CONTACT_CREATE": "Contact Create",
+        "CONTACT_UPDATE": "Contact Update",
+        "CONTACT_DELETE": "Contact Delete",
+        "INBOUND_MESSAGE": "Inbound Message",
+        "OUTBOUND_MESSAGE": "Outbound Message"
+      },
+      "DELETE_CONFIRMATION": {
+        "TITLE": "Disconnect GoHighLevel",
+        "MESSAGE": "Are you sure you want to disconnect the GoHighLevel integration? This will remove the connection and stop syncing data. You can reconnect at any time."
+      },
+      "TOKEN_REFRESH": {
+        "SUCCESS": "Token refreshed successfully",
+        "ERROR": "Failed to refresh token. Please try again or reconnect."
+      },
+      "ERROR": {
+        "CONNECTION_FAILED": "Failed to connect to GoHighLevel. Please try again.",
+        "STATUS_FETCH_FAILED": "Failed to fetch connection status.",
+        "OAUTH_INITIATION_FAILED": "Failed to start OAuth flow. Please check your configuration.",
+        "DISCONNECT_FAILED": "Failed to disconnect. Please try again.",
+        "DISCONNECT_SUCCESS": "GoHighLevel disconnected successfully."
+      }
     }
   },
   "CAPTAIN": {
