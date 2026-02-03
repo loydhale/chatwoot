@@ -56,6 +56,9 @@ RUN rm -rf /gems/ruby/3.4.0/cache/*.gem \
 # =============================================================================
 FROM ruby:3.4.4-alpine3.21 AS asset-builder
 
+ARG BUNDLE_WITHOUT="development:test"
+ENV BUNDLE_WITHOUT=${BUNDLE_WITHOUT}
+
 ARG NODE_VERSION="24.13.0"
 ARG PNPM_VERSION="10.2.0"
 ENV NODE_VERSION=${NODE_VERSION}
@@ -110,7 +113,8 @@ RUN apk update && apk add --no-cache \
   curl \
   xz \
   vips \
-  && gem install bundler -v "$BUNDLER_VERSION"
+  && gem install bundler -v "$BUNDLER_VERSION" \
+  && bundle config set without 'development test'
 
 # ── Node + pnpm ──
 COPY --from=node /usr/local/bin/node /usr/local/bin/
