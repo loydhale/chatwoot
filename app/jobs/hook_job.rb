@@ -16,8 +16,16 @@ class HookJob < MutexApplicationJob
     when 'leadsquared'
       process_leadsquared_integration_with_lock(hook, event_name, event_data)
     end
+  rescue Errno::ECONNREFUSED, SocketError, Net::OpenTimeout, Net::ReadTimeout,
+         RestClient::GatewayTimeout, RestClient::BadGateway,
+         RestClient::ServiceUnavailable, RestClient::InternalServerError,
+         Faraday::ConnectionFailed, Faraday::TimeoutError => e
+    # Transient errors — log and re-raise so Sidekiq can retry
+    Rails.logger.error "HookJob transient error (hook=#{hook.id} event=#{event_name}): #{e.class} — #{e.message}"
+    raise
   rescue StandardError => e
-    Rails.logger.error e
+    # Permanent failures — log but don't retry
+    Rails.logger.error "HookJob permanent error (hook=#{hook.id} event=#{event_name}): #{e.class} — #{e.message}"
   end
 
   private

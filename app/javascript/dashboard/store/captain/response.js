@@ -1,11 +1,11 @@
-import CaptainResponseAPI from 'dashboard/api/captain/response';
+import HudleyResponseAPI from 'dashboard/api/captain/response';
 import { createStore } from '../storeFactory';
 
 const SET_PENDING_COUNT = 'SET_PENDING_COUNT';
 
 export default createStore({
-  name: 'CaptainResponse',
-  API: CaptainResponseAPI,
+  name: 'HudleyResponse',
+  API: HudleyResponseAPI,
   getters: {
     getPendingCount: state => state.meta.pendingCount || 0,
   },
@@ -43,7 +43,7 @@ export default createStore({
     },
     fetchPendingCount: async ({ commit }, assistantId) => {
       try {
-        const response = await CaptainResponseAPI.get({
+        const response = await HudleyResponseAPI.get({
           status: 'pending',
           page: 1,
           assistantId,

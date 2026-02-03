@@ -1,7 +1,7 @@
 <script>
 import { ref } from 'vue';
 import { useKeyboardEvents } from 'dashboard/composables/useKeyboardEvents';
-import { useCaptain } from 'dashboard/composables/useCaptain';
+import { useHudley } from 'dashboard/composables/useHudley';
 import { vOnClickOutside } from '@vueuse/components';
 import { REPLY_EDITOR_MODES, CHAR_LENGTH_WARNING } from './constants';
 import NextButton from 'dashboard/components-next/button/Button.vue';
@@ -60,7 +60,7 @@ export default {
       setReplyMode(newMode);
     };
 
-    const { captainTasksEnabled } = useCaptain();
+    const { captainTasksEnabled } = useHudley();
     const showCopilotMenu = ref(false);
 
     const handleCopilotAction = actionKey => {

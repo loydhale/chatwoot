@@ -524,11 +524,11 @@ export const getContentNode = (
  * @param {string} channelType - The channel type (e.g., 'Channel::FacebookPage', 'Channel::WebWidget')
  * @returns {Object} The formatting configuration with marks, nodes, and menu properties
  */
-export function getFormattingForEditor(channelType, showCaptain = false) {
+export function getFormattingForEditor(channelType, showHudley = false) {
   const formatting = FORMATTING[channelType] || FORMATTING['Context::Default'];
   return {
     ...formatting,
-    menu: showCaptain
+    menu: showHudley
       ? formatting.menu
       : formatting.menu.filter(item => item !== 'copilot'),
   };

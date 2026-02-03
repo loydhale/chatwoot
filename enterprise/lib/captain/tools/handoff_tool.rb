@@ -17,7 +17,7 @@ class Captain::Tools::HandoffTool < Captain::Tools::BasePublicTool
 
     "Conversation handed off to human support team#{" (Reason: #{reason})" if reason}"
   rescue StandardError => e
-    ChatwootExceptionTracker.new(e).capture_exception
+    DeskFlowsExceptionTracker.new(e).capture_exception
     'Failed to handoff conversation'
   end
 

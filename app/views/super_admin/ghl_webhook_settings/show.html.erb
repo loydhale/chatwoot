@@ -1,0 +1,171 @@
+<% content_for(:title) { "GHL Webhook Settings" } %>
+
+<header class="main-content__header">
+  <h1 class="main-content__page-title">GHL Webhook Settings</h1>
+  <p>Configure the GoHighLevel webhook endpoint for receiving events.</p>
+</header>
+
+<section class="main-content__body">
+  <!-- Webhook URL -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h3>Webhook Endpoint</h3>
+    </div>
+    <div class="card-body">
+      <p><strong>URL:</strong></p>
+      <code class="d-block p-2 bg-light rounded mb-3" style="font-size: 1.1em;">
+        <%= @webhook_url %>
+      </code>
+      <p class="text-muted">
+        Configure this URL in your GHL Marketplace app settings under "Webhooks".
+        All GHL events will be posted to this endpoint.
+      </p>
+    </div>
+  </div>
+
+  <!-- Webhook Secret -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h3>Webhook Signing Secret</h3>
+    </div>
+    <div class="card-body">
+      <% if @webhook_secret.present? %>
+        <p>
+          <strong>Current secret:</strong>
+          <code><%= "#{@webhook_secret[0..7]}...#{@webhook_secret[-4..]}" %></code>
+          <span class="badge badge-success">Configured</span>
+        </p>
+      <% else %>
+        <p>
+          <span class="badge badge-warning">Not configured</span>
+          — Webhook signature verification will fall back to GHL_CLIENT_SECRET.
+        </p>
+      <% end %>
+
+      <%= form_tag(super_admin_ghl_webhook_settings_path, method: :put, class: 'mt-3') do %>
+        <div class="form-group">
+          <label for="webhook_secret">Set webhook secret manually:</label>
+          <input type="text" name="webhook_secret" id="webhook_secret"
+                 class="form-control" placeholder="Enter HMAC signing secret..." />
+        </div>
+        <button type="submit" class="btn btn-primary mr-2">Save Secret</button>
+      <% end %>
+
+      <%= form_tag(super_admin_ghl_webhook_settings_path, method: :put, class: 'mt-2 d-inline') do %>
+        <input type="hidden" name="regenerate_secret" value="true" />
+        <button type="submit" class="btn btn-outline-secondary"
+                onclick="return confirm('Regenerate webhook secret? You will need to update it in GHL.')">
+          🔄 Regenerate Secret
+        </button>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- OAuth Credentials Status -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h3>OAuth Credentials</h3>
+    </div>
+    <div class="card-body">
+      <table class="table table-sm">
+        <tbody>
+          <tr>
+            <td><strong>GHL_CLIENT_ID</strong></td>
+            <td>
+              <% if @client_id.present? %>
+                <code><%= "#{@client_id[0..7]}..." %></code>
+                <span class="badge badge-success">Set</span>
+              <% else %>
+                <span class="badge badge-danger">Missing</span>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>GHL_CLIENT_SECRET</strong></td>
+            <td>
+              <% if @client_secret.present? %>
+                <code><%= "#{@client_secret[0..5]}..." %></code>
+                <span class="badge badge-success">Set</span>
+              <% else %>
+                <span class="badge badge-danger">Missing</span>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>GHL_WEBHOOK_SECRET</strong></td>
+            <td>
+              <% if @webhook_secret.present? %>
+                <code><%= "#{@webhook_secret[0..5]}..." %></code>
+                <span class="badge badge-success">Set</span>
+              <% else %>
+                <span class="badge badge-warning">Not set (using CLIENT_SECRET)</span>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Integration Stats -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h3>Integration Status</h3>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="text-center">
+            <h2><%= @active_hooks %></h2>
+            <p class="text-muted">Active Integrations</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="text-center">
+            <h2><%= @total_hooks %></h2>
+            <p class="text-muted">Total Integrations</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="text-center">
+            <h2><%= @total_hooks - @active_hooks %></h2>
+            <p class="text-muted">Disabled</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supported Events -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h3>Supported Webhook Events</h3>
+    </div>
+    <div class="card-body">
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>GHL Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>contact.create</code></td><td>ContactCreate</td><td>New contact created in GHL → synced to DeskFlows</td></tr>
+          <tr><td><code>contact.update</code></td><td>ContactUpdate</td><td>Contact updated in GHL → attributes synced</td></tr>
+          <tr><td><code>contact.delete</code></td><td>ContactDelete</td><td>Contact deleted in GHL → soft-archived</td></tr>
+          <tr><td><code>conversation.message</code></td><td>InboundMessage / OutboundMessage</td><td>Message sent or received → synced to conversation</td></tr>
+          <tr><td><code>conversation.status</code></td><td>ConversationUnreadUpdate</td><td>Conversation status changed</td></tr>
+          <tr><td><code>opportunity.create</code></td><td>OpportunityCreate</td><td>New opportunity → creates conversation with pipeline context</td></tr>
+          <tr><td><code>opportunity.update</code></td><td>OpportunityUpdate</td><td>Opportunity updated → syncs stage/value changes</td></tr>
+          <tr><td><code>opportunity.delete</code></td><td>OpportunityDelete</td><td>Opportunity deleted → resolves conversation</td></tr>
+          <tr><td><code>opportunity.status_change</code></td><td>OpportunityStageUpdate</td><td>Stage or status changed → updates labels and adds note</td></tr>
+          <tr><td><code>app.installed</code></td><td>AppInstalled</td><td>Marketplace app installed → activates workspace</td></tr>
+          <tr><td><code>app.uninstalled</code></td><td>AppUninstalled</td><td>Marketplace app removed → suspends subscription</td></tr>
+          <tr><td><code>location.create</code></td><td>LocationCreate</td><td>New sub-location created</td></tr>
+          <tr><td><code>location.update</code></td><td>LocationUpdate</td><td>Location details changed</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

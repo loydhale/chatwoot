@@ -86,7 +86,7 @@ class Messages::AudioTranscriptionService< Llm::LegacyBaseOpenAiService
     message.reload.send_update_event
     message.account.increment_response_usage
 
-    return unless ChatwootApp.advanced_search_allowed?
+    return unless DeskFlowsApp.advanced_search_allowed?
 
     message.reindex
   end

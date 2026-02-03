@@ -15,3 +15,27 @@ vendor/bundle
 .DS_Store
 *.swp
 *~
+
+# ─── Reduce build context — saves transfer to Docker daemon ───
+# Every MB here is MB the Docker daemon must hold in memory during build.
+# Render Starter pipeline = 8 GB total; keep the context lean.
+
+# VCS — 514 MB! Use RENDER_GIT_COMMIT build arg instead.
+.git
+
+# Tests & docs — not needed in production image
+spec
+test
+docs
+deployment
+
+# ML model (66 MB) — sentiment ONNX not used at runtime
+vendor/db
+
+# CI / dev tooling
+coverage
+.github
+.devcontainer
+.husky
+stories
+.pnpm-store

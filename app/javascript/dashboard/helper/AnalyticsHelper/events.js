@@ -86,26 +86,26 @@ export const PORTALS_EVENTS = Object.freeze({
 
 export const CAPTAIN_EVENTS = Object.freeze({
   // Rewrite events (with operation attribute in payload)
-  REWRITE_USED: 'Captain: Rewrite used',
-  REWRITE_APPLIED: 'Captain: Rewrite applied',
-  REWRITE_DISMISSED: 'Captain: Rewrite dismissed',
+  REWRITE_USED: 'Hudley: Rewrite used',
+  REWRITE_APPLIED: 'Hudley: Rewrite applied',
+  REWRITE_DISMISSED: 'Hudley: Rewrite dismissed',
 
   // Summarize events
-  SUMMARIZE_USED: 'Captain: Summarize used',
-  SUMMARIZE_APPLIED: 'Captain: Summarize applied',
-  SUMMARIZE_DISMISSED: 'Captain: Summarize dismissed',
+  SUMMARIZE_USED: 'Hudley: Summarize used',
+  SUMMARIZE_APPLIED: 'Hudley: Summarize applied',
+  SUMMARIZE_DISMISSED: 'Hudley: Summarize dismissed',
 
   // Reply suggestion events
-  REPLY_SUGGESTION_USED: 'Captain: Reply suggestion used',
-  REPLY_SUGGESTION_APPLIED: 'Captain: Reply suggestion applied',
-  REPLY_SUGGESTION_DISMISSED: 'Captain: Reply suggestion dismissed',
+  REPLY_SUGGESTION_USED: 'Hudley: Reply suggestion used',
+  REPLY_SUGGESTION_APPLIED: 'Hudley: Reply suggestion applied',
+  REPLY_SUGGESTION_DISMISSED: 'Hudley: Reply suggestion dismissed',
 
   // Follow-up events
-  FOLLOW_UP_SENT: 'Captain: Follow-up sent',
+  FOLLOW_UP_SENT: 'Hudley: Follow-up sent',
 
   // Label suggestions
-  LABEL_SUGGESTION_APPLIED: 'Captain: Label suggestion applied',
-  LABEL_SUGGESTION_DISMISSED: 'Captain: Label suggestion dismissed',
+  LABEL_SUGGESTION_APPLIED: 'Hudley: Label suggestion applied',
+  LABEL_SUGGESTION_DISMISSED: 'Hudley: Label suggestion dismissed',
 });
 
 export const COPILOT_EVENTS = Object.freeze({

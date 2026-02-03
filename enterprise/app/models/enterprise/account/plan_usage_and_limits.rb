@@ -37,7 +37,7 @@ module Enterprise::Account::PlanUsageAndLimits # rubocop:disable Metrics/ModuleL
   end
 
   def subscribed_features
-    plan_features = InstallationConfig.find_by(name: 'CHATWOOT_CLOUD_PLAN_FEATURES')&.value
+    plan_features = InstallationConfig.find_by(name: 'DESKFLOWS_CLOUD_PLAN_FEATURES')&.value
     return [] if plan_features.blank?
 
     plan_features[plan_name]
@@ -83,7 +83,7 @@ module Enterprise::Account::PlanUsageAndLimits # rubocop:disable Metrics/ModuleL
   end
 
   def default_captain_limits
-    max_limits = { documents: ChatwootApp.max_limit, responses: ChatwootApp.max_limit }.with_indifferent_access
+    max_limits = { documents: DeskFlowsApp.max_limit, responses: DeskFlowsApp.max_limit }.with_indifferent_access
     zero_limits = { documents: 0, responses: 0 }.with_indifferent_access
     plan_quota = InstallationConfig.find_by(name: 'CAPTAIN_CLOUD_PLAN_LIMITS')&.value
 
@@ -120,7 +120,7 @@ module Enterprise::Account::PlanUsageAndLimits # rubocop:disable Metrics/ModuleL
 
     return GlobalConfig.get(config_name)[config_name] if GlobalConfig.get(config_name)[config_name].present?
 
-    ChatwootApp.max_limit
+    DeskFlowsApp.max_limit
   end
 
   def validate_limit_keys

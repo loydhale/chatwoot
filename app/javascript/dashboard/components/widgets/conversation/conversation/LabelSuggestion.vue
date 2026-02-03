@@ -4,7 +4,7 @@ import NextButton from 'dashboard/components-next/button/Button.vue';
 import Avatar from 'dashboard/components-next/avatar/Avatar.vue';
 
 // composables
-import { useCaptain } from 'dashboard/composables/useCaptain';
+import { useHudley } from 'dashboard/composables/useHudley';
 import { useTrack } from 'dashboard/composables';
 
 // store & api
@@ -33,7 +33,7 @@ export default {
     },
   },
   setup() {
-    const { captainTasksEnabled } = useCaptain();
+    const { captainTasksEnabled } = useHudley();
 
     return { captainTasksEnabled };
   },
@@ -233,7 +233,7 @@ export default {
             hideOnClick: true,
           }"
           :size="16"
-          name="chatwoot-ai"
+          name="deskflows-ai"
           icon-name="i-lucide-sparkles"
         />
       </div>

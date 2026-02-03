@@ -8,7 +8,7 @@ import { useAccount } from 'dashboard/composables/useAccount';
 import DeleteDialog from 'dashboard/components-next/captain/pageComponents/DeleteDialog.vue';
 import DocumentCard from 'dashboard/components-next/captain/assistant/DocumentCard.vue';
 import PageLayout from 'dashboard/components-next/captain/PageLayout.vue';
-import CaptainPaywall from 'dashboard/components-next/captain/pageComponents/Paywall.vue';
+import HudleyPaywall from 'dashboard/components-next/captain/pageComponents/Paywall.vue';
 import RelatedResponses from 'dashboard/components-next/captain/pageComponents/document/RelatedResponses.vue';
 import CreateDocumentDialog from 'dashboard/components-next/captain/pageComponents/document/CreateDocumentDialog.vue';
 import DocumentPageEmptyState from 'dashboard/components-next/captain/pageComponents/emptyStates/DocumentPageEmptyState.vue';
@@ -18,7 +18,7 @@ import LimitBanner from 'dashboard/components-next/captain/pageComponents/docume
 const route = useRoute();
 const store = useStore();
 
-const { isOnChatwootCloud } = useAccount();
+const { isOnDeskFlowsCloud } = useAccount();
 const uiFlags = useMapGetter('captainDocuments/getUIFlags');
 const documents = useMapGetter('captainDocuments/getRecords');
 const isFetching = computed(() => uiFlags.value.fetchingList);
@@ -111,7 +111,7 @@ onMounted(() => {
         :button-label="$t('CAPTAIN.HEADER_KNOW_MORE')"
         :title="$t('CAPTAIN.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
         :note="$t('CAPTAIN.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
-        :hide-actions="!isOnChatwootCloud"
+        :hide-actions="!isOnDeskFlowsCloud"
         fallback-thumbnail="/assets/images/dashboard/captain/document-popover-light.svg"
         fallback-thumbnail-dark="/assets/images/dashboard/captain/document-popover-dark.svg"
         learn-more-url="https://chwt.app/captain-document"
@@ -123,7 +123,7 @@ onMounted(() => {
     </template>
 
     <template #paywall>
-      <CaptainPaywall />
+      <HudleyPaywall />
     </template>
 
     <template #body>

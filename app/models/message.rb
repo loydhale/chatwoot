@@ -39,10 +39,11 @@
 #
 
 class Message < ApplicationRecord
-  searchkick callbacks: false if ChatwootApp.advanced_search_allowed?
+  searchkick callbacks: false if DeskFlowsApp.advanced_search_allowed?
 
   include MessageFilterHelpers
   include Liquidable
+  include AutoTaggable
   NUMBER_OF_PERMITTED_ATTACHMENTS = 15
 
   TEMPLATE_PARAMS_SCHEMA = {
@@ -235,9 +236,9 @@ class Message < ApplicationRecord
   end
 
   def should_index?
-    return false unless ChatwootApp.advanced_search_allowed?
+    return false unless DeskFlowsApp.advanced_search_allowed?
     return false unless incoming? || outgoing?
-    # For Chatwoot Cloud:
+    # For DeskFlows Cloud:
     #   - Enable indexing only if the account is paid.
     #   - The `advanced_search_indexing` feature flag is used only in the cloud.
     #
@@ -245,7 +246,7 @@ class Message < ApplicationRecord
     #   - Adding an extra feature flag here would cause confusion.
     #   - If the user has configured Elasticsearch, enabling `advanced_search`
     #     should automatically work without any additional flags.
-    return false if ChatwootApp.chatwoot_cloud? && !account.feature_enabled?('advanced_search_indexing')
+    return false if DeskFlowsApp.deskflows_cloud? && !account.feature_enabled?('advanced_search_indexing')
 
     true
   end
@@ -315,6 +316,16 @@ class Message < ApplicationRecord
     send_reply
     execute_message_template_hooks
     update_contact_activity
+    auto_tag_conversation_async
+  end
+
+  def auto_tag_conversation_async
+    return unless incoming?
+
+    # Run auto-tagging in background to avoid blocking message creation
+    AutoTagJob.perform_later(id) if defined?(AutoTagJob)
+  rescue StandardError => e
+    Rails.logger.warn("Auto-tagging skipped: #{e.message}")
   end
 
   def update_contact_activity
@@ -421,6 +432,8 @@ class Message < ApplicationRecord
   end
 
   def reindex_for_search
+    return unless respond_to?(:reindex)
+
     reindex(mode: :async)
   end
 end

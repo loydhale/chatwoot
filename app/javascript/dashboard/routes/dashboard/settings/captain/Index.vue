@@ -4,23 +4,23 @@ import { useI18n } from 'vue-i18n';
 import { storeToRefs } from 'pinia';
 import { useAlert } from 'dashboard/composables';
 import { useAccount } from 'dashboard/composables/useAccount';
-import { useCaptain } from 'dashboard/composables/useCaptain';
+import { useHudley } from 'dashboard/composables/useHudley';
 import { useConfig } from 'dashboard/composables/useConfig';
-import { useCaptainConfigStore } from 'dashboard/store/captain/preferences';
+import { useHudleyConfigStore } from 'dashboard/store/captain/preferences';
 
 import SettingsLayout from '../SettingsLayout.vue';
 import BaseSettingsHeader from '../components/BaseSettingsHeader.vue';
 import SectionLayout from '../account/components/SectionLayout.vue';
 import ModelSelector from './components/ModelSelector.vue';
 import FeatureToggle from './components/FeatureToggle.vue';
-import CaptainPaywall from 'next/captain/pageComponents/Paywall.vue';
+import HudleyPaywall from 'next/captain/pageComponents/Paywall.vue';
 
 const { t } = useI18n();
-const { captainEnabled } = useCaptain();
+const { captainEnabled } = useHudley();
 const { isEnterprise, enterprisePlanName } = useConfig();
-const { isOnChatwootCloud } = useAccount();
+const { isOnDeskFlowsCloud } = useAccount();
 
-const captainConfigStore = useCaptainConfigStore();
+const captainConfigStore = useHudleyConfigStore();
 const { uiFlags } = storeToRefs(captainConfigStore);
 
 const isLoading = computed(() => uiFlags.value.isFetching);
@@ -61,7 +61,7 @@ const featureToggles = computed(() => [
 
 const shouldShowFeature = feature => {
   // Cloud will always see these features as long as captain is enabled
-  if (isOnChatwootCloud.value && captainEnabled) {
+  if (isOnDeskFlowsCloud.value && captainEnabled) {
     return true;
   }
 
@@ -76,7 +76,7 @@ const shouldShowFeature = feature => {
 
 const isFeatureAccessible = feature => {
   // Cloud will always see these features as long as captain is enabled
-  if (isOnChatwootCloud.value && captainEnabled) {
+  if (isOnDeskFlowsCloud.value && captainEnabled) {
     return true;
   }
 
@@ -175,7 +175,7 @@ onMounted(() => {
         </SectionLayout>
       </div>
       <div v-else>
-        <CaptainPaywall />
+        <HudleyPaywall />
       </div>
     </template>
   </SettingsLayout>

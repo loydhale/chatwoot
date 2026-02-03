@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   base: &base
     build:
@@ -12,15 +10,22 @@ services:
         RAILS_SERVE_STATIC_FILES: 'false'
     tty: true
     stdin_open: true
-    image: chatwoot:development
-    env_file: .env
+    image: deskflows:development
+    env_file:
+      - .env
+      - .env.docker
+    # base is a build-only target — never run directly
+    profiles:
+      - build
 
   rails:
     <<: *base
+    # Override profiles so this service starts with `docker compose up`
+    profiles: []
     build:
       context: .
       dockerfile: ./docker/dockerfiles/rails.Dockerfile
-    image: chatwoot-rails:development
+    image: deskflows-rails:development
     volumes:
       - ./:/app:delegated
       - node_modules:/app/node_modules
@@ -28,14 +33,19 @@ services:
       - cache:/app/tmp/cache
       - bundle:/usr/local/bundle
     depends_on:
-      - postgres
-      - redis
-      - vite
-      - mailhog
-      - sidekiq
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      vite:
+        condition: service_started
+      mailhog:
+        condition: service_started
     ports:
       - 3000:3000
-    env_file: .env
+    env_file:
+      - .env
+      - .env.docker
     environment:
       - VITE_DEV_SERVER_HOST=vite
       - NODE_ENV=development
@@ -45,7 +55,13 @@ services:
 
   sidekiq:
     <<: *base
-    image: chatwoot-rails:development
+    # Override profiles so this service starts with `docker compose up`
+    profiles: []
+    # Use the same Dockerfile as rails — sidekiq runs the same codebase
+    build:
+      context: .
+      dockerfile: ./docker/dockerfiles/rails.Dockerfile
+    image: deskflows-rails:development
     volumes:
       - ./:/app:delegated
       - node_modules:/app/node_modules
@@ -53,20 +69,29 @@ services:
       - cache:/app/tmp/cache
       - bundle:/usr/local/bundle
     depends_on:
-      - postgres
-      - redis
-      - mailhog
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      mailhog:
+        condition: service_started
+    env_file:
+      - .env
+      - .env.docker
     environment:
       - NODE_ENV=development
       - RAILS_ENV=development
+    entrypoint: docker/entrypoints/rails.sh
     command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq.yml"]
 
   vite:
     <<: *base
+    # Override profiles so this service starts with `docker compose up`
+    profiles: []
     build:
       context: .
       dockerfile: ./docker/dockerfiles/vite.Dockerfile
-    image: chatwoot-vite:development
+    image: deskflows-vite:development
     volumes:
       - ./:/app:delegated
       - node_modules:/app/node_modules
@@ -75,6 +100,9 @@ services:
       - bundle:/usr/local/bundle
     ports:
       - "3036:3036" # Vite dev server
+    env_file:
+      - .env
+      - .env.docker
     environment:
       - VITE_DEV_SERVER_HOST=0.0.0.0
       - NODE_ENV=development
@@ -86,23 +114,32 @@ services:
     image: pgvector/pgvector:pg16
     restart: always
     ports:
-      - '5432:5432'
+      - '5433:5432'
     volumes:
-      - postgres:/data/postgres
-    environment:
-      - POSTGRES_DB=chatwoot
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=
+      - postgres:/var/lib/postgresql/data
+    env_file:
+      - .env.docker
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   redis:
     image: redis:alpine
     restart: always
     command: ["sh", "-c", "redis-server --requirepass \"$REDIS_PASSWORD\""]
-    env_file: .env
+    env_file:
+      - .env.docker
     volumes:
-      - redis:/data/redis
+      - redis:/data
     ports:
-      - '6379:6379'
+      - '6380:6379'
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a \"$REDIS_PASSWORD\" ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   mailhog:
     image: mailhog/mailhog

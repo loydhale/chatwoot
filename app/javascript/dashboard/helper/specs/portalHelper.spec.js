@@ -3,33 +3,33 @@ import { buildPortalArticleURL, buildPortalURL } from '../portalHelper';
 describe('PortalHelper', () => {
   describe('buildPortalURL', () => {
     it('returns the correct url', () => {
-      window.chatwootConfig = {
-        hostURL: 'https://app.chatwoot.com',
-        helpCenterURL: 'https://help.chatwoot.com',
+      window.deskflowsConfig = {
+        hostURL: 'https://app.deskflows.ai',
+        helpCenterURL: 'https://help.deskflows.app',
       };
       expect(buildPortalURL('handbook')).toEqual(
-        'https://help.chatwoot.com/hc/handbook'
+        'https://help.deskflows.app/hc/handbook'
       );
-      window.chatwootConfig = {};
+      window.deskflowsConfig = {};
     });
   });
 
   describe('buildPortalArticleURL', () => {
     it('returns the correct url', () => {
-      window.chatwootConfig = {
-        hostURL: 'https://app.chatwoot.com',
-        helpCenterURL: 'https://help.chatwoot.com',
+      window.deskflowsConfig = {
+        hostURL: 'https://app.deskflows.ai',
+        helpCenterURL: 'https://help.deskflows.app',
       };
       expect(
         buildPortalArticleURL('handbook', 'culture', 'fr', 'article-slug')
-      ).toEqual('https://help.chatwoot.com/hc/handbook/articles/article-slug');
-      window.chatwootConfig = {};
+      ).toEqual('https://help.deskflows.app/hc/handbook/articles/article-slug');
+      window.deskflowsConfig = {};
     });
 
     it('returns the correct url with custom domain', () => {
-      window.chatwootConfig = {
-        hostURL: 'https://app.chatwoot.com',
-        helpCenterURL: 'https://help.chatwoot.com',
+      window.deskflowsConfig = {
+        hostURL: 'https://app.deskflows.ai',
+        helpCenterURL: 'https://help.deskflows.app',
       };
       expect(
         buildPortalArticleURL(
@@ -43,9 +43,9 @@ describe('PortalHelper', () => {
     });
 
     it('handles https in custom domain correctly', () => {
-      window.chatwootConfig = {
-        hostURL: 'https://app.chatwoot.com',
-        helpCenterURL: 'https://help.chatwoot.com',
+      window.deskflowsConfig = {
+        hostURL: 'https://app.deskflows.ai',
+        helpCenterURL: 'https://help.deskflows.app',
       };
       expect(
         buildPortalArticleURL(
@@ -59,13 +59,13 @@ describe('PortalHelper', () => {
     });
 
     it('uses hostURL when helpCenterURL is not available', () => {
-      window.chatwootConfig = {
-        hostURL: 'https://app.chatwoot.com',
+      window.deskflowsConfig = {
+        hostURL: 'https://app.deskflows.ai',
         helpCenterURL: '',
       };
       expect(
         buildPortalArticleURL('handbook', 'culture', 'fr', 'article-slug')
-      ).toEqual('https://app.chatwoot.com/hc/handbook/articles/article-slug');
+      ).toEqual('https://app.deskflows.ai/hc/handbook/articles/article-slug');
     });
   });
 });

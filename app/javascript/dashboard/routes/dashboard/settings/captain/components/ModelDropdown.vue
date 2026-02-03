@@ -2,7 +2,7 @@
 import { ref, computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useAccount } from 'dashboard/composables/useAccount';
-import { useCaptainConfigStore } from 'dashboard/store/captain/preferences';
+import { useHudleyConfigStore } from 'dashboard/store/captain/preferences';
 import Icon from 'dashboard/components-next/icon/Icon.vue';
 import DropdownBody from 'dashboard/components-next/dropdown-menu/base/DropdownBody.vue';
 import DropdownItem from 'dashboard/components-next/dropdown-menu/base/DropdownItem.vue';
@@ -16,7 +16,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['change']);
-const { isOnChatwootCloud } = useAccount();
+const { isOnDeskFlowsCloud } = useAccount();
 
 const PROVIDER_ICONS = {
   openai: 'i-ri-openai-fill',
@@ -30,7 +30,7 @@ const iconForModel = model => {
 };
 
 const { t } = useI18n();
-const captainConfigStore = useCaptainConfigStore();
+const captainConfigStore = useHudleyConfigStore();
 const isOpen = ref(false);
 
 const availableModels = computed(() =>
@@ -142,7 +142,10 @@ const selectModel = model => {
             <span v-if="model.coming_soon" class="text-xs text-n-slate-11">
               {{ t('CAPTAIN_SETTINGS.MODEL_CONFIG.COMING_SOON') }}
             </span>
-            <span v-else-if="isOnChatwootCloud" class="text-xs text-n-slate-11">
+            <span
+              v-else-if="isOnDeskFlowsCloud"
+              class="text-xs text-n-slate-11"
+            >
               {{ getCreditLabel(model) }}
             </span>
           </div>

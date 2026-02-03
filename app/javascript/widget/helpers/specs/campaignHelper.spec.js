@@ -5,7 +5,7 @@ import {
 } from '../campaignHelper';
 import campaigns from './campaignFixtures';
 
-global.chatwootWebChannel = {
+global.deskflowsWebChannel = {
   workingHoursEnabled: false,
 };
 describe('#Campaigns Helper', () => {
@@ -13,29 +13,29 @@ describe('#Campaigns Helper', () => {
     it('returns correct value if a valid URL is passed', () => {
       expect(
         isPatternMatchingWithURL(
-          'https://chatwoot.com/pricing*',
-          'https://chatwoot.com/pricing/'
+          'https://deskflows.app/pricing*',
+          'https://deskflows.app/pricing/'
         )
       ).toBe(true);
 
       expect(
         isPatternMatchingWithURL(
-          'https://*.chatwoot.com/pricing/',
-          'https://app.chatwoot.com/pricing/'
+          'https://*.deskflows.app/pricing/',
+          'https://app.deskflows.app/pricing/'
         )
       ).toBe(true);
 
       expect(
         isPatternMatchingWithURL(
-          'https://{*.}?chatwoot.com/pricing?test=true',
-          'https://app.chatwoot.com/pricing/?test=true'
+          'https://{*.}?deskflows.app/pricing?test=true',
+          'https://app.deskflows.app/pricing/?test=true'
         )
       ).toBe(true);
 
       expect(
         isPatternMatchingWithURL(
-          'https://{*.}?chatwoot.com/pricing*\\?*',
-          'https://chatwoot.com/pricing/?test=true'
+          'https://{*.}?deskflows.app/pricing*\\?*',
+          'https://deskflows.app/pricing/?test=true'
         )
       ).toBe(true);
     });
@@ -48,13 +48,13 @@ describe('#Campaigns Helper', () => {
           id: 1,
           timeOnPage: 3,
           triggerOnlyDuringBusinessHours: false,
-          url: 'https://www.chatwoot.com/pricing',
+          url: 'https://www.deskflows.app/pricing',
         },
         {
           id: 2,
           triggerOnlyDuringBusinessHours: false,
           timeOnPage: 6,
-          url: 'https://www.chatwoot.com/about',
+          url: 'https://www.deskflows.app/about',
         },
       ]);
     });
@@ -67,23 +67,23 @@ describe('#Campaigns Helper', () => {
             {
               id: 1,
               timeOnPage: 3,
-              url: 'https://www.chatwoot.com/pricing',
+              url: 'https://www.deskflows.app/pricing',
               triggerOnlyDuringBusinessHours: false,
             },
             {
               id: 2,
               timeOnPage: 6,
-              url: 'https://www.chatwoot.com/about',
+              url: 'https://www.deskflows.app/about',
               triggerOnlyDuringBusinessHours: false,
             },
           ],
-          currentURL: 'https://www.chatwoot.com/about/',
+          currentURL: 'https://www.deskflows.app/about/',
         })
       ).toStrictEqual([
         {
           id: 2,
           timeOnPage: 6,
-          url: 'https://www.chatwoot.com/about',
+          url: 'https://www.deskflows.app/about',
           triggerOnlyDuringBusinessHours: false,
         },
       ]);
@@ -95,24 +95,24 @@ describe('#Campaigns Helper', () => {
             {
               id: 1,
               timeOnPage: 3,
-              url: 'https://www.chatwoot.com/pricing',
+              url: 'https://www.deskflows.app/pricing',
               triggerOnlyDuringBusinessHours: false,
             },
             {
               id: 2,
               timeOnPage: 6,
-              url: 'https://www.chatwoot.com/about',
+              url: 'https://www.deskflows.app/about',
               triggerOnlyDuringBusinessHours: true,
             },
           ],
-          currentURL: 'https://www.chatwoot.com/about/',
+          currentURL: 'https://www.deskflows.app/about/',
           isInBusinessHours: true,
         })
       ).toStrictEqual([
         {
           id: 2,
           timeOnPage: 6,
-          url: 'https://www.chatwoot.com/about',
+          url: 'https://www.deskflows.app/about',
           triggerOnlyDuringBusinessHours: true,
         },
       ]);
@@ -124,17 +124,17 @@ describe('#Campaigns Helper', () => {
             {
               id: 1,
               timeOnPage: 3,
-              url: 'https://www.chatwoot.com/pricing',
+              url: 'https://www.deskflows.app/pricing',
               triggerOnlyDuringBusinessHours: true,
             },
             {
               id: 2,
               timeOnPage: 6,
-              url: 'https://www.chatwoot.com/about',
+              url: 'https://www.deskflows.app/about',
               triggerOnlyDuringBusinessHours: true,
             },
           ],
-          currentURL: 'https://www.chatwoot.com/about/',
+          currentURL: 'https://www.deskflows.app/about/',
           isInBusinessHours: false,
         })
       ).toStrictEqual([]);

@@ -37,7 +37,7 @@ const emit = defineEmits([
   'closeMobileSidebar',
 ]);
 
-const { accountScopedRoute, isOnChatwootCloud } = useAccount();
+const { accountScopedRoute, isOnDeskFlowsCloud } = useAccount();
 const store = useStore();
 const searchShortcut = useKbd([`$mod`, 'k']);
 const { t } = useI18n();
@@ -303,7 +303,7 @@ const menuItems = computed(() => {
       ],
     },
     {
-      name: 'Captain',
+      name: 'Hudley',
       icon: 'i-woot-captain',
       label: t('SIDEBAR.CAPTAIN'),
       activeOn: ['captain_assistants_create_index'],
@@ -567,7 +567,7 @@ const menuItems = computed(() => {
           to: accountScopedRoute('general_settings_index'),
         },
         // {
-        //   name: 'Settings Captain',
+        //   name: 'Settings Hudley',
         //   label: t('SIDEBAR.CAPTAIN_AI'),
         //   icon: 'i-woot-captain',
         //   to: accountScopedRoute('captain_settings_index'),
@@ -794,14 +794,14 @@ const menuItems = computed(() => {
       />
       <SidebarChangelogCard
         v-if="
-          isOnChatwootCloud &&
+          isOnDeskFlowsCloud &&
           !isACustomBrandedInstance &&
           !isEffectivelyCollapsed
         "
       />
       <SidebarChangelogButton
         v-if="
-          isOnChatwootCloud &&
+          isOnDeskFlowsCloud &&
           !isACustomBrandedInstance &&
           isEffectivelyCollapsed
         "

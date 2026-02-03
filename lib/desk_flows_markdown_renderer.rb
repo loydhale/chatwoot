@@ -1,4 +1,4 @@
-class ChatwootMarkdownRenderer
+class DeskFlowsMarkdownRenderer
   def initialize(content)
     @content = content
   end

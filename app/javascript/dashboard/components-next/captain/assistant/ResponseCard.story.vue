@@ -5,7 +5,7 @@ import { responsesList } from 'dashboard/components-next/captain/pageComponents/
 
 <template>
   <Story
-    title="Captain/Assistant/ResponseCard"
+    title="Hudley/Assistant/ResponseCard"
     :layout="{ type: 'grid', width: '700px' }"
   >
     <Variant title="Article Card">

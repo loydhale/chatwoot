@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ChatwootHub do
+describe DeskFlowsHub do
   it 'generates installation identifier' do
     installation_identifier = described_class.installation_identifier
     expect(installation_identifier).not_to be_nil
@@ -8,7 +8,7 @@ describe ChatwootHub do
   end
 
   context 'when fetching sync_with_hub' do
-    it 'get latest version from chatwoot hub' do
+    it 'get latest version from deskflows hub' do
       version = '1.1.1'
       allow(RestClient).to receive(:post).and_return({ version: version }.to_json)
       expect(described_class.sync_with_hub['version']).to eq version
@@ -26,7 +26,7 @@ describe ChatwootHub do
       end
     end
 
-    it 'returns nil when chatwoot hub is down' do
+    it 'returns nil when deskflows hub is down' do
       allow(RestClient).to receive(:post).and_raise(ExceptionList::REST_CLIENT_EXCEPTIONS.sample)
       expect(described_class.sync_with_hub).to be_nil
     end
@@ -73,8 +73,8 @@ describe ChatwootHub do
   context 'when fetching captain settings' do
     it 'returns the captain settings' do
       account = create(:account)
-      stub_request(:post, ChatwootHub::CAPTAIN_ACCOUNTS_URL).with(
-        body: { installation_identifier: described_class.installation_identifier, chatwoot_account_id: account.id, account_name: account.name }
+      stub_request(:post, DeskFlowsHub::CAPTAIN_ACCOUNTS_URL).with(
+        body: { installation_identifier: described_class.installation_identifier, deskflows_account_id: account.id, account_name: account.name }
       ).to_return(
         body: { account_email: 'test@test.com', account_id: '123', access_token: '123', assistant_id: '123' }.to_json
       )

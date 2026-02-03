@@ -239,10 +239,10 @@ RSpec.describe Captain::CustomTool, type: :model do
 
       it 'renders request body template with params' do
         tool = create(:captain_custom_tool, account: account,
-                                            request_template: '{ "order_id": "{{ order_id }}", "source": "chatwoot" }')
+                                            request_template: '{ "order_id": "{{ order_id }}", "source": "deskflows" }')
 
         result = tool.build_request_body({ order_id: '12345' })
-        expect(result).to eq('{ "order_id": "12345", "source": "chatwoot" }')
+        expect(result).to eq('{ "order_id": "12345", "source": "deskflows" }')
       end
     end
 
@@ -352,28 +352,28 @@ RSpec.describe Captain::CustomTool, type: :model do
       it 'includes account and assistant metadata' do
         headers = tool.build_metadata_headers(state)
 
-        expect(headers['X-Chatwoot-Account-Id']).to eq(account.id.to_s)
-        expect(headers['X-Chatwoot-Assistant-Id']).to eq('123')
+        expect(headers['X-DeskFlows-Account-Id']).to eq(account.id.to_s)
+        expect(headers['X-DeskFlows-Assistant-Id']).to eq('123')
       end
 
       it 'includes tool slug' do
         headers = tool.build_metadata_headers(state)
 
-        expect(headers['X-Chatwoot-Tool-Slug']).to eq('custom_test_tool')
+        expect(headers['X-DeskFlows-Tool-Slug']).to eq('custom_test_tool')
       end
 
       it 'includes conversation metadata when present' do
         headers = tool.build_metadata_headers(state)
 
-        expect(headers['X-Chatwoot-Conversation-Id']).to eq(conversation.id.to_s)
-        expect(headers['X-Chatwoot-Conversation-Display-Id']).to eq(conversation.display_id.to_s)
+        expect(headers['X-DeskFlows-Conversation-Id']).to eq(conversation.id.to_s)
+        expect(headers['X-DeskFlows-Conversation-Display-Id']).to eq(conversation.display_id.to_s)
       end
 
       it 'includes contact metadata when present' do
         headers = tool.build_metadata_headers(state)
 
-        expect(headers['X-Chatwoot-Contact-Id']).to eq(contact.id.to_s)
-        expect(headers['X-Chatwoot-Contact-Email']).to eq(contact.email)
+        expect(headers['X-DeskFlows-Contact-Id']).to eq(contact.id.to_s)
+        expect(headers['X-DeskFlows-Contact-Email']).to eq(contact.email)
       end
 
       it 'handles missing conversation gracefully' do
@@ -381,9 +381,9 @@ RSpec.describe Captain::CustomTool, type: :model do
 
         headers = tool.build_metadata_headers(state)
 
-        expect(headers['X-Chatwoot-Conversation-Id']).to be_nil
-        expect(headers['X-Chatwoot-Conversation-Display-Id']).to be_nil
-        expect(headers['X-Chatwoot-Account-Id']).to eq(account.id.to_s)
+        expect(headers['X-DeskFlows-Conversation-Id']).to be_nil
+        expect(headers['X-DeskFlows-Conversation-Display-Id']).to be_nil
+        expect(headers['X-DeskFlows-Account-Id']).to eq(account.id.to_s)
       end
 
       it 'handles missing contact gracefully' do
@@ -391,16 +391,16 @@ RSpec.describe Captain::CustomTool, type: :model do
 
         headers = tool.build_metadata_headers(state)
 
-        expect(headers['X-Chatwoot-Contact-Id']).to be_nil
-        expect(headers['X-Chatwoot-Contact-Email']).to be_nil
-        expect(headers['X-Chatwoot-Account-Id']).to eq(account.id.to_s)
+        expect(headers['X-DeskFlows-Contact-Id']).to be_nil
+        expect(headers['X-DeskFlows-Contact-Email']).to be_nil
+        expect(headers['X-DeskFlows-Account-Id']).to eq(account.id.to_s)
       end
 
       it 'handles empty state' do
         headers = tool.build_metadata_headers({})
 
         expect(headers).to be_a(Hash)
-        expect(headers['X-Chatwoot-Tool-Slug']).to eq('custom_test_tool')
+        expect(headers['X-DeskFlows-Tool-Slug']).to eq('custom_test_tool')
       end
 
       it 'omits contact email header when email is blank' do
@@ -408,7 +408,7 @@ RSpec.describe Captain::CustomTool, type: :model do
 
         headers = tool.build_metadata_headers(state)
 
-        expect(headers).not_to have_key('X-Chatwoot-Contact-Email')
+        expect(headers).not_to have_key('X-DeskFlows-Contact-Email')
       end
 
       it 'omits contact phone header when phone number is blank' do
@@ -416,7 +416,7 @@ RSpec.describe Captain::CustomTool, type: :model do
 
         headers = tool.build_metadata_headers(state)
 
-        expect(headers).not_to have_key('X-Chatwoot-Contact-Phone')
+        expect(headers).not_to have_key('X-DeskFlows-Contact-Phone')
       end
     end
 

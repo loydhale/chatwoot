@@ -1,0 +1,111 @@
+<% content_for(:title) { "GHL Tenants" } %>
+
+<header class="main-content__header" role="banner">
+  <h1 class="main-content__page-title">GHL Marketplace Tenants</h1>
+</header>
+
+<!-- Stats Cards -->
+<div class="ghl-stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px;">
+  <div class="stat-card" style="background: #f0fdf4; border-radius: 8px; padding: 16px;">
+    <div style="font-size: 32px; font-weight: 700; color: #16a34a;"><%= @stats[:active] %></div>
+    <div style="color: #4b5563; font-size: 14px;">Active Tenants</div>
+  </div>
+  <div class="stat-card" style="background: #eff6ff; border-radius: 8px; padding: 16px;">
+    <div style="font-size: 32px; font-weight: 700; color: #2563eb;"><%= @stats[:trialing] %></div>
+    <div style="color: #4b5563; font-size: 14px;">In Trial</div>
+  </div>
+  <div class="stat-card" style="background: #fefce8; border-radius: 8px; padding: 16px;">
+    <div style="font-size: 32px; font-weight: 700; color: #ca8a04;"><%= @stats[:over_ai_limit] %></div>
+    <div style="color: #4b5563; font-size: 14px;">Over AI Limit</div>
+  </div>
+  <div class="stat-card" style="background: #faf5ff; border-radius: 8px; padding: 16px;">
+    <div style="font-size: 32px; font-weight: 700; color: #7c3aed;">$<%= number_with_delimiter(@stats[:mrr_estimate]) %></div>
+    <div style="color: #4b5563; font-size: 14px;">Est. MRR</div>
+  </div>
+  <div class="stat-card" style="background: #f0f9ff; border-radius: 8px; padding: 16px;">
+    <div style="font-size: 32px; font-weight: 700; color: #0891b2;"><%= number_with_delimiter(@stats[:total_ai_credits_used]) %></div>
+    <div style="color: #4b5563; font-size: 14px;">Total AI Credits Used</div>
+  </div>
+</div>
+
+<!-- Plan Breakdown -->
+<div style="margin-bottom: 24px;">
+  <strong>By Plan:</strong>
+  <% @stats[:by_plan].each do |plan, count| %>
+    <span class="badge" style="background: #e5e7eb; padding: 4px 12px; border-radius: 12px; margin-left: 8px;">
+      <%= plan.titleize %>: <%= count %>
+    </span>
+  <% end %>
+</div>
+
+<!-- Filters -->
+<div style="margin-bottom: 16px; display: flex; gap: 8px;">
+  <%= link_to "All", super_admin_ghl_tenants_path, class: "btn btn-sm #{params[:plan].blank? && params[:status].blank? ? 'btn-primary' : 'btn-outline'}" %>
+  <% GhlSubscription::PLANS.each_key do |plan| %>
+    <%= link_to plan.titleize, super_admin_ghl_tenants_path(plan: plan), class: "btn btn-sm #{params[:plan] == plan ? 'btn-primary' : 'btn-outline'}" %>
+  <% end %>
+  <span style="margin-left: 16px;">|</span>
+  <% GhlSubscription::STATUSES.each do |status| %>
+    <%= link_to status.titleize, super_admin_ghl_tenants_path(status: status), class: "btn btn-sm #{params[:status] == status ? 'btn-primary' : 'btn-outline'}" %>
+  <% end %>
+  <%= link_to "Over AI Limit", super_admin_ghl_tenants_path(over_limit: 'true'), class: "btn btn-sm btn-danger" %>
+</div>
+
+<!-- Tenants Table -->
+<table class="collection-data" style="width: 100%; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th style="text-align: left; padding: 12px 8px; border-bottom: 2px solid #e5e7eb;">Account</th>
+      <th style="text-align: left; padding: 12px 8px; border-bottom: 2px solid #e5e7eb;">Plan</th>
+      <th style="text-align: left; padding: 12px 8px; border-bottom: 2px solid #e5e7eb;">Status</th>
+      <th style="text-align: left; padding: 12px 8px; border-bottom: 2px solid #e5e7eb;">Locations</th>
+      <th style="text-align: left; padding: 12px 8px; border-bottom: 2px solid #e5e7eb;">AI Usage</th>
+      <th style="text-align: left; padding: 12px 8px; border-bottom: 2px solid #e5e7eb;">GHL Location</th>
+      <th style="text-align: left; padding: 12px 8px; border-bottom: 2px solid #e5e7eb;">Created</th>
+      <th style="text-align: left; padding: 12px 8px; border-bottom: 2px solid #e5e7eb;">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @subscriptions.each do |sub| %>
+      <tr style="border-bottom: 1px solid #f3f4f6;">
+        <td style="padding: 12px 8px;">
+          <%= link_to sub.account.name, super_admin_account_path(sub.account) %>
+          <div style="font-size: 12px; color: #9ca3af;">ID: <%= sub.account.id %></div>
+        </td>
+        <td style="padding: 12px 8px;">
+          <span style="background: #dbeafe; color: #1d4ed8; padding: 2px 8px; border-radius: 4px; font-size: 13px; font-weight: 600;">
+            <%= sub.plan.upcase %>
+          </span>
+        </td>
+        <td style="padding: 12px 8px;">
+          <% status_color = { 'active' => '#16a34a', 'trialing' => '#2563eb', 'past_due' => '#dc2626', 'cancelled' => '#9ca3af', 'suspended' => '#dc2626' }[sub.status] || '#6b7280' %>
+          <span style="color: <%= status_color %>; font-weight: 600;"><%= sub.status.titleize %></span>
+          <% if sub.trial_active? %>
+            <div style="font-size: 11px; color: #6b7280;"><%= sub.trial_days_remaining %>d left</div>
+          <% end %>
+        </td>
+        <td style="padding: 12px 8px;"><%= sub.locations_count %>/<%= sub.locations_limit %></td>
+        <td style="padding: 12px 8px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <div style="flex: 1; background: #e5e7eb; border-radius: 4px; height: 8px; overflow: hidden;">
+              <% pct = sub.ai_usage_percentage %>
+              <div style="width: <%= [pct, 100].min %>%; height: 100%; background: <%= pct > 90 ? '#dc2626' : pct > 70 ? '#f59e0b' : '#16a34a' %>; border-radius: 4px;"></div>
+            </div>
+            <span style="font-size: 12px; white-space: nowrap;"><%= sub.ai_credits_used %>/<%= sub.ai_credits_limit %></span>
+          </div>
+        </td>
+        <td style="padding: 12px 8px; font-size: 12px; font-family: monospace;"><%= sub.ghl_location_id&.truncate(16) %></td>
+        <td style="padding: 12px 8px; font-size: 13px;"><%= sub.created_at.strftime('%b %d, %Y') %></td>
+        <td style="padding: 12px 8px;">
+          <%= link_to "View", super_admin_ghl_tenant_path(sub), class: "btn btn-sm btn-outline" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% if @subscriptions.respond_to?(:total_pages) %>
+  <div style="margin-top: 16px; text-align: center;">
+    <%== pagy_nav(@subscriptions) if defined?(pagy_nav) %>
+  </div>
+<% end %>

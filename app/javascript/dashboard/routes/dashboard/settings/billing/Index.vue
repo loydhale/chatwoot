@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMapGetter, useStore } from 'dashboard/composables/store.js';
 import { useAccount } from 'dashboard/composables/useAccount';
-import { useCaptain } from 'dashboard/composables/useCaptain';
+import { useHudley } from 'dashboard/composables/useHudley';
 import { format } from 'date-fns';
 import sessionStorage from 'shared/helpers/sessionStorage';
 
@@ -17,7 +17,7 @@ import SettingsLayout from '../SettingsLayout.vue';
 import ButtonV4 from 'next/button/Button.vue';
 
 const router = useRouter();
-const { currentAccount, isOnChatwootCloud } = useAccount();
+const { currentAccount, isOnDeskFlowsCloud } = useAccount();
 const {
   captainEnabled,
   captainLimits,
@@ -25,7 +25,7 @@ const {
   responseLimits,
   fetchLimits,
   isFetchingLimits,
-} = useCaptain();
+} = useHudley();
 
 const uiFlags = useMapGetter('accounts/getUIFlags');
 const store = useStore();
@@ -86,7 +86,7 @@ const fetchAccountDetails = async () => {
 
 const handleBillingPageLogic = async () => {
   // If self-hosted, redirect to dashboard
-  if (!isOnChatwootCloud.value) {
+  if (!isOnDeskFlowsCloud.value) {
     router.push({ name: 'home' });
     return;
   }
@@ -123,8 +123,8 @@ const onClickBillingPortal = () => {
 };
 
 const onToggleChatWindow = () => {
-  if (window.$chatwoot) {
-    window.$chatwoot.toggle();
+  if (window.$deskflows) {
+    window.$deskflows.toggle();
   }
 };
 

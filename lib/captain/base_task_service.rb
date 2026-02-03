@@ -65,7 +65,7 @@ class Captain::BaseTaskService
       build_ruby_llm_response(chat.ask(conversation_messages.last[:content]), messages)
     end
   rescue StandardError => e
-    ChatwootExceptionTracker.new(e, account: account).capture_exception
+    DeskFlowsExceptionTracker.new(e, account: account).capture_exception
     { error: e.message, request_messages: messages }
   end
 

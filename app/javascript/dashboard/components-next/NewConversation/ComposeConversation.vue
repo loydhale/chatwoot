@@ -242,7 +242,7 @@ useKeyboardEvents(keyboardEvents);
   <div
     v-on-click-outside="[
       handleClickOutside,
-      // Fixed and edge case https://github.com/chatwoot/chatwoot/issues/10785
+      // Fixed and edge case https://github.com/deskflows/deskflows/issues/10785
       // This will prevent closing the compose conversation modal when the editor Create link popup is open
       { ignore: ['div.ProseMirror-prompt'] },
     ]"

@@ -236,16 +236,16 @@ RSpec.describe Captain::BaseTaskService do
     let(:model) { 'gpt-4' }
     let(:messages) { [{ role: 'user', content: 'Hello' }] }
     let(:error) { StandardError.new('API Error') }
-    let(:exception_tracker) { instance_double(ChatwootExceptionTracker) }
+    let(:exception_tracker) { instance_double(DeskFlowsExceptionTracker) }
 
     before do
       allow(Llm::Config).to receive(:with_api_key).and_raise(error)
-      allow(ChatwootExceptionTracker).to receive(:new).with(error, account: account).and_return(exception_tracker)
+      allow(DeskFlowsExceptionTracker).to receive(:new).with(error, account: account).and_return(exception_tracker)
       allow(exception_tracker).to receive(:capture_exception)
     end
 
     it 'tracks exceptions' do
-      expect(ChatwootExceptionTracker).to receive(:new).with(error, account: account).and_return(exception_tracker)
+      expect(DeskFlowsExceptionTracker).to receive(:new).with(error, account: account).and_return(exception_tracker)
       expect(exception_tracker).to receive(:capture_exception)
 
       service.send(:make_api_call, model: model, messages: messages)

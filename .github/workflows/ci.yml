@@ -1,0 +1,171 @@
+# DeskFlow CI — runs on every push to main and all PRs
+# Lightweight: lint + GHL-focused spec suite (no 16-node parallelization)
+name: DeskFlow CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  RAILS_ENV: test
+  NODE_ENV: test
+  BUNDLE_WITHOUT: ""
+  BUNDLE_JOBS: 4
+  BUNDLE_RETRY: 3
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: bundle exec rubocop --parallel
+      - run: pnpm run eslint
+
+  rspec:
+    name: RSpec (${{ matrix.suite }})
+    runs-on: ubuntu-latest
+    needs: lint
+    timeout-minutes: 25
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - suite: models-services
+            paths: spec/models/ spec/services/
+          - suite: controllers-api
+            paths: spec/controllers/api/
+          - suite: controllers-other
+            paths: >-
+              spec/controllers/concerns/
+              spec/controllers/devise/
+              spec/controllers/devise_overrides/
+              spec/controllers/ghl/
+              spec/controllers/google/
+              spec/controllers/instagram/
+              spec/controllers/installation/
+              spec/controllers/linear/
+              spec/controllers/microsoft/
+              spec/controllers/notion/
+              spec/controllers/platform/
+              spec/controllers/public/
+              spec/controllers/service/
+              spec/controllers/shopify/
+              spec/controllers/super_admin/
+              spec/controllers/tiktok/
+              spec/controllers/twilio/
+              spec/controllers/twitter/
+              spec/controllers/webhooks/
+              spec/controllers/android_assetlinks_spec.rb
+              spec/controllers/api_controller_spec.rb
+              spec/controllers/apple_app_spec.rb
+              spec/controllers/dashboard_controller_spec.rb
+              spec/controllers/microsoft_controller_spec.rb
+              spec/controllers/slack_uploads_controller_spec.rb
+              spec/controllers/swagger_controller_spec.rb
+              spec/controllers/widget_tests_controller_spec.rb
+              spec/controllers/widgets_controller_spec.rb
+          - suite: jobs
+            paths: spec/jobs/
+
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ""
+          POSTGRES_DB: deskflow_test
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports: ["5432:5432"]
+        options: >-
+          --mount type=tmpfs,destination=/var/lib/postgresql/data
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:alpine
+        ports: ["6379:6379"]
+        options: --entrypoint redis-server
+
+    env:
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ""
+      REDIS_URL: redis://localhost:6379/0
+      SECRET_KEY_BASE: test_secret_key_base_for_ci_only
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install JS dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Setup database
+        run: |
+          bundle exec rake db:create
+          bundle exec rake db:schema:load
+
+      - name: Run specs
+        run: |
+          timeout 1200 bundle exec rspec ${{ matrix.paths }} \
+            --format documentation \
+            --no-color \
+            || { echo "::error::RSpec exited with code $?"; exit 1; }
+
+  docker-build:
+    name: Docker build smoke test
+    runs-on: ubuntu-latest
+    needs: lint
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            -f docker/Dockerfile \
+            --build-arg NODE_OPTIONS="--max-old-space-size=1536 --openssl-legacy-provider" \
+            -t deskflow-ci-test \
+            . 2>&1 | tail -40
+        env:
+          DOCKER_BUILDKIT: 1
+
+      - name: Verify image exists
+        run: |
+          docker image inspect deskflow-ci-test --format '{{.Size}}' | awk '{printf "Image size: %.0f MB\n", $1/1024/1024}'

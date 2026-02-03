@@ -16,21 +16,21 @@
       "ERROR": "Si è verificato un errore nella connessione a Shopify. Si prega di riprovare o contattare il supporto se il problema persiste."
     },
     "HEADER": "Integrazioni",
-    "DESCRIPTION": "Chatwoot si integra con più strumenti e servizi per migliorare l'efficienza del tuo team. Esplora l'elenco qui sotto per configurare le tue app preferite.",
+    "DESCRIPTION": "DeskFlows si integra con più strumenti e servizi per migliorare l'efficienza del tuo team. Esplora l'elenco qui sotto per configurare le tue app preferite.",
     "LEARN_MORE": "Scopri di più sulle integrazioni",
     "LOADING": "Caricamento integrazioni",
     "CAPTAIN": {
-      "DISABLED": "Captain non è abilitato sul tuo account.",
+      "DISABLED": "Hudley non è abilitato sul tuo account.",
       "CLICK_HERE_TO_CONFIGURE": "Clicca qui per configurare",
-      "LOADING_CONSOLE": "Caricamento Console Captain...",
-      "FAILED_TO_LOAD_CONSOLE": "Caricamento della Console Captain non riuscito. Aggiorna e riprova."
+      "LOADING_CONSOLE": "Caricamento Console Hudley...",
+      "FAILED_TO_LOAD_CONSOLE": "Caricamento della Console Hudley non riuscito. Aggiorna e riprova."
     },
     "WEBHOOK": {
       "SUBSCRIBED_EVENTS": "Eventi Sottoscritti",
       "LEARN_MORE": "Scopri di più sui webhooks",
       "FORM": {
         "CANCEL": "Annulla",
-        "DESC": "Gli eventi Webhook ti forniscono le informazioni in tempo reale su ciò che sta accadendo nel tuo account Chatwoot. Per favore inserisci un URL valido per configurare un callback.",
+        "DESC": "Gli eventi Webhook ti forniscono le informazioni in tempo reale su ciò che sta accadendo nel tuo account DeskFlows. Per favore inserisci un URL valido per configurare un callback.",
         "SUBSCRIPTIONS": {
           "LABEL": "Eventi",
           "EVENTS": {
@@ -64,7 +64,7 @@
       "HEADER_BTN_TXT": "Aggiungi nuovo webhook",
       "LOADING": "Recupero dei webhooks collegati",
       "SEARCH_404": "Non ci sono elementi che corrispondono a questa richiesta",
-      "SIDEBAR_TXT": "<p><b>Webhooks</b> </p> <p>I Webhooks sono callback HTTP che possono essere definiti per ogni account. Sono innescati da eventi come la creazione di messaggi in Chatwoot. Puoi creare più di un webhook per questo account. <br /><br /> Per creare un <b>webhook</b>, clicca sul pulsante <b>Aggiungi nuovo webhook</b>. Puoi anche rimuovere qualsiasi webhook esistente cliccando sul pulsante Elimina.</p>",
+      "SIDEBAR_TXT": "<p><b>Webhooks</b> </p> <p>I Webhooks sono callback HTTP che possono essere definiti per ogni account. Sono innescati da eventi come la creazione di messaggi in DeskFlows. Puoi creare più di un webhook per questo account. <br /><br /> Per creare un <b>webhook</b>, clicca sul pulsante <b>Aggiungi nuovo webhook</b>. Puoi anche rimuovere qualsiasi webhook esistente cliccando sul pulsante Elimina.</p>",
       "LIST": {
         "404": "Non ci sono webhook configurati per questo account.",
         "TITLE": "Gestisci webhook",
@@ -111,14 +111,14 @@
       },
       "HELP_TEXT": {
         "TITLE": "Stai utilizzando l'integrazione Slack",
-        "BODY": "Con questa integrazione, tutte le conversazioni in arrivo verranno sincronizzate nel canale ***{selectedChannelName}*** del tuo workspace Slack. Potrai gestire tutte le conversazioni con i clienti direttamente dal canale e non perderai mai un messaggio.\n\nEcco le principali funzionalità dell’integrazione:\n\n**Rispondi alle conversazioni direttamente da Slack:** Per rispondere a una conversazione nel canale Slack ***{selectedChannelName}***, ti basta scrivere il tuo messaggio e inviarlo come thread. Questo genererà automaticamente una risposta al cliente tramite Chatwoot. Semplice, no?\n\n**Crea note private:** Se vuoi aggiungere note private invece di risposte, inizia il messaggio con ***`note:`***. In questo modo il messaggio resterà privato e non sarà visibile al cliente.\n\n**Associa un profilo operatore:** Se la persona che risponde su Slack ha un profilo operatore in app con lo stesso indirizzo email, le risposte verranno associate automaticamente a quel profilo. In questo modo potrai sapere facilmente chi ha risposto e quando. Se invece chi risponde non ha un profilo operatore associato, le risposte verranno inviate al cliente dal profilo del bot.",
+        "BODY": "Con questa integrazione, tutte le conversazioni in arrivo verranno sincronizzate nel canale ***{selectedChannelName}*** del tuo workspace Slack. Potrai gestire tutte le conversazioni con i clienti direttamente dal canale e non perderai mai un messaggio.\n\nEcco le principali funzionalità dell’integrazione:\n\n**Rispondi alle conversazioni direttamente da Slack:** Per rispondere a una conversazione nel canale Slack ***{selectedChannelName}***, ti basta scrivere il tuo messaggio e inviarlo come thread. Questo genererà automaticamente una risposta al cliente tramite DeskFlows. Semplice, no?\n\n**Crea note private:** Se vuoi aggiungere note private invece di risposte, inizia il messaggio con ***`note:`***. In questo modo il messaggio resterà privato e non sarà visibile al cliente.\n\n**Associa un profilo operatore:** Se la persona che risponde su Slack ha un profilo operatore in app con lo stesso indirizzo email, le risposte verranno associate automaticamente a quel profilo. In questo modo potrai sapere facilmente chi ha risposto e quando. Se invece chi risponde non ha un profilo operatore associato, le risposte verranno inviate al cliente dal profilo del bot.",
         "SELECTED": "selezionato"
       },
       "SELECT_CHANNEL": {
         "OPTION_LABEL": "Seleziona un canale",
         "UPDATE": "Aggiorna",
         "BUTTON_TEXT": "Connetti canale",
-        "DESCRIPTION": "Il tuo workspace Slack è ora collegato a Chatwoot. Tuttavia, l'integrazione è attualmente inattiva. Per attivare l'integrazione e collegare un canale a Chatwoot, fare clic sul pulsante qui sotto.\n\n**Nota:** Se stai tentando di collegare un canale privato, aggiungi l'app Chatwoot al canale Slack prima di procedere con questo passaggio.",
+        "DESCRIPTION": "Il tuo workspace Slack è ora collegato a DeskFlows. Tuttavia, l'integrazione è attualmente inattiva. Per attivare l'integrazione e collegare un canale a DeskFlows, fare clic sul pulsante qui sotto.\n\n**Nota:** Se stai tentando di collegare un canale privato, aggiungi l'app DeskFlows al canale Slack prima di procedere con questo passaggio.",
         "ATTENTION_REQUIRED": "Attenzione richiesta",
         "EXPIRED": "La tua integrazione con Slack è scaduta. Per continuare a ricevere messaggi su Slack, elimina l'integrazione e connetti nuovamente il tuo workspace."
       },
@@ -198,7 +198,7 @@
     "DASHBOARD_APPS": {
       "TITLE": "App Dashboard",
       "HEADER_BTN_TXT": "Aggiungi una nuova App Dashboard",
-      "SIDEBAR_TXT": "<p><b>App dashboard</b></p><p>Le app dashboard consentono alle organizzazioni di incorporare un'applicazione all'interno di Chatwoot per fornire informazioni aggiuntive agli operatorii. Questa funzione consente di creare un'applicazione in modo indipendente e incorporata all'interno della dashboard per fornire informazioni degli utenti, ad esempio ordini o pagamenti effettuati.</p><p>Quando integri la tua applicazione usando la dashboard Chatwoot, la tua applicazione avrà il context della conversazione e del contatto come evento window. Implementa un listener per l'evento del messaggio sulla tua pagina per ricevere i dati.</p><p>Per aggiungere una nuova app dashboard, clicca sul pulsante 'Aggiungi una nuova app dashboard'.</p>",
+      "SIDEBAR_TXT": "<p><b>App dashboard</b></p><p>Le app dashboard consentono alle organizzazioni di incorporare un'applicazione all'interno di DeskFlows per fornire informazioni aggiuntive agli operatorii. Questa funzione consente di creare un'applicazione in modo indipendente e incorporata all'interno della dashboard per fornire informazioni degli utenti, ad esempio ordini o pagamenti effettuati.</p><p>Quando integri la tua applicazione usando la dashboard DeskFlows, la tua applicazione avrà il context della conversazione e del contatto come evento window. Implementa un listener per l'evento del messaggio sulla tua pagina per ricevere i dati.</p><p>Per aggiungere una nuova app dashboard, clicca sul pulsante 'Aggiungi una nuova app dashboard'.</p>",
       "DESCRIPTION": "Le app dashboard consentono alle organizzazioni di incorporare un'applicazione all'interno della dashboard per fornire dati aggiuntivi agli operatori. Questa funzione consente di creare un'applicazione in modo indipendente e incorporarla per fornire informazioni sull'utente, i suoi ordini o la loro cronologia di pagamento precedente.",
       "LEARN_MORE": "Scopri di più sulle App Dashboard",
       "LIST": {
@@ -346,7 +346,7 @@
     }
   },
   "CAPTAIN": {
-    "NAME": "Captain",
+    "NAME": "Hudley",
     "HEADER_KNOW_MORE": "Scopri di più",
     "ASSISTANT_SWITCHER": {
       "ASSISTANTS": "Assistenti",
@@ -361,7 +361,7 @@
       "KICK_OFF_MESSAGE": "Hai bisogno di un riassunto rapido, vuoi controllare le conversazioni passate o vuoi scrivere risposte migliori? Copilot è qui per te.",
       "SEND_MESSAGE": "Invia messaggio...",
       "EMPTY_MESSAGE": "Si è verificato un errore durante la generazione della risposta. Riprova.",
-      "LOADER": "Captain sta pensando",
+      "LOADER": "Hudley sta pensando",
       "YOU": "Tu",
       "USE": "Usa questo",
       "RESET": "Reset",
@@ -396,11 +396,11 @@
       "MESSAGE_PLACEHOLDER": "Scrivi il tuo messaggio...",
       "HEADER": "Playground",
       "DESCRIPTION": "Usa questo playground per inviare messaggi al tuo assistente e controllare se risponde correttamente, rapidamente e con il tono che ti aspetti.",
-      "CREDIT_NOTE": "I messaggi inviati qui vengono scalati dai crediti Captain."
+      "CREDIT_NOTE": "I messaggi inviati qui vengono scalati dai crediti Hudley."
     },
     "PAYWALL": {
-      "TITLE": "Aggiorna per usare Captain AI",
-      "AVAILABLE_ON": "Captain non è disponibile sul piano gratuito.",
+      "TITLE": "Aggiorna per usare Hudley AI",
+      "AVAILABLE_ON": "Hudley non è disponibile sul piano gratuito.",
       "UPGRADE_PROMPT": "Aggiorna il tuo piano per ottenere l'accesso ai nostri assistenti, copilot e altro ancora.",
       "UPGRADE_NOW": "Aggiorna ora",
       "CANCEL_ANYTIME": "Puoi modificare o annullare il tuo piano in qualsiasi momento"
@@ -410,8 +410,8 @@
       "ASK_ADMIN": "Contatta il tuo amministratore per l'aggiornamento."
     },
     "BANNER": {
-      "RESPONSES": "Hai usato oltre l'80% del tuo limite di risposte. Per continuare a utilizzare Captain AI, per favore aggiorna.",
-      "DOCUMENTS": "Raggiunto il limite di documenti. Aggiorna per continuare a usare Captain AI."
+      "RESPONSES": "Hai usato oltre l'80% del tuo limite di risposte. Per continuare a utilizzare Hudley AI, per favore aggiorna.",
+      "DOCUMENTS": "Raggiunto il limite di documenti. Aggiorna per continuare a usare Hudley AI."
     },
     "FORM": {
       "CANCEL": "Annulla",
@@ -531,8 +531,8 @@
         "TITLE": "Nessun assistente disponibile",
         "SUBTITLE": "Crea un assistente per fornire risposte rapide e accurate agli utenti. Può imparare dagli articoli dell'Help Center e dalle conversazioni passate.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Captain Assistant",
-          "NOTE": "Captain Assistant interagisce direttamente con i clienti, impara dai documenti e dalle conversazioni passate e fornisce risposte rapide e accurate. Gestisce le richieste iniziali, fornendo risoluzioni rapide prima di trasferire ad un operatore quando necessario."
+          "TITLE": "Hudley Assistant",
+          "NOTE": "Hudley Assistant interagisce direttamente con i clienti, impara dai documenti e dalle conversazioni passate e fornisce risposte rapide e accurate. Gestisce le richieste iniziali, fornendo risoluzioni rapide prima di trasferire ad un operatore quando necessario."
         }
       },
       "GUARDRAILS": {
@@ -742,8 +742,8 @@
         "TITLE": "Nessun documento disponibile",
         "SUBTITLE": "I documenti sono utilizzati dal tuo assistente per generare FAQ. Puoi importare documenti per fornire contesto al tuo assistente.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Documento Captain",
-          "NOTE": "Un documento in Captain serve come risorsa di knowledge base per l'assistente. Collegando documenti help center e guide, Captain può analizzare il contenuto e fornire risposte accurate per le richieste dei clienti."
+          "TITLE": "Documento Hudley",
+          "NOTE": "Un documento in Hudley serve come risorsa di knowledge base per l'assistente. Collegando documenti help center e guide, Hudley può analizzare il contenuto e fornire risposte accurate per le richieste dei clienti."
         }
       }
     },
@@ -899,7 +899,7 @@
         "ALL": "Tutte"
       },
       "PENDING_BANNER": {
-        "TITLE": "Captain ha trovato delle FAQ tra le domande dei tuoi clienti.",
+        "TITLE": "Hudley ha trovato delle FAQ tra le domande dei tuoi clienti.",
         "ACTION": "Clicca qui per rivedere"
       },
       "FORM_DESCRIPTION": "Aggiungi una domanda e la sua risposta corrispondente alla knowledge base e seleziona l'assistente con cui dovrebbe essere associata.",
@@ -937,8 +937,8 @@
         "SUBTITLE": "Le FAQ aiutano il tuo assistente a fornire risposte rapide e accurate alle domande dei tuoi clienti. Possono essere generate automaticamente dai tuoi contenuti o possono essere aggiunte manualmente.",
         "CLEAR_SEARCH": "Rimuovi filtri attivi",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Captain FAQ",
-          "NOTE": "Captain FAQ rileva le domande più frequenti dei clienti, anche se mancano dalla tua knowledge base, e suggerisce delle FAQ per migliorare il supporto. È possibile rivedere ogni suggerimento e decidere se approvarlo o rifiutarlo."
+          "TITLE": "Hudley FAQ",
+          "NOTE": "Hudley FAQ rileva le domande più frequenti dei clienti, anche se mancano dalla tua knowledge base, e suggerisce delle FAQ per migliorare il supporto. È possibile rivedere ogni suggerimento e decidere se approvarlo o rifiutarlo."
         }
       }
     },

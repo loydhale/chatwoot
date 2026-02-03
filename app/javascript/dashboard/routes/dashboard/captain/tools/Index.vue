@@ -4,7 +4,7 @@ import { useMapGetter, useStore } from 'dashboard/composables/store';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 
 import PageLayout from 'dashboard/components-next/captain/PageLayout.vue';
-import CaptainPaywall from 'dashboard/components-next/captain/pageComponents/Paywall.vue';
+import HudleyPaywall from 'dashboard/components-next/captain/pageComponents/Paywall.vue';
 import CustomToolsPageEmptyState from 'dashboard/components-next/captain/pageComponents/emptyStates/CustomToolsPageEmptyState.vue';
 import CreateCustomToolDialog from 'dashboard/components-next/captain/pageComponents/customTool/CreateCustomToolDialog.vue';
 import CustomToolCard from 'dashboard/components-next/captain/pageComponents/customTool/CustomToolCard.vue';
@@ -92,7 +92,7 @@ onMounted(() => {
     @click="openCreateDialog"
   >
     <template #paywall>
-      <CaptainPaywall />
+      <HudleyPaywall />
     </template>
 
     <template #emptyState>

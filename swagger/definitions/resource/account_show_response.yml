@@ -2,9 +2,9 @@ allOf:
   - $ref: '#/components/schemas/account_detail'
   - type: object
     properties:
-      latest_chatwoot_version:
+      latest_deskflows_version:
         type: string
-        description: Latest version of Chatwoot available
+        description: Latest version of DeskFlows available
         example: "3.0.0"
       subscribed_features:
         type: array

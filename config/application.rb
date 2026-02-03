@@ -33,10 +33,10 @@ if ENV.fetch('JUDOSCALE_URL', false).present?
   require 'judoscale-sidekiq'
 end
 
-module Chatwoot
+module DeskFlows
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 7.2
 
     config.eager_load_paths << Rails.root.join('lib')
     config.eager_load_paths << Rails.root.join('enterprise/lib')
@@ -58,7 +58,7 @@ module Chatwoot
     config.generators.javascripts = false
     config.generators.stylesheets = false
 
-    # Custom chatwoot configurations
+    # Custom deskflows configurations
     config.x = config_for(:app).with_indifferent_access
 
     # https://stackoverflow.com/questions/72970170/upgrading-to-rails-6-1-6-1-causes-psychdisallowedclass-tried-to-load-unspecif
@@ -90,7 +90,7 @@ module Chatwoot
 
   def self.redis_ssl_verify_mode
     # Introduced this method to fix the issue in heroku where redis connections fail for redis 6
-    # ref: https://github.com/chatwoot/chatwoot/issues/2420
+    # ref: https://github.com/deskflows/deskflows/issues/2420 (original DeskFlows issue)
     #
     # unless the redis verify mode is explicitly specified as none, we will fall back to the default 'verify peer'
     # ref: https://www.rubydoc.info/stdlib/openssl/OpenSSL/SSL/SSLContext#DEFAULT_PARAMS-constant
@@ -111,3 +111,6 @@ module Chatwoot
     encryption_configured?
   end
 end
+
+# Alias for backwards compatibility with DeskFlows code
+DeskFlows = DeskFlows unless defined?(DeskFlows)

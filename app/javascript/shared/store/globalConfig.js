@@ -7,7 +7,7 @@ const {
   APP_VERSION: appVersion,
   AZURE_APP_ID: azureAppId,
   BRAND_NAME: brandName,
-  CHATWOOT_INBOX_TOKEN: chatwootInboxToken,
+  DESKFLOWS_INBOX_TOKEN: deskflowsInboxToken,
   CREATE_NEW_ACCOUNT_FROM_DASHBOARD: createNewAccountFromDashboard,
   DIRECT_UPLOADS_ENABLED: directUploadsEnabled,
   DISPLAY_MANIFEST: displayManifest,
@@ -32,7 +32,7 @@ const state = {
   appVersion,
   azureAppId,
   brandName,
-  chatwootInboxToken,
+  deskflowsInboxToken,
   deploymentEnv,
   createNewAccountFromDashboard,
   directUploadsEnabled: parseBoolean(directUploadsEnabled),
@@ -53,9 +53,9 @@ const state = {
 
 export const getters = {
   get: $state => $state,
-  isOnChatwootCloud: $state => $state.deploymentEnv === 'cloud',
-  isACustomBrandedInstance: $state => $state.installationName !== 'Chatwoot',
-  isAChatwootInstance: $state => $state.installationName === 'Chatwoot',
+  isOnDeskFlowsCloud: $state => $state.deploymentEnv === 'cloud',
+  isACustomBrandedInstance: $state => $state.installationName !== 'DeskFlows',
+  isADeskFlowsInstance: $state => $state.installationName === 'DeskFlows',
 };
 
 export const actions = {};

@@ -1,7 +1,7 @@
 /* global axios */
 import ApiClient from '../ApiClient';
 
-class CaptainInboxes extends ApiClient {
+class HudleyInboxes extends ApiClient {
   constructor() {
     super('captain/assistants', { accountScoped: true });
   }
@@ -23,4 +23,4 @@ class CaptainInboxes extends ApiClient {
   }
 }
 
-export default new CaptainInboxes();
+export default new HudleyInboxes();

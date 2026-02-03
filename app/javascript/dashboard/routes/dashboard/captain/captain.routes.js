@@ -2,7 +2,7 @@ import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import { INSTALLATION_TYPES } from 'dashboard/constants/installationTypes';
 import { frontendURL } from '../../../helper/URLHelper';
 
-import CaptainPageRouteView from './pages/CaptainPageRouteView.vue';
+import HudleyPageRouteView from './pages/HudleyPageRouteView.vue';
 import AssistantsIndexPage from './pages/AssistantsIndexPage.vue';
 import AssistantEmptyStateIndex from './assistants/Index.vue';
 
@@ -118,7 +118,7 @@ const assistantRoutes = [
 export const routes = [
   {
     path: frontendURL('accounts/:accountId/captain'),
-    component: CaptainPageRouteView,
+    component: HudleyPageRouteView,
     redirect: to => {
       return {
         name: 'captain_assistants_index',

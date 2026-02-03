@@ -62,17 +62,31 @@ RSpec.describe AutoAssignment::AssignmentJob, type: :job do
       end
     end
 
-    context 'when an error occurs' do
-      it 'logs the error and re-raises in test environment' do
+    context 'when a transient error occurs' do
+      it 'logs and re-raises for Sidekiq retry' do
+        service = instance_double(AutoAssignment::AssignmentService)
+        allow(AutoAssignment::AssignmentService).to receive(:new).and_return(service)
+        allow(service).to receive(:perform_bulk_assignment).and_raise(Redis::CannotConnectError, 'Connection refused')
+
+        expect(Rails.logger).to receive(:error).with(/Bulk assignment transient error for inbox #{inbox.id}:.*Redis::CannotConnectError/)
+
+        expect do
+          described_class.new.perform(inbox_id: inbox.id)
+        end.to raise_error(Redis::CannotConnectError)
+      end
+    end
+
+    context 'when a permanent error occurs' do
+      it 'logs the error but does not re-raise' do
         service = instance_double(AutoAssignment::AssignmentService)
         allow(AutoAssignment::AssignmentService).to receive(:new).and_return(service)
         allow(service).to receive(:perform_bulk_assignment).and_raise(StandardError, 'Something went wrong')
 
-        expect(Rails.logger).to receive(:error).with("Bulk assignment failed for inbox #{inbox.id}: Something went wrong")
+        expect(Rails.logger).to receive(:error).with(/Bulk assignment permanent error for inbox #{inbox.id}:.*StandardError/)
 
         expect do
           described_class.new.perform(inbox_id: inbox.id)
-        end.to raise_error(StandardError, 'Something went wrong')
+        end.not_to raise_error
       end
     end
   end

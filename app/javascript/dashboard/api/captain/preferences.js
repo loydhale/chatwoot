@@ -1,7 +1,7 @@
 /* global axios */
 import ApiClient from '../ApiClient';
 
-class CaptainPreferences extends ApiClient {
+class HudleyPreferences extends ApiClient {
   constructor() {
     super('captain/preferences', { accountScoped: true });
   }
@@ -15,4 +15,4 @@ class CaptainPreferences extends ApiClient {
   }
 }
 
-export default new CaptainPreferences();
+export default new HudleyPreferences();

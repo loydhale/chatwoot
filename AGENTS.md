@@ -1,4 +1,4 @@
-# Chatwoot Development Guidelines
+# DeskFlows Development Guidelines
 
 ## Build / Test / Lint
 
@@ -13,6 +13,7 @@
 - **Ruby Version**: Manage Ruby via `rbenv` and install the version listed in `.ruby-version` (e.g., `rbenv install $(cat .ruby-version)`)
 - **rbenv setup**: Before running any `bundle` or `rspec` commands, init rbenv in your shell (`eval "$(rbenv init -)"`) so the correct Ruby/Bundler versions are used
 - Always prefer `bundle exec` for Ruby CLI tasks (rspec, rake, rubocop, etc.)
+- **Test env**: Specs should run without `.env`. If present, temporarily rename it (e.g., `.env` -> `.env.bak`) while running specs and restore afterward.
 
 ## Code Style
 
@@ -71,10 +72,10 @@
 
 ## Enterprise Edition Notes
 
-- Chatwoot has an Enterprise overlay under `enterprise/` that extends/overrides OSS code.
+- DeskFlows has an Enterprise overlay under `enterprise/` that extends/overrides OSS code.
 - When you add or modify core functionality, always check for corresponding files in `enterprise/` and keep behavior compatible.
 - Follow the Enterprise development practices documented here:
-  - https://chatwoot.help/hc/handbook/articles/developing-enterprise-edition-features-38
+  - https://deskflows.help/hc/handbook/articles/developing-enterprise-edition-features-38
 
 Practical checklist for any change impacting core logic or public APIs
 - Search for related files in both trees before editing (e.g., `rg -n "FooService|ControllerName|ModelName" app enterprise`).

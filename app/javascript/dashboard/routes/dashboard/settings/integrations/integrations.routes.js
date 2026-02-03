@@ -10,6 +10,7 @@ import SettingsContent from '../Wrapper.vue';
 import Linear from './Linear.vue';
 import Notion from './Notion.vue';
 import Shopify from './Shopify.vue';
+import GoHighLevel from './GoHighLevel.vue';
 
 export default {
   routes: [
@@ -99,6 +100,16 @@ export default {
             permissions: ['administrator'],
           },
           props: route => ({ code: route.query.code }),
+        },
+        {
+          path: 'gohighlevel',
+          name: 'settings_integrations_gohighlevel',
+          component: GoHighLevel,
+          meta: {
+            featureFlag: FEATURE_FLAGS.INTEGRATIONS,
+            permissions: ['administrator'],
+          },
+          props: route => ({ error: route.query.error }),
         },
         {
           path: 'shopify',

@@ -18,7 +18,7 @@ import DeleteDialog from 'dashboard/components-next/captain/pageComponents/Delet
 const { t } = useI18n();
 const { isCloudFeatureEnabled } = useAccount();
 
-const isCaptainV2Enabled = computed(() =>
+const isHudleyV2Enabled = computed(() =>
   isCloudFeatureEnabled(FEATURE_FLAGS.CAPTAIN_V2)
 );
 const route = useRoute();
@@ -109,13 +109,13 @@ const handleDeleteSuccess = () => {
     :show-know-more="false"
     :class="{
       '[&>header>div]:max-w-[80rem] [&>main>div]:max-w-[80rem]':
-        isCaptainV2Enabled,
+        isHudleyV2Enabled,
     }"
   >
     <template #body>
       <div
         class="gap-6 lg:gap-16 pb-8"
-        :class="{ 'grid grid-cols-2': isCaptainV2Enabled }"
+        :class="{ 'grid grid-cols-2': isHudleyV2Enabled }"
       >
         <div class="flex flex-col gap-6">
           <div class="flex flex-col gap-6">
@@ -167,7 +167,7 @@ const handleDeleteSuccess = () => {
             </div>
           </div>
         </div>
-        <div v-if="isCaptainV2Enabled" class="flex flex-col gap-6">
+        <div v-if="isHudleyV2Enabled" class="flex flex-col gap-6">
           <SettingsHeader
             :heading="t('CAPTAIN.ASSISTANTS.SETTINGS.CONTROL_ITEMS.TITLE')"
             :description="

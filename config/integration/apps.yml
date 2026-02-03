@@ -208,6 +208,30 @@ shopify:
   hook_type: account
   allow_multiple_hooks: false
 
+gohighlevel:
+  id: gohighlevel
+  logo: gohighlevel.png
+  i18n_key: gohighlevel
+  action: https://marketplace.gohighlevel.com/oauth/chooselocation
+  hook_type: account
+  allow_multiple_hooks: false
+  settings_json_schema:
+    {
+      'type': 'object',
+      'properties':
+        {
+          'location_id': { 'type': 'string' },
+          'company_id': { 'type': 'string' },
+          'user_id': { 'type': 'string' },
+          'user_type': { 'type': 'string' },
+          'refresh_token': { 'type': 'string' },
+          'expires_at': { 'type': 'string' },
+          'connected_at': { 'type': 'string' },
+        },
+      'additionalProperties': true,
+    }
+  visible_properties: ['location_id', 'company_id', 'connected_at']
+
 leadsquared:
   id: leadsquared
   feature_flag: crm_integration

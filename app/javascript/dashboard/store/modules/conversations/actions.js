@@ -16,13 +16,14 @@ import {
   handleVoiceCallCreated,
   handleVoiceCallUpdated,
 } from 'dashboard/helper/voice';
+import { getAutoTagLabels } from 'dashboard/helpers/autoTagging';
 
 export const hasMessageFailedWithExternalError = pendingMessage => {
   // This helper is used to check if the message has failed with an external error.
   // We have two cases
   // 1. Messages that fail from the UI itself (due to large attachments or a failed network):
   //    In this case, the message will have a status of failed but no external error. So we need to create that message again
-  // 2. Messages sent from Chatwoot but failed to deliver to the customer for some reason (user blocking or client system down):
+  // 2. Messages sent from DeskFlows but failed to deliver to the customer for some reason (user blocking or client system down):
   //    In this case, the message will have a status of failed and an external error. So we need to retry that message
   const { content_attributes: contentAttributes, status } = pendingMessage;
   const externalError = contentAttributes?.external_error ?? '';
@@ -315,7 +316,7 @@ const actions = {
     }
   },
 
-  addMessage({ commit, rootGetters }, message) {
+  addMessage({ commit, dispatch, rootGetters }, message) {
     commit(types.ADD_MESSAGE, message);
     if (message.message_type === MESSAGE_TYPE.INCOMING) {
       commit(types.SET_CONVERSATION_CAN_REPLY, {
@@ -323,6 +324,17 @@ const actions = {
         canReply: true,
       });
       commit(types.ADD_CONVERSATION_ATTACHMENTS, message);
+
+      // Auto-tagging: detect labels from incoming message content
+      if (message.content) {
+        const autoTags = getAutoTagLabels(message.content);
+        if (autoTags.length > 0) {
+          dispatch('autoApplyLabels', {
+            conversationId: message.conversation_id,
+            detectedLabels: autoTags,
+          });
+        }
+      }
     }
     handleVoiceCallCreated(message, rootGetters?.getCurrentUserID);
   },
@@ -520,12 +532,47 @@ const actions = {
     commit(types.SET_CONTEXT_MENU_CHAT_ID, chatId);
   },
 
-  getInboxCaptainAssistantById: async ({ commit }, conversationId) => {
+  getInboxHudleyAssistantById: async ({ commit }, conversationId) => {
     try {
       const response = await ConversationApi.getInboxAssistant(conversationId);
       commit(types.SET_INBOX_CAPTAIN_ASSISTANT, response.data);
     } catch (error) {
       // Handle error
+    }
+  },
+
+  /**
+   * Auto-apply labels to a conversation based on detected keywords.
+   * Only adds labels that don't already exist on the conversation.
+   */
+  autoApplyLabels: async (
+    { dispatch, rootGetters },
+    { conversationId, detectedLabels }
+  ) => {
+    try {
+      // Get current labels on the conversation
+      const currentLabels =
+        rootGetters['conversationLabels/getConversationLabels'](
+          conversationId
+        ) || [];
+
+      // Only add labels that aren't already applied
+      const newLabels = detectedLabels.filter(
+        label => !currentLabels.includes(label)
+      );
+
+      if (newLabels.length === 0) return;
+
+      // Merge with existing labels
+      const mergedLabels = [...currentLabels, ...newLabels];
+
+      await dispatch(
+        'conversationLabels/update',
+        { conversationId, labels: mergedLabels },
+        { root: true }
+      );
+    } catch {
+      // Silent fail — auto-tagging is a convenience, not critical
     }
   },
 

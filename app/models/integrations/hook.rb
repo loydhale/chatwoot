@@ -18,11 +18,12 @@ class Integrations::Hook < ApplicationRecord
   include Reauthorizable
 
   attr_readonly :app_id, :account_id, :inbox_id, :hook_type
-  before_validation :ensure_hook_type
+  before_validation :ensure_hook_type, on: :create
   after_create :trigger_setup_if_crm
 
   # TODO: Remove guard once encryption keys become mandatory (target 3-4 releases out).
-  encrypts :access_token, deterministic: true if Chatwoot.encryption_configured?
+  encrypts :access_token, deterministic: true if DeskFlows.encryption_configured?
+  encrypts :refresh_token, deterministic: true if DeskFlows.encryption_configured?
 
   validates :account_id, presence: true
   validates :app_id, presence: true
@@ -86,7 +87,9 @@ class Integrations::Hook < ApplicationRecord
   end
 
   def ensure_hook_type
-    self.hook_type = app.params[:hook_type] if app.present?
+    return if app.blank?
+
+    self.hook_type = app.params[:hook_type]
   end
 
   def validate_settings_json_schema

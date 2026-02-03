@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
-import CaptainPreferencesAPI from 'dashboard/api/captain/preferences';
+import HudleyPreferencesAPI from 'dashboard/api/captain/preferences';
 
-export const useCaptainConfigStore = defineStore('captainConfig', {
+export const useHudleyConfigStore = defineStore('captainConfig', {
   state: () => ({
     providers: {},
     models: {},
@@ -50,7 +50,7 @@ export const useCaptainConfigStore = defineStore('captainConfig', {
     async fetch() {
       this.uiFlags.isFetching = true;
       try {
-        const response = await CaptainPreferencesAPI.get();
+        const response = await HudleyPreferencesAPI.get();
         this.providers = response.data.providers || {};
         this.models = response.data.models || {};
         this.features = response.data.features || {};
@@ -62,7 +62,7 @@ export const useCaptainConfigStore = defineStore('captainConfig', {
     },
 
     async updatePreferences(data) {
-      const response = await CaptainPreferencesAPI.updatePreferences(data);
+      const response = await HudleyPreferencesAPI.updatePreferences(data);
       this.providers = response.data.providers || {};
       this.models = response.data.models || {};
       this.features = response.data.features || {};
